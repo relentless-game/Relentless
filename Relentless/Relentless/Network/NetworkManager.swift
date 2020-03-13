@@ -29,20 +29,24 @@ class NetworkManager: Network {
     }
     
     func joinGame(userId: String, gameId: Int) -> Bool {
-        ref.child("games").child("\(gameId)").child("users").setValue(["userId": userId])
+        ref.child("games/\(gameId)/users/\(userId)").setValue(["isInGame": true])
         
         return true
     }
     
     func sendPackage(gameId: Int, package: Package, to destination: Player) -> Bool {
-        ref.child("games/\(gameId)/users/\(destination.userId)").setValue(["package": package.index])
+        ref.child("games/\(gameId)/users/\(destination.userId)").setValue(["packages": package.index])
         
         return true
     }
     
-    func receivePackage() -> Package {
-        // to change later
-        return Package(index: 1)
+    func receivePackage(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
+        let refHandle = ref.child("games/\(gameId)/users/\(userId)").observe(DataEventType.value, with: { (snapshot) in
+            let userDict = snapshot.value as? [String : AnyObject] ?? [:]
+            let packageIndex = userDict["packages"] as? Int ?? -1
+            let package = Package(index: packageIndex)
+            action(package)
+        })
     }
     
 }

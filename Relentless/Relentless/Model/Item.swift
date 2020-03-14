@@ -8,6 +8,38 @@
 
 import Foundation
 
-struct Item: Hashable, Comparable, Codable {
+class Item: Hashable, Comparable, Codable {
 
+    var category: Category
+
+    init(category: Category) {
+        self.category = category
+    }
+
+    static func < (lhs: Item, rhs: Item) -> Bool {
+        if lhs.category != rhs.category {
+            return lhs.category.rawValue < rhs.category.rawValue
+        }
+        return lhs.isLessThan(other: rhs)
+    }
+
+    static func ==(lhs: Item, rhs: Item) -> Bool {
+        if lhs.category != rhs.category {
+            return false
+        }
+        return lhs.equals(other: rhs)
+    }
+
+    /// These methods below should be overriden by subclasses
+    func equals(other: Item) -> Bool {
+        false
+    }
+
+    func isLessThan(other: Item) -> Bool {
+        false
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(category)
+    }
 }

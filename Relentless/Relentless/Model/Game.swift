@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Game {
+class Game {
     /// user information
     var user: Player
     var otherPlayers: [Player]
@@ -23,18 +23,16 @@ struct Game {
         self.otherPlayers = otherPlayers
     }
 
-    mutating func addPackage() {
+    func addPackage() {
         let emptyPackage = Package(creator: user.userName, packageNumber: cumulativePackageNumber, items: [Item]())
         packages.append(emptyPackage)
     }
 
-    mutating func deletePackage(package: Package) {
+    func deletePackage(package: Package) {
         guard let indexOfPackage = packages.firstIndex(of: package) else {
             return
         }
         packages.remove(at: indexOfPackage)
     }
-
-    
 
 }

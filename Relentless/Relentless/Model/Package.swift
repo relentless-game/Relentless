@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct Package: Codable {
-    /// user name of the player that created this package
-    let creator: String
+class Package: Codable {
+    let creator: String /// user name of the player that created this package
     let packageNumber: Int
     var items = [Item]()
 
@@ -20,11 +19,11 @@ struct Package: Codable {
         self.items = items
     }
 
-    mutating func addItem(item: Item) {
+    func addItem(item: Item) {
         items.append(item)
     }
 
-    mutating func deleteItem(item: Item) {
+    func deleteItem(item: Item) {
         guard let indexOfItem = items.firstIndex(of: item) else {
             return
         }
@@ -37,9 +36,9 @@ struct Package: Codable {
 }
 
 extension Package: Equatable {
-    public static func ==(lhs: Package, rhs: Package) -> Bool {
+    public static func == (lhs: Package, rhs: Package) -> Bool {
         lhs.creator == rhs.creator &&
-            lhs.packageNumber == lhs.packageNumber &&
+            lhs.packageNumber == rhs.packageNumber &&
             lhs.items == rhs.items
     }
 }

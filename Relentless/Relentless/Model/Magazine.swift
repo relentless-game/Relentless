@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Book: TitledItem {
-    static let category = Category.BOOK
+class Magazine: TitledItem {
+    static let category = Category.MAGAZINE
 
     init(name: String) {
-        super.init(name: name, category: Book.category)
+        super.init(name: name, category: Magazine.category)
     }
-    
+
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TitledItemKeys.self)
         let superDecoder = try container.superDecoder()
@@ -31,9 +31,9 @@ class Book: TitledItem {
     }
 
     override func equals(other: Item) -> Bool {
-        guard let otherBook = other as? Book else {
+        guard let otherMagazine = other as? Magazine else {
             return false
         }
-        return otherBook.name == self.name
+        return otherMagazine.name == self.name
     }
 }

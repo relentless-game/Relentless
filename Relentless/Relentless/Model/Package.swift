@@ -8,7 +8,14 @@
 
 import Foundation
 
-struct Package {
-    let index: Int
-    // something
+class Package {
+    let creator: String /// user name of the player that created this package
+    let packageNumber: Int
+    var items = [Item]()
+    
+    init(creator: String, packageNumber: Int, items: [Item]) {
+        self.creator = creator
+        self.packageNumber = packageNumber
+        self.items = items
+    }
 }

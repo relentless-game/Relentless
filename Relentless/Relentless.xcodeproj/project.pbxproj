@@ -15,6 +15,9 @@
 		F319B331241B7D5C005E3129 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B330241B7D5C005E3129 /* Player.swift */; };
 		F319B333241B8195005E3129 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B332241B8195005E3129 /* NetworkManager.swift */; };
 		F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B334241B8B7D005E3129 /* NetworkTests.swift */; };
+		F319B337241D37C8005E3129 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B336241D37C8005E3129 /* Item.swift */; };
+		F319B339241D38F2005E3129 /* PackageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B338241D38F2005E3129 /* PackageAdapter.swift */; };
+		F319B33B241D3FA8005E3129 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B33A241D3FA8005E3129 /* Order.swift */; };
 		F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BF924189F5200D7109B /* AppDelegate.swift */; };
 		F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFB24189F5200D7109B /* SceneDelegate.swift */; };
 		F3C37BFE24189F5200D7109B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFD24189F5200D7109B /* ViewController.swift */; };
@@ -60,6 +63,9 @@
 		F319B330241B7D5C005E3129 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		F319B332241B8195005E3129 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F319B334241B8B7D005E3129 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+		F319B336241D37C8005E3129 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		F319B338241D38F2005E3129 /* PackageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAdapter.swift; sourceTree = "<group>"; };
+		F319B33A241D3FA8005E3129 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F3C37BF624189F5200D7109B /* Relentless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Relentless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C37BF924189F5200D7109B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3C37BFB24189F5200D7109B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 			children = (
 				F319B32A241B7A44005E3129 /* Network.swift */,
 				F319B332241B8195005E3129 /* NetworkManager.swift */,
+				F319B338241D38F2005E3129 /* PackageAdapter.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -142,6 +149,8 @@
 			children = (
 				F319B32E241B7D0C005E3129 /* Package.swift */,
 				F319B330241B7D5C005E3129 /* Player.swift */,
+				F319B336241D37C8005E3129 /* Item.swift */,
+				F319B33A241D3FA8005E3129 /* Order.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,9 +475,12 @@
 			files = (
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
 				F319B32F241B7D0C005E3129 /* Package.swift in Sources */,
+				F319B33B241D3FA8005E3129 /* Order.swift in Sources */,
 				F3C37BFE24189F5200D7109B /* ViewController.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
+				F319B339241D38F2005E3129 /* PackageAdapter.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
+				F319B337241D37C8005E3129 /* Item.swift in Sources */,
 				F319B331241B7D5C005E3129 /* Player.swift in Sources */,
 				F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */,
 			);

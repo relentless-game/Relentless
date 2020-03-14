@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import UIKit
 
 /// This struct represents a player (which is not the user itself) in the game.
 struct Player {
     let userId: String
+    let userName: String
+    let profileImage: UIImage
 }

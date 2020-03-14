@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B797152241C874F007DD433 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797151241C874F007DD433 /* Item.swift */; };
+		0B797154241C89FC007DD433 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797153241C89FC007DD433 /* Book.swift */; };
+		0B797156241C8BC5007DD433 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797155241C8BC5007DD433 /* Order.swift */; };
+		0B79715A241C9065007DD433 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797159241C9065007DD433 /* Game.swift */; };
+		0B79715C241C92DC007DD433 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79715B241C92DC007DD433 /* House.swift */; };
 		5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
@@ -47,6 +52,11 @@
 
 /* Begin PBXFileReference section */
 		084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.debug.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0B797151241C874F007DD433 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		0B797153241C89FC007DD433 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		0B797155241C8BC5007DD433 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		0B797159241C9065007DD433 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		0B79715B241C92DC007DD433 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.release.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,7 +151,12 @@
 			isa = PBXGroup;
 			children = (
 				F319B32E241B7D0C005E3129 /* Package.swift */,
+				0B797155241C8BC5007DD433 /* Order.swift */,
+				0B797159241C9065007DD433 /* Game.swift */,
+				0B79715B241C92DC007DD433 /* House.swift */,
 				F319B330241B7D5C005E3129 /* Player.swift */,
+				0B797151241C874F007DD433 /* Item.swift */,
+				0B797153241C89FC007DD433 /* Book.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -466,10 +481,15 @@
 			files = (
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
 				F319B32F241B7D0C005E3129 /* Package.swift in Sources */,
+				0B797156241C8BC5007DD433 /* Order.swift in Sources */,
 				F3C37BFE24189F5200D7109B /* ViewController.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
+				0B797152241C874F007DD433 /* Item.swift in Sources */,
+				0B79715A241C9065007DD433 /* Game.swift in Sources */,
+				0B797154241C89FC007DD433 /* Book.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
 				F319B331241B7D5C005E3129 /* Player.swift in Sources */,
+				0B79715C241C92DC007DD433 /* House.swift in Sources */,
 				F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

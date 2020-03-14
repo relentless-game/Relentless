@@ -22,4 +22,5 @@ protocol GameNetworkController {
 
     func receivePackage(package: Package)
 
+
 }

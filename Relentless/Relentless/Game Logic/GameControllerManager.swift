@@ -121,9 +121,11 @@ extension GameControllerManager {
     func receivePackage(package: Package) {
         game?.addPackage(package: package)
     }
+
 }
 
 extension GameControllerManager {
+
     func addItem(item: Item) {
         game?.addItem(item: item)
     }

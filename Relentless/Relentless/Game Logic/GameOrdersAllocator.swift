@@ -10,6 +10,7 @@ import Foundation
 
 protocol GameOrderAllocator {
 
+    // orders are generated and allocated concurrently
     func allocateOrders(players: [Player])
 
 }

@@ -1,5 +1,5 @@
 //
-//  GameModelController.swift
+//  Game.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.
@@ -8,17 +8,20 @@
 
 import Foundation
 
-protocol GameModelController {
+protocol Game {
 
-    func addItem(item: Item)
-
-    func removeItem(item: Item)
+    var player: Player? { get set }
+    var id: Int { get set }
 
     func addPackage(package: Package)
 
     func removePackage(package: Package)
 
-    func deliverPackage(package: Package, to house: House)
+    func addItem(item: Item)
+
+    func removeItem(item: Item)
+
+    func checkPackage(package: Package, for house: House) -> Bool
 
     func addOtherPlayer(player: Player)
 

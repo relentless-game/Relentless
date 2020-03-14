@@ -10,6 +10,12 @@ import Foundation
 
 protocol GameNetworkController {
 
+    func createGame(userId: String)
+
+    func joinGame(userId: String, gameId: Int)
+
     func sendPackage(package: Package, to destination: Player)
+
+    func receivePackage(package: Package)
 
 }

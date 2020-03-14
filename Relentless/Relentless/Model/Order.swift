@@ -1,5 +1,5 @@
 //
-//  CategoryGenerator.swift
+//  Order.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.
@@ -8,8 +8,6 @@
 
 import Foundation
 
-protocol CategoryGenerator {
-
-    func generateCategories() -> [Category]
-
+class Order {
+    
 }

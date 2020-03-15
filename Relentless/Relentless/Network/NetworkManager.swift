@@ -35,14 +35,14 @@ class NetworkManager: Network {
     }
     
     func sendPackage(gameId: Int, package: Package, to destination: Player) -> Bool {
-        ref.child("games/\(gameId)/users/\(destination.userId)").setValue(["package": package.index])
+        ref.child("games/\(gameId)/users/\(destination.userId)").setValue(["package": package.packageNumber])
         
         return true
     }
     
     func receivePackage() -> Package {
         // to change later
-        return Package(index: 1)
+        return Package(creator: "creator", packageNumber: 1, items: [Item]())
     }
     
 }

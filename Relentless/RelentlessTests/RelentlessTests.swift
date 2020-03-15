@@ -10,5 +10,5 @@ import XCTest
 @testable import Relentless
 
 class RelentlessTests: XCTestCase {
-
+    
 }

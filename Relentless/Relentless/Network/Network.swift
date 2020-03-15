@@ -20,6 +20,10 @@ protocol Network {
     // Called by the host player to start the game
     func startGame(gameId: Int)
     
+    func startRound(gameId: Int, roundNumber: Int)
+    
+    func terminateRound(gameId: Int, roundNumber: Int)
+    
     // Called by the host player to send pre-generated items to the target player
     func sendItems(gameId: Int, items: [Item], to destination: Player)
     

@@ -19,19 +19,19 @@ class NetworkManager: Network {
     func createGame() -> Int {
         // currently taken game IDs
         var gameIdsTaken = [Int]()
-        ref.child("gameIdsTaken").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("gameIdsTaken").observeSingleEvent(of: .value, with: { snapshot in
             for value in snapshot.children {
                 let gameIdTaken = value as? Int ?? -1
                 gameIdsTaken.append(gameIdTaken)
             }
-        }) { (error) in
+        }) { error in
             print(error.localizedDescription)
         }
         
         // randomly generate an ID and make sure it's not taken
-        var gameId = Int.random(in: 1000...9999)
+        var gameId = Int.random(in: 1_000...9_999)
         while gameIdsTaken.contains(gameId) {
-            gameId = Int.random(in: 1000...9999)
+            gameId = Int.random(in: 1_000...9_999)
         }
         
         // add this ID to currently taken game IDs
@@ -46,6 +46,14 @@ class NetworkManager: Network {
     }
     
     func terminateGame(gameId: Int) {
+        // change game status to notify other players
+        let gameStatus = [
+            "isGamePlaying": false,
+            "isRoundPlaying": false,
+            "currentRound": -1
+        ] as [String : Any]
+        ref.child("games/\(gameId)/status").setValue(gameStatus)
+        
         // remove the game ID from currently taken game IDs
         var gameIdKey: String?
         ref.child("games/\(gameId)").observeSingleEvent(of: .value) { snapshot in
@@ -56,7 +64,6 @@ class NetworkManager: Network {
             ref.child("gameIdsTaken/\(gameIdKey)").setValue(nil)
         }
         
-        
         ref.child("games/\(gameId)").setValue(nil)
     }
     
@@ -64,8 +71,33 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(["isInGame": true])
     }
     
+    // TODO: DRY the following methods
+    
     func startGame(gameId: Int) {
-        // TODO
+        let gameStatus = [
+            "isGamePlaying": true,
+            "isRoundPlaying": false,
+            "currentRound": 1
+        ] as [String : Any]
+        ref.child("games/\(gameId)/status").setValue(gameStatus)
+    }
+    
+    func startRound(gameId: Int, roundNumber: Int) {
+        let gameStatus = [
+            "isGamePlaying": true,
+            "isRoundPlaying": true,
+            "currentRound": roundNumber
+        ] as [String : Any]
+        ref.child("games/\(gameId)/status").setValue(gameStatus)
+    }
+    
+    func terminateRound(gameId: Int, roundNumber: Int) {
+        let gameStatus = [
+            "isGamePlaying": true,
+            "isRoundPlaying": false,
+            "currentRound": roundNumber
+        ] as [String : Any]
+        ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
     func sendItems(gameId: Int, items: [Item], to destination: Player) {
@@ -118,6 +150,16 @@ class NetworkManager: Network {
                     action(package)
                 }
             }
+        })
+        
+        // TODO: what happens to refHandle afterwards?
+    }
+    
+    func attachGameStatusListener(gameId: Int, action: @escaping ([String: AnyObject]) -> Void) {
+        let path = "games/\(gameId)/status"
+        let refHandle = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let gameStatus = snapshot.value as? [String: AnyObject] ?? [:]
+            action(gameStatus)
         })
         
         // TODO: what happens to refHandle afterwards?

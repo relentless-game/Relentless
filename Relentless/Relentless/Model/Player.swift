@@ -21,3 +21,11 @@ class Player {
         self.profileImage = profileImage
     }
 }
+
+extension Player: Equatable {
+    static func ==(lhs: Player, rhs: Player) -> Bool {
+        lhs.userId == rhs.userId &&
+            lhs.userName == rhs.userName &&
+            lhs.profileImage == rhs.profileImage
+    }
+}

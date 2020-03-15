@@ -8,33 +8,30 @@
 
 import Foundation
 
-/// This is a utility class that encodes a `Package` as an `NSDictionary` to be stored in the cloud,
-/// and decodes an `NSDictionary` back to a `Package`.
+/// This is a utility class that encodes a `Package` as a `String` to be stored in the cloud,
+/// and decodes a `String` back to a `Package`.
 class PackageAdapter {
-    static func encodePackage(package: Package) -> NSDictionary {
-        let creator = package.creator
-        let packageNumber = package.packageNumber
-        // TODO: encode items
-        let items = ["string"]
-        
-        let result: NSDictionary = [
-            "creator": creator,
-            "packageNumber": packageNumber,
-            "items": items
-        ]
-        
-        return result
+    static func encodePackage(package: Package) -> String? {
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(package)
+            let string = String(data: data, encoding: .utf8)
+            return string
+        } catch {
+            return nil
+        }
     }
     
-    static func decodePackageDictionary(dict: NSDictionary) -> Package? {
-        guard let creator = dict["creator"] as? String else {
+    static func decodePackage(from string: String) -> Package? {
+        let decoder = JSONDecoder()
+        guard let data = string.data(using: .utf8) else {
             return nil
         }
-        guard let packageNumber = dict["packageNumber"] as? Int else {
+        do {
+            let decodedPackage = try decoder.decode(Package.self, from: data)
+            return decodedPackage
+        } catch {
             return nil
         }
-        // TODO: decode items
-        
-        return Package(creator: creator, packageNumber: packageNumber, items: [])
     }
 }

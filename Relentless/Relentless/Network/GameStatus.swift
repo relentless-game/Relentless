@@ -19,17 +19,17 @@ struct GameStatus {
         self.currentRound = currentRound
     }
     
-    func encodeToDictionary() -> [String : Any] {
+    func encodeToDictionary() -> [String: Any] {
         let result = [
             "isGamePlaying": isGamePlaying,
             "isRoundPlaying": isRoundPlaying,
             "currentRound": currentRound
-            ] as [String : Any]
+        ] as [String: Any]
         
         return result
     }
     
-    static func decodeFromDictionary(dict: [String : Any]) -> GameStatus? {
+    static func decodeFromDictionary(dict: [String: Any]) -> GameStatus? {
         guard let isGamePlaying = dict["isGamePlaying"] as? Bool,
             let isRoundPlaying = dict["isRoundPlaying"] as? Bool,
             let currentRound = dict["currentRound"] as? Int else {

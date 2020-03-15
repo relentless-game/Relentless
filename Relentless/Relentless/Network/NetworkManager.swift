@@ -85,14 +85,15 @@ class NetworkManager: Network {
     }
     
     func sendItems(gameId: Int, items: [Item], to destination: Player) {
-        // TODO: encode items
-        let encodedItems = ["string"]
+        guard let encodedItems = ItemsAdapter.encodeItems(items: items) else {
+            return
+        }
         
         ref.child("games/\(gameId)/users/\(destination.userId)/items").setValue(encodedItems)
     }
     
     func sendOrders(gameId: Int, orders: [Order], to destination: Player) {
-        // TODO: encode orders
+        
         let encodedOrders = ["string"]
         
         ref.child("games/\(gameId)/users/\(destination.userId)/orders").setValue(encodedOrders)
@@ -129,8 +130,8 @@ class NetworkManager: Network {
         // TODO: possible problem: multiple packages added at the same time
         let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
             for child in snapshot.children {
-                let packageDict = child as? NSDictionary ?? [:]
-                if let package = PackageAdapter.decodePackageDictionary(dict: packageDict) {
+                let packageString = child as? String ?? ""
+                if let package = PackageAdapter.decodePackage(string: packageString) {
                     action(package)
                 }
             }

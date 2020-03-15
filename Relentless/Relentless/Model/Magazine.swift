@@ -36,4 +36,5 @@ class Magazine: TitledItem {
         }
         return otherMagazine.name == self.name
     }
+
 }

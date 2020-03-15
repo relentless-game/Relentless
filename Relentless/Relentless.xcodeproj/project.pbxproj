@@ -47,10 +47,18 @@
 		6249B50F241CA68A002F8A1B /* GameItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */; };
 		6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B510241CA76D002F8A1B /* GameControllerManager.swift */; };
 		6249B513241CA7A8002F8A1B /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B512241CA7A8002F8A1B /* House.swift */; };
+		62A14913241E13E70071149E /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62A14912241E13E70071149E /* Magazine.swift */; };
 		62CEC6F4241CB38100936CB6 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6F3241CB38100936CB6 /* Game.swift */; };
 		62CEC6F8241CB61D00936CB6 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6F7241CB61D00936CB6 /* Item.swift */; };
 		62CEC6FA241CB7C400936CB6 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6F9241CB7C400936CB6 /* Order.swift */; };
-		62CEC6FB241CBB7900936CB6 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B334241B8B7D005E3129 /* NetworkTests.swift */; };
+		62CEC6FD241CBDA000936CB6 /* ItemsAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6FC241CBDA000936CB6 /* ItemsAllocator.swift */; };
+		62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */; };
+		62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */; };
+		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
+		62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7E241DE45A009406FB /* ItemsLists.swift */; };
+		62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A80241DE480009406FB /* ItemGenerator.swift */; };
+		62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A82241DE611009406FB /* ListBasedGenerator.swift */; };
+		62EE1A85241DECD8009406FB /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A84241DECD8009406FB /* Book.swift */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
 		F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
@@ -136,9 +144,18 @@
 		6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemGenerator.swift; sourceTree = "<group>"; };
 		6249B510241CA76D002F8A1B /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
 		6249B512241CA7A8002F8A1B /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		62A14912241E13E70071149E /* Magazine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
 		62CEC6F3241CB38100936CB6 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		62CEC6F7241CB61D00936CB6 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		62CEC6F9241CB7C400936CB6 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		62CEC6FC241CBDA000936CB6 /* ItemsAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAllocator.swift; sourceTree = "<group>"; };
+		62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGenerator.swift; sourceTree = "<group>"; };
+		62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBar.swift; sourceTree = "<group>"; };
+		62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocator.swift; sourceTree = "<group>"; };
+		62EE1A7E241DE45A009406FB /* ItemsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
+		62EE1A80241DE480009406FB /* ItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemGenerator.swift; sourceTree = "<group>"; };
+		62EE1A82241DE611009406FB /* ListBasedGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBasedGenerator.swift; sourceTree = "<group>"; };
+		62EE1A84241DECD8009406FB /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.debug.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.debug.xcconfig"; sourceTree = "<group>"; };
 		C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.debug.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,6 +245,13 @@
 				6249B508241C96EB002F8A1B /* CategoryGenerator.swift */,
 				6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
 				6249B510241CA76D002F8A1B /* GameControllerManager.swift */,
+				62CEC6FC241CBDA000936CB6 /* ItemsAllocator.swift */,
+				62EE1A80241DE480009406FB /* ItemGenerator.swift */,
+				62EE1A7E241DE45A009406FB /* ItemsLists.swift */,
+				62EE1A82241DE611009406FB /* ListBasedGenerator.swift */,
+				62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
+				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
+				62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
 			);
 			path = "Game Logic";
 			sourceTree = "<group>";
@@ -607,7 +631,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62CEC6FB241CBB7900936CB6 /* NetworkTests.swift in Sources */,
 				62CEC6F8241CB61D00936CB6 /* Item.swift in Sources */,
 				6249B509241C96EB002F8A1B /* GameCategoryGenerator.swift in Sources */,
 				62CEC6F4241CB38100936CB6 /* Game.swift in Sources */,

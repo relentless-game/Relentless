@@ -10,7 +10,7 @@ import Foundation
 
 /// Handles game logic
 protocol GameController: GameNetworkController, GameModelController {
-
+    
     var isHost: Bool { get set }
 
     func startGame()

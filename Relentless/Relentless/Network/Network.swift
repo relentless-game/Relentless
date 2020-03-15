@@ -22,4 +22,8 @@ protocol Network {
     func receivePackage() -> Package
 
     func getPlayers(gameId: Int) -> [Player]
+
+    func allocateItems(players: [Player])
+
+    func allocateOrders(players: [Player])
 }

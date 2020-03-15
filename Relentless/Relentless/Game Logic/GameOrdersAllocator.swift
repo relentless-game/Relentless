@@ -1,5 +1,5 @@
 //
-//  OrderGenerator.swift
+//  GameOrdersAllocator.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.
@@ -8,9 +8,8 @@
 
 import Foundation
 
-protocol GameOrderAllocator {
+protocol GameOrdersAllocator {
 
-    // orders are generated and allocated concurrently
     func allocateOrders(players: [Player])
 
 }

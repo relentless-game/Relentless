@@ -1,5 +1,5 @@
 //
-//  CategoryGenerator.swift
+//  GameCategoryGenerator.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.

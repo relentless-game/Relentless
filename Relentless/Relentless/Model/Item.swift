@@ -8,6 +8,15 @@
 
 import Foundation
 
-class Item {
-    
+class Item: Hashable {
+
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        // to change
+        return true
+    }
+
+    func hash(into hasher: inout Hasher) {
+        // to change
+    }
+
 }

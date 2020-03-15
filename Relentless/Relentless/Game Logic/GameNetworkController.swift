@@ -1,5 +1,5 @@
 //
-//  GameController.swift
+//  GameNetworkController.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.
@@ -8,13 +8,17 @@
 
 import Foundation
 
+/// To handle `Network` related game actions
 protocol GameNetworkController {
 
-    func createGame(userId: String)
+    /// Returns `Bool` to indicate if the game was created successfully
+    func createGame(userId: String) -> Bool
 
-    func joinGame(userId: String, gameId: Int)
+    /// Returns `Bool` to indicate if the join was successful
+    func joinGame(userId: String, gameId: Int) -> Bool
 
-    func sendPackage(package: Package, to destination: Player)
+    /// Returns `Bool` to indicate if the package was sent successfully
+    func sendPackage(package: Package, to destination: Player) -> Bool
 
     func receivePackage(package: Package)
 

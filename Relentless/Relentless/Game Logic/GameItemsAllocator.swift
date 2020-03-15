@@ -1,5 +1,5 @@
 //
-//  ItemGenerator.swift
+//  GameItemsAllocator.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 14/3/20.
@@ -10,8 +10,7 @@ import Foundation
 
 protocol GameItemsAllocator {
 
-    func generateItems() -> [Item]
-
-    func allocateItems(players: [Player])
+    /// Allocate random items from the specified categories to the specified players
+    func allocateItems(categories: [Category], players: [Player])
 
 }

@@ -10,8 +10,11 @@ import Foundation
 
 protocol Game {
 
-    var player: Player? { get set }
-    var id: Int { get set }
+    var player: Player { get set }
+    var gameId: Int { get set }
+
+    var allPlayers: [Player] { get set }
+    var numberOfPlayers: Int { get }
 
     func addPackage(package: Package)
 
@@ -23,10 +26,14 @@ protocol Game {
 
     func checkPackage(package: Package, for house: House) -> Bool
 
-    func addOtherPlayer(player: Player)
-
-    func removeOtherPlayer(player: Player)
-
     func retrieveOrders(for house: House) -> [Order]
+
+    func retrieveOrder(package: Package, house: House) -> Order
+
+    func addOrder(order: Order)
+
+    func removeOrder(order: Order)
+
+    func openPackage(package: Package)
 
 }

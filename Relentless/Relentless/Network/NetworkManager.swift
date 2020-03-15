@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 class NetworkManager: Network {
+
     private var ref: DatabaseReference!
 
     init() {

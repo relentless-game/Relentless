@@ -9,6 +9,20 @@
 import Foundation
 
 /// This struct represents a player (which is not the user itself) in the game.
-struct Player {
+class Player: Equatable {
+
     let userId: String
+    var items = Set<Item>()
+    var orders = Set<Order>()
+
+    init(userId: String) {
+        self.userId = userId
+    }
+
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        // to change
+        return true
+    }
+
+
 }

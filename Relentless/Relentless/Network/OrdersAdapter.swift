@@ -31,7 +31,26 @@ class OrdersAdapter {
         }
     }
     
+    // TODO: don't hardcode `timeLimitInSeconds`
     static func decodeOrders(from string: String) -> [Order] {
-        
+        guard let data = string.data(using: .utf8) else {
+            return []
+        }
+        let decoder = JSONDecoder()
+        // An array of strings, each string representing items in an order
+        do {
+            let orderStringArray = try decoder.decode([String].self, from: data)
+            var orders: [Order] = []
+            for itemsString in orderStringArray {
+                if let itemsData = itemsString.data(using: .utf8) {
+                    let items = try decoder.decode([Item].self, from: itemsData)
+                    let order = Order(items: items, timeLimitInSeconds: 30)
+                    orders.append(order)
+                }
+            }
+            return orders
+        } catch {
+            return []
+        }
     }
 }

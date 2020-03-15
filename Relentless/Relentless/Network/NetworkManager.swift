@@ -93,8 +93,9 @@ class NetworkManager: Network {
     }
     
     func sendOrders(gameId: Int, orders: [Order], to destination: Player) {
-        
-        let encodedOrders = ["string"]
+        guard let encodedOrders = OrdersAdapter.encodeOrders(orders: orders) else {
+            return
+        }
         
         ref.child("games/\(gameId)/users/\(destination.userId)/orders").setValue(encodedOrders)
     }
@@ -103,7 +104,8 @@ class NetworkManager: Network {
         let path = "games/\(gameId)/users/\(userId)/items"
         var items: [Item] = []
         ref.child(path).observeSingleEvent(of: .value) { snapshot in
-            items = snapshot.value as? [Item] ?? []
+            let encodedString = snapshot.value as? String ?? ""
+            items = ItemsAdapter.decodeItems(from: encodedString)
         }
         
         return items
@@ -113,7 +115,8 @@ class NetworkManager: Network {
         let path = "games/\(gameId)/users/\(userId)/orders"
         var orders: [Order] = []
         ref.child(path).observeSingleEvent(of: .value) { snapshot in
-            orders = snapshot.value as? [Order] ?? []
+            let encodedString = snapshot.value as? String ?? ""
+            orders = OrdersAdapter.decodeOrders(from: encodedString)
         }
         
         return orders
@@ -131,7 +134,7 @@ class NetworkManager: Network {
         let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
             for child in snapshot.children {
                 let packageString = child as? String ?? ""
-                if let package = PackageAdapter.decodePackage(string: packageString) {
+                if let package = PackageAdapter.decodePackage(from: packageString) {
                     action(package)
                 }
             }

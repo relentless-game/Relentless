@@ -7,22 +7,25 @@
 //
 
 import Foundation
+import UIKit
 
-/// This struct represents a player (which is not the user itself) in the game.
-class Player: Equatable {
-
+/// This struct represents a player in the game.
+class Player {
     let userId: String
-    var items = Set<Item>()
-    var orders = Set<Order>()
+    let userName: String
+    let profileImage: UIImage
 
-    init(userId: String) {
+    init(userId: String, userName: String, profileImage: UIImage) {
         self.userId = userId
+        self.userName = userName
+        self.profileImage = profileImage
     }
+}
 
-    static func == (lhs: Player, rhs: Player) -> Bool {
-        // to change
-        return true
+extension Player: Equatable {
+    static func ==(lhs: Player, rhs: Player) -> Bool {
+        lhs.userId == rhs.userId &&
+        lhs.userName == rhs.userName &&
+        lhs.profileImage == rhs.profileImage
     }
-
-
 }

@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
+		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
+		0B385B6F241CCACE00FC2850 /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6E241CCACE00FC2850 /* Magazine.swift */; };
+		0B385B77241CCFF000FC2850 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B76241CCFF000FC2850 /* Item.swift */; };
+		0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B80241CDCC300FC2850 /* MagazineTests.swift */; };
+		0B385B83241CDDD800FC2850 /* TitledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B82241CDDD800FC2850 /* TitledItem.swift */; };
+		0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B84241CE00400FC2850 /* OrderTests.swift */; };
+		0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B86241CE22D00FC2850 /* HouseTests.swift */; };
+		0B797154241C89FC007DD433 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797153241C89FC007DD433 /* Book.swift */; };
+		0B797156241C8BC5007DD433 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797155241C8BC5007DD433 /* Order.swift */; };
+		0B79715A241C9065007DD433 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B797159241C9065007DD433 /* Game.swift */; };
+		0B79715C241C92DC007DD433 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79715B241C92DC007DD433 /* House.swift */; };
+		0B79715E241CADC9007DD433 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B79715D241CADC8007DD433 /* Category.swift */; };
 		5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
@@ -47,6 +60,19 @@
 
 /* Begin PBXFileReference section */
 		084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.debug.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
+		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
+		0B385B6E241CCACE00FC2850 /* Magazine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
+		0B385B76241CCFF000FC2850 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		0B385B80241CDCC300FC2850 /* MagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTests.swift; sourceTree = "<group>"; };
+		0B385B82241CDDD800FC2850 /* TitledItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
+		0B385B84241CE00400FC2850 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
+		0B385B86241CE22D00FC2850 /* HouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
+		0B797153241C89FC007DD433 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		0B797155241C8BC5007DD433 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		0B797159241C9065007DD433 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		0B79715B241C92DC007DD433 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		0B79715D241CADC8007DD433 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.release.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,7 +167,15 @@
 			isa = PBXGroup;
 			children = (
 				F319B32E241B7D0C005E3129 /* Package.swift */,
+				0B797155241C8BC5007DD433 /* Order.swift */,
+				0B797159241C9065007DD433 /* Game.swift */,
+				0B79715B241C92DC007DD433 /* House.swift */,
 				F319B330241B7D5C005E3129 /* Player.swift */,
+				0B385B76241CCFF000FC2850 /* Item.swift */,
+				0B79715D241CADC8007DD433 /* Category.swift */,
+				0B385B82241CDDD800FC2850 /* TitledItem.swift */,
+				0B797153241C89FC007DD433 /* Book.swift */,
+				0B385B6E241CCACE00FC2850 /* Magazine.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,6 +225,11 @@
 				F319B334241B8B7D005E3129 /* NetworkTests.swift */,
 				F3C37C1024189F5500D7109B /* RelentlessTests.swift */,
 				F3C37C1224189F5500D7109B /* Info.plist */,
+				0B385B68241CBCFB00FC2850 /* PackageTests.swift */,
+				0B385B6C241CC9DE00FC2850 /* BookTests.swift */,
+				0B385B84241CE00400FC2850 /* OrderTests.swift */,
+				0B385B80241CDCC300FC2850 /* MagazineTests.swift */,
+				0B385B86241CE22D00FC2850 /* HouseTests.swift */,
 			);
 			path = RelentlessTests;
 			sourceTree = "<group>";
@@ -466,10 +505,18 @@
 			files = (
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
 				F319B32F241B7D0C005E3129 /* Package.swift in Sources */,
+				0B385B77241CCFF000FC2850 /* Item.swift in Sources */,
+				0B797156241C8BC5007DD433 /* Order.swift in Sources */,
+				0B385B6F241CCACE00FC2850 /* Magazine.swift in Sources */,
 				F3C37BFE24189F5200D7109B /* ViewController.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
+				0B79715A241C9065007DD433 /* Game.swift in Sources */,
+				0B797154241C89FC007DD433 /* Book.swift in Sources */,
+				0B385B83241CDDD800FC2850 /* TitledItem.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
+				0B79715E241CADC9007DD433 /* Category.swift in Sources */,
 				F319B331241B7D5C005E3129 /* Player.swift in Sources */,
+				0B79715C241C92DC007DD433 /* House.swift in Sources */,
 				F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -478,6 +525,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
+				0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */,
+				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
+				0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */,
+				0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */,
 				F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */,
 				F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */,
 			);

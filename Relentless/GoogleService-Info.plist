@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>36348626730-d76t0vsb9ncg3scnr45ll8uqfl6knag5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.36348626730-d76t0vsb9ncg3scnr45ll8uqfl6knag5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyB1ShXrczF7AJ6GiWaSHqArIwtD01Z5OII</string>
+	<key>GCM_SENDER_ID</key>
+	<string>36348626730</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ournameis.Relentless</string>
+	<key>PROJECT_ID</key>
+	<string>relentless-28b04</string>
+	<key>STORAGE_BUCKET</key>
+	<string>relentless-28b04.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:36348626730:ios:e982382696137eb2ac8053</string>
+	<key>DATABASE_URL</key>
+	<string>https://relentless-28b04.firebaseio.com</string>
+</dict>
+</plist>

@@ -47,11 +47,7 @@ class NetworkManager: Network {
     
     func terminateGame(gameId: Int) {
         // change game status to notify other players
-        let gameStatus = [
-            "isGamePlaying": false,
-            "isRoundPlaying": false,
-            "currentRound": -1
-        ] as [String : Any]
+        let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false, currentRound: -1).encodeToDictionary()
         ref.child("games/\(gameId)/status").setValue(gameStatus)
         
         // remove the game ID from currently taken game IDs
@@ -71,32 +67,20 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(["isInGame": true])
     }
     
-    // TODO: DRY the following methods
-    
     func startGame(gameId: Int) {
-        let gameStatus = [
-            "isGamePlaying": true,
-            "isRoundPlaying": false,
-            "currentRound": 1
-        ] as [String : Any]
+        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, currentRound: 1).encodeToDictionary()
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
     func startRound(gameId: Int, roundNumber: Int) {
-        let gameStatus = [
-            "isGamePlaying": true,
-            "isRoundPlaying": true,
-            "currentRound": roundNumber
-        ] as [String : Any]
+        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true,
+                                    currentRound: roundNumber).encodeToDictionary()
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
     func terminateRound(gameId: Int, roundNumber: Int) {
-        let gameStatus = [
-            "isGamePlaying": true,
-            "isRoundPlaying": false,
-            "currentRound": roundNumber
-        ] as [String : Any]
+        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                    currentRound: roundNumber).encodeToDictionary()
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     

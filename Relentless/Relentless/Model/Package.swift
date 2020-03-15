@@ -23,7 +23,7 @@ class Package: Codable {
         items.append(item)
     }
 
-    func deleteItem(item: Item) {
+    func removeItem(item: Item) {
         guard let indexOfItem = items.firstIndex(of: item) else {
             return
         }

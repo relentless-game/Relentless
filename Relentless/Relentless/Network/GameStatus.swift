@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This struct represents the current status of the game, and it is shared across
+/// the network so that players can be notified when the game status changes.
 struct GameStatus {
     var isGamePlaying: Bool
     var isRoundPlaying: Bool

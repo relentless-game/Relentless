@@ -9,11 +9,7 @@
 import Foundation
 
 class Magazine: TitledItem {
-<<<<<<< HEAD
     static let category = Category.magazine
-=======
-    static let category = Category.MAGAZINE
->>>>>>> master
 
     init(name: String) {
         super.init(name: name, category: Magazine.category)

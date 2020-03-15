@@ -15,21 +15,12 @@ struct House {
         self.orders = orders
     }
 
-<<<<<<< HEAD
     /// Returns true if the package correctly matches any of the orders
     func checkPackage(package: Package) -> Bool {
         for order in orders where order.checkPackage(package: package) {
             return true
         }
         return false
-=======
-    /// Returns the order that matches the package and returns nil if none matches
-    func checkPackage(package: Package) -> Order? {
-        for order in orders where order.checkPackage(package: package) {
-            return order
-        }
-        return nil
->>>>>>> master
     }
 
     /// Returns the order with the fewest number of differences from the package. Return value will only be nil if orders set is empty

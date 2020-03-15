@@ -52,14 +52,19 @@ class NetworkManager: Network {
         
         // remove the game ID from currently taken game IDs
         var gameIdKey: String?
+        print("point 1")
         ref.child("games/\(gameId)").observeSingleEvent(of: .value) { snapshot in
             let dict = snapshot.value as? [String: AnyObject] ?? [:]
             gameIdKey = dict["gameKey"] as? String
+            print("point 2")
+            print(gameIdKey)
         }
         if let gameIdKey = gameIdKey {
+            print("point 3")
             ref.child("gameIdsTaken/\(gameIdKey)").setValue(nil)
         }
         
+        print("point 4")
         ref.child("games/\(gameId)").setValue(nil)
     }
     

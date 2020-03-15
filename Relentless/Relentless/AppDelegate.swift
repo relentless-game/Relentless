@@ -30,12 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.userId = uid
         }
         
-        // test network
-        // let manager = NetworkManager()
-        //let gameId = manager.createGame()
-        //manager.joinGame(userId: "john", gameId: gameId)
-        // manager.sendPackage(gameId: 5601, package: Package(index: 1234), to: Player(userId: "john"))
-        
         return true
     }
 

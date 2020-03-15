@@ -1,6 +1,0 @@
-framework module Pods_Relentless {
-  umbrella header "Pods-Relentless-umbrella.h"
-
-  export *
-  module * { export * }
-}

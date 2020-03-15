@@ -37,12 +37,24 @@ class HouseTests: XCTestCase {
 
     func testCheckPackage_correctPackage() {
         let package = Package(creator: creator, packageNumber: packageNumber, items: itemsForFirstOrder)
+<<<<<<< HEAD
         XCTAssertTrue(house.checkPackage(package: package))
+=======
+        guard let order = house.checkPackage(package: package) else {
+            XCTFail("Should not be nil")
+            return
+        }
+        XCTAssertEqual(order, orderOne)
+>>>>>>> master
     }
 
     func testCheckPackage_incorrectPackage() {
         let package = Package(creator: creator, packageNumber: packageNumber, items: [Item]())
+<<<<<<< HEAD
         XCTAssertFalse(house.checkPackage(package: package))
+=======
+        XCTAssertNil(house.checkPackage(package: package))
+>>>>>>> master
     }
 
     func testGetClosestOrder_varyingDifferences() {

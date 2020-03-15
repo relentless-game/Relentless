@@ -37,7 +37,11 @@ class PackageTests: XCTestCase {
     func testDeleteItem() {
         let book = Book(name: "Book")
         package.addItem(item: book)
+<<<<<<< HEAD
         package.removeItem(item: book)
+=======
+        package.deleteItem(item: book)
+>>>>>>> master
         XCTAssertTrue(package.items.isEmpty)
     }
 

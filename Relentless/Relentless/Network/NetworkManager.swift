@@ -175,4 +175,15 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)/packages").removeValue()
     }
     
+    
+//    func getPlayers(gameId: Int) -> [Player] {
+//        let path = "games/\(gameId)/users"
+//        var player: [Order] = []
+//        ref.child(path).observeSingleEvent(of: .value) { snapshot in
+//            for child in snapshot.children {
+//                let playerUserId
+//            }
+//        }
+//
+//    }
 }

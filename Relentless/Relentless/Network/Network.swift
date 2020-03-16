@@ -54,4 +54,6 @@ protocol Network {
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)
+    
+    //func getPlayers(gameId: Int) -> [Player]
 }

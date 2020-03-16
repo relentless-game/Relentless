@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Category: Int, Codable {
+enum Category: Int, Codable, CaseIterable {
     case book
     case magazine
 

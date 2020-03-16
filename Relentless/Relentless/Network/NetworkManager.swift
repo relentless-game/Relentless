@@ -47,7 +47,10 @@ class NetworkManager: Network {
     
     func terminateGame(gameId: Int) {
         // change game status to notify other players
-        let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false, currentRound: -1).encodeToDictionary()
+        guard let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
+                                          currentRound: -1).encodeToString() else {
+            return
+        }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
         
         // remove the game ID from currently taken game IDs
@@ -71,19 +74,26 @@ class NetworkManager: Network {
     }
     
     func startGame(gameId: Int) {
-        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, currentRound: 1).encodeToDictionary()
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                          currentRound: 1).encodeToString() else {
+            return
+        }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
     func startRound(gameId: Int, roundNumber: Int) {
-        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true,
-                                    currentRound: roundNumber).encodeToDictionary()
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true,
+                                          currentRound: roundNumber).encodeToString() else {
+            return
+        }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
     func terminateRound(gameId: Int, roundNumber: Int) {
-        let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
-                                    currentRound: roundNumber).encodeToDictionary()
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                          currentRound: roundNumber).encodeToString() else {
+            return
+        }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
@@ -146,10 +156,13 @@ class NetworkManager: Network {
         // TODO: what happens to refHandle afterwards?
     }
     
-    func attachGameStatusListener(gameId: Int, action: @escaping ([String: AnyObject]) -> Void) {
+    func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void) {
         let path = "games/\(gameId)/status"
         let refHandle = ref.child(path).observe(DataEventType.value, with: { snapshot in
-            let gameStatus = snapshot.value as? [String: AnyObject] ?? [:]
+            let gameStatusString = snapshot.value as? String ?? ""
+            guard let gameStatus = GameStatus.decodeFromString(string: gameStatusString) else {
+                return
+            }
             action(gameStatus)
         })
         

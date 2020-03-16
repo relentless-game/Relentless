@@ -49,7 +49,7 @@ protocol Network {
     
     /// Notifies the player when there is a change in the game status, e.g. whether a game/round has started/ended.
     /// `action` is called upon any change in game status.
-    func attachGameStatusListener(gameId: Int, action: @escaping ([String: AnyObject]) -> Void)
+    func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void)
     
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.

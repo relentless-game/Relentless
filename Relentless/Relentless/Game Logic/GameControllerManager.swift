@@ -9,7 +9,7 @@
 import Foundation
 
 class GameControllerManager: GameController {
-    
+
     // properties for game logic
     private var roundTimeInterval: Double = 240 // in seconds
     private var difficultyLevel: Float = 0
@@ -44,7 +44,8 @@ class GameControllerManager: GameController {
             initialiseItems()
             initialiseOrders()
         }
-        Timer.scheduledTimer(timeInterval: roundTimeInterval, target: self, selector: #selector(endRound), userInfo: nil, repeats: true)
+        Timer.scheduledTimer(timeInterval: roundTimeInterval, target: self,
+                             selector: #selector(endRound), userInfo: nil, repeats: true)
     }
 
     @objc
@@ -89,27 +90,30 @@ class GameControllerManager: GameController {
 }
 
 extension GameControllerManager {
-    func createGame(userId: String) -> Bool {
+    func createGame(userId: String, userName: String) -> Bool {
         let gameId = network.createGame()
         // let player = Player(userId: userId)
         // game = GameManager(gameId: gameId, player: Player)
-        let joinedGame = joinGame(userId: userId, gameId: gameId)
+        let joinedGame = joinGame(userId: userId, userName: userName, gameId: gameId)
         return joinedGame
     }
 
-    func joinGame(userId: String, gameId: Int) -> Bool {
-        let joinedGame = network.joinGame(userId: userId, gameId: gameId)
-        return joinedGame
+    func joinGame(userId: String, userName: String, gameId: Int) -> Bool {
+        //let joinedGame = network.joinGame(userId: userId, gameId: gameId)
+        //return joinedGame
+        network.joinGame(userId: userId, userName: userName, gameId: gameId)
+        return true
     }
 
     func sendPackage(package: Package, to destination: Player) -> Bool {
         guard let gameId = game?.gameId else {
             return false
         }
-        let sentPackage = network.sendPackage(gameId: gameId, package: package, to: destination)
-        guard sentPackage else {
-            return false
-        }
+        network.sendPackage(gameId: gameId, package: package, to: destination)
+//        let sentPackage = network.sendPackage(gameId: gameId, package: package, to: destination)
+//        guard sentPackage else {
+//            return false
+//        }
         game?.removePackage(package: package)
         return true
     }

@@ -32,7 +32,7 @@ class ItemsAllocator: GameItemsAllocator {
             }
         }
         // randomly assign remaining items
-        while items.count > 0 {
+        while !items.isEmpty {
             allocateToRandomPlayer(players: players, item: items[0])
             items.remove(at: 0)
         }

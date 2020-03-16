@@ -42,4 +42,4 @@ class Item: Hashable, Comparable, Codable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(category)
     }
-}
+} 

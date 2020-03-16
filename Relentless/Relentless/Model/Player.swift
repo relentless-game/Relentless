@@ -13,9 +13,11 @@ import UIKit
 class Player {
     let userId: String
     let userName: String
-    let profileImage: UIImage
+    let profileImage: UIImage?
+    var items: Set<Item> = []
+    var orders: Set<Order> = []
 
-    init(userId: String, userName: String, profileImage: UIImage) {
+    init(userId: String, userName: String, profileImage: UIImage?) {
         self.userId = userId
         self.userName = userName
         self.profileImage = profileImage

@@ -12,10 +12,10 @@ import Foundation
 protocol GameNetworkController {
 
     /// Returns `Bool` to indicate if the game was created successfully
-    func createGame(userId: String) -> Bool
+    func createGame(userId: String, userName: String) -> Bool
 
     /// Returns `Bool` to indicate if the join was successful
-    func joinGame(userId: String, gameId: Int) -> Bool
+    func joinGame(userId: String, userName: String, gameId: Int) -> Bool
 
     /// Returns `Bool` to indicate if the package was sent successfully
     func sendPackage(package: Package, to destination: Player) -> Bool

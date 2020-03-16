@@ -9,7 +9,7 @@
 import Foundation
 
 class Magazine: TitledItem {
-    static let category = Category.MAGAZINE
+    static let category = Category.magazine
 
     init(name: String) {
         super.init(name: name, category: Magazine.category)

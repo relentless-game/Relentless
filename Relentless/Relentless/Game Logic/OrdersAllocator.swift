@@ -47,7 +47,7 @@ class OrdersAllocator: GameOrdersAllocator {
         allSelectedItems.append(contentsOf: selectedOwnItems)
         allSelectedItems.append(contentsOf: selectedOthersItems)
 
-        let order = Order(items: allSelectedItems, timeLimit: defaultTimeLimit)
+        let order = Order(items: allSelectedItems, timeLimitInSeconds: defaultTimeLimit)
         return order
     }
 

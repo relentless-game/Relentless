@@ -17,7 +17,7 @@ class SatisfactionBar {
 
     init(minSatisfaction: Int, maxSatisfaction: Int) {
         satisfactionRange = minSatisfaction...maxSatisfaction
-        currentSatisfaction  = (maxSatisfaction + minSatisfaction) / 2
+        currentSatisfaction = (maxSatisfaction + minSatisfaction) / 2
         defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction))
     }
 

@@ -24,7 +24,8 @@ struct House {
         return nil
     }
 
-    /// Returns the order with the fewest number of differences from the package. Return value will only be nil if orders set is empty
+    /// Returns the order with the fewest number of differences from the package.
+    /// Return value will only be nil if orders set is empty
     func getClosestOrder(for package: Package) -> Order? {
         var minNumberOfDifferences = Order.MAX_NUMBER_OF_ITEMS + 1
         var orderWithMinDifferences = orders.first

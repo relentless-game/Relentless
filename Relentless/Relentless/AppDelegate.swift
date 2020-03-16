@@ -14,25 +14,21 @@ import FirebaseAuth
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private(set) var userId: String!
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         // for anonymous authentication
-        Auth.auth().signInAnonymously { (authResult, error) in
+        Auth.auth().signInAnonymously { authResult, error in
             guard let user = authResult?.user else {
                 return
             }
+            // TODO: figure out what to do with this
             let isAnonymous = user.isAnonymous  // true
             let uid = user.uid
             
             self.userId = uid
         }
-        
-        // test network
-        let manager = NetworkManager()
-        //let gameId = manager.createGame()
-        //manager.joinGame(userId: "john", gameId: gameId)
-        // manager.sendPackage(gameId: 5601, package: Package(index: 1234), to: Player(userId: "john"))
         
         return true
     }

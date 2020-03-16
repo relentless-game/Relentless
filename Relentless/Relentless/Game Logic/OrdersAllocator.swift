@@ -13,7 +13,7 @@ class OrdersAllocator: GameOrdersAllocator {
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
 
     var defaultNumOfOrders: Int = 5 // per player
-    var defaultMaxNumOfItems: Int = 3 // per order
+    var defaultMaxNumOfItems: Int = 3 // per order; update to use static variable in `Order`
     var defaultTimeLimit: Int = 40 // in seconds
 
     init(difficultyLevel: Float) {

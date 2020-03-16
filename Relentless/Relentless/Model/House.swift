@@ -9,23 +9,21 @@
 import Foundation
 
 struct House {
-
     var orders: Set<Order>
 
     init(orders: Set<Order>) {
         self.orders = orders
     }
 
-    /// Returns the order that matches the package and returns nil if none matches
-    func checkPackage(package: Package) -> Order? {
+    /// Returns true if the package correctly matches any of the orders
+    func checkPackage(package: Package) -> Bool {
         for order in orders where order.checkPackage(package: package) {
-            return order
+            return true
         }
-        return nil
+        return false
     }
 
-    /// Returns the order with the fewest number of differences from the package.
-    /// Return value will only be nil if orders set is empty
+    /// Returns the order with the fewest number of differences from the package. Return value will only be nil if orders set is empty
     func getClosestOrder(for package: Package) -> Order? {
         var minNumberOfDifferences = Order.MAX_NUMBER_OF_ITEMS + 1
         var orderWithMinDifferences = orders.first

@@ -37,7 +37,7 @@ class PackageTests: XCTestCase {
     func testDeleteItem() {
         let book = Book(name: "Book")
         package.addItem(item: book)
-        package.deleteItem(item: book)
+        package.removeItem(item: book)
         XCTAssertTrue(package.items.isEmpty)
     }
 

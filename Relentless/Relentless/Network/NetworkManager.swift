@@ -136,7 +136,6 @@ class NetworkManager: Network {
             let encodedString = snapshot.value as? String ?? ""
             orders = OrdersAdapter.decodeOrders(from: encodedString)
         }
-        
         return orders
     }
     

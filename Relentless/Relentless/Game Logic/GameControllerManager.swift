@@ -17,8 +17,13 @@ class GameControllerManager: GameController {
     var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
 
     // properties for network
+    let userId: String // unique ID given by Firebase
     var isHost: Bool = false
     var network: Network = NetworkManager()
+    
+    init(userId: String) {
+        self.userId = userId
+    }
 
     /// Can be called directly by view or notified by network
     func startGame() {
@@ -61,7 +66,7 @@ class GameControllerManager: GameController {
     }
 
     private func initialiseItems() {
-        guard let numberOfPlayers = game?.numberOfPlayers else {
+        guard let numberOfPlayers = game?.numberOfPlayers, let gameId = game?.gameId else {
             return
         }
         // first choose categories
@@ -76,16 +81,18 @@ class GameControllerManager: GameController {
         itemsAllocator.allocateItems(categories: categories, players: players)
 
         // update other devices
-        network.allocateItems(players: players)
+        network.allocateItems(gameId: gameId, players: players)
     }
 
     private func initialiseOrders() {
         let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
-        guard let players = game?.allPlayers else {
+        guard let players = game?.allPlayers, let gameId = game?.gameId else {
             return
         }
         ordersAllocator.allocateOrders(players: players)
-        network.allocateOrders(players: players)
+        
+        // update other devices
+        network.allocateOrders(gameId: gameId, players: players)
     }
 }
 

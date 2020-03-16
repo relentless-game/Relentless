@@ -118,6 +118,7 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(destination.userId)/orders").setValue(encodedOrders)
     }
     
+    // Don't use this. Use `attachItemsListener`
     func receiveItems(userId: String, gameId: Int) -> [Item] {
         let path = "games/\(gameId)/users/\(userId)/items"
         var items: [Item] = []
@@ -129,6 +130,18 @@ class NetworkManager: Network {
         return items
     }
     
+    // Use this instead of `receiveItems`
+    func attachItemsListener(userId: String, gameId: Int, action: @escaping ([Item]) -> Void) {
+        let path = "games/\(gameId)/users/\(userId)/items"
+        ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let encodedString = snapshot.value as? String ?? ""
+            let items = ItemsAdapter.decodeItems(from: encodedString)
+
+            action(items)
+        })
+    }
+    
+    // Don't use this. Use `attachOrdersListener`.
     func receiveOrders(userId: String, gameId: Int) -> [Order] {
         let path = "games/\(gameId)/users/\(userId)/orders"
         var orders: [Order] = []
@@ -138,6 +151,17 @@ class NetworkManager: Network {
         }
         
         return orders
+    }
+    
+    // Use this instead of `receiveOrders`.
+    func attachOrdersListener(userId: String, gameId: Int, action: @escaping ([Order]) -> Void) {
+        let path = "games/\(gameId)/users/\(userId)/orders"
+        ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let encodedString = snapshot.value as? String ?? ""
+            let orders = OrdersAdapter.decodeOrders(from: encodedString)
+
+            action(orders)
+        })
     }
     
     func sendPackage(gameId: Int, package: Package, to destination: Player) {
@@ -180,6 +204,7 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)/packages").removeValue()
     }
     
+    // Don't use this
     func getPlayers(gameId: Int) -> [Player] {
         let path = "games/\(gameId)/users"
         var players: [Player] = []
@@ -191,22 +216,44 @@ class NetworkManager: Network {
                 let player = Player(userId: userId, userName: userName, profileImage: nil)
                 players.append(player)
             }
+            
         }
         
         return players
     }
+    
+    // Use this
+    func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void) {
+        let path = "games/\(gameId)/users"
+        ref.child(path).observe(.value) { snapshot in
+            var players: [Player] = []
+            for child in snapshot.children {
+                let dict = child as? [String: String] ?? [:]
+                let userId = dict["userId"] ?? ""
+                let userName = dict["userName"] ?? ""
+                let player = Player(userId: userId, userName: userName, profileImage: nil)
+                players.append(player)
+            }
+            
+            action(players)
+        }
+    }
+    
+    func allocateItems(gameId: Int, players: [Player]) {
+        for player in players {
+            sendItems(gameId: gameId, items: Array(player.items), to: player)
+        }
+    }
 
-    // TODO: change the following dummy methods
+    func allocateOrders(gameId: Int, players: [Player]) {
+        for player in players {
+            sendOrders(gameId: gameId, orders: Array(player.orders), to: player)
+        }
+    }
+
+    // TODO: change the following dummy method
     func receivePackage() -> Package {
         return Package(creator: "creator", packageNumber: 1, items: [])
     }
     
-    func allocateItems(players: [Player]) {
-        
-    }
-
-    func allocateOrders(players: [Player]) {
-        
-    }
-
 }

@@ -35,11 +35,19 @@ protocol Network {
     /// This is called by the host player at the start of the round to send pre-generated orders to the target player.
     func sendOrders(gameId: Int, orders: [Order], to destination: Player)
     
+    // Don't use this. Use `attachItemsListener`
     /// Other non-host players can use this method to obtain their items for this round.
     func receiveItems(userId: String, gameId: Int) -> [Item]
     
+    // Don't use this. Use `attachOrdersListener`
     /// Other non-host players can use this method to obtain their orders for this round.
     func receiveOrders(userId: String, gameId: Int) -> [Order]
+    
+    /// Notifies non-host player to give them their items for this round. `action` is called upon receiving the items.
+    func attachItemsListener(userId: String, gameId: Int, action: @escaping ([Item]) -> Void)
+    
+    /// Notifies non-host player to give them their orders for this round. `action` is called upon receiving the orders.
+    func attachOrdersListener(userId: String, gameId: Int, action: @escaping ([Order]) -> Void)
     
     /// This can be called by any player to send a package to the target player.
     func sendPackage(gameId: Int, package: Package, to destination: Player)
@@ -55,12 +63,19 @@ protocol Network {
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)
 
+    // Don't use this. Use `attachPackageListener`
     func receivePackage() -> Package
 
+    // Don't use this. Use `attachPlayerListListener`
     func getPlayers(gameId: Int) -> [Player]
 
-    func allocateItems(players: [Player])
+    /// Notifies the player when there is a new player joining in the game.`action` is called when a new player joins.
+    func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void)
+    
+    /// This method is called by the host and allocates pre-generated items to all players in `players` at the start of a round.
+    func allocateItems(gameId: Int, players: [Player])
 
-    func allocateOrders(players: [Player])
+    /// This method is called by the host and allocates pre-generated orders to all players in `players` at the start of a round.
+    func allocateOrders(gameId: Int, players: [Player])
 
 }

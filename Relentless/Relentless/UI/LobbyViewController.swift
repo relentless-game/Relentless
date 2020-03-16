@@ -16,11 +16,38 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     var userId: String?
     var gameController: GameController?
 
+    weak var delegate = UIApplication.shared.delegate as? AppDelegate
+    @IBOutlet private var gameIdLabel: UILabel!
+    @IBOutlet private var startButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         gameController = GameControllerManager()
-//        teamCodeTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
-//        teamCodeTextField.delegate = self
+        initUserId()
+        if gameId == nil {
+            createGame()
+        } else {
+            joinGame()
+        }
+        initStartButton()
+        initGameIdLabel()
+    }
+
+    func initUserId() {
+        if let delegate = delegate {
+            userId = delegate.userId
+        }
+    }
+
+    func initStartButton() {
+        startButton.isHidden = !(gameController?.isHost ?? false)
+    }
+
+    func initGameIdLabel() {
+        guard let gameId = gameId else {
+            return
+        }
+        gameIdLabel.text = String(gameId)
     }
 
     func joinGame() {
@@ -29,5 +56,23 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         }
         let result = gameController?.joinGame(userId: userId, userName: LobbyViewController.dummyName, gameId: gameId)
         assert(result ?? false)
+    }
+
+    func createGame() {
+        guard let userId = userId else {
+            return
+        }
+        let result = gameController?.createGame(userId: userId, userName: LobbyViewController.dummyName)
+        assert(result ?? false)
+        // TODO: Get actual gameId
+        gameId = 0
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "startGame" {
+            let viewController = segue.destination as? GameViewController
+            gameController?.startGame()
+            viewController?.gameController = gameController
+        }
     }
 }

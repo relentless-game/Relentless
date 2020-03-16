@@ -35,7 +35,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         // Prevent invalid character input, if keyboard is numberpad
         if textField.keyboardType == .numberPad {
             // Check for invalid input characters
-            if CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
+            if !CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
                 // Present alert so the user knows what went wrong
 //                presentAlert("This field accepts only numeric entries.")
                 // Invalid characters detected, disallow text change
@@ -75,7 +75,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             guard let gameIdText = teamCodeTextField.text, viewController != nil else {
                 return
             }
-            // viewControlelr is non-nil
+            // viewController is non-nil
             viewController!.gameId = Int(gameIdText)
         }
     }

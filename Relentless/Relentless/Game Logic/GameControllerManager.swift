@@ -27,7 +27,6 @@ class GameControllerManager: GameController {
         }
         // initialise all players in the model based on network info
         initialisePlayers(gameId: gameId)
-        startRound()
     }
 
     func endGame() {

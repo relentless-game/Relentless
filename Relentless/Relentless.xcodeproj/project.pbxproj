@@ -24,6 +24,8 @@
 		5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
 		5DE9177C241FBBD400569453 /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177B241FBBD400569453 /* JoinViewController.swift */; };
 		5DE9177E241FC14E00569453 /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177D241FC14E00569453 /* LobbyViewController.swift */; };
+		5DE91780241FD48800569453 /* PackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177F241FD48800569453 /* PackingViewController.swift */; };
+		5DE91782241FDAB000569453 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE91781241FDAB000569453 /* GameViewController.swift */; };
 		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
 		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
 		6249B503241C8D9F002F8A1B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B502241C8D9F002F8A1B /* GameController.swift */; };
@@ -105,6 +107,8 @@
 		4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
+		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
+		5DE91781241FDAB000569453 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
 		6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNetworkController.swift; sourceTree = "<group>"; };
 		6249B500241C8BB0002F8A1B /* GameModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelController.swift; sourceTree = "<group>"; };
@@ -199,7 +203,9 @@
 			isa = PBXGroup;
 			children = (
 				5DE9177B241FBBD400569453 /* JoinViewController.swift */,
+				5DE91781241FDAB000569453 /* GameViewController.swift */,
 				5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
+				5DE9177F241FD48800569453 /* PackingViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -624,6 +630,7 @@
 				62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
 				62EE1A85241DECD8009406FB /* Book.swift in Sources */,
 				62A14913241E13E70071149E /* Magazine.swift in Sources */,
+				5DE91780241FD48800569453 /* PackingViewController.swift in Sources */,
 				62CEC6FD241CBDA000936CB6 /* ItemsAllocator.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
 				0B79715A241C9065007DD433 /* GameManager.swift in Sources */,
@@ -636,6 +643,7 @@
 				6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */,
 				62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */,
 				0B79715E241CADC9007DD433 /* Category.swift in Sources */,
+				5DE91782241FDAB000569453 /* GameViewController.swift in Sources */,
 				F319B331241B7D5C005E3129 /* Player.swift in Sources */,
 				0B79715C241C92DC007DD433 /* House.swift in Sources */,
 				F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/// This struct represents a player (which is not the user itself) in the game.
+/// This struct represents a player in the game.
 class Player {
     let userId: String
     let userName: String
@@ -19,5 +19,13 @@ class Player {
         self.userId = userId
         self.userName = userName
         self.profileImage = profileImage
+    }
+}
+
+extension Player: Equatable {
+    static func ==(lhs: Player, rhs: Player) -> Bool {
+        lhs.userId == rhs.userId &&
+        lhs.userName == rhs.userName &&
+        lhs.profileImage == rhs.profileImage
     }
 }

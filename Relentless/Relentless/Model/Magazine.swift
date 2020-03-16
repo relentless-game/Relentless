@@ -1,5 +1,5 @@
 //
-//  Book.swift
+//  Magazine.swift
 //  Relentless
 //
 //  Created by Chow Yi Yin on 14/3/20.

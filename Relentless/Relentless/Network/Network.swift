@@ -20,4 +20,10 @@ protocol Network {
     func sendPackage(gameId: Int, package: Package, to destination: Player) -> Bool
     
     func receivePackage() -> Package
+
+    func getPlayers(gameId: Int) -> [Player]
+
+    func allocateItems(players: [Player])
+
+    func allocateOrders(players: [Player])
 }

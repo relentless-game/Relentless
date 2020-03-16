@@ -9,6 +9,7 @@
 import Foundation
 
 class Order: Hashable {
+  
     static var MAX_NUMBER_OF_ITEMS = 10
 
     var items: [Item]
@@ -57,4 +58,5 @@ extension Order {
         lhs.items == rhs.items &&
             lhs.timeLimit == rhs.timeLimit
     }
+
 }

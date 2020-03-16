@@ -18,7 +18,7 @@ protocol Network {
     
     /// This can be called by a player to join the game with the specified game ID.
     /// The host also has to join through this method.
-    func joinGame(userId: String, gameId: Int)
+    func joinGame(userId: String, userName: String, gameId: Int)
     
     /// This is called by the host player to start the game.
     func startGame(gameId: Int)
@@ -54,6 +54,13 @@ protocol Network {
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)
-    
-    //func getPlayers(gameId: Int) -> [Player]
+
+    func receivePackage() -> Package
+
+    func getPlayers(gameId: Int) -> [Player]
+
+    func allocateItems(players: [Player])
+
+    func allocateOrders(players: [Player])
+
 }

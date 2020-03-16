@@ -1,5 +1,5 @@
 //
-//  Book.swift
+//  Magazine.swift
 //  Relentless
 //
 //  Created by Chow Yi Yin on 14/3/20.
@@ -9,7 +9,7 @@
 import Foundation
 
 class Magazine: TitledItem {
-    static let category = Category.MAGAZINE
+    static let category = Category.magazine
 
     init(name: String) {
         super.init(name: name, category: Magazine.category)

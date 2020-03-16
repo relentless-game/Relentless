@@ -9,6 +9,7 @@
 import Foundation
 
 struct House {
+
     var orders: Set<Order>
 
     init(orders: Set<Order>) {

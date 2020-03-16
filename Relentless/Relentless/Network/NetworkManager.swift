@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 class NetworkManager: Network {
+
     private var ref: DatabaseReference!
 
     init() {
@@ -69,8 +70,12 @@ class NetworkManager: Network {
         }
     }
     
-    func joinGame(userId: String, gameId: Int) {
-        ref.child("games/\(gameId)/users/\(userId)").setValue(["isInGame": true])
+    func joinGame(userId: String, userName: String, gameId: Int) {
+        let userProfile = [
+            "userId": userId,
+            "userName": userName
+        ]
+        ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
     
     func startGame(gameId: Int) {
@@ -175,15 +180,33 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)/packages").removeValue()
     }
     
+    func getPlayers(gameId: Int) -> [Player] {
+        let path = "games/\(gameId)/users"
+        var players: [Player] = []
+        ref.child(path).observeSingleEvent(of: .value) { snapshot in
+            for child in snapshot.children {
+                let dict = child as? [String: String] ?? [:]
+                let userId = dict["userId"] ?? ""
+                let userName = dict["userName"] ?? ""
+                let player = Player(userId: userId, userName: userName, profileImage: nil)
+                players.append(player)
+            }
+        }
+        
+        return players
+    }
+
+    // TODO: change the following dummy methods
+    func receivePackage() -> Package {
+        return Package(creator: "creator", packageNumber: 1, items: [])
+    }
     
-//    func getPlayers(gameId: Int) -> [Player] {
-//        let path = "games/\(gameId)/users"
-//        var player: [Order] = []
-//        ref.child(path).observeSingleEvent(of: .value) { snapshot in
-//            for child in snapshot.children {
-//                let playerUserId
-//            }
-//        }
-//
-//    }
+    func allocateItems(players: [Player]) {
+        
+    }
+
+    func allocateOrders(players: [Player]) {
+        
+    }
+
 }

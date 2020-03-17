@@ -49,7 +49,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
                                 <rect key="frame" x="682" y="30" width="56" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="More"/>
@@ -137,6 +137,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byf-gN-nSR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="135" y="909"/>
+        </scene>
+        <!--Category-->
+        <scene sceneID="aKj-K3-ZS5">
+            <objects>
+                <viewController title="Category" id="xN3-W0-wi0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9jf-19-g2v">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="N99-iC-5ec"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YL9-vf-cEJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-580" y="2632"/>
         </scene>
         <!--Packing-->
         <scene sceneID="mUE-eH-8rH">
@@ -400,10 +415,10 @@
             </objects>
             <point key="canvasLocation" x="132" y="3516"/>
         </scene>
-        <!--Order-->
+        <!--Houses-->
         <scene sceneID="FMr-hJ-UbY">
             <objects>
-                <viewController title="Order" id="7Wf-ZL-3wu" sceneMemberID="viewController">
+                <viewController title="Houses" id="7Wf-ZL-3wu" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MjB-xY-kNL">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -415,9 +430,27 @@
             </objects>
             <point key="canvasLocation" x="828" y="2641"/>
         </scene>
+        <!--Order-->
+        <scene sceneID="i6s-uR-hgo">
+            <objects>
+                <viewController title="Order" id="RiR-6R-TvK" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cXY-ls-TBl">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="YrG-VQ-GCH"/>
+                    </view>
+                    <connections>
+                        <segue destination="7Wf-ZL-3wu" kind="presentation" identifier="viewOrder" id="qID-Ae-TMA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vwy-7R-1Ne" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="3519"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ed9-Qd-LTp"/>
-        <segue reference="Bzf-a8-1jP"/>
+        <segue reference="vyk-Lj-tWm"/>
+        <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>
 </document>

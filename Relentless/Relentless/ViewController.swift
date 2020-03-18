@@ -26,23 +26,6 @@ class ViewController: UIViewController {
         //gameController = GameControllerManager(userId: userId)
         // ...
         
-        let manager = NetworkManager()
-//        let userid = "myuserid"
-//        manager.createGame { gameId in
-//            print("the new game ID is \(gameId)")
-//        }
-        manager.attachPlayerJoinListener(gameId: 1845) { players in
-            print("inside test. players are \(players.first?.userId)")
-        }
-//        let gameId = manager.createGame()
-//        do {
-//            try manager.joinGame(userId: userid, userName: "hi", gameId: gameId)
-//        } catch {
-//
-//        }
-//        let packageToSend = Package(creator: "john", packageNumber: 5, items: [])
-//        let targetPlayer = Player(userId: "targeuserid", userName: "doe", profileImage: UIImage())
-//        manager.sendPackage(gameId: gameId, package: packageToSend, to: targetPlayer)
     }
     
 }

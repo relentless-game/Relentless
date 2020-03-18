@@ -213,13 +213,10 @@ class NetworkManager: Network {
     
     func attachPackageListener(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/packages"
-        // TODO: possible problem: multiple packages added at the same time
         let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
-            for child in snapshot.children {
-                let packageString = child as? String ?? ""
-                if let package = PackageAdapter.decodePackage(from: packageString) {
-                    action(package)
-                }
+            let packageString = snapshot.value as? String ?? ""
+            if let package = PackageAdapter.decodePackage(from: packageString) {
+                action(package)
             }
         })
         
@@ -244,20 +241,21 @@ class NetworkManager: Network {
     func deleteAllPackages(userId: String, gameId: Int) {
         ref.child("games/\(gameId)/users/\(userId)/packages").removeValue()
     }
-        
+    
     func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void) {
         let path = "games/\(gameId)/users"
         ref.child(path).observe(.value) { snapshot in
             var players: [Player] = []
-            for child in snapshot.children {
-                let dict = child as? [String: String] ?? [:]
-                let userId = dict["userId"] ?? ""
-                let userName = dict["userName"] ?? ""
-                let player = Player(userId: userId, userName: userName, profileImage: nil)
-                players.append(player)
+            if let dict = snapshot.value as? [String: [String: Any]] {
+                for playerInfo in dict.values {
+                    let playerInfoDict = playerInfo as? [String: String] ?? [:]
+                    let userId = playerInfoDict["userId"] ?? ""
+                    let userName = playerInfoDict["userName"] ?? ""
+                    let player = Player(userId: userId, userName: userName, profileImage: nil)
+                    players.append(player)
+                }
             }
-            
-            action(players)
+            action(players) // all the players currently in the game
         }
     }
     

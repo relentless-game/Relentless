@@ -22,8 +22,8 @@ class GameControllerManager: GameController {
     var network: Network = NetworkManager()
     
     init(userId: String) {
-        self.userId = userId
-        // TODO: put this info into game -> player -> userid
+        self.userId = userId // do we still need this then?
+        game?.player.userId = userId
     }
 
     /// Can be called directly by view or notified by network
@@ -31,8 +31,14 @@ class GameControllerManager: GameController {
         guard let gameId = game?.gameId else {
             return
         }
+        guard isHost else {
+            return
+        }
+        network.startGame(gameId: gameId)
+        
+        // Commented out because this is taken care of under joinGame()
         // initialise all players in the model based on network info
-        initialisePlayers(gameId: gameId)
+        // initialisePlayers(gameId: gameId)
         startRound()
     }
 
@@ -49,21 +55,57 @@ class GameControllerManager: GameController {
             // items and orders are generated and allocated by the host only
             initialiseItems()
             initialiseOrders()
+            
+            Timer.scheduledTimer(timeInterval: roundTimeInterval, target: self,
+                                 selector: #selector(endRound), userInfo: nil, repeats: true)
+        
+            if let gameId = game?.gameId, let roundNumber = game?.currentRoundNumber {
+                network.startRound(gameId: gameId, roundNumber: roundNumber)
+            }
         }
-        Timer.scheduledTimer(timeInterval: roundTimeInterval, target: self,
-                             selector: #selector(endRound), userInfo: nil, repeats: true)
+    }
+    
+    // for game status listener
+    private func onGameStatusDidChange(gameStatus: GameStatus) {
+        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
+        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+        let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
+        
+        if didEndGamePrematurely {
+            NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
+        } else if didStartGame {
+            NotificationCenter.default.post(name: .didStartGame, object: nil)
+            
+        } else if didEndGame {
+            NotificationCenter.default.post(name: .didEndGame, object: nil)
+        } else if didStartRound {
+            NotificationCenter.default.post(name: .didStartRound, object: nil)
+            game?.incrementRoundNumber()
+        } else if didEndRound {
+            NotificationCenter.default.post(name: .didEndRound, object: nil)
+        }
     }
 
     @objc
     func endRound() {
         // todo: convert satisfaction bar to money
         // todo: check win-lose condition
+        guard isHost, let gameId = game?.gameId, let roundNumber = game?.currentRoundNumber else {
+            return
+        }
+        network.terminateRound(gameId: gameId, roundNumber: roundNumber)
         difficultyLevel += 0.1
     }
 
-    private func initialisePlayers(gameId: Int) {
-//        let players = network.getPlayers(gameId: gameId)
-//        game?.allPlayers = players
+//    private func initialisePlayers(gameId: Int) {
+//        network.attachPlayerJoinListener(gameId: gameId, action: onNewPlayerDidJoin)
+//    }
+    
+    private func onNewPlayerDidJoin(players: [Player]) {
+        game?.allPlayers = players
+        NotificationCenter.default.post(name: .newPlayerDidJoin, object: nil)
     }
 
     private func initialiseItems() {
@@ -98,24 +140,48 @@ class GameControllerManager: GameController {
 }
 
 extension GameControllerManager {
-    func createGame(userId: String, userName: String) -> Bool {
-        //let gameId = network.createGame()
-        // let player = Player(userId: userId)
-        // game = GameManager(gameId: gameId, player: Player)
-        //let joinedGame = joinGame(userId: userId, userName: userName, gameId: gameId)
-        //return joinedGame
-        return true
+    func createGame(userId: String, userName: String) {
+        network.createGame(completion: { gameId in
+            let player = Player(userId: userId, userName: userName, profileImage: nil)
+            self.game = GameManager(gameId: gameId, player: player)
+            self.joinGame(userId: userId, userName: userName, gameId: gameId)
+            
+            NotificationCenter.default.post(name: .didReceiveGameId, object: nil)
+        })
     }
-
-    func joinGame(userId: String, userName: String, gameId: Int) -> Bool {
-        //let joinedGame = network.joinGame(userId: userId, gameId: gameId)
-        //return joinedGame
-        do {
-            try network.joinGame(userId: userId, userName: userName, gameId: gameId)
-        } catch {
-            // do something
-        }
-        return true
+    
+    internal
+    func joinGame(userId: String, userName: String, gameId: Int) {
+        network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+            if let error = error {
+                switch error {
+                case .invalidGameId:
+                    NotificationCenter.default.post(name: .invalidGameId, object: nil)
+                case .gameAlreadyPlaying:
+                    NotificationCenter.default.post(name: .gameAlreadyPlaying, object: nil)
+                case .gameRoomFull:
+                    NotificationCenter.default.post(name: .gameRoomFull, object: nil)
+                }
+            } else { // successfully joined the game
+                self.network.attachPlayerJoinListener(gameId: gameId, action: self.onNewPlayerDidJoin)
+                self.network.attachGameStatusListener(gameId: gameId, action: self.onGameStatusDidChange)
+                self.network.attachItemsListener(userId: userId, gameId: gameId, action: { items in
+                    // TODO: what to do when items are received?
+                    
+                    NotificationCenter.default.post(name: .didReceiveItems, object: nil)
+                })
+                self.network.attachOrdersListener(userId: userId, gameId: gameId, action: { orders in
+                    // TODO: what to do when orders are received?
+                    
+                    NotificationCenter.default.post(name: .didReceiveOrders, object: nil)
+                })
+                self.network.attachPackageListener(userId: userId, gameId: gameId, action: { package in
+                    // TODO: what to do when a package is received?
+                    
+                    NotificationCenter.default.post(name: .didReceivePackage, object: nil)
+                })
+            }
+        })
     }
 
     func sendPackage(package: Package, to destination: Player) -> Bool {
@@ -123,16 +189,13 @@ extension GameControllerManager {
             return false
         }
         network.sendPackage(gameId: gameId, package: package, to: destination)
-//        let sentPackage = network.sendPackage(gameId: gameId, package: package, to: destination)
-//        guard sentPackage else {
-//            return false
-//        }
         game?.removePackage(package: package)
         return true
     }
 
+    // don't use this
     func receivePackage(package: Package) {
-        game?.addPackage(package: package)
+        //game?.addPackage(package: package)
     }
 }
 
@@ -150,7 +213,7 @@ extension GameControllerManager {
     }
 
     func addPackage(package: Package) {
-        game?.addPackage(package: package)
+        //game?.addPackage(package: package)
     }
 
     func removePackage(package: Package) {
@@ -169,11 +232,11 @@ extension GameControllerManager {
         removeOrder(order: order)
     }
 
-    func retrieveOrders(for house: House) -> [Order] {
+    func retrieveOrders(for house: House) -> Set<Order> {
         guard let orders = game?.retrieveOrders(for: house) else {
             return []
         }
-        return orders
+        return Set(orders)
     }
 
     func openPackage(package: Package) {

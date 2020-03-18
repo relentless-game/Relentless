@@ -69,7 +69,8 @@ protocol Network {
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)
 
-    /// Notifies the player when there is a new player joining in the game.`action` is called when a new player joins.
+    /// Notifies the player when there is a new player joining in the game.`action` is called
+    /// with an array of all players as the argument, when a new player joins.
     func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void)
     
     /// This method is called by the host and allocates pre-generated items

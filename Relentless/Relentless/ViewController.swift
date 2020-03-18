@@ -27,9 +27,12 @@ class ViewController: UIViewController {
         // ...
         
         let manager = NetworkManager()
-        let userid = "myuserid"
-        manager.createGame { gameId in
-            print("the new game ID is \(gameId)")
+//        let userid = "myuserid"
+//        manager.createGame { gameId in
+//            print("the new game ID is \(gameId)")
+//        }
+        manager.attachPlayerJoinListener(gameId: 1845) { players in
+            print("inside test. players are \(players.first?.userId)")
         }
 //        let gameId = manager.createGame()
 //        do {

@@ -49,6 +49,7 @@
 		F3BF7EDE241FB41500A50EE3 /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7ED3241FB41500A50EE3 /* Magazine.swift */; };
 		F3BF7EDF241FB41500A50EE3 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7ED4241FB41500A50EE3 /* Order.swift */; };
 		F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */; };
+		F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */; };
 		F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BF924189F5200D7109B /* AppDelegate.swift */; };
 		F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFB24189F5200D7109B /* SceneDelegate.swift */; };
 		F3C37BFE24189F5200D7109B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFD24189F5200D7109B /* ViewController.swift */; };
@@ -128,6 +129,7 @@
 		F3BF7ED3241FB41500A50EE3 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
 		F3BF7ED4241FB41500A50EE3 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameError.swift; sourceTree = "<group>"; };
+		F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
 		F3C37BF624189F5200D7109B /* Relentless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Relentless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3C37BF924189F5200D7109B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3C37BFB24189F5200D7109B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
 				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
 				62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
+				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
 			);
 			path = "Game Logic";
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
 				F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
 				F3BF7ED8241FB41500A50EE3 /* TitledItem.swift in Sources */,
+				F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */,
 				F3BF7ED7241FB41500A50EE3 /* Player.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
 				62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */,

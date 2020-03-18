@@ -46,9 +46,10 @@ class NetworkManager: Network {
         return gameId
     }
     
-    func terminateGame(gameId: Int) {
+    func terminateGame(gameId: Int, isGameEndedPrematurely: Bool) {
         // change game status to notify other players
         guard let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
+                                          isGameEndedPrematurely: isGameEndedPrematurely,
                                           currentRound: -1).encodeToString() else {
             return
         }
@@ -70,7 +71,22 @@ class NetworkManager: Network {
         }
     }
     
-    func joinGame(userId: String, userName: String, gameId: Int) {
+    func attachJoinGameListener(userId: String, gameId: Int, action: @escaping () throws -> Void) {
+        // check whether the game ID does not exist
+        
+        
+        // check whether there are too many players
+        
+        // check whether the game is already playing
+    }
+    
+    func joinGame(userId: String, userName: String, gameId: Int) throws {
+        // check whether the game ID is valid
+        guard gameId >= 1_000 && gameId <= 9_999 else {
+            throw JoinGameError.invalidId
+        }
+
+        // add this user to the game
         let userProfile = [
             "userId": userId,
             "userName": userName
@@ -78,8 +94,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
     
+    func quitGame(userId: String, gameId: Int) {
+        ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
+    }
+    
     func startGame(gameId: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           currentRound: 1).encodeToString() else {
             return
         }
@@ -87,7 +107,7 @@ class NetworkManager: Network {
     }
     
     func startRound(gameId: Int, roundNumber: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
                                           currentRound: roundNumber).encodeToString() else {
             return
         }
@@ -95,7 +115,7 @@ class NetworkManager: Network {
     }
     
     func terminateRound(gameId: Int, roundNumber: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           currentRound: roundNumber).encodeToString() else {
             return
         }
@@ -222,7 +242,6 @@ class NetworkManager: Network {
         return players
     }
     
-    // Use this
     func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void) {
         let path = "games/\(gameId)/users"
         ref.child(path).observe(.value) { snapshot in

@@ -14,11 +14,21 @@ protocol Network {
     
     /// Changes the `GameStatus` to notify other players that the game has ended.
     /// Frees up the game ID stored in the cloud.
-    func terminateGame(gameId: Int)
+    /// - parameters:
+    ///     - gameId: the current game ID
+    ///     - isGameEndedPrematurely: A host player can call this function
+    ///     if they wish to quit the game before the game starts, in which case,
+    ///     `isGameEndedPrematurely` should be `true`. Otherwise, it should be `false`.
+    func terminateGame(gameId: Int, isGameEndedPrematurely: Bool)
     
     /// This can be called by a player to join the game with the specified game ID.
     /// The host also has to join through this method.
-    func joinGame(userId: String, userName: String, gameId: Int)
+    func joinGame(userId: String, userName: String, gameId: Int) throws
+    
+    /// A non-host player can call this function to quit the game before the game starts.
+    /// If a host wishes to quit the game, the whole game will terminate,
+    /// and the host should use the `terminateGamePrematurely` function.
+    func quitGame(userId: String, gameId: Int)
     
     /// This is called by the host player to start the game.
     func startGame(gameId: Int)
@@ -34,14 +44,6 @@ protocol Network {
     
     /// This is called by the host player at the start of the round to send pre-generated orders to the target player.
     func sendOrders(gameId: Int, orders: [Order], to destination: Player)
-    
-    // Don't use this. Use `attachItemsListener`
-    /// Other non-host players can use this method to obtain their items for this round.
-    func receiveItems(userId: String, gameId: Int) -> [Item]
-    
-    // Don't use this. Use `attachOrdersListener`
-    /// Other non-host players can use this method to obtain their orders for this round.
-    func receiveOrders(userId: String, gameId: Int) -> [Order]
     
     /// Notifies non-host player to give them their items for this round. `action` is called upon receiving the items.
     func attachItemsListener(userId: String, gameId: Int, action: @escaping ([Item]) -> Void)
@@ -63,19 +65,15 @@ protocol Network {
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)
 
-    // Don't use this. Use `attachPackageListener`
-    func receivePackage() -> Package
-
-    // Don't use this. Use `attachPlayerListListener`
-    func getPlayers(gameId: Int) -> [Player]
-
     /// Notifies the player when there is a new player joining in the game.`action` is called when a new player joins.
     func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void)
     
-    /// This method is called by the host and allocates pre-generated items to all players in `players` at the start of a round.
+    /// This method is called by the host and allocates pre-generated items
+    /// to all players in `players` at the start of a round.
     func allocateItems(gameId: Int, players: [Player])
 
-    /// This method is called by the host and allocates pre-generated orders to all players in `players` at the start of a round.
+    /// This method is called by the host and allocates pre-generated orders
+    /// to all players in `players` at the start of a round.
     func allocateOrders(gameId: Int, players: [Player])
 
 }

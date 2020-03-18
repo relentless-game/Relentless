@@ -23,6 +23,7 @@ class GameControllerManager: GameController {
     
     init(userId: String) {
         self.userId = userId
+        // TODO: put this info into game -> player -> userid
     }
 
     /// Can be called directly by view or notified by network
@@ -39,7 +40,7 @@ class GameControllerManager: GameController {
         guard let gameId = game?.gameId else {
             return
         }
-        network.terminateGame(gameId: gameId)
+        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
         game = nil
     }
 
@@ -108,7 +109,7 @@ extension GameControllerManager {
     func joinGame(userId: String, userName: String, gameId: Int) -> Bool {
         //let joinedGame = network.joinGame(userId: userId, gameId: gameId)
         //return joinedGame
-        network.joinGame(userId: userId, userName: userName, gameId: gameId)
+        try network.joinGame(userId: userId, userName: userName, gameId: gameId)
         return true
     }
 

@@ -9,8 +9,7 @@
 import Foundation
 
 enum JoinGameError: Error {
-    case invalidId
-    case nonexistentGameId
+    case invalidGameId
     case gameRoomFull
     case gameAlreadyPlaying
 }

@@ -9,8 +9,9 @@
 import Foundation
 
 protocol Network {
-    /// This is for the host to start a game. Returns the game room ID.
-    func createGame() -> Int
+    /// This is for the host to start a game. `completion` is called when the game is created
+    /// and takes in the game ID created.
+    func createGame(completion: @escaping (Int) -> Void)
     
     /// Changes the `GameStatus` to notify other players that the game has ended.
     /// Frees up the game ID stored in the cloud.
@@ -23,7 +24,10 @@ protocol Network {
     
     /// This can be called by a player to join the game with the specified game ID.
     /// The host also has to join through this method.
-    func joinGame(userId: String, userName: String, gameId: Int) throws
+    /// - parameters:
+    ///     - completion: a closure that is called to propagate possible errors
+    ///     that occur when joining a game. `nil` is passed into it to indicate success.
+    func joinGame(userId: String, userName: String, gameId: Int, completion: @escaping (JoinGameError?) -> Void)
     
     /// A non-host player can call this function to quit the game before the game starts.
     /// If a host wishes to quit the game, the whole game will terminate,

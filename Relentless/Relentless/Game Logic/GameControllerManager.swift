@@ -62,8 +62,8 @@ class GameControllerManager: GameController {
     }
 
     private func initialisePlayers(gameId: Int) {
-        let players = network.getPlayers(gameId: gameId)
-        game?.allPlayers = players
+//        let players = network.getPlayers(gameId: gameId)
+//        game?.allPlayers = players
     }
 
     private func initialiseItems() {
@@ -99,17 +99,22 @@ class GameControllerManager: GameController {
 
 extension GameControllerManager {
     func createGame(userId: String, userName: String) -> Bool {
-        let gameId = network.createGame()
+        //let gameId = network.createGame()
         // let player = Player(userId: userId)
         // game = GameManager(gameId: gameId, player: Player)
-        let joinedGame = joinGame(userId: userId, userName: userName, gameId: gameId)
-        return joinedGame
+        //let joinedGame = joinGame(userId: userId, userName: userName, gameId: gameId)
+        //return joinedGame
+        return true
     }
 
     func joinGame(userId: String, userName: String, gameId: Int) -> Bool {
         //let joinedGame = network.joinGame(userId: userId, gameId: gameId)
         //return joinedGame
-        try network.joinGame(userId: userId, userName: userName, gameId: gameId)
+        do {
+            try network.joinGame(userId: userId, userName: userName, gameId: gameId)
+        } catch {
+            // do something
+        }
         return true
     }
 

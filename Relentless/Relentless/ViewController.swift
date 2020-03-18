@@ -21,10 +21,25 @@ class ViewController: UIViewController {
         if let delegate = delegate {
             userId = delegate.userId
         }
-        
+
         // Initialise game controller
-        gameController = GameControllerManager(userId: userId)
+        //gameController = GameControllerManager(userId: userId)
         // ...
+        
+        let manager = NetworkManager()
+        let userid = "myuserid"
+        manager.createGame { gameId in
+            print("the new game ID is \(gameId)")
+        }
+//        let gameId = manager.createGame()
+//        do {
+//            try manager.joinGame(userId: userid, userName: "hi", gameId: gameId)
+//        } catch {
+//
+//        }
+//        let packageToSend = Package(creator: "john", packageNumber: 5, items: [])
+//        let targetPlayer = Player(userId: "targeuserid", userName: "doe", profileImage: UIImage())
+//        manager.sendPackage(gameId: gameId, package: packageToSend, to: targetPlayer)
     }
     
 }

@@ -43,4 +43,8 @@ class Item: Hashable, Comparable, Codable {
         hasher.combine(category)
     }
 
-}
+    func toString() -> String {
+        "Item"
+    }
+
+} 

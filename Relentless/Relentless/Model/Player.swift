@@ -11,7 +11,7 @@ import UIKit
 
 /// This struct represents a player in the game.
 class Player {
-    let userId: String
+    var userId: String
     let userName: String
     let profileImage: UIImage?
     var items: Set<Item> = []

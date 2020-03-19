@@ -96,7 +96,7 @@ extension LobbyViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return players?.count ?? 0
+        players?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,

@@ -8,8 +8,7 @@
 
 import Foundation
 
-class Order: Hashable {
-  
+class Order: Hashable, Codable {
     static var MAX_NUMBER_OF_ITEMS = 10
 
     var items: [Item]
@@ -22,6 +21,25 @@ class Order: Hashable {
         self.timeLimit = timeLimitInSeconds
         self.timeLeft = timeLimitInSeconds
         self.timer = Timer()
+    }
+
+    enum OrderKeys: CodingKey {
+           case items
+           case timeLimit
+       }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: OrderKeys.self)
+        self.items = try container.decode([Item].self, forKey: .items)
+        self.timeLimit = try container.decode(Int.self, forKey: .timeLimit)
+        self.timeLeft = self.timeLimit
+        self.timer = Timer()
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: OrderKeys.self)
+        try container.encode(items, forKey: .items)
+        try container.encode(timeLimit, forKey: .timeLimit)
     }
 
     func startOrder() {

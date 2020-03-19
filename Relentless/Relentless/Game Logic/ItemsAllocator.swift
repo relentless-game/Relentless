@@ -89,5 +89,4 @@ class ItemsAllocator: GameItemsAllocator {
         }
         return items
     }
-
 }

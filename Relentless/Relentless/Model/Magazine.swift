@@ -10,7 +10,8 @@ import Foundation
 
 class Magazine: TitledItem {
     static let category = Category.magazine
-
+    static let magazineHeader = "Magazine: "
+    
     init(name: String) {
         super.init(name: name, category: Magazine.category)
     }
@@ -35,5 +36,9 @@ class Magazine: TitledItem {
             return false
         }
         return otherMagazine.name == self.name
+    }
+
+    override func toString() -> String {
+        Magazine.magazineHeader + name
     }
 }

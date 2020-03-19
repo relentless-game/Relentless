@@ -28,6 +28,8 @@
 		62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7E241DE45A009406FB /* ItemsLists.swift */; };
 		62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A80241DE480009406FB /* ItemGenerator.swift */; };
 		62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A82241DE611009406FB /* ListBasedGenerator.swift */; };
+		62EE1A85241DECD8009406FB /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A84241DECD8009406FB /* Book.swift */; };
+		6249B50F241CA68A002F8A1B /* GameItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
 		F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
@@ -105,6 +107,8 @@
 		62EE1A7E241DE45A009406FB /* ItemsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
 		62EE1A80241DE480009406FB /* ItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemGenerator.swift; sourceTree = "<group>"; };
 		62EE1A82241DE611009406FB /* ListBasedGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBasedGenerator.swift; sourceTree = "<group>"; };
+		62EE1A84241DECD8009406FB /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemGenerator.swift; sourceTree = "<group>"; };
 		85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.debug.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.debug.xcconfig"; sourceTree = "<group>"; };
 		C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.debug.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,6 +207,7 @@
 				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
 				62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
 				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
+				6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
 			);
 			path = "Game Logic";
 			sourceTree = "<group>";
@@ -601,6 +606,8 @@
 				F3BF7ED6241FB41500A50EE3 /* House.swift in Sources */,
 				62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
 				62CEC6FD241CBDA000936CB6 /* ItemsAllocator.swift in Sources */,
+				6249B509241C96EB002F8A1B /* CategoryGenerator.swift in Sources */,
+				6249B50F241CA68A002F8A1B /* GameItemGenerator.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
 				F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
 				F3BF7ED8241FB41500A50EE3 /* TitledItem.swift in Sources */,

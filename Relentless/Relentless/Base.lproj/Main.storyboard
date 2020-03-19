@@ -11,7 +11,7 @@
         <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="StartViewController" title="Title" id="BYZ-38-t0r" sceneMemberID="viewController">
+                <viewController title="Title" id="BYZ-38-t0r" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Join Game"/>
                                         <connections>
-                                            <segue destination="GSL-Qu-8tE" kind="show" id="vKT-ZM-cVP"/>
+                                            <segue destination="GSL-Qu-8tE" kind="show" id="1tn-r1-4fc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -130,7 +130,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CwJ-vr-Q8v"/>
                     <connections>
-                        <outlet property="joinButton" destination="FtR-Rh-iSH" id="Q3X-rF-a03"/>
+                        <outlet property="joinButton" destination="FtR-Rh-iSH" id="hSp-3f-XbI"/>
                         <outlet property="teamCodeTextField" destination="3BX-fr-kSS" id="uTm-Ia-lrf"/>
                     </connections>
                 </viewController>

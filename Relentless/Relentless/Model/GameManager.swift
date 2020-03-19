@@ -8,7 +8,8 @@
 
 import Foundation
 
-class GameManager {
+class GameManager: Game {
+        
     /// user information
     var player: Player
     var allPlayers = [Player]()
@@ -22,6 +23,7 @@ class GameManager {
     var houses = [House]()
     var cumulativePackageNumber = 0
     var currentlyOpenPackage: Package?
+    var currentRoundNumber = 0
 
     init(gameId: Int, player: Player) {
         self.gameId = gameId
@@ -67,6 +69,18 @@ class GameManager {
     func openPackage(package: Package) {
         assert(packages.contains(package))
         currentlyOpenPackage = package
+    }
+
+    func incrementRoundNumber() {
+        currentRoundNumber += 1
+    }
+    
+    func addOrder(order: Order) {
+        // do something
+    }
+    
+    func removeOrder(order: Order) {
+        // do something
     }
 
 }

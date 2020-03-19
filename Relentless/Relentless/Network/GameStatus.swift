@@ -13,11 +13,13 @@ import Foundation
 struct GameStatus: Codable {
     var isGamePlaying: Bool
     var isRoundPlaying: Bool
+    var isGameEndedPrematurely: Bool
     var currentRound: Int
     
-    init(isGamePlaying: Bool, isRoundPlaying: Bool, currentRound: Int) {
+    init(isGamePlaying: Bool, isRoundPlaying: Bool, isGameEndedPrematurely: Bool, currentRound: Int) {
         self.isGamePlaying = isGamePlaying
         self.isRoundPlaying = isRoundPlaying
+        self.isGameEndedPrematurely = isGameEndedPrematurely
         self.currentRound = currentRound
     }
     
@@ -45,27 +47,4 @@ struct GameStatus: Codable {
             return nil
         }
     }
-    
-//    func encodeToDictionary() -> [String: Any] {
-//        let result = [
-//            "isGamePlaying": isGamePlaying,
-//            "isRoundPlaying": isRoundPlaying,
-//            "currentRound": currentRound
-//        ] as [String: Any]
-//
-//        return result
-//    }
-//
-//    static func decodeFromDictionary(dict: [String: Any]) -> GameStatus? {
-//        guard let isGamePlaying = dict["isGamePlaying"] as? Bool,
-//            let isRoundPlaying = dict["isRoundPlaying"] as? Bool,
-//            let currentRound = dict["currentRound"] as? Int else {
-//            return nil
-//        }
-//
-//        let result = GameStatus(isGamePlaying: isGamePlaying, isRoundPlaying: isRoundPlaying,
-//                                currentRound: currentRound)
-//        return result
-//    }
-    
 }

@@ -11,14 +11,18 @@ import Foundation
 protocol Game {
 
     var player: Player { get set }
-    var gameId: Int { get set }
-    var currentRoundNumber: Int { get set }
-
     var allPlayers: [Player] { get set }
     var numberOfPlayers: Int { get }
 
-    //func addPackage(package: Package)
-    func addPackage() 
+    var gameId: Int { get set }
+    var packages: [Package] { get set }
+    var houses: [House] { get set }
+    var currentRoundNumber: Int { get set }
+    var defaultNumberOfHouses: Int { get }
+
+    func addPackage(package: Package)
+
+    func addNewPackage()
     
     func removePackage(package: Package)
 

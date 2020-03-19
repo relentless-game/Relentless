@@ -21,7 +21,9 @@ extension Notification.Name {
     static let invalidGameId = Notification.Name("invalidGameId")
     static let gameAlreadyPlaying = Notification.Name("gameAlreadyPlaying")
     static let gameRoomFull = Notification.Name("gameRoomFull")
-    static let didReceiveItems = Notification.Name("didReceiveItems")
-    static let didReceiveOrders = Notification.Name("didReceiveOrders")
-    static let didReceivePackage = Notification.Name("didReceivePackage")
+    static let didChangePackagesInModel = Notification.Name("didChangePackagesInModel")
+    static let didChangeItemsInPackage = Notification.Name("didChangeItemsInPackage")
+    static let didChangeItemsInModel = Notification.Name("didChangeItemsInModel")
+    static let didChangeItems = Notification.Name("didChangeItems")
+    static let didChangePackages = Notification.Name("didChangePackages")
 }

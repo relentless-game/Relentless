@@ -19,19 +19,29 @@ class GameManager: Game {
 
     /// game information
     var gameId: Int
-    var packages = [Package]()
+    var packages = [Package]() {
+        didSet {
+            NotificationCenter.default.post(name: .didChangePackagesInModel, object: nil)
+        }
+    }
     var houses = [House]()
     var cumulativePackageNumber = 0
     var currentlyOpenPackage: Package?
     var currentRoundNumber = 0
+    var defaultNumberOfHouses = 5
 
     init(gameId: Int, player: Player) {
         self.gameId = gameId
         self.player = player
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
+    }
+
+    func addPackage(package: Package) {
+        packages.append(package)
     }
 
     /// Adds a new package and sets this package as the currenlty open package
-    func addPackage() {
+    func addNewPackage() {
         let emptyPackage = Package(creator: player.userName, packageNumber: cumulativePackageNumber, items: [Item]())
         packages.append(emptyPackage)
         currentlyOpenPackage = emptyPackage
@@ -81,6 +91,10 @@ class GameManager: Game {
     
     func removeOrder(order: Order) {
         // do something
+    }
+
+    @objc func notifyItemChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangeItemsInModel, object: nil)
     }
 
 }

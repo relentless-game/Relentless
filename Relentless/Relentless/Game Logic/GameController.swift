@@ -12,6 +12,9 @@ import Foundation
 protocol GameController: GameNetworkController, GameModelController {
 
     var isHost: Bool { get set }
+    var gameCategories: [Category] { get }
+    var satisfactionBar: SatisfactionBar { get set }
+    var money: Int { get }
 
     func startGame()
 

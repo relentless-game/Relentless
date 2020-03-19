@@ -9,7 +9,9 @@
 import Foundation
 
 class ItemsAllocator: GameItemsAllocator {
-    
+
+    var generatedItemsByCategory: [Category : [Item]] = [:]
+
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
 
@@ -23,7 +25,8 @@ class ItemsAllocator: GameItemsAllocator {
     }
 
     func allocateItems(categories: [Category], players: [Player]) {
-        var items = generateItems(categories: categories)
+        generateItems(categories: categories)
+        var items = consolidateAllItems()
         let numberOfItemsForEachPlayer = items.count / players.count
         for player in players {
             while player.items.count < numberOfItemsForEachPlayer {
@@ -55,14 +58,14 @@ class ItemsAllocator: GameItemsAllocator {
     }
 
     /// Generates items based on the specified categories
-    private func generateItems(categories: [Category]) -> [Item] {
-        var items = [Item]()
+    private func generateItems(categories: [Category]) {
+        var items = [Category: [Item]]()
         let numberToGenerate = numberOfPlayers * (defaultNumOfGroups + Int(difficultyLevel *
             Float(defaultNumOfGroups))) // per category
         for category in categories {
-            items.append(contentsOf: generateItems(category: category, numberToGenerate: numberToGenerate))
+            items[category] = generateItems(category: category, numberToGenerate: numberToGenerate)
         }
-        return items
+        generatedItemsByCategory = items
     }
 
     /// Generates items for specified category
@@ -73,6 +76,18 @@ class ItemsAllocator: GameItemsAllocator {
         default:
             return [Item]()
         }
+    }
+
+    /// Consolidates all generated items into a single array
+    private func consolidateAllItems() -> [Item] {
+        var items = [Item]()
+        for category in generatedItemsByCategory.keys {
+            guard let categoryItems = generatedItemsByCategory[category] else {
+                continue
+            }
+            items.append(contentsOf: categoryItems)
+        }
+        return items
     }
 
 }

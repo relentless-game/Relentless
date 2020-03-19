@@ -18,6 +18,8 @@ class GameManager: Game {
     }
 
     /// game information
+    // todo: should be changeable
+    let defaultNumberOfHouses = 5
     var gameId: Int
     var packages = [Package]()
     var houses = [House]()

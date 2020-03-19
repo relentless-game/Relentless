@@ -22,7 +22,9 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameController = GameControllerManager()
+        if let userId = self.userId {
+            gameController = GameControllerManager(userId: userId)
+        }
         initUserId()
         if gameId == nil {
             createGame()
@@ -55,7 +57,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
             return
         }
         let result = gameController?.joinGame(userId: userId, userName: LobbyViewController.dummyName, gameId: gameId)
-        assert(result ?? false)
+        //assert(result ?? false)
     }
 
     func createGame() {
@@ -63,7 +65,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
             return
         }
         let result = gameController?.createGame(userId: userId, userName: LobbyViewController.dummyName)
-        assert(result ?? false)
+        //assert(result ?? false)
         // TODO: Get actual gameId
         gameId = 0
     }

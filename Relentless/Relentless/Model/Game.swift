@@ -2,37 +2,41 @@
 //  Game.swift
 //  Relentless
 //
-//  Created by Chow Yi Yin on 14/3/20.
+//  Created by Yi Wai Chow on 14/3/20.
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
 import Foundation
 
-class Game {
-    /// user information
-    var user: Player
-    var otherPlayers: [Player]
+protocol Game {
 
-    /// game information
-    var packages = [Package]()
-    var houses = [House]()
-    var cumulativePackageNumber = 0
+    var player: Player { get set }
+    var gameId: Int { get set }
+    var currentRoundNumber: Int { get set }
 
-    init(user: Player, otherPlayers: [Player]) {
-        self.user = user
-        self.otherPlayers = otherPlayers
-    }
+    var allPlayers: [Player] { get set }
+    var numberOfPlayers: Int { get }
 
-    func addPackage() {
-        let emptyPackage = Package(creator: user.userName, packageNumber: cumulativePackageNumber, items: [Item]())
-        packages.append(emptyPackage)
-    }
+    //func addPackage(package: Package)
+    func addPackage() 
+    
+    func removePackage(package: Package)
 
-    func deletePackage(package: Package) {
-        guard let indexOfPackage = packages.firstIndex(of: package) else {
-            return
-        }
-        packages.remove(at: indexOfPackage)
-    }
+    func addItem(item: Item)
 
+    func removeItem(item: Item)
+
+    func checkPackage(package: Package, for house: House) -> Bool
+
+    func retrieveOrders(for house: House) -> Set<Order> 
+
+    func retrieveOrder(package: Package, house: House) -> Order?
+
+    func addOrder(order: Order)
+
+    func removeOrder(order: Order)
+
+    func openPackage(package: Package)
+
+    func incrementRoundNumber()
 }

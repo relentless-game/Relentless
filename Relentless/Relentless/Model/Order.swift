@@ -57,5 +57,4 @@ extension Order {
         lhs.items == rhs.items &&
             lhs.timeLimit == rhs.timeLimit
     }
-  
 }

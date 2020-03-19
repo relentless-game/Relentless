@@ -24,8 +24,8 @@ protocol GameModelController {
 
     func deliverPackage(package: Package, to house: House)
 
-    //func retrieveOrders(for house: House) -> [Order]
-
     func openPackage(package: Package)
+
+    func retrieveOrders(for house: House) -> Set<Order>
 
 }

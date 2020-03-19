@@ -10,6 +10,7 @@ import Foundation
 
 class Book: TitledItem {
     static let category = Category.book
+    static let bookHeader = "Book: "
 
     init(name: String) {
         super.init(name: name, category: Book.category)
@@ -35,5 +36,9 @@ class Book: TitledItem {
             return false
         }
         return otherBook.name == self.name
+    }
+
+    override func toString() -> String {
+        Book.bookHeader + name
     }
 }

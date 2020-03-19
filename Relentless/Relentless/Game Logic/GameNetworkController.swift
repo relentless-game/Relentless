@@ -11,16 +11,18 @@ import Foundation
 /// To handle `Network` related game actions
 protocol GameNetworkController {
 
-    /// Returns `Bool` to indicate if the game was created successfully
-    func createGame(userId: String, userName: String) -> Bool
+    var network: Network { get }
+    var userId: String? { get }
+    var gameId: Int? { get }
 
-    /// Returns `Bool` to indicate if the join was successful
-    func joinGame(userId: String, userName: String, gameId: Int) -> Bool
+    func createGame(userName: String)
+
+    func joinGame(userName: String, gameId: Int)
+
+    /// To leave the game before it starts
+    /// Terminates the game if host calls this method
+    func leaveGame(userId: String)
 
     /// Returns `Bool` to indicate if the package was sent successfully
     func sendPackage(package: Package, to destination: Player) -> Bool
-
-    func receivePackage(package: Package)
-
-
 }

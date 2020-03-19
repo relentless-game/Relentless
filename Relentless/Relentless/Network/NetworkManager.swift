@@ -11,24 +11,27 @@ import Firebase
 
 class NetworkManager: Network {
 
+    let maxNumberOfPlayers = 6
+
     private var ref: DatabaseReference!
 
     init() {
         ref = Database.database().reference()
     }
     
-    func createGame() -> Int {
-        // currently taken game IDs
-        var gameIdsTaken = [Int]()
-        ref.child("gameIdsTaken").observeSingleEvent(of: .value, with: { snapshot in
-            for value in snapshot.children {
-                let gameIdTaken = value as? Int ?? -1
-                gameIdsTaken.append(gameIdTaken)
+    func createGame(completion: @escaping (Int) -> Void) {
+        ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
+            var gameIdsTaken = [Int]()
+            if let snapDict = snapshot.value as? [String: Int] {
+                for gameId in snapDict.values {
+                    gameIdsTaken.append(gameId)
+                }
             }
-        }) { error in
-            print(error.localizedDescription)
+            self.createGameInDatabase(gameIdsTaken: gameIdsTaken, completion: completion)
         }
-        
+    }
+    
+    private func createGameInDatabase(gameIdsTaken: [Int], completion: @escaping (Int) -> Void) {
         // randomly generate an ID and make sure it's not taken
         var gameId = Int.random(in: 1_000...9_999)
         while gameIdsTaken.contains(gameId) {
@@ -43,12 +46,14 @@ class NetworkManager: Network {
         // create a game room
         ref.child("games").child("\(gameId)").setValue(["gameKey": gameIdKey])
         
-        return gameId
+        // notify game controller about the game ID
+        completion(gameId)
     }
     
-    func terminateGame(gameId: Int) {
+    func terminateGame(gameId: Int, isGameEndedPrematurely: Bool) {
         // change game status to notify other players
         guard let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
+                                          isGameEndedPrematurely: isGameEndedPrematurely,
                                           currentRound: -1).encodeToString() else {
             return
         }
@@ -69,8 +74,67 @@ class NetworkManager: Network {
             self.ref.child("games/\(gameId)").setValue(nil)
         }
     }
+        
+    func joinGame(userId: String, userName: String, gameId: Int, completion: @escaping (JoinGameError?) -> Void) {
+        // series of chained checks
+        // game ID validity -> game already playing -> game room full
+        checkGameIdValidity(userId: userId, userName: userName, gameId: gameId, completion: completion)
+    }
     
-    func joinGame(userId: String, userName: String, gameId: Int) {
+    private func checkGameIdValidity(userId: String, userName: String, gameId: Int,
+                                     completion: @escaping (JoinGameError?) -> Void) {
+        ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
+            var gameIdsTaken = [Int]()
+            if let snapDict = snapshot.value as? [String: Int] {
+                for gameId in snapDict.values {
+                    gameIdsTaken.append(gameId)
+                }
+            }
+            let isGameIdValid = gameIdsTaken.contains(gameId)
+            if isGameIdValid {
+                // next check
+                self.checkGameAlreadyPlaying(userId: userId, userName: userName, gameId: gameId, completion: completion)
+            } else {
+                completion(JoinGameError.invalidGameId)
+            }
+        }
+    }
+    
+    private func checkGameAlreadyPlaying(userId: String, userName: String, gameId: Int,
+                                         completion: @escaping (JoinGameError?) -> Void) {
+        ref.child("games/\(gameId)/status").observeSingleEvent(of: .value) { snapshot in
+            let statusString = snapshot.value as? String ?? ""
+            if let gameStatus = GameStatus.decodeFromString(string: statusString) {
+                let isGameStarted = gameStatus.isGamePlaying
+                if isGameStarted {
+                    completion(JoinGameError.gameAlreadyPlaying)
+                } else {
+                    // next check
+                    self.checkGameRoomFull(userId: userId, userName: userName, gameId: gameId, completion: completion)
+                }
+            }
+        }
+    }
+    
+    private func checkGameRoomFull(userId: String, userName: String, gameId: Int,
+                                   completion: @escaping (JoinGameError?) -> Void) {
+        ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
+            var numberOfPlayers = 0
+            for _ in snapshot.children {
+                numberOfPlayers += 1
+            }
+            
+            if numberOfPlayers < self.maxNumberOfPlayers {
+                self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
+                completion(nil) // nil indicates successful result
+            } else {
+                completion(JoinGameError.gameRoomFull)
+            }
+        }
+    }
+    
+    private func joinGameInDatabase(userId: String, userName: String, gameId: Int) {
+        // add this user to the game
         let userProfile = [
             "userId": userId,
             "userName": userName
@@ -78,8 +142,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
     
+    func quitGame(userId: String, gameId: Int) {
+        ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
+    }
+    
     func startGame(gameId: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           currentRound: 1).encodeToString() else {
             return
         }
@@ -87,7 +155,7 @@ class NetworkManager: Network {
     }
     
     func startRound(gameId: Int, roundNumber: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
                                           currentRound: roundNumber).encodeToString() else {
             return
         }
@@ -95,7 +163,7 @@ class NetworkManager: Network {
     }
     
     func terminateRound(gameId: Int, roundNumber: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           currentRound: roundNumber).encodeToString() else {
             return
         }
@@ -118,25 +186,24 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(destination.userId)/orders").setValue(encodedOrders)
     }
     
-    func receiveItems(userId: String, gameId: Int) -> [Item] {
+    func attachItemsListener(userId: String, gameId: Int, action: @escaping ([Item]) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/items"
-        var items: [Item] = []
-        ref.child(path).observeSingleEvent(of: .value) { snapshot in
+        ref.child(path).observe(DataEventType.value, with: { snapshot in
             let encodedString = snapshot.value as? String ?? ""
-            items = ItemsAdapter.decodeItems(from: encodedString)
-        }
-        
-        return items
+            let items = ItemsAdapter.decodeItems(from: encodedString)
+
+            action(items)
+        })
     }
     
-    func receiveOrders(userId: String, gameId: Int) -> [Order] {
+    func attachOrdersListener(userId: String, gameId: Int, action: @escaping ([Order]) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/orders"
-        var orders: [Order] = []
-        ref.child(path).observeSingleEvent(of: .value) { snapshot in
+        ref.child(path).observe(DataEventType.value, with: { snapshot in
             let encodedString = snapshot.value as? String ?? ""
-            orders = OrdersAdapter.decodeOrders(from: encodedString)
-        }
-        return orders
+            let orders = OrdersAdapter.decodeOrders(from: encodedString)
+
+            action(orders)
+        })
     }
     
     func sendPackage(gameId: Int, package: Package, to destination: Player) {
@@ -147,13 +214,10 @@ class NetworkManager: Network {
     
     func attachPackageListener(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/packages"
-        // TODO: possible problem: multiple packages added at the same time
         let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
-            for child in snapshot.children {
-                let packageString = child as? String ?? ""
-                if let package = PackageAdapter.decodePackage(from: packageString) {
-                    action(package)
-                }
+            let packageString = snapshot.value as? String ?? ""
+            if let package = PackageAdapter.decodePackage(from: packageString) {
+                action(package)
             }
         })
         
@@ -179,33 +243,33 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)/packages").removeValue()
     }
     
-    func getPlayers(gameId: Int) -> [Player] {
+    func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void) {
         let path = "games/\(gameId)/users"
-        var players: [Player] = []
-        ref.child(path).observeSingleEvent(of: .value) { snapshot in
-            for child in snapshot.children {
-                let dict = child as? [String: String] ?? [:]
-                let userId = dict["userId"] ?? ""
-                let userName = dict["userName"] ?? ""
-                let player = Player(userId: userId, userName: userName, profileImage: nil)
-                players.append(player)
+        ref.child(path).observe(.value) { snapshot in
+            var players: [Player] = []
+            if let dict = snapshot.value as? [String: [String: Any]] {
+                for playerInfo in dict.values {
+                    let playerInfoDict = playerInfo as? [String: String] ?? [:]
+                    let userId = playerInfoDict["userId"] ?? ""
+                    let userName = playerInfoDict["userName"] ?? ""
+                    let player = Player(userId: userId, userName: userName, profileImage: nil)
+                    players.append(player)
+                }
             }
+            action(players) // all the players currently in the game
         }
-        
-        return players
-    }
-
-    // TODO: change the following dummy methods
-    func receivePackage() -> Package {
-        return Package(creator: "creator", packageNumber: 1, items: [])
     }
     
-    func allocateItems(players: [Player]) {
-        
+    func allocateItems(gameId: Int, players: [Player]) {
+        for player in players {
+            sendItems(gameId: gameId, items: Array(player.items), to: player)
+        }
     }
 
-    func allocateOrders(players: [Player]) {
-        
+    func allocateOrders(gameId: Int, players: [Player]) {
+        for player in players {
+            sendOrders(gameId: gameId, orders: Array(player.orders), to: player)
+        }
     }
-
+    
 }

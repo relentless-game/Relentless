@@ -57,7 +57,8 @@ class House {
         orders.remove(order)
     }
 
-    @objc func notifyOrderUpdate(notification: Notification) {
+    @objc
+    func notifyOrderUpdate(notification: Notification) {
         NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
     }
 }

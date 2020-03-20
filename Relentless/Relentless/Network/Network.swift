@@ -42,7 +42,10 @@ protocol Network {
     
     /// This is called by the host player to terminate the current round.
     func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Int)
-    
+
+    /// This is called to pause the current round.
+    func pauseRound(gameId: Int)
+
     /// This is called by the host player at the start of the round to send pre-generated items to the target player.
     func sendItems(gameId: Int, items: [Item], to destination: Player)
     

@@ -6,4 +6,12 @@
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
-import Foundation
+import UIKit
+extension UIViewController {
+    func removePreviousViewController() {
+        guard let count = navigationController?.viewControllers.count else {
+            return
+        }
+        navigationController?.viewControllers.remove(at: count - 2)
+    }
+}

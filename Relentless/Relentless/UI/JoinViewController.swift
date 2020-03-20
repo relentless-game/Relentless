@@ -36,8 +36,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         if textField.keyboardType == .numberPad {
             // Check for invalid input characters
             if !CharacterSet(charactersIn: "0123456789").isSuperset(of: CharacterSet(charactersIn: string)) {
-                // Present alert so the user knows what went wrong
-//                presentAlert("This field accepts only numeric entries.")
                 // Invalid characters detected, disallow text change
                 return false
             }
@@ -50,7 +48,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             // Check proposed text length does not exceed max character count
             guard proposedText.count <= JoinViewController.teamCodeCharacterLimit else {
                 // Present alert if pasting text
-                // easy: pasted data has a length greater than 1; who copy/pastes one character?
                 if string.count > 1 {
                     // Pasting text, present alert so the user knows what went wrong
 //                    presentAlert("Paste failed: Maximum character count exceeded.")
@@ -60,8 +57,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                 return false
             }
 
-            // Only enable the OK/submit button if they have entered all numbers for the last four
-            // of their SSN (prevents early submissions/trips to authentication server, etc)
             joinButton.isEnabled = (proposedText.count == JoinViewController.teamCodeCharacterLimit)
         }
 

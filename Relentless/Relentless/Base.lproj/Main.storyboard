@@ -270,9 +270,12 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3U-Vz-hVs">
-                                <rect key="frame" x="643" y="25" width="105" height="42"/>
+                                <rect key="frame" x="635" y="25" width="113" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="To Orders"/>
+                                <state key="normal" title="To Houses"/>
+                                <connections>
+                                    <segue destination="7Wf-ZL-3wu" kind="show" id="fdU-OW-AMW"/>
+                                </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
                                 <rect key="frame" x="74" y="335" width="664" height="30"/>
@@ -475,13 +478,58 @@
         <!--Houses-->
         <scene sceneID="FMr-hJ-UbY">
             <objects>
-                <viewController title="Houses" id="7Wf-ZL-3wu" sceneMemberID="viewController">
+                <viewController title="Houses" id="7Wf-ZL-3wu" customClass="HousesViewController" customModule="Relentless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MjB-xY-kNL">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p1c-Oa-Zz4">
+                                <rect key="frame" x="666" y="30" width="116" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="To Packing"/>
+                                <connections>
+                                    <segue destination="pIj-eO-AQF" kind="show" id="N8K-F4-jFJ"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o3k-me-lbf">
+                                <rect key="frame" x="74" y="100" width="664" height="224"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wBJ-VK-lV5">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HouseCell" id="css-3X-f3p">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Dqw-2i-yyc">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="7Wf-ZL-3wu" id="zfS-Z8-imT"/>
+                                    <outlet property="delegate" destination="7Wf-ZL-3wu" id="B7O-lP-fGc"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="8v0-GL-bLx" firstAttribute="trailing" secondItem="o3k-me-lbf" secondAttribute="trailing" constant="30" id="0Ip-ix-5il"/>
+                            <constraint firstItem="o3k-me-lbf" firstAttribute="leading" secondItem="8v0-GL-bLx" secondAttribute="leading" constant="30" id="D4B-rL-7X9"/>
+                            <constraint firstItem="8v0-GL-bLx" firstAttribute="bottom" secondItem="o3k-me-lbf" secondAttribute="bottom" constant="30" id="HNy-ud-R2h"/>
+                            <constraint firstItem="o3k-me-lbf" firstAttribute="top" secondItem="8v0-GL-bLx" secondAttribute="top" constant="100" id="YHT-jV-fnQ"/>
+                            <constraint firstAttribute="trailing" secondItem="p1c-Oa-Zz4" secondAttribute="trailing" constant="30" id="b9Z-6g-Ywo"/>
+                            <constraint firstItem="p1c-Oa-Zz4" firstAttribute="top" secondItem="8v0-GL-bLx" secondAttribute="top" constant="30" id="h5C-cG-xEl"/>
+                            <constraint firstItem="p1c-Oa-Zz4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8v0-GL-bLx" secondAttribute="leading" symbolic="YES" id="zWX-4f-adG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="8v0-GL-bLx"/>
                     </view>
+                    <navigationItem key="navigationItem" id="oYm-QS-kVM"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7Z-ZD-ceQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -507,8 +555,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="fdU-OW-AMW"/>
         <segue reference="Ed9-Qd-LTp"/>
-        <segue reference="FIJ-C2-L9I"/>
+        <segue reference="N8K-F4-jFJ"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

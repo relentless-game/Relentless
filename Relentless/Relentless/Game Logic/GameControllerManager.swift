@@ -49,6 +49,7 @@ class GameControllerManager: GameController {
     var gameId: Int? {
         game?.gameId
     }
+    private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
         game?.player.userId = userId
@@ -92,11 +93,11 @@ class GameControllerManager: GameController {
     }
 
     func pauseRound() {
-        guard let gameId = gameId else {
+        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
         pauseAllTimers()
-        network.pauseRound(gameId: gameId)
+        network.pauseRound(gameId: gameId, currentRound: roundNumber)
     }
 
     @objc
@@ -105,6 +106,7 @@ class GameControllerManager: GameController {
             return
         }
         network.terminateRound(gameId: gameId, roundNumber: roundNumber, satisfactionLevel: satisfactionBar.currentSatisfaction)
+        network.resetPlayersOutOfOrders(gameId: gameId)
     }
 
     private func initialiseItems() {
@@ -140,7 +142,8 @@ class GameControllerManager: GameController {
 
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange), name: .didChangeItemsInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)), name: .didChangePackagesInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)),
+                                               name: .didChangePackagesInModel, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)), name: .didOrderUpdateInModel, object: nil)
     }
 
@@ -172,7 +175,10 @@ class GameControllerManager: GameController {
 
     /// To inform the network that this player has run out of orders
     private func outOfOrders() {
-        // do something
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        network.outOfOrders(userId: userId, gameId: gameId)
     }
 
 }
@@ -244,7 +250,7 @@ extension GameControllerManager {
     private func handleSuccessfulJoin(userId: String, gameId: Int) {
         self.network.attachPlayerJoinListener(gameId: gameId, action: self.onNewPlayerDidJoin)
         self.network.attachGameStatusListener(gameId: gameId, action: self.onGameStatusDidChange)
-        self.network.attachTeamSatisfactionListener(userId: userId, gameId: gameId,
+        self.network.attachTeamSatisfactionListener(gameId: gameId,
                                                     action: self.onTeamSatisfactionChange)
         self.network.attachItemsListener(userId: userId, gameId: gameId, action: { items in
             self.game?.player.items = Set(items)
@@ -255,6 +261,14 @@ extension GameControllerManager {
         self.network.attachPackageListener(userId: userId, gameId: gameId, action: { package in
             self.game?.addPackage(package: package)
         })
+        // to handle when everyone runs out of order
+        if isHost {
+            self.network.attachOutOfOrdersListener(gameId: gameId, action: { numOfPlayersOutOfOrders in
+                if numOfPlayersOutOfOrders == self.players.count {
+                    self.endRound() // the host will end the round when everyone runs out of orders
+                }
+            })
+        }
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -317,7 +331,14 @@ extension GameControllerManager {
 
     private func onTeamSatisfactionChange(satisfactionLevel: Int) {
         money += satisfactionLevel * 2 // arbitrary translation rate; to change next time
-        money -= dailyExpense
+        numOfSatisfactionLevelsReceived += 1
+        NotificationCenter.default.post(name: .didChangeMoney, object: nil)
+        
+        if numOfSatisfactionLevelsReceived == players.count - 1 {
+            money -= dailyExpense
+            numOfSatisfactionLevelsReceived = 0 // reset
+            NotificationCenter.default.post(name: .didChangeMoney, object: nil)
+        }
 
         guard isHost else {
             return

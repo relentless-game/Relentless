@@ -30,4 +30,5 @@ extension Notification.Name {
     static let didOrderUpdateInHouse = Notification.Name("didOrderUpdateInHouse")
     static let didOrderUpdateInModel = Notification.Name("didOrderUpdateInModel")
     static let didChangeOrders = Notification.Name("didChangeOrders")
+    static let didChangeMoney = Notification.Name("didChangeMoney")
 }

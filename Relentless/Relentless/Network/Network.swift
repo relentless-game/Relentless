@@ -41,8 +41,11 @@ protocol Network {
     func startRound(gameId: Int, roundNumber: Int)
     
     /// This is called by the host player to terminate the current round.
-    func terminateRound(gameId: Int, roundNumber: Int)
-    
+    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Int)
+
+    /// This is called to pause the current round.
+    func pauseRound(gameId: Int)
+
     /// This is called by the host player at the start of the round to send pre-generated items to the target player.
     func sendItems(gameId: Int, items: [Item], to destination: Player)
     
@@ -64,7 +67,11 @@ protocol Network {
     /// Notifies the player when there is a change in the game status, e.g. whether a game/round has started/ended.
     /// `action` is called upon any change in game status.
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void)
-    
+
+    /// Notifies the player when there is a change in the team satisfaction level.
+    /// `action` is called upon a change in the satisfaction level
+    func attachTeamSatisfactionListener(userId: String, gameId: Int, action: @escaping (Int) -> Void)
+
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.
     func deleteAllPackages(userId: String, gameId: Int)

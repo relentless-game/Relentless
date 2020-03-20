@@ -26,6 +26,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         if let userId = self.userId {
             gameController = GameControllerManager(userId: userId)
         }
+        addObservers()
     }
 
     func initUserId() {
@@ -97,7 +98,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         if let text = teamCodeTextField.text, let gameId = Int(text) {
             self.gameId = gameId
             _ = gameController?.joinGame(gameId: gameId)
-            print("hi")
         }
     }
 
@@ -129,6 +129,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "joinGame" {
             if let viewController = segue.destination as? LobbyViewController {
+                viewController.gameController = self.gameController
                 viewController.gameId = self.gameId
             }
         }
@@ -145,9 +146,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         let defaultAction = UIAlertAction(title: NSLocalizedString(action,
                                                                    bundle: Bundle.main,
                                                                    comment: ""),
-                                          style: .default) { _ -> Void in
-                                            self.dismiss(animated: true, completion: nil)
-        }
+                                          style: .default)
         controller.addAction(defaultAction)
         return controller
     }

@@ -22,12 +22,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUserId()
-        if let userId = self.userId {
+        if let userId = self.userId, gameController == nil {
+            // Game has not been created yet, create a game.
             gameController = GameControllerManager(userId: userId)
-        }
-        if gameId == nil {
             createGame()
+        } else {
+            // Game has been created and joined.
+            initGameIdLabel()
         }
+        refreshPlayers()
         addObservers()
 //        initStartButton()
 //        initGameIdLabel()
@@ -46,7 +49,10 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func refreshPlayers() {
+        print(gameController)
+        print(gameController?.gameId)
         players = gameController?.players
+        print(players)
         playersView.reloadData()
     }
 

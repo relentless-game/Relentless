@@ -17,21 +17,37 @@ class PackingViewController: UIViewController {
     @IBOutlet private var satisfactionBar: UIProgressView!
 
     // items will be updated when the category is changed
-    var items: [Item]?
+    var items: [Category: [Item]]?
     var packages: [Package]?
+    var currentCategory: Category? = .book
     var currentPackageItems: [Item]?
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        packages = [Package]()
-        packages?.append(Package(creator: "hi", packageNumber: 100, items: []))
-        items = [Item]()
-        items?.append(Book(name: "test"))
-        items?.append(Book(name: "woop"))
+//        packages = [Package]()
+//        packages?.append(Package(creator: "hi", packageNumber: 100, items: []))
+//        items = [Item]()
+//        items?.append(Book(name: "test"))
+//        items?.append(Book(name: "woop"))
         initialiseCollectionViews()
-        reloadAllViews()
+//        reloadAllViews()
+    }
+
+    func addObservers() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleJoinSuccess),
+//                                               name: .didJoinGame, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleInvalidGameId),
+//                                               name: .invalidGameId, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleGameRoomFull),
+//                                               name: .gameRoomFull, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSatisfactionBar),
+                                               name: .didChangeCurrentSatisfaction, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -48,19 +64,24 @@ class PackingViewController: UIViewController {
     }
     
     func reloadPackages() {
+        packages = gameController?.playerPackages
         packagesView.reloadData()
     }
 
     func reloadItems() {
+        items = gameController?.playerItems
         itemsView.reloadData()
     }
 
     func reloadCurrentPackage() {
+//        currentPackageItems = gameController?.
         currentPackageView.reloadData()
     }
 
-    func updateSatisfactionBar(to value: Float) {
-        satisfactionBar.setProgress(value, animated: true)
+    @objc func updateSatisfactionBar() {
+        if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
+            satisfactionBar.setProgress(value, animated: true)
+        }
     }
 
     func attachLongPressToPackages() {
@@ -126,7 +147,9 @@ extension PackingViewController: UICollectionViewDataSource {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
-            if let itemCell = cell as? ItemCell, let item = items?[indexPath.row] {
+            if let currentCategory = currentCategory,
+                let itemCell = cell as? ItemCell,
+                let item = items?[currentCategory]?[indexPath.item] {
                 itemCell.setItem(item: item)
             }
             return cell
@@ -147,10 +170,10 @@ extension PackingViewController: UICollectionViewDelegate {
             }
             gameController?.removeItem(item: currentPackageItems[indexPath.item])
         } else {
-            guard let items = items else {
-                return
+            if let currentCategory = currentCategory,
+                let item = items?[currentCategory]?[indexPath.item] {
+                gameController?.addItem(item: item)
             }
-            gameController?.addItem(item: items[indexPath.item])
         }
     }
 }

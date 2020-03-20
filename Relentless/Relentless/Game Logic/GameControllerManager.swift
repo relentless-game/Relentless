@@ -9,12 +9,6 @@
 import Foundation
 
 class GameControllerManager: GameController {
-    
-    // properties for game logic
-    private var roundTimeInterval: Double = 240 // in seconds
-    private var difficultyLevel: Float = 0
-    var game: Game?
-    var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
 
     // properties for game logic
     private var roundTimeInterval: Double = 240 // in seconds

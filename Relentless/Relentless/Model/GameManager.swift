@@ -18,8 +18,7 @@ class GameManager: Game {
     }
 
     /// game information
-    // todo: should be changeable
-    let defaultNumberOfHouses = 5
+    let defaultNumberOfHouses = 5 // todo: should be changeable
     var gameId: Int
     var packages = [Package]() {
         didSet {
@@ -30,7 +29,6 @@ class GameManager: Game {
     var cumulativePackageNumber = 0
     var currentlyOpenPackage: Package?
     var currentRoundNumber = 0
-    var defaultNumberOfHouses = 5
 
     init(gameId: Int, player: Player) {
         self.gameId = gameId

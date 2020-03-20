@@ -45,7 +45,14 @@ class NetworkManager: Network {
         
         // create a game room
         ref.child("games").child("\(gameId)").setValue(["gameKey": gameIdKey])
-        
+
+        // initialise game status
+        if let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
+                                       isGameEndedPrematurely: false,
+                                       isPaused: false, currentRound: 0).encodeToString() {
+            ref.child("games/\(gameId)/status").setValue(gameStatus)
+        }
+
         // notify game controller about the game ID
         completion(gameId)
     }
@@ -203,7 +210,9 @@ class NetworkManager: Network {
             let encodedString = snapshot.value as? String ?? ""
             let orders = OrdersAdapter.decodeOrders(from: encodedString)
 
-            action(orders)
+            if !orders.isEmpty {
+                action(orders)
+            }
         })
     }
     

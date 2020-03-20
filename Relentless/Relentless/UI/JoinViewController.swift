@@ -13,11 +13,40 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     static var teamCodeCharacterLimit = 4
     @IBOutlet private var teamCodeTextField: UITextField!
     @IBOutlet private var joinButton: UIButton!
+    var gameController: GameController?
+    var userId: String?
+    var gameId: Int?
+    weak var delegate = UIApplication.shared.delegate as? AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
         teamCodeTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
         teamCodeTextField.delegate = self
+        initUserId()
+        if let userId = self.userId {
+            gameController = GameControllerManager(userId: userId)
+        }
+    }
+
+    func initUserId() {
+        if let delegate = delegate {
+            userId = delegate.userId
+        }
+    }
+
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleJoinSuccess),
+                                               name: .didJoinGame, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleInvalidGameId),
+                                               name: .invalidGameId, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameRoomFull),
+                                               name: .gameRoomFull, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameAlreadyPlaying),
+                                               name: .gameAlreadyPlaying, object: nil)
     }
 
     // Code obtained and modified from:
@@ -64,14 +93,62 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    @IBAction private func tryJoinGame(_ sender: Any) {
+        if let text = teamCodeTextField.text, let gameId = Int(text) {
+            self.gameId = gameId
+            _ = gameController?.joinGame(gameId: gameId)
+            print("hi")
+        }
+    }
+
+    @objc func handleJoinSuccess() {
+        performSegue(withIdentifier: "joinGame", sender: self)
+    }
+
+    @objc func handleGameRoomFull() {
+        let alert = createAlert(title: "Sorry.",
+                                message: "The team is already full. There is a maximum of 6 players.",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    @objc func handleInvalidGameId() {
+        let alert = createAlert(title: "Sorry.",
+                                message: "The team code is invalid. Are you sure you keyed in the right code?",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    @objc func handleGameAlreadyPlaying() {
+        let alert = createAlert(title: "Sorry.",
+                                message: "You cannot join a team once the game has already started.",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "joinGame" {
-            let viewController = segue.destination as? LobbyViewController
-            guard let gameIdText = teamCodeTextField.text, viewController != nil else {
-                return
+            if let viewController = segue.destination as? LobbyViewController {
+                viewController.gameId = self.gameId
             }
-            // viewController is non-nil
-            viewController!.gameId = Int(gameIdText)
         }
+    }
+
+    func createAlert(title: String, message: String, action: String) -> UIAlertController {
+        let controller = UIAlertController(title: NSLocalizedString(title,
+                                                                    bundle: Bundle.main,
+                                                                    comment: ""),
+                                           message: NSLocalizedString(message,
+                                                                      bundle: Bundle.main,
+                                                                      comment: ""),
+                                           preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: NSLocalizedString(action,
+                                                                   bundle: Bundle.main,
+                                                                   comment: ""),
+                                          style: .default) { _ -> Void in
+                                            self.dismiss(animated: true, completion: nil)
+        }
+        controller.addAction(defaultAction)
+        return controller
     }
 }

@@ -106,7 +106,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <state key="normal" title="Join"/>
                                         <connections>
-                                            <segue destination="OPb-V7-r8L" kind="show" identifier="joinGame" id="vyk-Lj-tWm"/>
+                                            <action selector="tryJoinGame:" destination="GSL-Qu-8tE" eventType="touchUpInside" id="CSc-Cx-ZFH"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -135,11 +135,12 @@
                     <connections>
                         <outlet property="joinButton" destination="FtR-Rh-iSH" id="Q3X-rF-a03"/>
                         <outlet property="teamCodeTextField" destination="3BX-fr-kSS" id="uTm-Ia-lrf"/>
+                        <segue destination="OPb-V7-r8L" kind="show" identifier="joinGame" id="NHt-Cf-6dI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byf-gN-nSR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="909"/>
+            <point key="canvasLocation" x="134" y="908"/>
         </scene>
         <!--Category-->
         <scene sceneID="aKj-K3-ZS5">
@@ -615,8 +616,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="qID-Ae-TMA"/>
-        <segue reference="Ed9-Qd-LTp"/>
+        <segue reference="NHt-Cf-6dI"/>
         <segue reference="N8K-F4-jFJ"/>
-        <segue reference="Bzf-a8-1jP"/>
+        <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>
 </document>

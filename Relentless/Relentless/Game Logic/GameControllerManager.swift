@@ -44,9 +44,10 @@ class GameControllerManager: GameController {
     }
 
     // properties for network
-    var userId: String? {
-        game?.player.userId // unique ID given by Firebase
-    }
+//    var userId: String? {
+//        game?.player.userId // unique ID given by Firebase
+//    }
+    var userId: String?
     var network: Network = NetworkManager()
     var gameId: Int? {
         game?.gameId
@@ -54,7 +55,8 @@ class GameControllerManager: GameController {
     private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
-        game?.player.userId = userId
+        self.userId = userId
+//        game?.player.userId = userId
         addObservers()
     }
 
@@ -275,7 +277,7 @@ extension GameControllerManager {
             let player = Player(userId: userId, userName: userName, profileImage: nil)
             self.game = GameManager(gameId: gameId, player: player)
             self.isHost = true
-            NotificationCenter.default.post(name: .didReceiveGameId, object: nil)
+            NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
@@ -350,6 +352,7 @@ extension GameControllerManager {
                 }
             })
         }
+        NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {

@@ -9,9 +9,6 @@
 import UIKit
 
 class LobbyViewController: UIViewController, UITextFieldDelegate {
-
-    static var nameCharacterLimit = 8
-    static var dummyName = "foobar"
     var gameId: Int?
     var userId: String?
     var gameController: GameController?
@@ -24,26 +21,33 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initUserId()
         if let userId = self.userId {
             gameController = GameControllerManager(userId: userId)
         }
-        initUserId()
         if gameId == nil {
             createGame()
-        } else {
-            joinGame()
         }
-        initStartButton()
-        initGameIdLabel()
+        addObservers()
+//        initStartButton()
+//        initGameIdLabel()
+//        refreshPlayers()
+//        players = []
+//        players?.append(Player(userId: "yo", userName: "hi", profileImage: nil))
+    }
 
-        // TODO: Add actual Players
-//        players = gameController.players
-        players = []
-        players?.append(Player(userId: "yo", userName: "hi", profileImage: nil))
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshPlayers),
+                                               name: .newPlayerDidJoin, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(gameCreated),
+                                               name: .didCreateGame, object: nil)
+    }
 
-        if let flowLayout = self.playersView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: self.playersView.bounds.width, height: 120)
-        }
+    @objc func refreshPlayers() {
+        players = gameController?.players
+        playersView.reloadData()
     }
 
     func initUserId() {
@@ -56,6 +60,12 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
 
+    @objc func gameCreated() {
+        gameId = gameController?.gameId
+        initGameIdLabel()
+        initStartButton()
+    }
+
     func initGameIdLabel() {
         guard let gameId = gameId else {
             return
@@ -63,16 +73,8 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         gameIdLabel.text = String(gameId)
     }
 
-    func joinGame() {
-        guard  let gameId = gameId else {
-            return
-        }
-        _ = gameController?.joinGame(gameId: gameId)
-    }
-
     func createGame() {
         gameController?.createGame()
-        gameId = gameController?.gameId
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

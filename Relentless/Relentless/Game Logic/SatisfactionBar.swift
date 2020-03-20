@@ -11,7 +11,11 @@ import Foundation
 class SatisfactionBar {
 
     var satisfactionRange: ClosedRange<Int>
-    var currentSatisfaction: Int
+    var currentSatisfaction: Int {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
+        }
+    }
 
     var defaultSatisfactionChange: Int
 
@@ -36,6 +40,11 @@ class SatisfactionBar {
             let fraction = (1 - remainingTime) / totalTime
             currentSatisfaction -= fraction * defaultSatisfactionChange
         }
+    }
+
+    // todo: allow different changes to satisfaction based on the order/house
+    func updateForTimeOut() {
+        currentSatisfaction -= defaultSatisfactionChange
     }
 
     // TODO: check for satisfaction < 0 and handle this case

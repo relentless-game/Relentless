@@ -50,9 +50,9 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="682" y="30" width="56" height="42"/>
+                                <rect key="frame" x="555" y="30" width="183" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="More"/>
+                                <state key="normal" title="To Packing (Test)"/>
                                 <connections>
                                     <segue destination="pIj-eO-AQF" kind="show" id="FIJ-C2-L9I"/>
                                 </connections>
@@ -170,7 +170,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="MIQ-Uc-t5W"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mM2-Lj-Q8c">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mM2-Lj-Q8c">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -178,20 +178,23 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PackageCell" id="1dh-3W-it3" customClass="PackageCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="10" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="iGt-a0-6HE">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yp8-GH-5MN">
-                                                    <rect key="frame" x="0.0" y="15" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yp8-GH-5MN">
+                                                    <rect key="frame" x="4" y="14.666666666666664" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yp8-GH-5MN" firstAttribute="centerX" secondItem="iGt-a0-6HE" secondAttribute="centerX" id="9Kh-EW-30a"/>
+                                                <constraint firstItem="Yp8-GH-5MN" firstAttribute="centerY" secondItem="iGt-a0-6HE" secondAttribute="centerY" id="P3H-em-xSJ"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
@@ -219,31 +222,25 @@
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ItemCell" id="nal-Ge-XPG" customClass="ItemCell" customModule="Relentless" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oAN-si-KkH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3T-HR-icS">
-                                                            <rect key="frame" x="4" y="15" width="42" height="21"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                </collectionViewCellContentView>
-                                                <connections>
-                                                    <outlet property="textLabel" destination="k3T-HR-icS" id="il1-ky-hrW"/>
-                                                </connections>
-                                            </collectionViewCell>
-                                        </cells>
+                                        <cells/>
                                         <connections>
                                             <outlet property="dataSource" destination="pIj-eO-AQF" id="kLM-Gw-fDM"/>
                                             <outlet property="delegate" destination="pIj-eO-AQF" id="LlE-Tf-Ra7"/>
+                                        </connections>
+                                    </collectionView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="veC-Sv-bk6">
+                                        <rect key="frame" x="30" y="30" width="302" height="224"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="drP-oN-jqw">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="pIj-eO-AQF" id="0lr-RC-uVE"/>
+                                            <outlet property="delegate" destination="pIj-eO-AQF" id="onF-7F-aRm"/>
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7d-y2-kSg">
@@ -263,8 +260,12 @@
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="width" secondItem="ste-ol-ed4" secondAttribute="width" id="HeY-De-rgf"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V7d-y2-kSg" secondAttribute="trailing" constant="8" symbolic="YES" id="IWN-IL-8BK"/>
                                     <constraint firstAttribute="trailing" secondItem="ste-ol-ed4" secondAttribute="trailing" id="MJ8-Aa-PL0"/>
+                                    <constraint firstItem="veC-Sv-bk6" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="30" id="Pe5-2m-CfU"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="Q7N-DT-cOj"/>
+                                    <constraint firstAttribute="bottom" secondItem="veC-Sv-bk6" secondAttribute="bottom" constant="30" id="dVE-c6-yDX"/>
+                                    <constraint firstItem="veC-Sv-bk6" firstAttribute="top" secondItem="KvK-6d-e86" secondAttribute="top" constant="30" id="j2H-db-NLt"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" id="lZ6-UZ-oCP"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="veC-Sv-bk6" secondAttribute="trailing" constant="30" id="ogf-qd-Hv9"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="wEa-TB-gL7"/>
                                 </constraints>
                             </view>
@@ -301,6 +302,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6NF-YO-Kai"/>
                     <connections>
+                        <outlet property="currentPackageView" destination="veC-Sv-bk6" id="tAY-9m-m2X"/>
                         <outlet property="itemsView" destination="ste-ol-ed4" id="klK-W5-ST1"/>
                         <outlet property="packagesView" destination="W01-ck-AdA" id="5SB-YU-8QU"/>
                         <segue destination="aeQ-0T-Zjb" kind="show" identifier="deliverPackage" id="GPw-Oj-Gmi"/>

@@ -10,8 +10,9 @@ import Foundation
 import Firebase
 
 class NetworkManager: Network {
+
     let maxNumberOfPlayers = 6
-    
+
     private var ref: DatabaseReference!
 
     init() {

@@ -13,7 +13,9 @@ class PackingViewController: UIViewController {
 
     @IBOutlet private var packagesView: UICollectionView!
     @IBOutlet private var itemsView: UICollectionView!
-    @IBOutlet weak var currentPackageView: UICollectionView!
+    @IBOutlet private var currentPackageView: UICollectionView!
+    @IBOutlet private var satisfactionBar: UIProgressView!
+
     // items will be updated when the category is changed
     var items: [Item]?
     var packages: [Package]?
@@ -64,8 +66,13 @@ class PackingViewController: UIViewController {
         currentPackageView.reloadData()
     }
 
+    func updateSatisfactionBar(to value: Float) {
+        satisfactionBar.setProgress(value, animated: true)
+    }
+
     func attachLongPressToPackages() {
-        let longPressGR = UILongPressGestureRecognizer(target: self, action: #selector(handlePackageLongPress(longPressGR:)))
+        let longPressGR = UILongPressGestureRecognizer(target: self,
+                                                       action: #selector(handlePackageLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
         longPressGR.delaysTouchesBegan = true
         self.packagesView.addGestureRecognizer(longPressGR)
@@ -81,17 +88,15 @@ class PackingViewController: UIViewController {
         let indexPath = self.packagesView.indexPathForItem(at: point)
 
         if let indexPath = indexPath {
-            var cell = self.packagesView.cellForItem(at: indexPath)
-            print("long")
-            print(indexPath.row)
-        } else {
-            print("Could not find index path")
+            let cell = self.packagesView.cellForItem(at: indexPath)
+            if let packageCell = cell as? PackageCell {
+                print(packageCell.package ?? "problem")
+            }
         }
     }
 
-
 //    func drawPackages() {
-////        let packages = gameController.playerPackages
+//        let packages = gameController.playerPackages
 //        var packages = [Package]()
 //        packages.append(Package(creator: "hi", packageNumber: 100, items: []))
 //        for package in packages {
@@ -104,7 +109,7 @@ class PackingViewController: UIViewController {
 //        packageView.text = String(package.packageNumber)
 //        packageView.isUserInteractionEnabled = true
 //        attachPackageTouchHandlers(to: packageView)
-////        packageStack.addSubview(packageView)
+//       packageStack.addSubview(packageView)
 //    }
 //
 //    func attachPackageTouchHandlers(to view: UIView) {
@@ -141,9 +146,11 @@ extension PackingViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.packagesView {
-            return packages?.count ?? 5
+            return packages?.count ?? 0
+        } else if collectionView == self.currentPackageView {
+            return currentPackageItems?.count ?? 0
         } else {
-            return items?.count ?? 5
+            return items?.count ?? 0
         }
     }
 
@@ -162,13 +169,16 @@ extension PackingViewController: UICollectionViewDataSource {
 //                }
             }
             return cell
+        } else if collectionView == self.currentPackageView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
+            if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
+                itemCell.setItem(item: item)
+            }
+            return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
             if let itemCell = cell as? ItemCell, let item = items?[indexPath.row] {
                 itemCell.setItem(item: item)
-                //                let id = packages?[indexPath.row].packageNumber ?? 0
-                //                packageCell.textLabel.text = String(id)
-//                itemCell.textLabel.text = "yo"
             }
             return cell
         }
@@ -182,6 +192,11 @@ extension PackingViewController: UICollectionViewDelegate {
                 return
             }
             gameController?.openPackage(package: packages[indexPath.item])
+        } else if collectionView == self.currentPackageView {
+            guard let currentPackageItems = currentPackageItems else {
+                return
+            }
+            gameController?.removeItem(item: currentPackageItems[indexPath.item])
         } else {
             guard let items = items else {
                 return
@@ -206,62 +221,13 @@ extension PackingViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
 //extension PackingViewController: UICollectionViewDragDelegate {
-//    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+//    func collectionView(_ collectionView: UICollectionView,
+//    itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
 //        let item
 //    }
 //}
-
-class PackageCell: UICollectionViewCell, UIGestureRecognizerDelegate {
-    @IBOutlet fileprivate var textLabel: UILabel!
-//    var pan: UIPanGestureRecognizer!
-//    var view: UILabel?
-    var package: Package!
-
-//    var segueAction : (()->())?
-//    var addToSuperview: ((UIView) -> ())?
-
-//    override init(frame: CGRect) {
-//      super.init(frame: frame)
-//      commonInit()
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//      super.init(coder: aDecoder)
-//      commonInit()
-//    }
-//
-//    private func commonInit() {
-//      pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-//      pan.delegate = self
-//      self.addGestureRecognizer(pan)
-//    }
-
-//    @objc func onPan(_ pan: UIPanGestureRecognizer) {
-//        if pan.state == UIGestureRecognizer.State.began {
-////            segueAction?()
-//            view = UILabel()
-//            if let view = view {
-//                view.frame = self.frame
-//                view.text = self.textLabel.text
-//                view.backgroundColor = UIColor.gray
-//                addToSuperview?(view)
-//            }
-//        }
-//        guard let view = view else {
-//            return
-//        }
-//        let translation = pan.translation(in: self)
-//        view.center = CGPoint(x: self.center.x + translation.x,
-//                              y: self.center.y + translation.y)
-//    }
-
-    func setPackage(package: Package) {
-        let id = package.packageNumber
-        textLabel.text = String(id)
-        self.package = package
-    }
-}
 
 /*
 extension PackingViewController: UICollectionViewDataSource,

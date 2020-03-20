@@ -28,7 +28,7 @@ class OrderViewController: UICollectionViewController {
 extension OrderViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return orders?.count ?? 0
+        orders?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView,

@@ -305,6 +305,7 @@
                         <outlet property="currentPackageView" destination="veC-Sv-bk6" id="tAY-9m-m2X"/>
                         <outlet property="itemsView" destination="ste-ol-ed4" id="klK-W5-ST1"/>
                         <outlet property="packagesView" destination="W01-ck-AdA" id="5SB-YU-8QU"/>
+                        <outlet property="satisfactionBar" destination="5V9-Uq-jAF" id="bun-7D-jzI"/>
                         <segue destination="aeQ-0T-Zjb" kind="show" identifier="deliverPackage" id="GPw-Oj-Gmi"/>
                     </connections>
                 </viewController>

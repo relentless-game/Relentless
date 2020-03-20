@@ -11,7 +11,7 @@ import UIKit
 
 class ItemCell: UICollectionViewCell {
     // todo: change to UIImageView
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet private var textLabel: UILabel!
 
     func setItem(item: Item) {
         textLabel.text = item.toString()

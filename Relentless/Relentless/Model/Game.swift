@@ -36,8 +36,6 @@ protocol Game {
 
     func retrieveOrder(package: Package, house: House) -> Order?
 
-    func addOrder(order: Order)
-
     func removeOrder(order: Order)
 
     func openPackage(package: Package)

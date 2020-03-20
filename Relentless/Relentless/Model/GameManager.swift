@@ -33,7 +33,7 @@ class GameManager: Game {
     init(gameId: Int, player: Player) {
         self.gameId = gameId
         self.player = player
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
+        addObservers()
     }
 
     func addPackage(package: Package) {
@@ -76,6 +76,12 @@ class GameManager: Game {
         house.getClosestOrder(for: package)
     }
 
+    func removeOrder(order: Order) {
+        for house in houses {
+            house.removeOrder(order: order)
+        }
+    }
+
     func openPackage(package: Package) {
         assert(packages.contains(package))
         currentlyOpenPackage = package
@@ -84,17 +90,18 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
-    
-    func addOrder(order: Order) {
-        // do something
-    }
-    
-    func removeOrder(order: Order) {
-        // do something
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdateInHouse, object: nil)
     }
 
     @objc func notifyItemChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeItemsInModel, object: nil)
+    }
+
+    @objc func notifyOrderUpdate(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderUpdateInModel, object: nil)
     }
 
 }

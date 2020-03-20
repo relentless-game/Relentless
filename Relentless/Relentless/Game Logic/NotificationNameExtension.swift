@@ -26,4 +26,8 @@ extension Notification.Name {
     static let didChangeItemsInModel = Notification.Name("didChangeItemsInModel")
     static let didChangeItems = Notification.Name("didChangeItems")
     static let didChangePackages = Notification.Name("didChangePackages")
+    static let didOrderUpdate = Notification.Name("didOrderUpdate")
+    static let didOrderUpdateInHouse = Notification.Name("didOrderUpdateInHouse")
+    static let didOrderUpdateInModel = Notification.Name("didOrderUpdateInModel")
+    static let didChangeOrders = Notification.Name("didChangeOrders")
 }

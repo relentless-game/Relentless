@@ -14,12 +14,15 @@ struct GameStatus: Codable {
     var isGamePlaying: Bool
     var isRoundPlaying: Bool
     var isGameEndedPrematurely: Bool
+    var isPaused: Bool
     var currentRound: Int
     
-    init(isGamePlaying: Bool, isRoundPlaying: Bool, isGameEndedPrematurely: Bool, currentRound: Int) {
+    init(isGamePlaying: Bool, isRoundPlaying: Bool, isGameEndedPrematurely: Bool,
+         isPaused: Bool, currentRound: Int) {
         self.isGamePlaying = isGamePlaying
         self.isRoundPlaying = isRoundPlaying
         self.isGameEndedPrematurely = isGameEndedPrematurely
+        self.isPaused = isPaused
         self.currentRound = currentRound
     }
     

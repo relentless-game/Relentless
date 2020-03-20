@@ -18,10 +18,13 @@ class GameManager: Game {
     }
 
     /// game information
-    // todo: should be changeable
-    let defaultNumberOfHouses = 5
+    let defaultNumberOfHouses = 5 // todo: should be changeable
     var gameId: Int
-    var packages = [Package]()
+    var packages = [Package]() {
+        didSet {
+            NotificationCenter.default.post(name: .didChangePackagesInModel, object: nil)
+        }
+    }
     var houses = [House]()
     var cumulativePackageNumber = 0
     var currentlyOpenPackage: Package?
@@ -30,10 +33,15 @@ class GameManager: Game {
     init(gameId: Int, player: Player) {
         self.gameId = gameId
         self.player = player
+        addObservers()
+    }
+
+    func addPackage(package: Package) {
+        packages.append(package)
     }
 
     /// Adds a new package and sets this package as the currenlty open package
-    func addPackage() {
+    func addNewPackage() {
         let emptyPackage = Package(creator: player.userName, packageNumber: cumulativePackageNumber, items: [Item]())
         packages.append(emptyPackage)
         currentlyOpenPackage = emptyPackage
@@ -68,6 +76,12 @@ class GameManager: Game {
         house.getClosestOrder(for: package)
     }
 
+    func removeOrder(order: Order) {
+        for house in houses {
+            house.removeOrder(order: order)
+        }
+    }
+
     func openPackage(package: Package) {
         assert(packages.contains(package))
         currentlyOpenPackage = package
@@ -76,13 +90,24 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
-    
-    func addOrder(order: Order) {
-        // do something
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),
+                                               name: .didChangeItemsInPackage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                               name: .didOrderUpdateInHouse, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                                name: .didTimeOutInOrder, object: nil)
     }
-    
-    func removeOrder(order: Order) {
-        // do something
+
+    @objc
+    func notifyItemChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangeItemsInModel, object: nil)
+    }
+
+    @objc
+    func notifyOrderUpdate(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderUpdateInModel, object: nil)
     }
 
 }

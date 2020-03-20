@@ -64,20 +64,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     func joinGame() {
-        guard let userId = userId, let gameId = gameId else {
+        guard  let gameId = gameId else {
             return
         }
-        gameController?.joinGame(userId: userId, userName: LobbyViewController.dummyName, gameId: gameId)
+        _ = gameController?.joinGame(gameId: gameId)
     }
 
     func createGame() {
-        guard let userId = userId else {
-            return
-        }
-        gameController?.createGame(userId: userId, userName: LobbyViewController.dummyName)
-        // TODO: Get actual gameId
-        gameId = 0
-        // gameId = gameController.gameId
+        gameController?.createGame()
+        gameId = gameController?.gameId
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

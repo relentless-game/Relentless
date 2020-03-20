@@ -11,7 +11,11 @@ import Foundation
 class Package: Codable {
     let creator: String /// user name of the player that created this package
     let packageNumber: Int
-    var items = [Item]()
+    var items = [Item]() {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeItemsInPackage, object: nil)
+        }
+    }
 
     init(creator: String, packageNumber: Int, items: [Item]) {
         self.creator = creator

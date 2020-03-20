@@ -8,11 +8,17 @@
 
 import Foundation
 
-struct House {
-    var orders: Set<Order>
+class House {
+
+    var orders: Set<Order> {
+        didSet {
+            NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
+        }
+    }
 
     init(orders: Set<Order>) {
         self.orders = orders
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdate, object: nil)
     }
 
     /// Returns true if the package correctly matches any of the orders
@@ -47,4 +53,12 @@ struct House {
         return orderWithMinDifferences
     }
 
+    func removeOrder(order: Order) {
+        orders.remove(order)
+    }
+
+    @objc
+    func notifyOrderUpdate(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
+    }
 }

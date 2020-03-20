@@ -12,7 +12,7 @@ class Order: Hashable, Codable {
     static var MAX_NUMBER_OF_ITEMS = 10
 
     var items: [Item]
-    var timer: Timer
+    var timer: Timer?
     var timeLimit: Int
     var timeLeft: Int {
         didSet {
@@ -29,20 +29,18 @@ class Order: Hashable, Codable {
         self.items = items.sorted()
         self.timeLimit = timeLimitInSeconds
         self.timeLeft = timeLimitInSeconds
-        self.timer = Timer()
     }
 
     enum OrderKeys: CodingKey {
-           case items
-           case timeLimit
-       }
+        case items
+        case timeLimit
+    }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrderKeys.self)
         self.items = try container.decode([Item].self, forKey: .items)
         self.timeLimit = try container.decode(Int.self, forKey: .timeLimit)
         self.timeLeft = self.timeLimit
-        self.timer = Timer()
     }
 
     func encode(to encoder: Encoder) throws {
@@ -53,8 +51,16 @@ class Order: Hashable, Codable {
 
     func startOrder() {
         hasStarted = true
-        self.timer = Timer(timeInterval: TimeInterval(timeLimit), target: self,
+        self.timer = Timer(timeInterval: 1, target: self,
                            selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
+    }
+
+    func stopTimer() {
+        self.timer?.invalidate()
+    }
+
+    func resumeTimer() {
+        self.timer = Timer(timeInterval: 1, target: self,selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
     }
 
     /// Returns true if package matches items in order
@@ -68,8 +74,16 @@ class Order: Hashable, Codable {
         items.count - zip(items, package.items).filter { $0.0 == $0.1 }.count
     }
 
-    @objc func updateTimeLeft() {
+    @objc
+    func updateTimeLeft() {
         timeLeft -= 1
+        if timeLeft == 0 {
+            handleTimeOut()
+        }
+    }
+
+    func handleTimeOut() {
+        NotificationCenter.default.post(name: .didTimeOutInOrder, object: nil)
     }
 
 }

@@ -35,6 +35,8 @@ extension Notification.Name {
     static let didTimeOutInModel = Notification.Name("didTimeOutInModel")
     static let didOrderTimeOut = Notification.Name("didOrderTimeOut")
     
+    static let didChangeMoney = Notification.Name("didChangeMoney")
     static let didChangeSatisfactionBar = Notification.Name("didChangeSatisfactionBar")
     static let didChangeCurrentSatisfaction = Notification.Name("didChangeCurrentSatisfaction")
+
 }

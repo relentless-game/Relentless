@@ -92,9 +92,12 @@ class GameManager: Game {
     }
 
     private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didTimeOutInOrder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),
+                                               name: .didChangeItemsInPackage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                               name: .didOrderUpdateInHouse, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                                name: .didTimeOutInOrder, object: nil)
     }
 
     @objc

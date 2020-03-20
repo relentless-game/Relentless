@@ -549,11 +549,11 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ue2-Nq-dfs">
                                 <rect key="frame" x="74" y="30" width="664" height="294"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="30" minimumInteritemSpacing="10" id="I0w-5h-8SG">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="I0w-5h-8SG">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="OrderHeaderView" id="ylc-6b-F9X" customClass="OrderHeaderView" customModule="Relentless" customModuleProvider="target">
@@ -597,6 +597,7 @@
                             <constraint firstItem="Ue2-Nq-dfs" firstAttribute="top" secondItem="o3p-1E-gXZ" secondAttribute="top" constant="30" id="BMh-Im-dBM"/>
                             <constraint firstItem="FTi-mL-QCC" firstAttribute="top" secondItem="o3p-1E-gXZ" secondAttribute="top" constant="30" id="InZ-Au-6eo"/>
                             <constraint firstItem="Ue2-Nq-dfs" firstAttribute="leading" secondItem="o3p-1E-gXZ" secondAttribute="leading" constant="30" id="Otq-Jx-ylA"/>
+                            <constraint firstItem="o3p-1E-gXZ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="FTi-mL-QCC" secondAttribute="trailing" symbolic="YES" id="izc-D6-wx0"/>
                             <constraint firstItem="FTi-mL-QCC" firstAttribute="leading" secondItem="cXY-ls-TBl" secondAttribute="leading" constant="30" id="tZU-VZ-Lbz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="o3p-1E-gXZ"/>

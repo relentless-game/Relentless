@@ -32,8 +32,7 @@ class OrderViewController: UIViewController {
 
 extension OrderViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print(orders?.count)
-        return orders?.count ?? 0
+        orders?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -41,7 +40,6 @@ extension OrderViewController: UICollectionViewDataSource {
         guard let orders = self.orders else {
             return 0
         }
-        print(orders[section].items.count)
         return orders[section].items.count
     }
 

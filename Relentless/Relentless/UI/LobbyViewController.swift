@@ -110,13 +110,6 @@ extension LobbyViewController: UICollectionViewDataSource {
     }
 }
 
-extension LobbyViewController: UICollectionViewDelegate {
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item + 1)
-    }
-}
-
 extension LobbyViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

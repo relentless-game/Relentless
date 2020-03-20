@@ -32,13 +32,6 @@ class PackingViewController: UIViewController {
         items?.append(Book(name: "woop"))
         initialiseCollectionViews()
         reloadAllViews()
-//        packagesView.reloadData()
-//        itemsView.reloadData()
-//        print(packages.count)
-//        let flowLayout = self.playersView.collectionViewLayout as? UICollectionViewFlowLayout
-//        itemsCollectionView.delegate = self
-//        itemsCollectionView.dataSource = self
-//        drawPackages()
     }
 
     func initialiseCollectionViews() {
@@ -98,47 +91,6 @@ class PackingViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
     }
-    
-//    func drawPackages() {
-//        let packages = gameController.playerPackages
-//        var packages = [Package]()
-//        packages.append(Package(creator: "hi", packageNumber: 100, items: []))
-//        for package in packages {
-//            drawPackage(package)
-//        }
-//    }
-
-//    func drawPackage(_ package: Package) {
-//        let packageView = UILabel()
-//        packageView.text = String(package.packageNumber)
-//        packageView.isUserInteractionEnabled = true
-//        attachPackageTouchHandlers(to: packageView)
-//       packageStack.addSubview(packageView)
-//    }
-//
-//    func attachPackageTouchHandlers(to view: UIView) {
-//        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePackageDrag))
-//        view.addGestureRecognizer(pan)
-//    }
-//
-//    @objc func handlePackageDrag(_ recognizer: UIPanGestureRecognizer) {
-//        let translation = recognizer.translation(in: self.view)
-//        view.center = CGPoint(x: view.center.x + translation.x,
-//                              y: view.center.y + translation.y)
-//
-//        recognizer.setTranslation(CGPoint.zero, in: self.view)
-//
-//        if recognizer.state == .began {
-//            initialPegPoint = view.center
-//        }
-//        if recognizer.state == .ended {
-//            let moveSuccess = movePeg(view: view, to: view.center)
-//            if !moveSuccess {
-//                view.center = initialPegPoint
-//                return
-//            }
-//        }
-//    }
 
 }
 
@@ -164,13 +116,6 @@ extension PackingViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: packageIdentifier, for: indexPath)
             if let packageCell = cell as? PackageCell, let package = packages?[indexPath.row] {
                 packageCell.setPackage(package: package)
-//                packageCell.segueAction = {
-//                    self.performSegue(withIdentifier: "deliverPackage", sender: self)
-//                }
-//                packageCell.addToSuperview = { (view: UIView) -> Void in
-//                    self.view.addSubview(view)
-//                    print("added.")
-//                }
             }
             return cell
         } else if collectionView == self.currentPackageView {
@@ -225,43 +170,3 @@ extension PackingViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-
-//extension PackingViewController: UICollectionViewDragDelegate {
-//    func collectionView(_ collectionView: UICollectionView,
-//    itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-//        let item
-//    }
-//}
-
-/*
-extension PackingViewController: UICollectionViewDataSource,
-UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items?.count ?? 0
-    }
-
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
-                                                            for: indexPath) as? ItemCell, let items = self.items else {
-            return UICollectionViewCell()
-        }
-        cell.setItem(item: items[indexPath.row])
-
-       return cell
-    }
-
-}
-
-class PackageWrapper {
-    let package: Package
-    let view: UILabel
-
-    init(package: Package) {
-        self.package = package
-        self.view = UILabel()
-        view.text = String(package.packageNumber)
-    }
-}
-*/

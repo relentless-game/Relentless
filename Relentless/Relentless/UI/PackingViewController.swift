@@ -43,7 +43,7 @@ class PackingViewController: UIViewController {
 
     func initialiseCollectionViews() {
         attachLongPressToPackages()
-        let itemNib = UINib(nibName: "ItemCell", bundle: nil)
+        let itemNib = UINib(nibName: itemIdentifier, bundle: nil)
         currentPackageView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
         itemsView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
     }
@@ -95,6 +95,10 @@ class PackingViewController: UIViewController {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeAllPreviousViewControllers()
+    }
+    
 //    func drawPackages() {
 //        let packages = gameController.playerPackages
 //        var packages = [Package]()

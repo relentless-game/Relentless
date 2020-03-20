@@ -11,13 +11,25 @@ import UIKit
 class HousesViewController: UIViewController {
     var gameController: GameController?
     var houses: [House]?
+    var activeHouse: House?
     let housesIdentifier = "HouseCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         houses = [House]()
-        houses?.append(House(orders: Set<Order>()))
-        houses?.append(House(orders: Set<Order>()))
+        var orders = Set<Order>()
+        orders.insert(Order(items: [Book(name: "yo"), Book(name: "oy")], timeLimitInSeconds: 50))
+        orders.insert(Order(items: [Book(name: "ohoh"), Book(name: "poo")], timeLimitInSeconds: 50))
+        houses?.append(House(orders: orders))
+//        houses?.append(House(orders: Set<Order>()))
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeAllPreviousViewControllers()
+        if segue.identifier == "viewOrders" {
+            let viewController = segue.destination as? OrderViewController
+            viewController?.house = activeHouse
+        }
     }
 }
 
@@ -46,7 +58,7 @@ extension HousesViewController: UICollectionViewDelegate {
         guard let houses = houses else {
             return
         }
-//        gameController?.openHouse(house: houses[indexPath.item])
+        activeHouse = houses[indexPath.item]
+        performSegue(withIdentifier: "viewOrders", sender: self)
     }
 }
-

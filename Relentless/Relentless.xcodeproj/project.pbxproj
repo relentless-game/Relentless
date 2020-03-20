@@ -37,6 +37,7 @@
 		5D5E03F82424D70A0005A134 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E03F72424D70A0005A134 /* HousesViewController.swift */; };
 		5D5E03FA2424D90A0005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E03F92424D90A0005A134 /* UIVIewController+ClearNavStack.swift */; };
 		5D5E03FC2424DA010005A134 /* HouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E03FB2424DA010005A134 /* HouseCell.swift */; };
+		5D5E03FE24250A3D0005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E03FD24250A3D0005A134 /* OrderHeaderView.swift */; };
 		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
 		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
 		6249B503241C8D9F002F8A1B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B502241C8D9F002F8A1B /* GameController.swift */; };
@@ -120,6 +121,7 @@
 		5D5E03F72424D70A0005A134 /* HousesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
 		5D5E03F92424D90A0005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
 		5D5E03FB2424DA010005A134 /* HouseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseCell.swift; sourceTree = "<group>"; };
+		5D5E03FD24250A3D0005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				5D5E03F52424CD550005A134 /* PackageCell.swift */,
 				5D5E03F72424D70A0005A134 /* HousesViewController.swift */,
 				5D5E03E92423D7410005A134 /* DeliveryViewController.swift */,
+				5D5E03FD24250A3D0005A134 /* OrderHeaderView.swift */,
 				0BBEF05824236A41002FF3DE /* OrderViewController.swift */,
 				0BBEF06024237E15002FF3DE /* ItemCell.swift */,
 				5D5E03FB2424DA010005A134 /* HouseCell.swift */,
@@ -647,6 +650,7 @@
 				5D5E03F62424CD560005A134 /* PackageCell.swift in Sources */,
 				5D5E03DF24239F580005A134 /* House.swift in Sources */,
 				5D5E03E624239F580005A134 /* Package.swift in Sources */,
+				5D5E03FE24250A3D0005A134 /* OrderHeaderView.swift in Sources */,
 				F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */,
 				6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */,
 				5D5E03E524239F580005A134 /* Item.swift in Sources */,

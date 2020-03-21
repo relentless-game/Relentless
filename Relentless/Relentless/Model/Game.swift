@@ -19,6 +19,7 @@ protocol Game {
     var houses: [House] { get set }
     var currentRoundNumber: Int { get set }
     var defaultNumberOfHouses: Int { get }
+    var currentlyOpenPackage: Package? { get }
 
     func addPackage(package: Package)
 

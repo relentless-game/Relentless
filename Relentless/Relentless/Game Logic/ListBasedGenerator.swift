@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Generates items through choosing from pre-defined lists
 class ListBasedGenerator: ItemGenerator {
 
     static func generateItems(category: Category, numberToGenerate: Int) -> [Item] {

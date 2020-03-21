@@ -44,9 +44,10 @@ class GameControllerManager: GameController {
     }
 
     // properties for network
-    var userId: String? {
-        game?.player.userId // unique ID given by Firebase
-    }
+//    var userId: String? {
+//        game?.player.userId // unique ID given by Firebase
+//    }
+    var userId: String?
     var network: Network = NetworkManager()
     var gameId: Int? {
         game?.gameId
@@ -54,7 +55,8 @@ class GameControllerManager: GameController {
     private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
-        game?.player.userId = userId
+        self.userId = userId
+        //game?.player.userId = userId
         addObservers()
     }
 
@@ -286,6 +288,7 @@ extension GameControllerManager {
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+            print("error is \(error)")
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
@@ -350,6 +353,8 @@ extension GameControllerManager {
                 }
             })
         }
+        
+        NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {

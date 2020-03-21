@@ -30,6 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.userId = uid
         }
         
+        //TEST
+        let userid = "myuserid"
+        let gameController = GameControllerManager(userId: userid)
+        gameController.createGame()
+        
+        
         return true
     }
 

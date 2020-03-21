@@ -56,7 +56,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         guard let userId = userId, let gameId = gameId else {
             return
         }
-        let result = gameController?.joinGame(userId: userId, userName: LobbyViewController.dummyName, gameId: gameId)
+        let result = gameController?.joinGame(gameId: gameId)
         //assert(result ?? false)
     }
 
@@ -64,7 +64,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         guard let userId = userId else {
             return
         }
-        let result = gameController?.createGame(userId: userId, userName: LobbyViewController.dummyName)
+        let result = gameController?.createGame()
         //assert(result ?? false)
         // TODO: Get actual gameId
         gameId = 0

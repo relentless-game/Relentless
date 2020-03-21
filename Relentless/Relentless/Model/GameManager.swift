@@ -92,15 +92,21 @@ class GameManager: Game {
     }
 
     private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdateInHouse, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),
+                                               name: .didChangeItemsInPackage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                               name: .didOrderUpdateInHouse, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                                name: .didTimeOutInOrder, object: nil)
     }
 
-    @objc func notifyItemChange(notification: Notification) {
+    @objc
+    func notifyItemChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeItemsInModel, object: nil)
     }
 
-    @objc func notifyOrderUpdate(notification: Notification) {
+    @objc
+    func notifyOrderUpdate(notification: Notification) {
         NotificationCenter.default.post(name: .didOrderUpdateInModel, object: nil)
     }
 

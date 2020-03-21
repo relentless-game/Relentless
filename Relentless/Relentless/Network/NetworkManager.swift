@@ -289,6 +289,10 @@ class NetworkManager: Network {
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
+
+    func resumeRound(gameId: Int, currentRound: Int) {
+        // do something
+    }
         
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"

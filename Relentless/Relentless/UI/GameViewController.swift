@@ -13,6 +13,8 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(gameController)
+        print(gameController?.game)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -356,7 +356,7 @@ extension GameControllerManager {
                 }
             })
         }
-        NotificationCenter.default.post(name: .didJoinGame, object: nil)
+//        NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -492,6 +492,7 @@ extension GameControllerManager {
 extension GameControllerManager {
 
     func addNewPackage() {
+        print(game)
         game?.addNewPackage()
     }
 

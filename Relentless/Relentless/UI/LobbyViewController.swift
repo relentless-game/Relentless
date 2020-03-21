@@ -44,15 +44,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
                                                selector: #selector(refreshPlayers),
                                                name: .newPlayerDidJoin, object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(gameCreated),
-                                               name: .didCreateGame, object: nil)
+                                               selector: #selector(gameJoined),
+                                               name: .didJoinGame, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameStarted),
+                                               name: .didStartGame, object: nil)
     }
 
     @objc func refreshPlayers() {
-        print(gameController)
-        print(gameController?.gameId)
         players = gameController?.players
-        print(players)
         playersView.reloadData()
     }
 
@@ -66,10 +66,23 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
 
-    @objc func gameCreated() {
+    @objc func handleGameStarted() {
+        performSegue(withIdentifier: "startGame", sender: self)
+    }
+
+    @objc func gameJoined() {
         gameId = gameController?.gameId
+        print(gameController?.gameId)
         initGameIdLabel()
         initStartButton()
+        print(gameController?.gameId)
+    }
+
+    @IBAction func startGame(_ sender: Any) {
+        print(gameController)
+        print(gameController?.gameId)
+        print(gameController?.game)
+        gameController?.startGame()
     }
 
     func initGameIdLabel() {
@@ -86,8 +99,10 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startGame" {
             let viewController = segue.destination as? GameViewController
-            gameController?.startGame()
             viewController?.gameController = gameController
+            print(gameController)
+            print(gameController?.gameId)
+            print(gameController?.game)
         }
     }
 }

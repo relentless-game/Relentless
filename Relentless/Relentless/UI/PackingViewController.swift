@@ -23,6 +23,7 @@ class PackingViewController: UIViewController {
     var currentPackageItems: [Item]?
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
+    private let addPackageIdentifier = "AddPackageButton"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,19 +33,23 @@ class PackingViewController: UIViewController {
 //        items?.append(Book(name: "test"))
 //        items?.append(Book(name: "woop"))
         initialiseCollectionViews()
-//        reloadAllViews()
+        addObservers()
+        reloadAllViews()
     }
 
     func addObservers() {
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleJoinSuccess),
-//                                               name: .didJoinGame, object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleInvalidGameId),
-//                                               name: .invalidGameId, object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleGameRoomFull),
-//                                               name: .gameRoomFull, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadAllViews),
+                                               name: .didStartRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadPackages),
+                                               name: .didChangePackages, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadCurrentPackage),
+                                               name: .didChangePackages, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadItems),
+                                               name: .didChangeItems, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
                                                name: .didChangeCurrentSatisfaction, object: nil)
@@ -57,24 +62,28 @@ class PackingViewController: UIViewController {
         itemsView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
     }
 
-    func reloadAllViews() {
+    @objc func reloadAllViews() {
         reloadPackages()
         reloadItems()
         reloadCurrentPackage()
     }
     
-    func reloadPackages() {
+    @objc func reloadPackages() {
         packages = gameController?.playerPackages
+        print(gameController)
+        print(gameController?.playerPackages)
+        print(packages)
         packagesView.reloadData()
     }
 
-    func reloadItems() {
+    @objc func reloadItems() {
         items = gameController?.playerItems
+        print(items)
         itemsView.reloadData()
     }
 
-    func reloadCurrentPackage() {
-//        currentPackageItems = gameController?.
+    @objc func reloadCurrentPackage() {
+        currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
         currentPackageView.reloadData()
     }
 
@@ -123,7 +132,7 @@ extension PackingViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.packagesView {
-            return packages?.count ?? 0
+            return 1 + (packages?.count ?? 0)
         } else if collectionView == self.currentPackageView {
             return currentPackageItems?.count ?? 0
         } else {
@@ -134,7 +143,13 @@ extension PackingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.packagesView {
+            if indexPath.item == packages?.count {
+                // Add Button at the end.
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addPackageIdentifier, for: indexPath)
+                return cell
+            }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: packageIdentifier, for: indexPath)
+
             if let packageCell = cell as? PackageCell, let package = packages?[indexPath.row] {
                 packageCell.setPackage(package: package)
             }
@@ -160,6 +175,13 @@ extension PackingViewController: UICollectionViewDataSource {
 extension PackingViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.packagesView {
+            if indexPath.item == packages?.count {
+                // Add Button at the end
+                print("tries to add")
+                gameController?.addNewPackage()
+                reloadPackages()
+                return
+            }
             guard let packages = packages else {
                 return
             }

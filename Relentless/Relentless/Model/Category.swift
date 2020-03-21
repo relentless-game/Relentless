@@ -38,6 +38,15 @@ enum Category: Int, Codable, CaseIterable {
             try container.encode(Category.magazine.rawValue, forKey: .category)
         }
     }
+
+    func toString() -> String {
+        switch self {
+        case .book:
+            return "Book"
+        case .magazine:
+            return "Magazine"
+        }
+    }
 }
 
 enum CategoryError: Error {

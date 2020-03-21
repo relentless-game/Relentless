@@ -6,11 +6,9 @@
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class OrderViewController: UIViewController {
-    var gameController: GameController?
     var house: House?
     var orders: [Order]? {
         guard let houseOrders = house?.orders else {

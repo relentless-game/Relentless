@@ -13,6 +13,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     var userId: String?
     var gameController: GameController?
     var players: [Player]?
+    private let playerIdentifier = "PlayerCell"
 
     weak var delegate = UIApplication.shared.delegate as? AppDelegate
     @IBOutlet private var gameIdLabel: UILabel!
@@ -120,10 +121,9 @@ extension LobbyViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlayerCell", for: indexPath)
-        if let playerCell = cell as? PlayerCell {
-            let name = players?[indexPath.row].userName
-            playerCell.textLabel.text = name
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerIdentifier, for: indexPath)
+        if let playerCell = cell as? PlayerCell, let name = players?[indexPath.row].userName{
+            playerCell.setText(to: name)
         }
         return cell
     }
@@ -140,5 +140,9 @@ extension LobbyViewController: UICollectionViewDelegateFlowLayout {
 }
 
 class PlayerCell: UICollectionViewCell {
-    @IBOutlet fileprivate var textLabel: UILabel!
+    @IBOutlet private var textLabel: UILabel!
+
+    func setText(to text: String) {
+        textLabel.text = text
+    }
 }

@@ -15,12 +15,14 @@ class PackingViewController: UIViewController {
     @IBOutlet private var itemsView: UICollectionView!
     @IBOutlet private var currentPackageView: UICollectionView!
     @IBOutlet private var satisfactionBar: UIProgressView!
+    @IBOutlet private var categoryButton: UIButton!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
     var packages: [Package]?
     var currentCategory: Category? = .book
     var currentPackageItems: [Item]?
+    private let categoryIdentifier = "CategoryViewController"
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
     private let addPackageIdentifier = "AddPackageButton"
@@ -66,6 +68,7 @@ class PackingViewController: UIViewController {
         reloadPackages()
         reloadItems()
         reloadCurrentPackage()
+        reloadCategoryButton()
     }
     
     @objc func reloadPackages() {
@@ -78,6 +81,9 @@ class PackingViewController: UIViewController {
 
     @objc func reloadItems() {
         items = gameController?.playerItems
+        if let newCategory = items?.keys.first {
+            changeCurrentCategory(to: newCategory)
+        }
         print(items)
         itemsView.reloadData()
     }
@@ -91,6 +97,16 @@ class PackingViewController: UIViewController {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
             satisfactionBar.setProgress(value, animated: true)
         }
+    }
+
+    func changeCurrentCategory(to category: Category) {
+        currentCategory = category
+        reloadCategoryButton()
+    }
+
+    func reloadCategoryButton() {
+        print(currentCategory?.toString())
+        categoryButton.titleLabel?.text = currentCategory?.toString()
     }
 
     func attachLongPressToPackages() {
@@ -118,10 +134,46 @@ class PackingViewController: UIViewController {
         }
     }
 
+    @IBAction private func touchCategoryButton(_ sender: UIView) {
+        if let viewController = self.storyboard?.instantiateViewController(identifier: categoryIdentifier)
+            as? CategoryViewController {
+            let width = view.frame.width - 60
+            let height = view.frame.width / 2
+            viewController.preferredContentSize = CGSize(width: width, height: height)
+            viewController.modalPresentationStyle = .popover
+            if let categoriesAsKeys = items?.keys {
+                viewController.categories = Array(categoriesAsKeys)
+            }
+            viewController.categories = [Category.book, Category.magazine]
+            viewController.categoryChangeDelegate = self
+            if let pres = viewController.presentationController {
+                pres.delegate = self
+            }
+            if let pop = viewController.popoverPresentationController {
+                pop.sourceView = sender
+                pop.sourceRect = sender.bounds
+            }
+            self.present(viewController, animated: true)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
     }
 
+}
+
+extension PackingViewController: CategoryChangeDelegate {
+    func setCategory(_ category: Category) {
+        changeCurrentCategory(to: category)
+    }
+}
+
+extension PackingViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        .none
+    }
 }
 
 extension PackingViewController: UICollectionViewDataSource {

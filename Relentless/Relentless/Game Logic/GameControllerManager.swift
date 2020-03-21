@@ -467,6 +467,7 @@ extension GameControllerManager {
     }
 
     private func handleRoundStart() {
+        satisfactionBar.reset()
         roundTimeLeft = roundTimeInterval
         startRoundTimer()
         startOrders()

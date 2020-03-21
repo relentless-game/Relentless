@@ -16,12 +16,13 @@ class SatisfactionBar {
             NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
         }
     }
-
+    var startingSatisfaction: Int
     var defaultSatisfactionChange: Int
 
     init(minSatisfaction: Int, maxSatisfaction: Int) {
         satisfactionRange = minSatisfaction...maxSatisfaction
-        currentSatisfaction = (maxSatisfaction + minSatisfaction) / 2
+        startingSatisfaction = (maxSatisfaction + minSatisfaction) / 2
+        currentSatisfaction = startingSatisfaction
         defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction))
     }
 
@@ -40,6 +41,10 @@ class SatisfactionBar {
             let fraction = (1 - remainingTime) / totalTime
             currentSatisfaction -= fraction * defaultSatisfactionChange
         }
+    }
+
+    func reset() {
+        currentSatisfaction = startingSatisfaction
     }
 
     // todo: allow different changes to satisfaction based on the order/house

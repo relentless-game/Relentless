@@ -28,14 +28,20 @@ class BookTests: XCTestCase {
         XCTAssertTrue(bookWithSmallerName < book)
         XCTAssertTrue(book < bookWithBiggerName)
     }
-    func testEquals(other: Item) {
+    
+    func testEquals() {
         XCTAssertTrue(book.equals(other: book))
 
-        let copyOfBook = Book(name: title)
+        let copyOfBook: Item = Book(name: title)
         XCTAssertTrue(book.equals(other: copyOfBook))
 
         let otherItem = Magazine(name: title)
         XCTAssertFalse(book.equals(other: otherItem))
     }
 
+    func testToString() {
+        let book: Item = Book(name: "hello")
+        let string = book.toString()
+        XCTAssertEqual(string, "Book: hello")
+    }
 }

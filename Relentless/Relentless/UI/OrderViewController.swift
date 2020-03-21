@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class OrderViewController: UICollectionViewController {
+class OrderViewController: UIViewController {
     var gameController: GameController?
     var house: House?
     var orders: [Order]? {
@@ -19,35 +19,59 @@ class OrderViewController: UICollectionViewController {
         return Array(houseOrders)
     }
 
-    // todo: connect to storyboard
-    private weak var ordersCollectionView: UICollectionView!
     private let reuseIdentifier = "ItemCell"
+    @IBOutlet weak var ordersCollectionView: UICollectionView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let itemNib = UINib(nibName: reuseIdentifier, bundle: nil)
+        ordersCollectionView.register(itemNib, forCellWithReuseIdentifier: reuseIdentifier)
+    }
 
 }
 
-extension OrderViewController {
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return orders?.count ?? 0
+extension OrderViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        orders?.count ?? 0
     }
 
-    override func collectionView(_ collectionView: UICollectionView,
-                                   numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         guard let orders = self.orders else {
             return 0
         }
         return orders[section].items.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView,
-                                   cellForItemAt indexPath: IndexPath) -> ItemCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView
-            .dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCell, let orders = self.orders else {
+            .dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ItemCell,
+            let orders = self.orders else {
                 return ItemCell()
         }
-        cell.setItem(item: orders[indexPath.row].items[indexPath.count])
+        let order = orders[indexPath.section]
+        let item = order.items[indexPath.item]
+        cell.setItem(item: item)
 
         return cell
     }
 
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerView = collectionView
+                .dequeueReusableSupplementaryView(ofKind: kind,
+                                                  withReuseIdentifier: "OrderHeaderView",
+                                                  for: indexPath) as? OrderHeaderView else {
+                return OrderHeaderView()
+            }
+            headerView.setLabel("Order \(indexPath.section)")
+            return headerView
+        default:
+            return OrderHeaderView()
+        }
+    }
 }

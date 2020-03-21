@@ -42,6 +42,7 @@ class GameManager: Game {
 
     /// Adds a new package and sets this package as the currenlty open package
     func addNewPackage() {
+        print("game new package")
         let emptyPackage = Package(creator: player.userName, packageNumber: cumulativePackageNumber, items: [Item]())
         packages.append(emptyPackage)
         currentlyOpenPackage = emptyPackage
@@ -92,9 +93,12 @@ class GameManager: Game {
     }
 
     private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)), name: .didChangeItemsInPackage, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didTimeOutInOrder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),
+                                               name: .didChangeItemsInPackage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                               name: .didOrderUpdateInHouse, object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+                                                name: .didTimeOutInOrder, object: nil)
     }
 
     @objc

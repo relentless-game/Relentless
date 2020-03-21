@@ -16,6 +16,8 @@ protocol GameModelController {
     var playerPackages: [Package] { get }
     var playerItems: [Category: [Item]] { get }
 
+    func addNewPackage()
+
     func addItem(item: Item)
 
     func removeItem(item: Item)
@@ -28,4 +30,5 @@ protocol GameModelController {
 
     func retrieveOrders(for house: House) -> Set<Order>
 
+    func retrieveItemsFromOpenPackage() -> [Item]
 }

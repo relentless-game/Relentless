@@ -63,6 +63,7 @@ class PackingViewController: UIViewController {
     }
 
     @objc func reloadAllViews() {
+        print("testing")
         reloadPackages()
         reloadItems()
         reloadCurrentPackage()
@@ -79,7 +80,9 @@ class PackingViewController: UIViewController {
     }
 
     @objc func reloadCurrentPackage() {
+        print("reload open package")
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
+        print(currentPackageItems)
         currentPackageView.reloadData()
     }
 
@@ -161,9 +164,19 @@ extension PackingViewController: UICollectionViewDataSource {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
+            print("yoo")
+            print(currentCategory)
+            print(items)
+            print(items?[currentCategory!])
             if let currentCategory = currentCategory,
                 let itemCell = cell as? ItemCell,
                 let item = items?[currentCategory]?[indexPath.item] {
+                print("test test")
+                print(item)
+                print("category is \(item.category)")
+                print((item as? TitledItem)?.toString())
+                print((item as? Magazine)?.toString())
+                print((item as? Book)?.toString())
                 itemCell.setItem(item: item)
             }
             return cell
@@ -183,6 +196,7 @@ extension PackingViewController: UICollectionViewDelegate {
             guard let packages = packages else {
                 return
             }
+            print("open new package")
             gameController?.openPackage(package: packages[indexPath.item])
         } else if collectionView == self.currentPackageView {
             guard let currentPackageItems = currentPackageItems else {
@@ -192,6 +206,7 @@ extension PackingViewController: UICollectionViewDelegate {
         } else {
             if let currentCategory = currentCategory,
                 let item = items?[currentCategory]?[indexPath.item] {
+                print("addItem")
                 gameController?.addItem(item: item)
             }
         }

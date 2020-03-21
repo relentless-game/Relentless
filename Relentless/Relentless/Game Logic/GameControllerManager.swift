@@ -103,7 +103,8 @@ class GameControllerManager: GameController {
         network.pauseRound(gameId: gameId, currentRound: roundNumber)
         
         // terminate game if game does not resume within 30 seconds
-        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame), userInfo: nil, repeats: true)
+        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
+                                            userInfo: nil, repeats: true)
     }
 
     func resumeRound() {
@@ -358,7 +359,7 @@ extension GameControllerManager {
             })
         }
         
-        NotificationCenter.default.post(name: .didJoinGame, object: nil)
+        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -369,7 +370,7 @@ extension GameControllerManager {
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely

@@ -14,24 +14,23 @@ class PackingViewController: UIViewController {
     @IBOutlet private var packagesView: UICollectionView!
     @IBOutlet private var itemsView: UICollectionView!
     @IBOutlet private var currentPackageView: UICollectionView!
+    @IBOutlet private var currentPackageLabel: UILabel!
     @IBOutlet private var satisfactionBar: UIProgressView!
+    @IBOutlet private var categoryButton: UIButton!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
     var packages: [Package]?
-    var currentCategory: Category? = .book
+    var currentCategory: Category?
     var currentPackageItems: [Item]?
+    var packageForDelivery: Package?
+    private let categoryIdentifier = "CategoryViewController"
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
     private let addPackageIdentifier = "AddPackageButton"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        packages = [Package]()
-//        packages?.append(Package(creator: "hi", packageNumber: 100, items: []))
-//        items = [Item]()
-//        items?.append(Book(name: "test"))
-//        items?.append(Book(name: "woop"))
         initialiseCollectionViews()
         addObservers()
         reloadAllViews()
@@ -53,6 +52,9 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
                                                name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundEnded),
+                                               name: .didEndRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -63,10 +65,10 @@ class PackingViewController: UIViewController {
     }
 
     @objc func reloadAllViews() {
-        print("testing")
         reloadPackages()
         reloadItems()
         reloadCurrentPackage()
+        reloadCategoryButton()
     }
     
     @objc func reloadPackages() {
@@ -76,20 +78,36 @@ class PackingViewController: UIViewController {
 
     @objc func reloadItems() {
         items = gameController?.playerItems
+        if let newCategory = items?.keys.first {
+            changeCurrentCategory(to: newCategory)
+        }
         itemsView.reloadData()
     }
 
     @objc func reloadCurrentPackage() {
-        print("reload open package")
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
-        print(currentPackageItems)
         currentPackageView.reloadData()
+        currentPackageLabel.text = gameController?.openedPackage?.toString()
     }
 
     @objc func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
             satisfactionBar.setProgress(value, animated: true)
         }
+    }
+
+    @objc func handleRoundEnded() {
+        performSegue(withIdentifier: "endRound", sender: self)
+    }
+
+    func changeCurrentCategory(to category: Category) {
+        currentCategory = category
+        reloadCategoryButton()
+        itemsView.reloadData()
+    }
+
+    func reloadCategoryButton() {
+        categoryButton.setTitle(currentCategory?.toString(), for: .normal)
     }
 
     func attachLongPressToPackages() {
@@ -112,15 +130,65 @@ class PackingViewController: UIViewController {
         if let indexPath = indexPath {
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
-                print(packageCell.package ?? "problem")
+                packageForDelivery = packageCell.package
+                performSegue(withIdentifier: "deliverPackage", sender: self)
             }
         }
     }
 
+    @IBAction private func touchCategoryButton(_ sender: UIView) {
+        if let viewController = self.storyboard?.instantiateViewController(identifier: categoryIdentifier)
+            as? CategoryViewController {
+            let width = view.frame.width - 60
+            let height = view.frame.width / 2
+            viewController.preferredContentSize = CGSize(width: width, height: height)
+            viewController.modalPresentationStyle = .popover
+            if let categoriesAsKeys = items?.keys {
+                viewController.categories = Array(categoriesAsKeys)
+            }
+            viewController.categories = [Category.book, Category.magazine]
+            viewController.categoryChangeDelegate = self
+            if let pres = viewController.presentationController {
+                pres.delegate = self
+            }
+            if let pop = viewController.popoverPresentationController {
+                pop.sourceView = sender
+                pop.sourceRect = sender.bounds
+            }
+            self.present(viewController, animated: true)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
+        if segue.identifier == "toHouses" {
+            let viewController = segue.destination as? HousesViewController
+            viewController?.gameController = gameController
+        }
+        if segue.identifier == "deliverPackage" {
+            let viewController = segue.destination as? DeliveryViewController
+            viewController?.gameController = gameController
+            viewController?.packageForDelivery = packageForDelivery
+        }
+        if segue.identifier == "endRound" {
+            let viewController = segue.destination as? GameViewController
+            viewController?.gameController = gameController
+        }
     }
 
+}
+
+extension PackingViewController: CategoryChangeDelegate {
+    func setCategory(_ category: Category) {
+        changeCurrentCategory(to: category)
+    }
+}
+
+extension PackingViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        .none
+    }
 }
 
 extension PackingViewController: UICollectionViewDataSource {
@@ -164,19 +232,9 @@ extension PackingViewController: UICollectionViewDataSource {
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
-            print("yoo")
-            print(currentCategory)
-            print(items)
-            print(items?[currentCategory!])
             if let currentCategory = currentCategory,
                 let itemCell = cell as? ItemCell,
                 let item = items?[currentCategory]?[indexPath.item] {
-                print("test test")
-                print(item)
-                print("category is \(item.category)")
-                print((item as? TitledItem)?.toString())
-                print((item as? Magazine)?.toString())
-                print((item as? Book)?.toString())
                 itemCell.setItem(item: item)
             }
             return cell
@@ -196,7 +254,6 @@ extension PackingViewController: UICollectionViewDelegate {
             guard let packages = packages else {
                 return
             }
-            print("open new package")
             gameController?.openPackage(package: packages[indexPath.item])
         } else if collectionView == self.currentPackageView {
             guard let currentPackageItems = currentPackageItems else {
@@ -206,10 +263,10 @@ extension PackingViewController: UICollectionViewDelegate {
         } else {
             if let currentCategory = currentCategory,
                 let item = items?[currentCategory]?[indexPath.item] {
-                print("addItem")
                 gameController?.addItem(item: item)
             }
         }
+        reloadCurrentPackage()
     }
 }
 

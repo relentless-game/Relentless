@@ -27,6 +27,8 @@
 		5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
 		5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
 		5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
+		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
+		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
 		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
 		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
 		6249B503241C8D9F002F8A1B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B502241C8D9F002F8A1B /* GameController.swift */; };
@@ -123,6 +125,8 @@
 		5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
 		5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
 		5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
+		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 				5DE91781241FDAB000569453 /* GameViewController.swift */,
 				5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
 				5DE9177F241FD48800569453 /* PackingViewController.swift */,
+				5D8F69B224262F59003C8FCC /* CategoryViewController.swift */,
 				0BBEF05824236A41002FF3DE /* OrderViewController.swift */,
 				5D5E04112425EDA10005A134 /* DeliveryViewController.swift */,
 				5D5E040F2425EDA00005A134 /* HouseCell.swift */,
@@ -269,8 +274,8 @@
 			children = (
 				F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */,
 				6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */,
-				6249B500241C8BB0002F8A1B /* GameModelController.swift */,
 				6249B502241C8D9F002F8A1B /* GameController.swift */,
+				6249B500241C8BB0002F8A1B /* GameModelController.swift */,
 				6249B504241C952F002F8A1B /* GameItemsAllocator.swift */,
 				6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */,
 				6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */,
@@ -367,6 +372,7 @@
 				F3C37BF924189F5200D7109B /* AppDelegate.swift */,
 				F3C37BFB24189F5200D7109B /* SceneDelegate.swift */,
 				5D5E040D2425ED830005A134 /* ItemCell.xib */,
+				5D8F69B424266303003C8FCC /* HouseCell.xib */,
 				F3C37BFF24189F5200D7109B /* Main.storyboard */,
 				F3C37C0224189F5500D7109B /* Assets.xcassets */,
 				F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */,
@@ -510,6 +516,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
 				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
 				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
@@ -665,6 +672,7 @@
 				F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */,
 				0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */,
 				F3BF7F11242503E200A50EE3 /* Book.swift in Sources */,
+				5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
 				0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
 				0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
 				0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */,

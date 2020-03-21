@@ -13,8 +13,6 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(gameController)
-        print(gameController?.game)
         addObservers()
     }
     func addObservers() {
@@ -24,12 +22,10 @@ class GameViewController: UIViewController {
     }
 
     @IBAction private func proceed(_ sender: Any) {
-        print("trystartRound")
         gameController?.startRound()
     }
 
     @objc func handleRoundStarted() {
-        print("roundstarted")
         performSegue(withIdentifier: "startRound", sender: self)
     }
     

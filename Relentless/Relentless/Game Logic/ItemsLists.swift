@@ -11,7 +11,8 @@ import Foundation
 class ItemsLists {
 
     /// At least three similar book titles will be picked together
-    static let books = [[Book(name: "The title of the book is"), Book(name: "The book title is title is"), Book(name: "The book title")],
+    static let books = [[Book(name: "The title of the book is"),
+                         Book(name: "The book title is title is"), Book(name: "The book title")],
                         [Book(name: "Is the book title"), Book(name: "Book is the title"),
                          Book(name: "Is the title book")],
                         [Book(name: "Title is the book"), Book(name: "The title title is the book title"),

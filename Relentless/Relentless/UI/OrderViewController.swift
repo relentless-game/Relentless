@@ -6,28 +6,19 @@
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class OrderViewController: UIViewController {
-    var gameController: GameController?
-    var house: House?
-    var orders: [Order]? {
-        guard let houseOrders = house?.orders else {
-            return [Order]()
-        }
-        return Array(houseOrders)
-    }
+    var orders: [Order]?
 
     private let reuseIdentifier = "ItemCell"
-    @IBOutlet weak var ordersCollectionView: UICollectionView!
+    @IBOutlet private var ordersCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let itemNib = UINib(nibName: reuseIdentifier, bundle: nil)
         ordersCollectionView.register(itemNib, forCellWithReuseIdentifier: reuseIdentifier)
     }
-
 }
 
 extension OrderViewController: UICollectionViewDataSource {
@@ -68,7 +59,7 @@ extension OrderViewController: UICollectionViewDataSource {
                                                   for: indexPath) as? OrderHeaderView else {
                 return OrderHeaderView()
             }
-            headerView.setLabel("Order \(indexPath.section)")
+            headerView.setLabel("Order \(indexPath.section + 1)")
             return headerView
         default:
             return OrderHeaderView()

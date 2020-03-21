@@ -74,8 +74,8 @@ class ItemsAllocator: GameItemsAllocator {
         switch category {
         case Category.book, Category.magazine:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
-        default:
-            return [Item]()
+//        default:
+//            return [Item]()
         }
     }
 

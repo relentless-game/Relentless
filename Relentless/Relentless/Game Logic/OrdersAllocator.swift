@@ -24,12 +24,8 @@ class OrdersAllocator: GameOrdersAllocator {
         let numOfOrders = defaultNumOfOrders + Int(difficultyLevel * Float(defaultNumOfOrders))
         let maxNumOfItems = defaultMaxNumOfItems + Int(difficultyLevel * Float(defaultMaxNumOfItems))
         for player in players {
-            print("number of orders \(numOfOrders)")
-            print(player.orders.count)
             while player.orders.count < numOfOrders {
-                print("loop")
                 let order = generateOrder(maxNumOfItems: maxNumOfItems, currPlayer: player, allPlayers: players)
-                print("here")
                 player.orders.insert(order)
             }
         }
@@ -40,20 +36,15 @@ class OrdersAllocator: GameOrdersAllocator {
 
         // choose player's own items for half of the order
         let numberOfOwnItems = numberOfItems / 2
-        print("inside generate orders1")
         let selectedOwnItems = selectItems(from: currPlayer.items, numberToSelect: numberOfOwnItems)
-        print("inside generate orders2")
         // choose other players' items as remaining items for order
         let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
-        print("inside generate orders3")
         let selectedOthersItems = selectItems(from: othersItems,
                                               numberToSelect: numberOfItems - numberOfOwnItems)
-        print("inside generate orders4")
         var allSelectedItems = [Item]()
         allSelectedItems.append(contentsOf: selectedOwnItems)
         allSelectedItems.append(contentsOf: selectedOthersItems)
 
-        print("inside generate orders5")
         let order = Order(items: allSelectedItems, timeLimitInSeconds: defaultTimeLimit)
         return order
     }
@@ -66,14 +57,10 @@ class OrdersAllocator: GameOrdersAllocator {
         }
         
         var selectedItems = [Item]()
-        print(selectedItems.count)
         while selectedItems.count < numberToSelect {
-            print("loop1")
             guard let randomItem = items.randomElement() else {
-                print("loop2")
                 continue
             }
-            print("loop3")
             selectedItems.append(randomItem)
         }
         return selectedItems

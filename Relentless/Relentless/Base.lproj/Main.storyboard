@@ -289,7 +289,7 @@
                                     </imageView>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ste-ol-ed4" userLabel="ItemsView">
                                         <rect key="frame" x="362" y="0.0" width="362" height="284"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aoN-p8-ZOD">
                                             <size key="itemSize" width="50" height="50"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -317,9 +317,9 @@
                                             <outlet property="delegate" destination="pIj-eO-AQF" id="onF-7F-aRm"/>
                                         </connections>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7d-y2-kSg">
-                                        <rect key="frame" x="252" y="10" width="100" height="42"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7d-y2-kSg">
+                                        <rect key="frame" x="20" y="0.0" width="342" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Category"/>
                                         <connections>
                                             <action selector="touchCategoryButton:" destination="pIj-eO-AQF" eventType="touchUpInside" id="Wrh-Mg-MzE"/>
@@ -328,14 +328,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="10" id="1cr-0h-aks"/>
+                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="1cr-0h-aks"/>
                                     <constraint firstAttribute="bottom" secondItem="KvK-6d-e86" secondAttribute="bottom" id="2wv-dT-Tbo"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="9Jq-ZD-WWY"/>
                                     <constraint firstAttribute="bottom" secondItem="ste-ol-ed4" secondAttribute="bottom" id="Bc8-Oe-tbS"/>
-                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="252" id="EIc-uh-z6g"/>
+                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="20" symbolic="YES" id="EIc-uh-z6g"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="Gce-pV-dEc"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="width" secondItem="ste-ol-ed4" secondAttribute="width" id="HeY-De-rgf"/>
-                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V7d-y2-kSg" secondAttribute="trailing" constant="8" symbolic="YES" id="IWN-IL-8BK"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="V7d-y2-kSg" secondAttribute="trailing" id="IWN-IL-8BK"/>
                                     <constraint firstAttribute="trailing" secondItem="ste-ol-ed4" secondAttribute="trailing" id="MJ8-Aa-PL0"/>
                                     <constraint firstItem="veC-Sv-bk6" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="30" id="Pe5-2m-CfU"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="Q7N-DT-cOj"/>
@@ -351,7 +351,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="To Houses"/>
                                 <connections>
-                                    <segue destination="7Wf-ZL-3wu" kind="show" id="fdU-OW-AMW"/>
+                                    <segue destination="7Wf-ZL-3wu" kind="show" identifier="toHouses" id="fdU-OW-AMW"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
@@ -392,7 +392,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kW-UE-fnx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134" y="2642"/>
+            <point key="canvasLocation" x="133.74384236453201" y="2640.8000000000002"/>
         </scene>
         <!--Game-->
         <scene sceneID="NOF-ap-cp3">

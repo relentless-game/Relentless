@@ -20,7 +20,7 @@ class PackingViewController: UIViewController {
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
     var packages: [Package]?
-    var currentCategory: Category? = .book
+    var currentCategory: Category?
     var currentPackageItems: [Item]?
     private let categoryIdentifier = "CategoryViewController"
     private let itemIdentifier = "ItemCell"
@@ -73,7 +73,7 @@ class PackingViewController: UIViewController {
     
     @objc func reloadPackages() {
         packages = gameController?.playerPackages
-        print(gameController)
+        print("yo \(gameController)")
         print(gameController?.playerPackages)
         print(packages)
         packagesView.reloadData()
@@ -102,11 +102,11 @@ class PackingViewController: UIViewController {
     func changeCurrentCategory(to category: Category) {
         currentCategory = category
         reloadCategoryButton()
+        itemsView.reloadData()
     }
 
     func reloadCategoryButton() {
-        print(currentCategory?.toString())
-        categoryButton.titleLabel?.text = currentCategory?.toString()
+        categoryButton.setTitle(currentCategory?.toString(), for: .normal)
     }
 
     func attachLongPressToPackages() {
@@ -159,6 +159,10 @@ class PackingViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
+        if segue.identifier == "toHouses" {
+            let viewController = segue.destination as? HousesViewController
+            viewController?.gameController = gameController
+        }
     }
 
 }

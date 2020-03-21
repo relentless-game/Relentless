@@ -50,6 +50,7 @@ class HousesViewController: UIViewController {
         if segue.identifier == "toPacking" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController
+            print("first \(viewController?.gameController)")
         }
     }
 }

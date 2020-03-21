@@ -68,22 +68,16 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleGameStarted() {
-        print("seg")
         performSegue(withIdentifier: "startGame", sender: self)
     }
 
     @objc func gameJoined() {
         gameId = gameController?.gameId
-        print(gameController?.gameId)
         initGameIdLabel()
         initStartButton()
-        print(gameController?.gameId)
     }
 
     @IBAction func startGame(_ sender: Any) {
-        print(gameController)
-        print(gameController?.gameId)
-        print(gameController?.game)
         gameController?.startGame()
     }
 
@@ -102,9 +96,6 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "startGame" {
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
-            print(gameController)
-            print(gameController?.gameId)
-            print(gameController?.game)
         }
     }
 }

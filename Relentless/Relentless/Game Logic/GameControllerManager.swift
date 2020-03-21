@@ -45,17 +45,20 @@ class GameControllerManager: GameController {
     }
 
     // properties for network
+//    var userId: String? {
+//        game?.player.userId // unique ID given by Firebase
+//    }
+    var userId: String?
     var network: Network = NetworkManager()
-    var userId: String? {
-        game?.player.userId // unique ID given by Firebase
-    }
+
     var gameId: Int? {
         game?.gameId
     }
     private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
-        game?.player.userId = userId
+        self.userId = userId
+//        game?.player.userId = userId
         addObservers()
     }
 
@@ -84,11 +87,14 @@ class GameControllerManager: GameController {
         }
 
         // items and orders are generated and allocated by the host only
+        print("gonna init items")
         initialiseItems()
+        print("gonna init orders")
         initialiseOrders()
-
+        print("game is \(game)")
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
+            print("gonna call network start round")
             network.startRound(gameId: gameId, roundNumber: roundNumber)
         }
     }
@@ -208,14 +214,19 @@ class GameControllerManager: GameController {
     }
 
     private func initialiseOrders() {
+        print("here 1")
         let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
+        print("here 2")
         guard let players = game?.allPlayers, let gameId = gameId else {
             return
         }
+        print("here 3")
         ordersAllocator.allocateOrders(players: players)
+        print("here 4")
         
         // update other devices
         network.allocateOrders(gameId: gameId, players: players)
+        print("here 5")
     }
 
     private func getActiveOrders() -> [Order] {
@@ -272,7 +283,7 @@ extension GameControllerManager {
         network.createGame(completion: { gameId in
             self.joinGame(gameId: gameId)
             self.isHost = true
-            NotificationCenter.default.post(name: .didReceiveGameId, object: nil)
+            NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
@@ -353,6 +364,7 @@ extension GameControllerManager {
                 }
             })
         }
+//        NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -362,8 +374,11 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
-        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        print(gameStatus)
+        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
+//        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+//         print("did end game \(didEndGame)")
+        let didEndGame = false
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -426,7 +441,7 @@ extension GameControllerManager {
         }
 
         // the host checks the lose condition and ends the game if fulfilled
-        if money <= 0 {
+        if money < 0 {
             endGame()
         }
     }
@@ -488,6 +503,7 @@ extension GameControllerManager {
 extension GameControllerManager {
 
     func addNewPackage() {
+        print(game)
         game?.addNewPackage()
     }
 

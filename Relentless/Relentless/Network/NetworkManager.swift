@@ -259,9 +259,10 @@ class NetworkManager: Network {
             var players: [Player] = []
             if let dict = snapshot.value as? [String: [String: Any]] {
                 for playerInfo in dict.values {
-                    let playerInfoDict = playerInfo as? [String: String] ?? [:]
-                    let userId = playerInfoDict["userId"] ?? ""
-                    let userName = playerInfoDict["userName"] ?? ""
+                    let playerInfoDict = playerInfo //as? [String: Any] ?? [:]
+                    let userId = playerInfoDict["userId"] as? String ?? ""
+                    print("new user \(userId)")
+                    let userName = playerInfoDict["userName"] as? String ?? ""
                     let player = Player(userId: userId, userName: userName, profileImage: nil)
                     players.append(player)
                 }

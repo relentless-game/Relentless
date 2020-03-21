@@ -43,15 +43,15 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadPackages),
                                                name: .didChangePackages, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(reloadCurrentPackage),
+//                                               name: .didChangePackages, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCurrentPackage),
-                                               name: .didChangePackages, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadItems),
                                                name: .didChangeItems, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
-                                               name: .didChangeCurrentSatisfaction, object: nil)
+                                               name: .didChangeSatisfactionBar, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
@@ -76,7 +76,7 @@ class PackingViewController: UIViewController {
         packagesView.reloadData()
     }
 
-    @objc func reloadItems() {
+    func reloadItems() {
         items = gameController?.playerItems
         if let newCategory = items?.keys.first {
             changeCurrentCategory(to: newCategory)
@@ -91,8 +91,11 @@ class PackingViewController: UIViewController {
     }
 
     @objc func updateSatisfactionBar() {
+        print("update satisfaction bar \(gameController?.satisfactionBar.currentFractionalSatisfaction)")
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            satisfactionBar.setProgress(value, animated: true)
+            print("val: \(value)")
+//            value = 1
+            satisfactionBar.setProgress(1, animated: true)
         }
     }
 

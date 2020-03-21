@@ -20,6 +20,9 @@ class SatisfactionBar {
     var currentFractionalSatisfaction: Float {
         let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
         let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
+        print(range)
+        print(defaultSatisfactionChange)
+        print(adjustedCurrentSatisfaction)
         return Float(adjustedCurrentSatisfaction) / Float(range)
     }
 
@@ -33,23 +36,27 @@ class SatisfactionBar {
 
     /// Updates satisfaction value based on correctness of order fulfilment and time used
     func update(order: Order, isCorrect: Bool) {
-        let remainingTime = order.timeLeft
-        let totalTime = order.timeLimit
+        let remainingTime = Float(order.timeLeft)
+        let totalTime = Float(order.timeLimit)
 
         if isCorrect {
             let fraction = remainingTime / totalTime
-            currentSatisfaction += fraction * defaultSatisfactionChange
+            currentSatisfaction += Int(fraction * Float(defaultSatisfactionChange))
             if currentSatisfaction > 100 {
                 currentSatisfaction = 100
             }
         } else {
-            let fraction = (1 - remainingTime) / totalTime
-            currentSatisfaction -= fraction * defaultSatisfactionChange
+            let fraction = (totalTime - remainingTime) / totalTime
+//            print("bef \(currentSatisfaction)")
+//            print(fraction)
+            currentSatisfaction -= Int(fraction * Float(defaultSatisfactionChange))
+//            print("aft \(currentSatisfaction)")
         }
     }
 
     // todo: allow different changes to satisfaction based on the order/house
     func updateForTimeOut() {
+//        print("oopy")
         currentSatisfaction -= defaultSatisfactionChange
     }
 

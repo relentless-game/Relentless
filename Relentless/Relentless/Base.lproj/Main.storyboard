@@ -360,7 +360,7 @@
                                     <segue destination="7Wf-ZL-3wu" kind="show" identifier="toHouses" id="fdU-OW-AMW"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
                                 <rect key="frame" x="74" y="335" width="664" height="30"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -436,12 +436,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="dSl-5W-DiV"/>
                     <connections>
+                        <outlet property="proceedButton" destination="9IR-KU-344" id="lNp-OY-pHs"/>
                         <segue destination="pIj-eO-AQF" kind="show" identifier="startRound" id="gkd-Mi-ecb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8U-bf-WvX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134" y="1780"/>
+            <point key="canvasLocation" x="133.74384236453201" y="1780"/>
         </scene>
         <!--Lobby-->
         <scene sceneID="ZgY-8p-6WX">
@@ -582,7 +583,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerIconCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lqe-cw-nSZ">
@@ -764,10 +765,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="GPw-Oj-Gmi"/>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="Ed9-Qd-LTp"/>
-        <segue reference="biH-vW-GUr"/>
-        <segue reference="gkd-Mi-ecb"/>
+        <segue reference="FQq-Pt-F3v"/>
+        <segue reference="5qg-Sa-A9a"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

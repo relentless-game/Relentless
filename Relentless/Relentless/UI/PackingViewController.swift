@@ -71,15 +71,11 @@ class PackingViewController: UIViewController {
     
     @objc func reloadPackages() {
         packages = gameController?.playerPackages
-        print(gameController)
-        print(gameController?.playerPackages)
-        print(packages)
         packagesView.reloadData()
     }
 
     @objc func reloadItems() {
         items = gameController?.playerItems
-        print(items)
         itemsView.reloadData()
     }
 
@@ -193,7 +189,6 @@ extension PackingViewController: UICollectionViewDelegate {
         if collectionView == self.packagesView {
             if indexPath.item == packages?.count {
                 // Add Button at the end
-                print("tries to add")
                 gameController?.addNewPackage()
                 reloadPackages()
                 return

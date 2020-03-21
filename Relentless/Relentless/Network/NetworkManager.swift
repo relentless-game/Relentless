@@ -224,7 +224,7 @@ class NetworkManager: Network {
     
     func attachPackageListener(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/packages"
-        let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
             let packageString = snapshot.value as? String ?? ""
             if let package = PackageAdapter.decodePackage(from: packageString) {
                 action(package)
@@ -236,7 +236,7 @@ class NetworkManager: Network {
     
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void) {
         let path = "games/\(gameId)/status"
-        let refHandle = ref.child(path).observe(DataEventType.value, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
             let gameStatusString = snapshot.value as? String ?? ""
             guard let gameStatus = GameStatus.decodeFromString(string: gameStatusString) else {
                 return

@@ -1,4 +1,3 @@
-  
 //
 //  NotificationNameExtension.swift
 //  Relentless

@@ -13,23 +13,72 @@ class HousesViewController: UIViewController {
     var houses: [House]?
     var activeHouse: House?
     let housesIdentifier = "HouseCell"
+    let orderIdentifier = "OrderViewController"
+    @IBOutlet private var housesCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        houses = [House]()
-        var orders = Set<Order>()
-        orders.insert(Order(items: [Book(name: "yo"), Book(name: "oy")], timeLimitInSeconds: 50))
-        orders.insert(Order(items: [Book(name: "ohoh"), Book(name: "poo")], timeLimitInSeconds: 50))
-        houses?.append(House(orders: orders))
-//        houses?.append(House(orders: Set<Order>()))
+        initCollectionView()
+        addObservers()
+        houses = gameController?.houses
+    }
+
+    func initCollectionView() {
+        let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
+        housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
+    }
+
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundEnded),
+                                               name: .didEndRound, object: nil)
+    }
+    
+    @objc func handleRoundEnded() {
+        performSegue(withIdentifier: "endRound", sender: self)
+    }
+
+    func openOrders(_ sender: UIView) {
+        guard let activeHouse = activeHouse,
+            let orders = gameController?.retrieveActiveOrders(for: activeHouse),
+            !orders.isEmpty else {
+            return
+        }
+        if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
+            as? OrderViewController {
+            let width = view.frame.width - 60
+            let height = view.frame.width / 2
+            viewController.preferredContentSize = CGSize(width: width, height: height)
+            viewController.modalPresentationStyle = .popover
+            viewController.orders = orders
+            if let pres = viewController.presentationController {
+                pres.delegate = self
+            }
+            if let pop = viewController.popoverPresentationController {
+                pop.sourceView = sender
+                pop.sourceRect = sender.bounds
+            }
+            self.present(viewController, animated: true)
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
-        if segue.identifier == "viewOrders" {
-            let viewController = segue.destination as? OrderViewController
-            viewController?.house = activeHouse
+        if segue.identifier == "toPacking" {
+            let viewController = segue.destination as? PackingViewController
+            viewController?.gameController = gameController
         }
+        if segue.identifier == "endRound" {
+            let viewController = segue.destination as? GameViewController
+            viewController?.gameController = gameController
+        }
+    }
+}
+
+extension HousesViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        .none
     }
 }
 
@@ -59,6 +108,9 @@ extension HousesViewController: UICollectionViewDelegate {
             return
         }
         activeHouse = houses[indexPath.item]
-        performSegue(withIdentifier: "viewOrders", sender: self)
+
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            openOrders(cell)
+        }
     }
 }

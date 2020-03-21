@@ -87,11 +87,14 @@ class GameControllerManager: GameController {
         }
 
         // items and orders are generated and allocated by the host only
+        print("gonna init items")
         initialiseItems()
+        print("gonna init orders")
         initialiseOrders()
-
+        print("game is \(game)")
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
+            print("gonna call network start round")
             network.startRound(gameId: gameId, roundNumber: roundNumber)
         }
     }
@@ -211,14 +214,19 @@ class GameControllerManager: GameController {
     }
 
     private func initialiseOrders() {
+        print("here 1")
         let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
+        print("here 2")
         guard let players = game?.allPlayers, let gameId = gameId else {
             return
         }
+        print("here 3")
         ordersAllocator.allocateOrders(players: players)
+        print("here 4")
         
         // update other devices
         network.allocateOrders(gameId: gameId, players: players)
+        print("here 5")
     }
 
     private func getActiveOrders() -> [Order] {

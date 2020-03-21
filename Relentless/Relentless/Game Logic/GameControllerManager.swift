@@ -35,7 +35,7 @@ class GameControllerManager: GameController {
     var playerItems: [Category: [Item]] {
         var itemsByCategory = [Category: [Item]]()
         game?.player.items.forEach {
-            guard let _ = itemsByCategory[$0.category] else {
+            guard itemsByCategory[$0.category] != nil else {
                 itemsByCategory[$0.category] = [$0]
                 return
             }
@@ -207,7 +207,6 @@ class GameControllerManager: GameController {
         itemsAllocator.allocateItems(categories: categories, players: players)
         gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
 
-        print("my items are \(players.first?.items)")
         // update other devices
         network.allocateItems(gameId: gameId, players: players)
     }

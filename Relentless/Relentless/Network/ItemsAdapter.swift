@@ -31,29 +31,9 @@ class ItemsAdapter {
         }
         
         do {
-            //let decodedItems = try decoder.decode([Item].self, from: data)
-            
-            print("BEFORE DECODE")
             let decodedItems = try decoder.decode(Items.self, from: data)
-            for item in decodedItems.items {
-                print(item.toString())
-            }
-            
-            print("decoded items are \(decodedItems)")
-            /////////TEST
-            for item in decodedItems.items {
-                print("item:")
-                print((item as? Item)?.toString())
-                print((item as? Book)?.toString())
-                print((item as? Magazine)?.toString())
-                print((item as? TitledItem)?.toString())
-            }
-            ////////TEST
-            
-            // return decodedItems
             return decodedItems.items
-        } catch let error as Error {
-            print(error.localizedDescription)
+        } catch {
             return []
         }
     }

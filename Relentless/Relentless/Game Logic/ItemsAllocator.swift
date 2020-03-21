@@ -10,7 +10,7 @@ import Foundation
 
 class ItemsAllocator: GameItemsAllocator {
 
-    var generatedItemsByCategory: [Category : [Item]] = [:]
+    var generatedItemsByCategory: [Category: [Item]] = [:]
 
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)

@@ -32,6 +32,9 @@ class GameControllerManager: GameController {
     var players: [Player] {
         game?.allPlayers ?? []
     }
+    var otherPlayers: [Player] {
+        game?.allPlayers.filter { $0 != game?.player } ?? []
+    }
     var playerPackages: [Package] {
         game?.packages ?? []
     }

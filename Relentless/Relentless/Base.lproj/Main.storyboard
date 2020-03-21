@@ -554,14 +554,95 @@
         <!--Delivery-->
         <scene sceneID="KM9-ei-gvj">
             <objects>
-                <viewController title="Delivery" id="aeQ-0T-Zjb" customClass="DeliveryViewController" sceneMemberID="viewController">
+                <viewController title="Delivery" id="aeQ-0T-Zjb" customClass="DeliveryViewController" customModule="Relentless" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WMX-C2-PbG">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TYT-Zw-XwY">
+                                <rect key="frame" x="74" y="100" width="664" height="224"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nbM-SR-amE">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aeQ-0T-Zjb" id="hXX-Hb-paR"/>
+                                    <outlet property="delegate" destination="aeQ-0T-Zjb" id="eG5-M3-Fcq"/>
+                                </connections>
+                            </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QJ6-Be-DfQ">
+                                <rect key="frame" x="74" y="10" width="664" height="90"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bVW-No-eN7">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lqe-cw-nSZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fd3-cJ-oto">
+                                                    <rect key="frame" x="4" y="14.666666666666664" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fd3-cJ-oto" firstAttribute="centerX" secondItem="Lqe-cw-nSZ" secondAttribute="centerX" id="QRa-k2-nRd"/>
+                                                <constraint firstItem="fd3-cJ-oto" firstAttribute="centerY" secondItem="Lqe-cw-nSZ" secondAttribute="centerY" id="zF7-oa-9Zk"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="textLabel" destination="fd3-cJ-oto" id="fvz-3s-dZb"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="aeQ-0T-Zjb" id="0mJ-Fq-SHV"/>
+                                    <outlet property="delegate" destination="aeQ-0T-Zjb" id="cfl-Tv-gR4"/>
+                                </connections>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjJ-By-fk5">
+                                <rect key="frame" x="682" y="10" width="76" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <segue destination="pIj-eO-AQF" kind="show" identifier="cancelDelivery" id="5qg-Sa-A9a"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Qxp-Jy-LDQ" firstAttribute="trailing" secondItem="TYT-Zw-XwY" secondAttribute="trailing" constant="30" id="9q7-U1-0oc"/>
+                            <constraint firstItem="QJ6-Be-DfQ" firstAttribute="leading" secondItem="Qxp-Jy-LDQ" secondAttribute="leading" constant="30" id="L7d-YF-PLT"/>
+                            <constraint firstItem="Qxp-Jy-LDQ" firstAttribute="trailing" secondItem="pjJ-By-fk5" secondAttribute="trailing" constant="10" id="Q9a-d7-5Z9"/>
+                            <constraint firstItem="pjJ-By-fk5" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Qxp-Jy-LDQ" secondAttribute="leading" symbolic="YES" id="R7C-aO-FFb"/>
+                            <constraint firstItem="TYT-Zw-XwY" firstAttribute="top" secondItem="QJ6-Be-DfQ" secondAttribute="bottom" id="RFa-DZ-QHG"/>
+                            <constraint firstItem="QJ6-Be-DfQ" firstAttribute="top" secondItem="Qxp-Jy-LDQ" secondAttribute="top" constant="10" id="SDI-ac-Dci"/>
+                            <constraint firstItem="Qxp-Jy-LDQ" firstAttribute="bottom" secondItem="TYT-Zw-XwY" secondAttribute="bottom" constant="30" id="TS4-DV-7ej"/>
+                            <constraint firstItem="Qxp-Jy-LDQ" firstAttribute="trailing" secondItem="QJ6-Be-DfQ" secondAttribute="trailing" constant="30" id="Wak-g5-tLC"/>
+                            <constraint firstItem="pjJ-By-fk5" firstAttribute="top" secondItem="Qxp-Jy-LDQ" secondAttribute="top" constant="10" id="Y0m-kH-ZxQ"/>
+                            <constraint firstItem="TYT-Zw-XwY" firstAttribute="leading" secondItem="Qxp-Jy-LDQ" secondAttribute="leading" constant="30" id="rxL-LK-55L"/>
+                            <constraint firstItem="TYT-Zw-XwY" firstAttribute="top" secondItem="Qxp-Jy-LDQ" secondAttribute="top" constant="100" id="sIO-tj-3Kf"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Qxp-Jy-LDQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="t6d-Yw-gEb"/>
+                    <connections>
+                        <outlet property="housesCollectionView" destination="TYT-Zw-XwY" id="a2Y-FA-jYa"/>
+                        <outlet property="playersCollectionView" destination="QJ6-Be-DfQ" id="Gq5-Qm-RDn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d61-Up-zwN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -592,17 +673,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HouseCell" id="css-3X-f3p">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Dqw-2i-yyc">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="7Wf-ZL-3wu" id="zfS-Z8-imT"/>
                                     <outlet property="delegate" destination="7Wf-ZL-3wu" id="B7O-lP-fGc"/>
@@ -622,6 +693,9 @@
                         <viewLayoutGuide key="safeArea" id="8v0-GL-bLx"/>
                     </view>
                     <navigationItem key="navigationItem" id="oYm-QS-kVM"/>
+                    <connections>
+                        <outlet property="housesCollectionView" destination="o3k-me-lbf" id="jrE-L6-b6H"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7Z-ZD-ceQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -693,7 +767,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="N8K-F4-jFJ"/>
+        <segue reference="5qg-Sa-A9a"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

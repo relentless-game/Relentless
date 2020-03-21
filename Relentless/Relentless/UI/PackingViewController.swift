@@ -23,6 +23,7 @@ class PackingViewController: UIViewController {
     var packages: [Package]?
     var currentCategory: Category?
     var currentPackageItems: [Item]?
+    var packageForDelivery: Package?
     private let categoryIdentifier = "CategoryViewController"
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
@@ -30,11 +31,6 @@ class PackingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        packages = [Package]()
-//        packages?.append(Package(creator: "hi", packageNumber: 100, items: []))
-//        items = [Item]()
-//        items?.append(Book(name: "test"))
-//        items?.append(Book(name: "woop"))
         initialiseCollectionViews()
         addObservers()
         reloadAllViews()
@@ -74,9 +70,6 @@ class PackingViewController: UIViewController {
     
     @objc func reloadPackages() {
         packages = gameController?.playerPackages
-        print("yo \(gameController)")
-        print(gameController?.playerPackages)
-        print(packages)
         packagesView.reloadData()
     }
 
@@ -85,14 +78,13 @@ class PackingViewController: UIViewController {
         if let newCategory = items?.keys.first {
             changeCurrentCategory(to: newCategory)
         }
-        print(items)
         itemsView.reloadData()
     }
 
     @objc func reloadCurrentPackage() {
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
         currentPackageView.reloadData()
-        currentPackageLabel.text = gameController?.openedPackage?.toString() 
+        currentPackageLabel.text = gameController?.openedPackage?.toString()
     }
 
     @objc func updateSatisfactionBar() {
@@ -131,7 +123,8 @@ class PackingViewController: UIViewController {
         if let indexPath = indexPath {
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
-                print(packageCell.package ?? "problem")
+                packageForDelivery = packageCell.package
+                performSegue(withIdentifier: "deliverPackage", sender: self)
             }
         }
     }
@@ -164,6 +157,11 @@ class PackingViewController: UIViewController {
         if segue.identifier == "toHouses" {
             let viewController = segue.destination as? HousesViewController
             viewController?.gameController = gameController
+        }
+        if segue.identifier == "deliverPackage" {
+            let viewController = segue.destination as? DeliveryViewController
+            viewController?.gameController = gameController
+            viewController?.packageForDelivery = packageForDelivery
         }
     }
 
@@ -238,7 +236,6 @@ extension PackingViewController: UICollectionViewDelegate {
         if collectionView == self.packagesView {
             if indexPath.item == packages?.count {
                 // Add Button at the end
-                print("tries to add")
                 gameController?.addNewPackage()
                 reloadPackages()
                 return

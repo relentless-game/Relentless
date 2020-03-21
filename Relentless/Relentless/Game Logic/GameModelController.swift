@@ -14,6 +14,7 @@ protocol GameModelController {
     var game: Game? { get set }
     var houses: [House] { get }
     var players: [Player] { get }
+    var otherPlayers: [Player] { get }
     var playerPackages: [Package] { get }
     var playerItems: [Category: [Item]] { get }
     var openedPackage: Package? { get }

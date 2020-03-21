@@ -14,30 +14,32 @@ class HousesViewController: UIViewController {
     var activeHouse: House?
     let housesIdentifier = "HouseCell"
     let orderIdentifier = "OrderViewController"
+    @IBOutlet private var housesCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        initCollectionView()
         houses = gameController?.houses
-//        houses = [House]()
-//        var orders = Set<Order>()
-//        orders.insert(Order(items: [Book(name: "yo"), Book(name: "oy")], timeLimitInSeconds: 50))
-//        orders.insert(Order(items: [Book(name: "ohoh"), Book(name: "poo")], timeLimitInSeconds: 50))
-//        houses?.append(House(orders: orders))
-//        houses?.append(House(orders: Set<Order>()))
+    }
+
+    func initCollectionView() {
+        let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
+        housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
     }
 
     func openOrders(_ sender: UIView) {
-//        let viewController = OrderViewController()
+        guard let activeHouse = activeHouse,
+            let orders = gameController?.retrieveActiveOrders(for: activeHouse),
+            !orders.isEmpty else {
+            return
+        }
         if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
             as? OrderViewController {
             let width = view.frame.width - 60
             let height = view.frame.width / 2
             viewController.preferredContentSize = CGSize(width: width, height: height)
             viewController.modalPresentationStyle = .popover
-            if let activeHouse = activeHouse,
-                let orders = gameController?.retrieveActiveOrders(for: activeHouse) {
-                viewController.orders = orders
-            }
+            viewController.orders = orders
             if let pres = viewController.presentationController {
                 pres.delegate = self
             }
@@ -54,7 +56,6 @@ class HousesViewController: UIViewController {
         if segue.identifier == "toPacking" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController
-            print("first \(viewController?.gameController)")
         }
     }
 }

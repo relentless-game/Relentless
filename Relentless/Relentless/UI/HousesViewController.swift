@@ -87,6 +87,7 @@ extension HousesViewController: UICollectionViewDelegate {
             return
         }
         activeHouse = houses[indexPath.item]
+
         if let cell = collectionView.cellForItem(at: indexPath) {
             openOrders(cell)
         }

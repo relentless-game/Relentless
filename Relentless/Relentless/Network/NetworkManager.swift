@@ -100,8 +100,10 @@ class NetworkManager: Network {
             let isGameIdValid = gameIdsTaken.contains(gameId)
             if isGameIdValid {
                 // next check
+                print("1")
                 self.checkGameAlreadyPlaying(userId: userId, userName: userName, gameId: gameId, completion: completion)
             } else {
+                 print("2")
                 completion(JoinGameError.invalidGameId)
             }
         }
@@ -114,9 +116,11 @@ class NetworkManager: Network {
             if let gameStatus = GameStatus.decodeFromString(string: statusString) {
                 let isGameStarted = gameStatus.isGamePlaying
                 if isGameStarted {
+                     print("4")
                     completion(JoinGameError.gameAlreadyPlaying)
                 } else {
                     // next check
+                     print("3")
                     self.checkGameRoomFull(userId: userId, userName: userName, gameId: gameId, completion: completion)
                 }
             }
@@ -133,8 +137,10 @@ class NetworkManager: Network {
             
             if numberOfPlayers < self.maxNumberOfPlayers {
                 self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
+                 print("5")
                 completion(nil) // nil indicates successful result
             } else {
+                 print("6")
                 completion(JoinGameError.gameRoomFull)
             }
         }
@@ -155,7 +161,7 @@ class NetworkManager: Network {
     
     func startGame(gameId: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
-                                          isPaused: false, currentRound: 1).encodeToString() else {
+                                          isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
@@ -293,7 +299,7 @@ class NetworkManager: Network {
     func resumeRound(gameId: Int, currentRound: Int) {
         // do something
     }
-        
+
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
         ref.child(path).observeSingleEvent(of: .value) { snapshot in

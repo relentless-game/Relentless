@@ -24,7 +24,7 @@ class CategoryGenerator: GameCategoryGenerator {
     func generateCategories() -> [Category] {
         let numberToGenerate = numberOfPlayers * (defaultNumOfCats + Int(difficultyLevel *
             Float(defaultNumOfCats)))
-        let allCategories = Category.AllCases.init()
+        let allCategories = Category.allCases
 
         // if number of categories is less than required, just return all available categories
         if allCategories.count < numberToGenerate {

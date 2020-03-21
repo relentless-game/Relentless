@@ -188,7 +188,10 @@ extension PackingViewController: UICollectionViewDataSource {
         } else if collectionView == self.currentPackageView {
             return currentPackageItems?.count ?? 0
         } else {
-            return items?.count ?? 0
+            guard let currentCategory = currentCategory else {
+                return 0
+            }
+            return items?[currentCategory]?.count ?? 0
         }
     }
 

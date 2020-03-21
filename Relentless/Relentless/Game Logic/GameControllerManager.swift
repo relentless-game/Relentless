@@ -41,6 +41,10 @@ class GameControllerManager: GameController {
             }
             itemsByCategory[$0.category]?.append($0)
         }
+        print("is it a book")
+        print(itemsByCategory[.book])
+        print("is it a mag")
+        print(itemsByCategory[.magazine])
         return itemsByCategory
     }
 
@@ -58,7 +62,8 @@ class GameControllerManager: GameController {
 
     init(userId: String) {
         self.userId = userId
-//        game?.player.userId = userId
+        //game?.player.userId = userId
+
         addObservers()
     }
 
@@ -105,8 +110,10 @@ class GameControllerManager: GameController {
         }
         pauseAllTimers()
         network.pauseRound(gameId: gameId, currentRound: roundNumber)
+        
         // terminate game if game does not resume within 30 seconds
-        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame), userInfo: nil, repeats: true)
+        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
+                                            userInfo: nil, repeats: true)
     }
 
     func resumeRound() {
@@ -209,6 +216,7 @@ class GameControllerManager: GameController {
         itemsAllocator.allocateItems(categories: categories, players: players)
         gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
 
+        print("my items are \(players.first?.items)")
         // update other devices
         network.allocateItems(gameId: gameId, players: players)
     }
@@ -294,6 +302,7 @@ extension GameControllerManager {
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+            print("error is \(error)")
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
@@ -364,7 +373,7 @@ extension GameControllerManager {
                 }
             })
         }
-//        NotificationCenter.default.post(name: .didJoinGame, object: nil)
+        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -374,11 +383,15 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
+        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+
         print(gameStatus)
-        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
-//        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-//         print("did end game \(didEndGame)")
-        let didEndGame = false
+//        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
+////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+////         print("did end game \(didEndGame)")
+//        let didEndGame = false
+
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -452,8 +465,8 @@ extension GameControllerManager {
             return
         }
         var splitOrders = [[Order]]()
-        for index in 1...numOfHouses {
-            splitOrders[index] = []
+        for _ in 1...numOfHouses {
+            splitOrders.append([])
         }
         for i in 0..<orders.count {
             splitOrders[i % numOfHouses].append(orders[i])

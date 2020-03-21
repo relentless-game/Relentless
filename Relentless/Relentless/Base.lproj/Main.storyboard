@@ -318,28 +318,37 @@
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7d-y2-kSg">
-                                        <rect key="frame" x="20" y="0.0" width="342" height="36"/>
+                                        <rect key="frame" x="20" y="5" width="337" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Category"/>
                                         <connections>
                                             <action selector="touchCategoryButton:" destination="pIj-eO-AQF" eventType="touchUpInside" id="Wrh-Mg-MzE"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wK9-uV-fvy">
+                                        <rect key="frame" x="5" y="5" width="48" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="1cr-0h-aks"/>
+                                    <constraint firstItem="V7d-y2-kSg" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="5" id="1cr-0h-aks"/>
                                     <constraint firstAttribute="bottom" secondItem="KvK-6d-e86" secondAttribute="bottom" id="2wv-dT-Tbo"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="9Jq-ZD-WWY"/>
                                     <constraint firstAttribute="bottom" secondItem="ste-ol-ed4" secondAttribute="bottom" id="Bc8-Oe-tbS"/>
                                     <constraint firstItem="V7d-y2-kSg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="20" symbolic="YES" id="EIc-uh-z6g"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="Gce-pV-dEc"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="width" secondItem="ste-ol-ed4" secondAttribute="width" id="HeY-De-rgf"/>
-                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="V7d-y2-kSg" secondAttribute="trailing" id="IWN-IL-8BK"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="V7d-y2-kSg" secondAttribute="trailing" constant="5" id="IWN-IL-8BK"/>
+                                    <constraint firstItem="wK9-uV-fvy" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="5" id="JlO-dm-HAY"/>
                                     <constraint firstAttribute="trailing" secondItem="ste-ol-ed4" secondAttribute="trailing" id="MJ8-Aa-PL0"/>
                                     <constraint firstItem="veC-Sv-bk6" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="30" id="Pe5-2m-CfU"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="Q7N-DT-cOj"/>
                                     <constraint firstAttribute="bottom" secondItem="veC-Sv-bk6" secondAttribute="bottom" constant="30" id="dVE-c6-yDX"/>
+                                    <constraint firstItem="wK9-uV-fvy" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="5" id="hTy-iJ-oak"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wK9-uV-fvy" secondAttribute="trailing" constant="8" symbolic="YES" id="iFH-Aq-Eff"/>
                                     <constraint firstItem="veC-Sv-bk6" firstAttribute="top" secondItem="KvK-6d-e86" secondAttribute="top" constant="30" id="j2H-db-NLt"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" id="lZ6-UZ-oCP"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="veC-Sv-bk6" secondAttribute="trailing" constant="30" id="ogf-qd-Hv9"/>
@@ -383,6 +392,7 @@
                     <navigationItem key="navigationItem" id="6NF-YO-Kai"/>
                     <connections>
                         <outlet property="categoryButton" destination="V7d-y2-kSg" id="sZK-5a-dHN"/>
+                        <outlet property="currentPackageLabel" destination="wK9-uV-fvy" id="6j0-ll-BUg"/>
                         <outlet property="currentPackageView" destination="veC-Sv-bk6" id="tAY-9m-m2X"/>
                         <outlet property="itemsView" destination="ste-ol-ed4" id="klK-W5-ST1"/>
                         <outlet property="packagesView" destination="W01-ck-AdA" id="5SB-YU-8QU"/>

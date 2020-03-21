@@ -26,6 +26,9 @@ class GameControllerManager: GameController {
 
     // properties for model
     var game: Game?
+    var houses: [House] {
+        game?.houses ?? []
+    }
     var players: [Player] {
         game?.allPlayers ?? []
     }
@@ -515,6 +518,10 @@ extension GameControllerManager {
 
 extension GameControllerManager {
 
+    var openedPackage: Package? {
+        game?.currentlyOpenPackage
+    }
+
     func addNewPackage() {
         print(game)
         game?.addNewPackage()
@@ -548,11 +555,11 @@ extension GameControllerManager {
         game?.openPackage(package: package)
     }
 
-    func retrieveOrders(for house: House) -> Set<Order> {
+    func retrieveActiveOrders(for house: House) -> [Order] {
         guard let orders = game?.retrieveOrders(for: house) else {
             return []
         }
-        return Set(orders)
+        return orders.filter { $0.hasStarted }
     }
 
     func retrieveItemsFromOpenPackage() -> [Item] {

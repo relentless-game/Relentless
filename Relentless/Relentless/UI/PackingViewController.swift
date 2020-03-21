@@ -14,6 +14,7 @@ class PackingViewController: UIViewController {
     @IBOutlet private var packagesView: UICollectionView!
     @IBOutlet private var itemsView: UICollectionView!
     @IBOutlet private var currentPackageView: UICollectionView!
+    @IBOutlet private var currentPackageLabel: UILabel!
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
 
@@ -91,6 +92,7 @@ class PackingViewController: UIViewController {
     @objc func reloadCurrentPackage() {
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
         currentPackageView.reloadData()
+        currentPackageLabel.text = gameController?.openedPackage?.toString() 
     }
 
     @objc func updateSatisfactionBar() {
@@ -256,6 +258,7 @@ extension PackingViewController: UICollectionViewDelegate {
                 gameController?.addItem(item: item)
             }
         }
+        reloadCurrentPackage()
     }
 }
 

@@ -17,11 +17,12 @@ class HousesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        houses = [House]()
-        var orders = Set<Order>()
-        orders.insert(Order(items: [Book(name: "yo"), Book(name: "oy")], timeLimitInSeconds: 50))
-        orders.insert(Order(items: [Book(name: "ohoh"), Book(name: "poo")], timeLimitInSeconds: 50))
-        houses?.append(House(orders: orders))
+        houses = gameController?.houses
+//        houses = [House]()
+//        var orders = Set<Order>()
+//        orders.insert(Order(items: [Book(name: "yo"), Book(name: "oy")], timeLimitInSeconds: 50))
+//        orders.insert(Order(items: [Book(name: "ohoh"), Book(name: "poo")], timeLimitInSeconds: 50))
+//        houses?.append(House(orders: orders))
 //        houses?.append(House(orders: Set<Order>()))
     }
 
@@ -33,7 +34,10 @@ class HousesViewController: UIViewController {
             let height = view.frame.width / 2
             viewController.preferredContentSize = CGSize(width: width, height: height)
             viewController.modalPresentationStyle = .popover
-            viewController.house = activeHouse
+            if let activeHouse = activeHouse,
+                let orders = gameController?.retrieveActiveOrders(for: activeHouse) {
+                viewController.orders = orders
+            }
             if let pres = viewController.presentationController {
                 pres.delegate = self
             }

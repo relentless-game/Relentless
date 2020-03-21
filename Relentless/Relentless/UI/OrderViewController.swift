@@ -9,13 +9,7 @@
 import UIKit
 
 class OrderViewController: UIViewController {
-    var house: House?
-    var orders: [Order]? {
-        guard let houseOrders = house?.orders else {
-            return [Order]()
-        }
-        return Array(houseOrders)
-    }
+    var orders: [Order]?
 
     private let reuseIdentifier = "ItemCell"
     @IBOutlet private var ordersCollectionView: UICollectionView!

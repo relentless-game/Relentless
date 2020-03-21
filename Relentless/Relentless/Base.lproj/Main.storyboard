@@ -360,7 +360,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Proceed"/>
                                 <connections>
-                                    <segue destination="pIj-eO-AQF" kind="show" identifier="startRound" id="kYO-Ew-BHT"/>
+                                    <action selector="proceed:" destination="MLN-lP-Xqv" eventType="touchUpInside" id="2rc-qD-I4e"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -374,6 +374,9 @@
                         <viewLayoutGuide key="safeArea" id="fOn-p3-Noh"/>
                     </view>
                     <navigationItem key="navigationItem" id="dSl-5W-DiV"/>
+                    <connections>
+                        <segue destination="pIj-eO-AQF" kind="show" identifier="startRound" id="gkd-Mi-ecb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8U-bf-WvX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -642,7 +645,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="N8K-F4-jFJ"/>
+        <segue reference="gkd-Mi-ecb"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

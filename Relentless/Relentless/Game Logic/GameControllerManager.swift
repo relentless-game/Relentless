@@ -366,8 +366,11 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
-        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        print(gameStatus)
+        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
+//        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+//         print("did end game \(didEndGame)")
+        let didEndGame = false
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -430,7 +433,7 @@ extension GameControllerManager {
         }
 
         // the host checks the lose condition and ends the game if fulfilled
-        if money <= 0 {
+        if money < 0 {
             endGame()
         }
     }

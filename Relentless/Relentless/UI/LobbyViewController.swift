@@ -67,6 +67,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleGameStarted() {
+        print("seg")
         performSegue(withIdentifier: "startGame", sender: self)
     }
 

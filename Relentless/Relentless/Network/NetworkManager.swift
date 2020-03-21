@@ -45,7 +45,7 @@ class NetworkManager: Network {
         
         // create a game room
         ref.child("games").child("\(gameId)").setValue(["gameKey": gameIdKey])
-        
+
         // initialise game status
         if let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
                                        isGameEndedPrematurely: false,

@@ -34,7 +34,6 @@ extension Notification.Name {
     static let didEndGame = Notification.Name("didEndGame")
     static let didEndRound = Notification.Name("didEndRound")
     static let didEndGamePrematurely = Notification.Name("didEndGamePrematurely")
-    static let didReceiveGameId = Notification.Name("didReceiveGameId")
     static let invalidGameId = Notification.Name("invalidGameId")
     static let gameAlreadyPlaying = Notification.Name("gameAlreadyPlaying")
     static let gameRoomFull = Notification.Name("gameRoomFull")

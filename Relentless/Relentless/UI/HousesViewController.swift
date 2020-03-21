@@ -13,6 +13,7 @@ class HousesViewController: UIViewController {
     var houses: [House]?
     var activeHouse: House?
     let housesIdentifier = "HouseCell"
+    let orderIdentifier = "OrderViewController"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +25,39 @@ class HousesViewController: UIViewController {
 //        houses?.append(House(orders: Set<Order>()))
     }
 
+    func openOrders(_ sender: UIView) {
+//        let viewController = OrderViewController()
+        if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
+            as? OrderViewController {
+            let width = view.frame.width - 60
+            let height = view.frame.width / 2
+            viewController.preferredContentSize = CGSize(width: width, height: height)
+            viewController.modalPresentationStyle = .popover
+            viewController.house = activeHouse
+            if let pres = viewController.presentationController {
+                pres.delegate = self
+            }
+            if let pop = viewController.popoverPresentationController {
+                pop.sourceView = sender
+                pop.sourceRect = sender.bounds
+            }
+            self.present(viewController, animated: true)
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
-        if segue.identifier == "viewOrders" {
-            let viewController = segue.destination as? OrderViewController
-            viewController?.house = activeHouse
+        if segue.identifier == "toPacking" {
+            let viewController = segue.destination as? PackingViewController
+            viewController?.gameController = gameController
         }
+    }
+}
+
+extension HousesViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        .none
     }
 }
 
@@ -59,6 +87,8 @@ extension HousesViewController: UICollectionViewDelegate {
             return
         }
         activeHouse = houses[indexPath.item]
-        performSegue(withIdentifier: "viewOrders", sender: self)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            openOrders(cell)
+        }
     }
 }

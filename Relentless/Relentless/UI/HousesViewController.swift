@@ -19,12 +19,23 @@ class HousesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
+        addObservers()
         houses = gameController?.houses
     }
 
     func initCollectionView() {
         let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
+    }
+
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundEnded),
+                                               name: .didEndRound, object: nil)
+    }
+    
+    @objc func handleRoundEnded() {
+        performSegue(withIdentifier: "endRound", sender: self)
     }
 
     func openOrders(_ sender: UIView) {
@@ -55,6 +66,10 @@ class HousesViewController: UIViewController {
         removeAllPreviousViewControllers()
         if segue.identifier == "toPacking" {
             let viewController = segue.destination as? PackingViewController
+            viewController?.gameController = gameController
+        }
+        if segue.identifier == "endRound" {
+            let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
     }

@@ -136,16 +136,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     func createAlert(title: String, message: String, action: String) -> UIAlertController {
-        let controller = UIAlertController(title: NSLocalizedString(title,
-                                                                    bundle: Bundle.main,
-                                                                    comment: ""),
-                                           message: NSLocalizedString(message,
-                                                                      bundle: Bundle.main,
-                                                                      comment: ""),
+        let controller = UIAlertController(title: String(title),
+                                           message: String(message),
                                            preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: NSLocalizedString(action,
-                                                                   bundle: Bundle.main,
-                                                                   comment: ""),
+        let defaultAction = UIAlertAction(title: String(action),
                                           style: .default)
         controller.addAction(defaultAction)
         return controller

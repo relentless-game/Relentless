@@ -52,6 +52,9 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
                                                name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundEnded),
+                                               name: .didEndRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -91,6 +94,10 @@ class PackingViewController: UIViewController {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
             satisfactionBar.setProgress(value, animated: true)
         }
+    }
+
+    @objc func handleRoundEnded() {
+        performSegue(withIdentifier: "endRound", sender: self)
     }
 
     func changeCurrentCategory(to category: Category) {
@@ -162,6 +169,10 @@ class PackingViewController: UIViewController {
             let viewController = segue.destination as? DeliveryViewController
             viewController?.gameController = gameController
             viewController?.packageForDelivery = packageForDelivery
+        }
+        if segue.identifier == "endRound" {
+            let viewController = segue.destination as? GameViewController
+            viewController?.gameController = gameController
         }
     }
 

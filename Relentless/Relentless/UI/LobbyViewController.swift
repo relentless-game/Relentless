@@ -77,7 +77,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         initStartButton()
     }
 
-    @IBAction func startGame(_ sender: Any) {
+    @IBAction private func startGame(_ sender: Any) {
         gameController?.startGame()
     }
 
@@ -113,7 +113,7 @@ extension LobbyViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerIdentifier, for: indexPath)
-        if let playerCell = cell as? PlayerCell, let name = players?[indexPath.row].userName{
+        if let playerCell = cell as? PlayerCell, let name = players?[indexPath.row].userName {
             playerCell.setText(to: name)
         }
         return cell

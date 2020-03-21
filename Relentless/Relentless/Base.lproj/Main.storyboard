@@ -398,6 +398,7 @@
                         <outlet property="packagesView" destination="W01-ck-AdA" id="5SB-YU-8QU"/>
                         <outlet property="satisfactionBar" destination="5V9-Uq-jAF" id="bun-7D-jzI"/>
                         <segue destination="aeQ-0T-Zjb" kind="show" identifier="deliverPackage" id="GPw-Oj-Gmi"/>
+                        <segue destination="MLN-lP-Xqv" kind="show" identifier="endRound" id="FQq-Pt-F3v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kW-UE-fnx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -695,6 +696,7 @@
                     <navigationItem key="navigationItem" id="oYm-QS-kVM"/>
                     <connections>
                         <outlet property="housesCollectionView" destination="o3k-me-lbf" id="jrE-L6-b6H"/>
+                        <segue destination="MLN-lP-Xqv" kind="show" identifier="endRound" id="biH-vW-GUr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W7Z-ZD-ceQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -767,7 +769,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="5qg-Sa-A9a"/>
+        <segue reference="biH-vW-GUr"/>
+        <segue reference="N8K-F4-jFJ"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

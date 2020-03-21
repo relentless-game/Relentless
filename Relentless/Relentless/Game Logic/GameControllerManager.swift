@@ -11,7 +11,7 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeInterval: Double = 240 // in seconds
+    private var roundTimeInterval: Double = 120 // in seconds
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
@@ -295,7 +295,7 @@ extension GameControllerManager {
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
-            print("error is \(error)")
+
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
@@ -379,7 +379,6 @@ extension GameControllerManager {
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
         let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
 
-        print(gameStatus)
 //        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
 ////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
 ////         print("did end game \(didEndGame)")
@@ -494,7 +493,7 @@ extension GameControllerManager {
     }
 
     private func generateDummyUserName() -> String {
-        return "Player " + String(players.count + 1)
+        "Player " + String(players.count + 1)
     }
 
     /// To inform the network that this player has run out of orders

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Generates categories by choosing from the currently available categories
 class CategoryGenerator: GameCategoryGenerator {
 
     var numberOfPlayers: Int

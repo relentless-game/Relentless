@@ -16,12 +16,12 @@ class Order: Hashable, Codable {
     var timeLimit: Int
     var timeLeft: Int {
         didSet {
-            NotificationCenter.default.post(name: .didOrderUpdate, object: nil)
+            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
         }
     }
     var hasStarted: Bool = false {
         didSet {
-            NotificationCenter.default.post(name: .didOrderUpdate, object:  nil)
+            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object:  nil)
         }
     }
 

@@ -15,10 +15,10 @@ protocol GameNetworkController {
     var userId: String? { get }
     var gameId: Int? { get }
 
+    /// Player automatically joins game upon successful creation of game
     func createGame()
 
-    /// Returns automatically generated default username
-    func joinGame(gameId: Int) -> String?
+    func joinGame(gameId: Int)
 
     /// To leave the game before it starts
     /// Terminates the game if host calls this method

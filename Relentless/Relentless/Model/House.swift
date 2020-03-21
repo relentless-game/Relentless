@@ -18,7 +18,7 @@ class House {
 
     init(orders: Set<Order>) {
         self.orders = orders
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didOrderUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)), name: .didTimeUpdateInOrder, object: nil)
     }
 
     /// Returns true if the package correctly matches any of the orders
@@ -57,7 +57,8 @@ class House {
         orders.remove(order)
     }
 
-    @objc func notifyOrderUpdate(notification: Notification) {
+    @objc
+    func notifyOrderUpdate(notification: Notification) {
         NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
     }
 }

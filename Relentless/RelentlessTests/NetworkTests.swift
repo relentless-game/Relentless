@@ -10,29 +10,28 @@ import XCTest
 @testable import Relentless
 
 class NetworkTests: XCTestCase {
-    func testCreateGame() {
-        let networkManager = NetworkManager()
-        let gameId = networkManager.createGame()
-        print(gameId)
-    }
-    
-    func testTerminateGame() {
-        let networkManager = NetworkManager()
-        // test later
-    }
-    
-    func testJoinGame() {
-        let networkManager = NetworkManager()
-        let gameId = networkManager.createGame()
-        networkManager.joinGame(userId: "thisisuserid", gameId: gameId)
-    }
-
-    func testSendPackage() {
-        let networkManager = NetworkManager()
-    }
-
-    func testReceivePackage() {
-        let networkManager = NetworkManager()
-    }
-    
+//    func testCreateGame() {
+//        let networkManager = NetworkManager()
+//        let gameId = networkManager.createGame()
+//        print(gameId)
+//    }
+//
+//    func testTerminateGame() {
+//        let networkManager = NetworkManager()
+//        // test later
+//    }
+//
+//    func testJoinGame() {
+//        let networkManager = NetworkManager()
+//        let gameId = networkManager.createGame()
+//        networkManager.joinGame(userId: "thisisuserid", gameId: gameId)
+//    }
+//
+//    func testSendPackage() {
+//        let networkManager = NetworkManager()
+//    }
+//
+//    func testReceivePackage() {
+//        let networkManager = NetworkManager()
+//    }
 }

@@ -24,6 +24,7 @@ class ItemsAllocator: GameItemsAllocator {
         self.difficultyLevel = difficultyLevel
     }
 
+    /// Generates items based on the given categories and allocates them to the given players
     func allocateItems(categories: [Category], players: [Player]) {
         generateItems(categories: categories)
         var items = consolidateAllItems()

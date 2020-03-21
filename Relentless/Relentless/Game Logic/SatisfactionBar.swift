@@ -11,7 +11,17 @@ import Foundation
 class SatisfactionBar {
 
     var satisfactionRange: ClosedRange<Int>
-    var currentSatisfaction: Int
+    var currentSatisfaction: Int {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
+        }
+    }
+    // Returns a float from 0...1
+    var currentFractionalSatisfaction: Float {
+        let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
+        let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
+        return Float(adjustedCurrentSatisfaction) / Float(range)
+    }
 
     var defaultSatisfactionChange: Int
 
@@ -21,7 +31,7 @@ class SatisfactionBar {
         defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction))
     }
 
-    /// Updates satsifaction value based on correctness of order fulfilment and time used
+    /// Updates satisfaction value based on correctness of order fulfilment and time used
     func update(order: Order, isCorrect: Bool) {
         let remainingTime = order.timeLeft
         let totalTime = order.timeLimit
@@ -38,6 +48,9 @@ class SatisfactionBar {
         }
     }
 
-    // TODO: check for satisfaction < 0 and handle this case
+    // todo: allow different changes to satisfaction based on the order/house
+    func updateForTimeOut() {
+        currentSatisfaction -= defaultSatisfactionChange
+    }
 
 }

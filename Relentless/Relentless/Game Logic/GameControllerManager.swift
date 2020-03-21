@@ -12,7 +12,10 @@ class GameControllerManager: GameController {
 
     // properties for game logic
     private var roundTimeInterval: Double = 240 // in seconds
-    private var orderStartTimer: Timer = Timer()
+    private var roundTimeLeft: Double = 0
+    private var roundTimer = Timer()
+    private var orderStartTimer = Timer()
+    private var timeOutTimer = Timer()
     private var difficultyLevel: Float = 0
     private var dailyExpense: Int = 100
 
@@ -29,7 +32,7 @@ class GameControllerManager: GameController {
     var playerPackages: [Package] {
         game?.packages ?? []
     }
-    var playerItems: [Category : [Item]] {
+    var playerItems: [Category: [Item]] {
         var itemsByCategory = [Category: [Item]]()
         game?.player.items.forEach {
             guard let _ = itemsByCategory[$0.category] else {
@@ -38,20 +41,27 @@ class GameControllerManager: GameController {
             }
             itemsByCategory[$0.category]?.append($0)
         }
+        print("is it a book")
+        print(itemsByCategory[.book])
+        print("is it a mag")
+        print(itemsByCategory[.magazine])
         return itemsByCategory
     }
 
     // properties for network
-    var userId: String? {
-        game?.player.userId // unique ID given by Firebase
-    }
+//    var userId: String? {
+//        game?.player.userId // unique ID given by Firebase
+//    }
+    var userId: String?
     var network: Network = NetworkManager()
     var gameId: Int? {
         game?.gameId
     }
+    private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
-        game?.player.userId = userId
+        self.userId = userId
+        //game?.player.userId = userId
         addObservers()
     }
 
@@ -66,6 +76,7 @@ class GameControllerManager: GameController {
         network.startGame(gameId: gameId)
     }
 
+    @objc
     func endGame() {
         guard let gameId = gameId else {
             return
@@ -74,29 +85,49 @@ class GameControllerManager: GameController {
     }
 
     func startRound() {
-        Timer.scheduledTimer(timeInterval: roundTimeInterval, target: self,
-            selector: #selector(endRound), userInfo: nil, repeats: true)
-
         guard isHost else {
             return
         }
 
         // items and orders are generated and allocated by the host only
+        print("gonna init items")
         initialiseItems()
+        print("gonna init orders")
         initialiseOrders()
-
+        print("game is \(game)")
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
+            print("gonna call network start round")
             network.startRound(gameId: gameId, roundNumber: roundNumber)
         }
     }
 
     func pauseRound() {
-        guard let gameId = gameId else {
+        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
         pauseAllTimers()
-        network.pauseRound(gameId: gameId)
+        network.pauseRound(gameId: gameId, currentRound: roundNumber)
+        
+        // terminate game if game does not resume within 30 seconds
+        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
+                                            userInfo: nil, repeats: true)
+    }
+
+    func resumeRound() {
+        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
+            return
+        }
+        resumeAllTimers()
+        network.resumeRound(gameId: gameId, currentRound: roundNumber)
+    }
+
+    @objc
+    func updateTimeLeft() {
+        roundTimeLeft -= 1
+        if roundTimeLeft == 0 {
+            endRound()
+        }
     }
 
     @objc
@@ -104,7 +135,67 @@ class GameControllerManager: GameController {
         guard isHost, let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
-        network.terminateRound(gameId: gameId, roundNumber: roundNumber, satisfactionLevel: satisfactionBar.currentSatisfaction)
+        network.terminateRound(gameId: gameId, roundNumber: roundNumber,
+                               satisfactionLevel: satisfactionBar.currentSatisfaction)
+        network.resetPlayersOutOfOrders(gameId: gameId)
+    }
+
+    /// Notifies view that there were changes made to some orders
+    /// (e.g. insertion or deletion, timer updates) and calls #outOfOrders if list of orders is empty
+    @objc
+    func handleOrderChange(notification: Notification) {
+        guard let houses = game?.houses else {
+            return
+        }
+        let allOrders = houses.flatMap { $0.orders }
+        if allOrders.isEmpty {
+            outOfOrders()
+        }
+        NotificationCenter.default.post(name: .didChangeOrders, object: nil)
+    }
+
+    /// Updates the satisfaction bar and also removes the order that timed out and notifies view
+    @objc
+    func handleOrderTimeOut(notification: Notification) {
+        guard let houses = game?.houses else {
+            return
+        }
+        let allOrders = houses.flatMap { $0.orders }
+        let timedOutOrders = allOrders.filter { $0.timeLeft <= 0 }
+        for order in timedOutOrders {
+            satisfactionBar.updateForTimeOut()
+            removeOrder(order: order)
+        }
+        NotificationCenter.default.post(name: .didOrderTimeOut, object: nil)
+    }
+
+    @objc
+    func handleSatisfactionBarChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
+    }
+
+    @objc
+    func handleItemChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangeItems, object: nil)
+    }
+
+    @objc
+    func handlePackageChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangePackages, object: nil)
+    }
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
+                                               name: .didChangeItemsInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)),
+                                               name: .didChangePackagesInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)),
+                                               name: .didOrderUpdateInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderTimeOut(notification:)),
+                                               name: .didOrderTimeOutInModel, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleSatisfactionBarChange(notification:)),
+                                               name: .didChangeCurrentSatisfaction, object: nil)
     }
 
     private func initialiseItems() {
@@ -123,89 +214,99 @@ class GameControllerManager: GameController {
         itemsAllocator.allocateItems(categories: categories, players: players)
         gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
 
+        print("my items are \(players.first?.items)")
         // update other devices
         network.allocateItems(gameId: gameId, players: players)
     }
 
     private func initialiseOrders() {
+        print("here 1")
         let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
+        print("here 2")
         guard let players = game?.allPlayers, let gameId = gameId else {
             return
         }
+        print("here 3")
         ordersAllocator.allocateOrders(players: players)
+        print("here 4")
         
         // update other devices
         network.allocateOrders(gameId: gameId, players: players)
+        print("here 5")
     }
 
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange), name: .didChangeItemsInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)), name: .didChangePackagesInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)), name: .didOrderUpdateInModel, object: nil)
-    }
-
-    private func pauseAllTimers() {
-        // do something
-    }
-
-    @objc
-    func handleItemChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangeItems, object: nil)
-    }
-
-    @objc
-    func handlePackageChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangePackages, object: nil)
-    }
-
-    @objc
-    func handleOrderChange(notification: Notification) {
+    private func getActiveOrders() -> [Order] {
         guard let houses = game?.houses else {
-            return
+            return [Order]()
         }
-        let allOrders = houses.flatMap { $0.orders }
-        if allOrders.isEmpty {
-            outOfOrders()
-        }
-        NotificationCenter.default.post(name: .didChangeOrders, object: nil)
+        let allActiveOrders = houses.flatMap { $0.orders }.filter { $0.hasStarted }
+        return allActiveOrders
     }
 
-    /// To inform the network that this player has run out of orders
-    private func outOfOrders() {
-        // do something
+    /// Resumes all timers that were paused previously
+    private func resumeAllTimers() {
+        startRoundTimer()
+        startOrders()
+        resumeIndividualOrderTimers()
+    }
+
+    private func startRoundTimer() {
+        self.roundTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                               selector: #selector(updateTimeLeft), userInfo: nil, repeats: true)
+    }
+
+    private func stopRoundTimer() {
+        roundTimer.invalidate()
+    }
+
+    private func resumeIndividualOrderTimers() {
+        let activeOrders = getActiveOrders()
+        activeOrders.forEach { $0.resumeTimer() }
+    }
+
+    /// Pauses all timers that are active
+    private func pauseAllTimers() {
+        stopRoundTimer()
+        stopOrders()
+        stopIndividualOrderTimers()
+    }
+
+    private func stopIndividualOrderTimers() {
+        let activeOrders = getActiveOrders()
+        activeOrders.forEach { $0.stopTimer() }
+    }
+
+    private func stopOrders() {
+        orderStartTimer.invalidate()
     }
 
 }
 
 extension GameControllerManager {
+
+    /// Player who invokes this method becomes the host and joins the game.
     func createGame() {
         network.createGame(completion: { gameId in
-            guard let userId = self.userId else {
-                return
-            }
-            guard let userName = self.joinGame(gameId: gameId) else {
-                return
-            }
-            let player = Player(userId: userId, userName: userName, profileImage: nil)
-            self.game = GameManager(gameId: gameId, player: player)
+            self.joinGame(gameId: gameId)
             self.isHost = true
-            NotificationCenter.default.post(name: .didReceiveGameId, object: nil)
+            NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
-    internal func joinGame(gameId: Int) -> String? {
+    /// Player joins the game and gets a dummy username
+    internal func joinGame(gameId: Int) {
         guard let userId = self.userId else {
-            return nil
+            return
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+            print("error is \(error)")
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
-                self.handleSuccessfulJoin(userId: userId, gameId: gameId)
+                self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
             }
         })
-        return userName
     }
 
     func leaveGame(userId: String) {
@@ -241,10 +342,17 @@ extension GameControllerManager {
         }
     }
 
-    private func handleSuccessfulJoin(userId: String, gameId: Int) {
+    private func handleSuccessfulJoin(userName: String, userId: String, gameId: Int) {
+        let player = Player(userId: userId, userName: userName, profileImage: nil)
+        self.game = GameManager(gameId: gameId, player: player)
+        attachNetworkListeners(userId: userId, gameId: gameId)
+        NotificationCenter.default.post(name: .didJoinGame, object: nil)
+    }
+
+    private func attachNetworkListeners(userId: String, gameId: Int) {
         self.network.attachPlayerJoinListener(gameId: gameId, action: self.onNewPlayerDidJoin)
         self.network.attachGameStatusListener(gameId: gameId, action: self.onGameStatusDidChange)
-        self.network.attachTeamSatisfactionListener(userId: userId, gameId: gameId,
+        self.network.attachTeamSatisfactionListener(gameId: gameId,
                                                     action: self.onTeamSatisfactionChange)
         self.network.attachItemsListener(userId: userId, gameId: gameId, action: { items in
             self.game?.player.items = Set(items)
@@ -255,6 +363,15 @@ extension GameControllerManager {
         self.network.attachPackageListener(userId: userId, gameId: gameId, action: { package in
             self.game?.addPackage(package: package)
         })
+        // to handle when everyone runs out of order
+        if isHost {
+            self.network.attachOutOfOrdersListener(gameId: gameId, action: { numOfPlayersOutOfOrders in
+                if numOfPlayersOutOfOrders == self.players.count {
+                    self.endRound() // the host will end the round when everyone runs out of orders
+                }
+            })
+        }
+        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -264,8 +381,16 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
+
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+
+        print(gameStatus)
+//        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
+////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+////         print("did end game \(didEndGame)")
+//        let didEndGame = false
+
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -279,13 +404,14 @@ extension GameControllerManager {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGame, object: nil)
         } else if didStartRound {
-            startOrders()
+            handleRoundStart()
             NotificationCenter.default.post(name: .didStartRound, object: nil)
             game?.incrementRoundNumber()
         } else if didEndRound {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
         }
+        // for resumeRound, need to invalidate the timeOutTimer
     }
 
     private func startOrders() {
@@ -311,31 +437,35 @@ extension GameControllerManager {
         randomOrder.startOrder()
     }
 
-    private func stopOrders() {
-        orderStartTimer.invalidate()
-    }
-
     private func onTeamSatisfactionChange(satisfactionLevel: Int) {
         money += satisfactionLevel * 2 // arbitrary translation rate; to change next time
-        money -= dailyExpense
+        numOfSatisfactionLevelsReceived += 1
+        NotificationCenter.default.post(name: .didChangeMoney, object: nil)
+        
+        if numOfSatisfactionLevelsReceived == players.count - 1 {
+            money -= dailyExpense
+            numOfSatisfactionLevelsReceived = 0 // reset
+            NotificationCenter.default.post(name: .didChangeMoney, object: nil)
+        }
 
         guard isHost else {
             return
         }
 
         // the host checks the lose condition and ends the game if fulfilled
-        if money <= 0 {
+        if money < 0 {
             endGame()
         }
     }
 
+    /// Assigns orders to houses and sets the houses in Game to this new list of houses
     private func initialiseHouses(with orders: [Order]) {
         guard let numOfHouses = game?.defaultNumberOfHouses else {
             return
         }
         var splitOrders = [[Order]]()
-        for index in 1...numOfHouses {
-            splitOrders[index] = []
+        for _ in 1...numOfHouses {
+            splitOrders.append([])
         }
         for i in 0..<orders.count {
             splitOrders[i % numOfHouses].append(orders[i])
@@ -363,12 +493,31 @@ extension GameControllerManager {
         difficultyLevel += 0.1
     }
 
+    private func handleRoundStart() {
+        roundTimeLeft = roundTimeInterval
+        startRoundTimer()
+        startOrders()
+    }
+
     private func generateDummyUserName() -> String {
         return "Player " + String(players.count + 1)
+    }
+
+    /// To inform the network that this player has run out of orders
+    private func outOfOrders() {
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        network.outOfOrders(userId: userId, gameId: gameId)
     }
 }
 
 extension GameControllerManager {
+
+    func addNewPackage() {
+        print(game)
+        game?.addNewPackage()
+    }
 
     func addItem(item: Item) {
         game?.addItem(item: item)
@@ -403,6 +552,10 @@ extension GameControllerManager {
             return []
         }
         return Set(orders)
+    }
+
+    func retrieveItemsFromOpenPackage() -> [Item] {
+        game?.currentlyOpenPackage?.items ?? []
     }
 
     private func removeOrder(order: Order) {

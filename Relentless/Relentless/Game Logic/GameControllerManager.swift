@@ -15,6 +15,7 @@ class GameControllerManager: GameController {
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
+    private var timeOutTimer = Timer()
     private var difficultyLevel: Float = 0
     private var dailyExpense: Int = 100
 
@@ -69,6 +70,7 @@ class GameControllerManager: GameController {
         network.startGame(gameId: gameId)
     }
 
+    @objc
     func endGame() {
         guard let gameId = gameId else {
             return
@@ -97,6 +99,8 @@ class GameControllerManager: GameController {
         }
         pauseAllTimers()
         network.pauseRound(gameId: gameId, currentRound: roundNumber)
+        // terminate game if game does not resume within 30 seconds
+        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame), userInfo: nil, repeats: true)
     }
 
     func resumeRound() {
@@ -380,6 +384,7 @@ extension GameControllerManager {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
         }
+        // for resumeRound, need to invalidate the timeOutTimer
     }
 
     private func startOrders() {

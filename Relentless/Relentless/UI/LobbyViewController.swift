@@ -9,30 +9,52 @@
 import UIKit
 
 class LobbyViewController: UIViewController, UITextFieldDelegate {
-
-    static var nameCharacterLimit = 8
-    static var dummyName = "foobar"
     var gameId: Int?
     var userId: String?
     var gameController: GameController?
+    var players: [Player]?
+    private let playerIdentifier = "PlayerCell"
 
     weak var delegate = UIApplication.shared.delegate as? AppDelegate
     @IBOutlet private var gameIdLabel: UILabel!
     @IBOutlet private var startButton: UIButton!
+    @IBOutlet private var playersView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let userId = self.userId {
-            gameController = GameControllerManager(userId: userId)
-        }
         initUserId()
-        if gameId == nil {
+        if let userId = self.userId, gameController == nil {
+            // Game has not been created yet, create a game.
+            gameController = GameControllerManager(userId: userId)
             createGame()
         } else {
-            joinGame()
+            // Game has been created and joined.
+            initGameIdLabel()
         }
-        initStartButton()
-        initGameIdLabel()
+        refreshPlayers()
+        addObservers()
+//        initStartButton()
+//        initGameIdLabel()
+//        refreshPlayers()
+//        players = []
+//        players?.append(Player(userId: "yo", userName: "hi", profileImage: nil))
+    }
+
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshPlayers),
+                                               name: .newPlayerDidJoin, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(gameJoined),
+                                               name: .didJoinGame, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameStarted),
+                                               name: .didStartGame, object: nil)
+    }
+
+    @objc func refreshPlayers() {
+        players = gameController?.players
+        playersView.reloadData()
     }
 
     func initUserId() {
@@ -45,6 +67,20 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
 
+    @objc func handleGameStarted() {
+        performSegue(withIdentifier: "startGame", sender: self)
+    }
+
+    @objc func gameJoined() {
+        gameId = gameController?.gameId
+        initGameIdLabel()
+        initStartButton()
+    }
+
+    @IBAction private func startGame(_ sender: Any) {
+        gameController?.startGame()
+    }
+
     func initGameIdLabel() {
         guard let gameId = gameId else {
             return
@@ -52,29 +88,52 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         gameIdLabel.text = String(gameId)
     }
 
-    func joinGame() {
-        guard let userId = userId, let gameId = gameId else {
-            return
-        }
-        let result = gameController?.joinGame(gameId: gameId)
-        //assert(result ?? false)
-    }
-
     func createGame() {
-        guard let userId = userId else {
-            return
-        }
-        let result = gameController?.createGame()
-        //assert(result ?? false)
-        // TODO: Get actual gameId
-        gameId = 0
+        gameController?.createGame()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startGame" {
             let viewController = segue.destination as? GameViewController
-            gameController?.startGame()
             viewController?.gameController = gameController
         }
+    }
+}
+
+extension LobbyViewController: UICollectionViewDataSource {
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        1
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        players?.count ?? 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerIdentifier, for: indexPath)
+        if let playerCell = cell as? PlayerCell, let name = players?[indexPath.row].userName {
+            playerCell.setText(to: name)
+        }
+        return cell
+    }
+}
+
+extension LobbyViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width / 3 - 20
+        let height = collectionView.frame.height / 2 - 20
+        return CGSize(width: width, height: height)
+    }
+}
+
+class PlayerCell: UICollectionViewCell {
+    @IBOutlet private var textLabel: UILabel!
+
+    func setText(to text: String) {
+        textLabel.text = text
     }
 }

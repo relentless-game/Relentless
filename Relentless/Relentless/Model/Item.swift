@@ -23,7 +23,7 @@ class Item: Hashable, Comparable, Codable {
         return lhs.isLessThan(other: rhs)
     }
 
-    static func ==(lhs: Item, rhs: Item) -> Bool {
+    static func == (lhs: Item, rhs: Item) -> Bool {
         if lhs.category != rhs.category {
             return false
         }

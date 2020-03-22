@@ -49,9 +49,18 @@ class TitledItem: Item {
         hasher.combine(category)
         hasher.combine(name)
     }
+    
+//    /// These methods below should be overriden by subclasses
+//    @objc override dynamic func toString() -> String {
+//        "Item"
+//    }
+    override func toString() -> String {
+        "TitledItem"
+    }
 }
 
 enum TitledItemKeys: CodingKey {
     case name
     case category
+    case type
 }

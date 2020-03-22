@@ -23,4 +23,6 @@ protocol GameController: GameNetworkController, GameModelController {
     func startRound()
 
     func pauseRound()
+
+    func resumeRound()
 }

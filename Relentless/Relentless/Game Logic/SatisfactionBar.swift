@@ -16,6 +16,12 @@ class SatisfactionBar {
             NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
         }
     }
+    // Returns a float from 0...1
+    var currentFractionalSatisfaction: Float {
+        let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
+        let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
+        return Float(adjustedCurrentSatisfaction) / Float(range)
+    }
 
     var defaultSatisfactionChange: Int
 
@@ -25,7 +31,7 @@ class SatisfactionBar {
         defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction))
     }
 
-    /// Updates satsifaction value based on correctness of order fulfilment and time used
+    /// Updates satisfaction value based on correctness of order fulfilment and time used
     func update(order: Order, isCorrect: Bool) {
         let remainingTime = order.timeLeft
         let totalTime = order.timeLimit
@@ -46,7 +52,5 @@ class SatisfactionBar {
     func updateForTimeOut() {
         currentSatisfaction -= defaultSatisfactionChange
     }
-
-    // TODO: check for satisfaction < 0 and handle this case
 
 }

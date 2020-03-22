@@ -10,7 +10,7 @@ import Foundation
 
 class ItemsAllocator: GameItemsAllocator {
 
-    var generatedItemsByCategory: [Category : [Item]] = [:]
+    var generatedItemsByCategory: [Category: [Item]] = [:]
 
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
@@ -24,6 +24,7 @@ class ItemsAllocator: GameItemsAllocator {
         self.difficultyLevel = difficultyLevel
     }
 
+    /// Generates items based on the given categories and allocates them to the given players
     func allocateItems(categories: [Category], players: [Player]) {
         generateItems(categories: categories)
         var items = consolidateAllItems()
@@ -73,8 +74,8 @@ class ItemsAllocator: GameItemsAllocator {
         switch category {
         case Category.book, Category.magazine:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
-        default:
-            return [Item]()
+//        default:
+//            return [Item]()
         }
     }
 

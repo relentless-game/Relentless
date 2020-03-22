@@ -37,6 +37,10 @@ class Package: Codable {
     func sort() -> Package {
         Package(creator: creator, packageNumber: packageNumber, items: items.sorted())
     }
+
+    func toString() -> String {
+        creator + ": " + String(packageNumber)
+    }
 }
 
 extension Package: Equatable {

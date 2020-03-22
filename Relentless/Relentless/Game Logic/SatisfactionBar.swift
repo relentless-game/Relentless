@@ -17,6 +17,13 @@ class SatisfactionBar {
         }
     }
     var startingSatisfaction: Int
+
+    // Returns a float from 0...1
+    var currentFractionalSatisfaction: Float {
+        let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
+        let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
+        return Float(adjustedCurrentSatisfaction) / Float(range)
+    }
     var defaultSatisfactionChange: Int
 
     init(minSatisfaction: Int, maxSatisfaction: Int) {

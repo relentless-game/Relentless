@@ -13,12 +13,25 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addObservers()
+    }
+    func addObservers() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(handleRoundStarted),
+                                           name: .didStartRound, object: nil)
     }
 
+    @IBAction private func proceed(_ sender: Any) {
+        gameController?.startRound()
+    }
+
+    @objc func handleRoundStarted() {
+        performSegue(withIdentifier: "startRound", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startRound" {
             let viewController = segue.destination as? PackingViewController
-            gameController?.startRound()
             viewController?.gameController = gameController
         }
     }

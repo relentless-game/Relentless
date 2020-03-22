@@ -14,7 +14,8 @@ class ItemsAdapter {
     static func encodeItems(items: [Item]) -> String? {
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(items)
+            let itemsWrapper = Items(items: items)
+            let data = try encoder.encode(itemsWrapper)
             let string = String(data: data, encoding: .utf8)
             
             return string
@@ -30,8 +31,8 @@ class ItemsAdapter {
         }
         
         do {
-            let decodedItems = try decoder.decode([Item].self, from: data)
-            return decodedItems
+            let decodedItems = try decoder.decode(Items.self, from: data)
+            return decodedItems.items
         } catch {
             return []
         }

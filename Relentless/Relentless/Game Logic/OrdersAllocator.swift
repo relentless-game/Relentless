@@ -37,12 +37,10 @@ class OrdersAllocator: GameOrdersAllocator {
         // choose player's own items for half of the order
         let numberOfOwnItems = numberOfItems / 2
         let selectedOwnItems = selectItems(from: currPlayer.items, numberToSelect: numberOfOwnItems)
-
         // choose other players' items as remaining items for order
         let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
         let selectedOthersItems = selectItems(from: othersItems,
                                               numberToSelect: numberOfItems - numberOfOwnItems)
-
         var allSelectedItems = [Item]()
         allSelectedItems.append(contentsOf: selectedOwnItems)
         allSelectedItems.append(contentsOf: selectedOthersItems)
@@ -53,6 +51,11 @@ class OrdersAllocator: GameOrdersAllocator {
 
     /// Randomly choose `numberToSelect` items from given items
     private func selectItems(from items: Set<Item>, numberToSelect: Int) -> [Item] {
+        // to prevent getting stuck in an infinite loop below
+        guard !items.isEmpty else {
+            return []
+        }
+        
         var selectedItems = [Item]()
         while selectedItems.count < numberToSelect {
             guard let randomItem = items.randomElement() else {

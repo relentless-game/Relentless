@@ -11,7 +11,7 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeInterval: Double = 240 // in seconds
+    private var roundTimeInterval: Double = 120 // in seconds
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
@@ -26,8 +26,14 @@ class GameControllerManager: GameController {
 
     // properties for model
     var game: Game?
+    var houses: [House] {
+        game?.houses ?? []
+    }
     var players: [Player] {
         game?.allPlayers ?? []
+    }
+    var otherPlayers: [Player] {
+        game?.allPlayers.filter { $0 != game?.player } ?? []
     }
     var playerPackages: [Package] {
         game?.packages ?? []
@@ -35,27 +41,31 @@ class GameControllerManager: GameController {
     var playerItems: [Category: [Item]] {
         var itemsByCategory = [Category: [Item]]()
         game?.player.items.forEach {
-            guard let _ = itemsByCategory[$0.category] else {
+            guard itemsByCategory[$0.category] != nil else {
                 itemsByCategory[$0.category] = [$0]
                 return
             }
             itemsByCategory[$0.category]?.append($0)
         }
+
         return itemsByCategory
     }
 
     // properties for network
     var network: Network = NetworkManager()
-    var userId: String? {
-        game?.player.userId // unique ID given by Firebase
-    }
+//    var userId: String? {
+//        game?.player.userId // unique ID given by Firebase
+//    }
+    var userId: String?
     var gameId: Int? {
         game?.gameId
     }
     private var numOfSatisfactionLevelsReceived = 0
 
     init(userId: String) {
-        game?.player.userId = userId
+        self.userId = userId
+        //game?.player.userId = userId
+
         addObservers()
     }
 
@@ -86,7 +96,6 @@ class GameControllerManager: GameController {
         // items and orders are generated and allocated by the host only
         initialiseItems()
         initialiseOrders()
-
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
@@ -100,7 +109,8 @@ class GameControllerManager: GameController {
         pauseAllTimers()
         network.pauseRound(gameId: gameId, currentRound: roundNumber)
         // terminate game if game does not resume within 30 seconds
-        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame), userInfo: nil, repeats: true)
+        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
+                                            userInfo: nil, repeats: true)
     }
 
     func resumeRound() {
@@ -272,7 +282,7 @@ extension GameControllerManager {
         network.createGame(completion: { gameId in
             self.joinGame(gameId: gameId)
             self.isHost = true
-            NotificationCenter.default.post(name: .didReceiveGameId, object: nil)
+            NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
@@ -283,6 +293,7 @@ extension GameControllerManager {
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
@@ -353,6 +364,7 @@ extension GameControllerManager {
                 }
             })
         }
+        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -363,7 +375,13 @@ extension GameControllerManager {
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+
+//        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
+////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+////         print("did end game \(didEndGame)")
+//        let didEndGame = false
+
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -426,7 +444,7 @@ extension GameControllerManager {
         }
 
         // the host checks the lose condition and ends the game if fulfilled
-        if money <= 0 {
+        if money < 0 {
             endGame()
         }
     }
@@ -437,8 +455,8 @@ extension GameControllerManager {
             return
         }
         var splitOrders = [[Order]]()
-        for index in 1...numOfHouses {
-            splitOrders[index] = []
+        for _ in 1...numOfHouses {
+            splitOrders.append([])
         }
         for i in 0..<orders.count {
             splitOrders[i % numOfHouses].append(orders[i])
@@ -474,7 +492,7 @@ extension GameControllerManager {
     }
 
     private func generateDummyUserName() -> String {
-        return "Player " + String(players.count + 1)
+        "Player " + String(players.count + 1)
     }
 
     /// To inform the network that this player has run out of orders
@@ -487,6 +505,10 @@ extension GameControllerManager {
 }
 
 extension GameControllerManager {
+
+    var openedPackage: Package? {
+        game?.currentlyOpenPackage
+    }
 
     func addNewPackage() {
         game?.addNewPackage()
@@ -520,11 +542,15 @@ extension GameControllerManager {
         game?.openPackage(package: package)
     }
 
-    func retrieveOrders(for house: House) -> Set<Order> {
+    func retrieveActiveOrders(for house: House) -> [Order] {
         guard let orders = game?.retrieveOrders(for: house) else {
             return []
         }
-        return Set(orders)
+        return orders.filter { $0.hasStarted }
+    }
+
+    func retrieveItemsFromOpenPackage() -> [Item] {
+        game?.currentlyOpenPackage?.items ?? []
     }
 
     func retrieveItemsFromOpenPackage() -> [Item] {

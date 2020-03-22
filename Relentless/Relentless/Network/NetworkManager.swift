@@ -45,7 +45,14 @@ class NetworkManager: Network {
         
         // create a game room
         ref.child("games").child("\(gameId)").setValue(["gameKey": gameIdKey])
-        
+
+        // initialise game status
+        if let gameStatus = GameStatus(isGamePlaying: false, isRoundPlaying: false,
+                                       isGameEndedPrematurely: false,
+                                       isPaused: false, currentRound: 0).encodeToString() {
+            ref.child("games/\(gameId)/status").setValue(gameStatus)
+        }
+
         // notify game controller about the game ID
         completion(gameId)
     }
@@ -148,7 +155,7 @@ class NetworkManager: Network {
     
     func startGame(gameId: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
-                                          isPaused: false, currentRound: 1).encodeToString() else {
+                                          isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
@@ -203,7 +210,9 @@ class NetworkManager: Network {
             let encodedString = snapshot.value as? String ?? ""
             let orders = OrdersAdapter.decodeOrders(from: encodedString)
 
-            action(orders)
+            if !orders.isEmpty {
+                action(orders)
+            }
         })
     }
     
@@ -215,7 +224,7 @@ class NetworkManager: Network {
     
     func attachPackageListener(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/packages"
-        let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
             let packageString = snapshot.value as? String ?? ""
             if let package = PackageAdapter.decodePackage(from: packageString) {
                 action(package)
@@ -227,7 +236,7 @@ class NetworkManager: Network {
     
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void) {
         let path = "games/\(gameId)/status"
-        let refHandle = ref.child(path).observe(DataEventType.value, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
             let gameStatusString = snapshot.value as? String ?? ""
             guard let gameStatus = GameStatus.decodeFromString(string: gameStatusString) else {
                 return
@@ -284,7 +293,7 @@ class NetworkManager: Network {
     func resumeRound(gameId: Int, currentRound: Int) {
         // do something
     }
-        
+
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
         ref.child(path).observeSingleEvent(of: .value) { snapshot in

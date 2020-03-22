@@ -23,7 +23,6 @@ opt_in_rules:
   - explicit_self
   - fallthrough
   - fatal_error_message
-  - file_name
   - first_where
   - flatmap_over_map_reduce
   - function_default_parameter_at_end
@@ -73,11 +72,13 @@ opt_in_rules:
 
 disabled_rules:
   - attributes
+  - class_delegate_protocol
   - identifier_name
   - multiple_closures_with_trailing_closure # for e.g. SwiftUI buttons
   - todo
   - type_name
   - trailing_whitespace
+  - weak_delegate
 
 line_length:
   warning: 120

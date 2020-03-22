@@ -11,7 +11,7 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeInterval: Double = 240 // in seconds
+    private var roundTimeInterval: Double = 120 // in seconds
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
@@ -26,8 +26,14 @@ class GameControllerManager: GameController {
 
     // properties for model
     var game: Game?
+    var houses: [House] {
+        game?.houses ?? []
+    }
     var players: [Player] {
         game?.allPlayers ?? []
+    }
+    var otherPlayers: [Player] {
+        game?.allPlayers.filter { $0 != game?.player } ?? []
     }
     var playerPackages: [Package] {
         game?.packages ?? []
@@ -35,16 +41,13 @@ class GameControllerManager: GameController {
     var playerItems: [Category: [Item]] {
         var itemsByCategory = [Category: [Item]]()
         game?.player.items.forEach {
-            guard let _ = itemsByCategory[$0.category] else {
+            guard itemsByCategory[$0.category] != nil else {
                 itemsByCategory[$0.category] = [$0]
                 return
             }
             itemsByCategory[$0.category]?.append($0)
         }
-        print("is it a book")
-        print(itemsByCategory[.book])
-        print("is it a mag")
-        print(itemsByCategory[.magazine])
+
         return itemsByCategory
     }
 
@@ -54,6 +57,7 @@ class GameControllerManager: GameController {
 //    }
     var userId: String?
     var network: Network = NetworkManager()
+
     var gameId: Int? {
         game?.gameId
     }
@@ -62,6 +66,7 @@ class GameControllerManager: GameController {
     init(userId: String) {
         self.userId = userId
         //game?.player.userId = userId
+
         addObservers()
     }
 
@@ -90,14 +95,10 @@ class GameControllerManager: GameController {
         }
 
         // items and orders are generated and allocated by the host only
-        print("gonna init items")
         initialiseItems()
-        print("gonna init orders")
         initialiseOrders()
-        print("game is \(game)")
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
-            print("gonna call network start round")
             network.startRound(gameId: gameId, roundNumber: roundNumber)
         }
     }
@@ -214,25 +215,19 @@ class GameControllerManager: GameController {
         itemsAllocator.allocateItems(categories: categories, players: players)
         gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
 
-        print("my items are \(players.first?.items)")
         // update other devices
         network.allocateItems(gameId: gameId, players: players)
     }
 
     private func initialiseOrders() {
-        print("here 1")
         let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
-        print("here 2")
         guard let players = game?.allPlayers, let gameId = gameId else {
             return
         }
-        print("here 3")
         ordersAllocator.allocateOrders(players: players)
-        print("here 4")
         
         // update other devices
         network.allocateOrders(gameId: gameId, players: players)
-        print("here 5")
     }
 
     private func getActiveOrders() -> [Order] {
@@ -300,7 +295,7 @@ extension GameControllerManager {
         }
         let userName = generateDummyUserName()
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
-            print("error is \(error)")
+
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
@@ -381,11 +376,9 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
-
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
         let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
 
-        print(gameStatus)
 //        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
 ////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
 ////         print("did end game \(didEndGame)")
@@ -500,7 +493,7 @@ extension GameControllerManager {
     }
 
     private func generateDummyUserName() -> String {
-        return "Player " + String(players.count + 1)
+        "Player " + String(players.count + 1)
     }
 
     /// To inform the network that this player has run out of orders
@@ -514,8 +507,11 @@ extension GameControllerManager {
 
 extension GameControllerManager {
 
+    var openedPackage: Package? {
+        game?.currentlyOpenPackage
+    }
+
     func addNewPackage() {
-        print(game)
         game?.addNewPackage()
     }
 
@@ -547,11 +543,11 @@ extension GameControllerManager {
         game?.openPackage(package: package)
     }
 
-    func retrieveOrders(for house: House) -> Set<Order> {
+    func retrieveActiveOrders(for house: House) -> [Order] {
         guard let orders = game?.retrieveOrders(for: house) else {
             return []
         }
-        return Set(orders)
+        return orders.filter { $0.hasStarted }
     }
 
     func retrieveItemsFromOpenPackage() -> [Item] {

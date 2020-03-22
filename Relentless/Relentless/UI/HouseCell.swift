@@ -16,4 +16,3 @@ class HouseCell: UICollectionViewCell {
         self.house = house
     }
 }
-

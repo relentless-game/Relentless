@@ -56,4 +56,10 @@ class OrderTests: XCTestCase {
         let copyOfOrder = Order(items: items, timeLimitInSeconds: timeLimit)
         XCTAssertTrue(order == copyOfOrder)
     }
+
+    func testStartOrder() {
+        order.startOrder()
+        let timeLimit = order.timeLimit
+        XCTAssertTrue(order.timeLeft <= timeLimit)
+    }
 }

@@ -17,10 +17,11 @@ class Package: Codable {
         }
     }
 
+    /// packages are sorted when created
     init(creator: String, packageNumber: Int, items: [Item]) {
         self.creator = creator
         self.packageNumber = packageNumber
-        self.items = items
+        self.items = items.sorted()
     }
 
     func addItem(item: Item) {

@@ -47,4 +47,8 @@ class Item: Hashable, Comparable, Codable {
         "Item"
     }
 
-} 
+}
+
+enum ItemCategoryKeys: CodingKey {
+    case category
+}

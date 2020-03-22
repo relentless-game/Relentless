@@ -1,1077 +1,1065 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 51;
-	objects = {
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 51;
+    objects = {
 
 /* Begin PBXBuildFile section */
-		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
-		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
-		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
-		0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B80241CDCC300FC2850 /* MagazineTests.swift */; };
-		0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B84241CE00400FC2850 /* OrderTests.swift */; };
-		0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B86241CE22D00FC2850 /* HouseTests.swift */; };
-		0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF05824236A41002FF3DE /* OrderViewController.swift */; };
-		0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177B241FBBD400569453 /* JoinViewController.swift */; };
-		0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE91781241FDAB000569453 /* GameViewController.swift */; };
-		0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177D241FC14E00569453 /* LobbyViewController.swift */; };
-		0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177F241FD48800569453 /* PackingViewController.swift */; };
-		0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF06024237E15002FF3DE /* ItemCell.swift */; };
-		5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
-		5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D5E040D2425ED830005A134 /* ItemCell.xib */; };
-		5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E040F2425EDA00005A134 /* HouseCell.swift */; };
-		5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04102425EDA10005A134 /* HousesViewController.swift */; };
-		5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04112425EDA10005A134 /* DeliveryViewController.swift */; };
-		5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
-		5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
-		5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
-		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
-		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
-		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
-		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
-		6249B503241C8D9F002F8A1B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B502241C8D9F002F8A1B /* GameController.swift */; };
-		6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B504241C952F002F8A1B /* GameItemsAllocator.swift */; };
-		6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */; };
-		6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B510241CA76D002F8A1B /* GameControllerManager.swift */; };
-		6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */; };
-		62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */; };
-		62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */; };
-		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
-		62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7E241DE45A009406FB /* ItemsLists.swift */; };
-		62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A80241DE480009406FB /* ItemGenerator.swift */; };
-		62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A82241DE611009406FB /* ListBasedGenerator.swift */; };
-		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
-		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
-		F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
-		F319B333241B8195005E3129 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B332241B8195005E3129 /* NetworkManager.swift */; };
-		F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B334241B8B7D005E3129 /* NetworkTests.swift */; };
-		F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B33C241DCBC5005E3129 /* GameStatus.swift */; };
-		F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B338241D38F2005E3129 /* PackageAdapter.swift */; };
-		F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B340241DE2DF005E3129 /* ItemsAdapter.swift */; };
-		F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B342241DE575005E3129 /* OrdersAdapter.swift */; };
-		F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */; };
-		F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */; };
-		F3BF7F07242503E200A50EE3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFC242503E200A50EE3 /* Category.swift */; };
-		F3BF7F08242503E200A50EE3 /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFD242503E200A50EE3 /* Magazine.swift */; };
-		F3BF7F09242503E200A50EE3 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFE242503E200A50EE3 /* Order.swift */; };
-		F3BF7F0A242503E200A50EE3 /* TitledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFF242503E200A50EE3 /* TitledItem.swift */; };
-		F3BF7F0B242503E200A50EE3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F00242503E200A50EE3 /* Item.swift */; };
-		F3BF7F0C242503E200A50EE3 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F01242503E200A50EE3 /* House.swift */; };
-		F3BF7F0D242503E200A50EE3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F02242503E200A50EE3 /* Game.swift */; };
-		F3BF7F0E242503E200A50EE3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F03242503E200A50EE3 /* Player.swift */; };
-		F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F04242503E200A50EE3 /* Package.swift */; };
-		F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F05242503E200A50EE3 /* GameManager.swift */; };
-		F3BF7F11242503E200A50EE3 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F06242503E200A50EE3 /* Book.swift */; };
-		F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */; };
-		F3BF7F1524264D5900A50EE3 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F1424264D5800A50EE3 /* Items.swift */; };
-		F3BF7F172426FBFA00A50EE3 /* ItemsAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F162426FBFA00A50EE3 /* ItemsAdapterTests.swift */; };
-		F3BF7F192426FE8300A50EE3 /* OrdersAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F182426FE8300A50EE3 /* OrdersAdapterTests.swift */; };
-		F3BF7F1B2426FFA000A50EE3 /* PackageAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F1A2426FFA000A50EE3 /* PackageAdapterTests.swift */; };
-		F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BF924189F5200D7109B /* AppDelegate.swift */; };
-		F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFB24189F5200D7109B /* SceneDelegate.swift */; };
-		F3C37C0124189F5200D7109B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37BFF24189F5200D7109B /* Main.storyboard */; };
-		F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0224189F5500D7109B /* Assets.xcassets */; };
-		F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */; };
-		F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1024189F5500D7109B /* RelentlessTests.swift */; };
-		F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */; };
-		F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
-		F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
-		F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
+        0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
+        0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
+        0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
+        0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B80241CDCC300FC2850 /* MagazineTests.swift */; };
+        0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B84241CE00400FC2850 /* OrderTests.swift */; };
+        0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B86241CE22D00FC2850 /* HouseTests.swift */; };
+        0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF05824236A41002FF3DE /* OrderViewController.swift */; };
+        0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177B241FBBD400569453 /* JoinViewController.swift */; };
+        0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE91781241FDAB000569453 /* GameViewController.swift */; };
+        0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177D241FC14E00569453 /* LobbyViewController.swift */; };
+        0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177F241FD48800569453 /* PackingViewController.swift */; };
+        0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF06024237E15002FF3DE /* ItemCell.swift */; };
+        5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
+        5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D5E040D2425ED830005A134 /* ItemCell.xib */; };
+        5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E040F2425EDA00005A134 /* HouseCell.swift */; };
+        5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04102425EDA10005A134 /* HousesViewController.swift */; };
+        5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04112425EDA10005A134 /* DeliveryViewController.swift */; };
+        5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
+        5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
+        5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
+        5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
+        5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
+        6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
+        6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
+        6249B503241C8D9F002F8A1B /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B502241C8D9F002F8A1B /* GameController.swift */; };
+        6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B504241C952F002F8A1B /* GameItemsAllocator.swift */; };
+        6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */; };
+        6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B510241CA76D002F8A1B /* GameControllerManager.swift */; };
+        6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */; };
+        62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */; };
+        62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */; };
+        62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
+        62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7E241DE45A009406FB /* ItemsLists.swift */; };
+        62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A80241DE480009406FB /* ItemGenerator.swift */; };
+        62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A82241DE611009406FB /* ListBasedGenerator.swift */; };
+        6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
+        70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
+        F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
+        F319B333241B8195005E3129 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B332241B8195005E3129 /* NetworkManager.swift */; };
+        F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B334241B8B7D005E3129 /* NetworkTests.swift */; };
+        F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B33C241DCBC5005E3129 /* GameStatus.swift */; };
+        F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B338241D38F2005E3129 /* PackageAdapter.swift */; };
+        F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B340241DE2DF005E3129 /* ItemsAdapter.swift */; };
+        F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B342241DE575005E3129 /* OrdersAdapter.swift */; };
+        F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */; };
+        F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */; };
+        F3BF7F07242503E200A50EE3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFC242503E200A50EE3 /* Category.swift */; };
+        F3BF7F08242503E200A50EE3 /* Magazine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFD242503E200A50EE3 /* Magazine.swift */; };
+        F3BF7F09242503E200A50EE3 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFE242503E200A50EE3 /* Order.swift */; };
+        F3BF7F0A242503E200A50EE3 /* TitledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EFF242503E200A50EE3 /* TitledItem.swift */; };
+        F3BF7F0B242503E200A50EE3 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F00242503E200A50EE3 /* Item.swift */; };
+        F3BF7F0C242503E200A50EE3 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F01242503E200A50EE3 /* House.swift */; };
+        F3BF7F0D242503E200A50EE3 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F02242503E200A50EE3 /* Game.swift */; };
+        F3BF7F0E242503E200A50EE3 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F03242503E200A50EE3 /* Player.swift */; };
+        F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F04242503E200A50EE3 /* Package.swift */; };
+        F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F05242503E200A50EE3 /* GameManager.swift */; };
+        F3BF7F11242503E200A50EE3 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F06242503E200A50EE3 /* Book.swift */; };
+        F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */; };
+        F3BF7F1524264D5900A50EE3 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7F1424264D5800A50EE3 /* Items.swift */; };
+        F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BF924189F5200D7109B /* AppDelegate.swift */; };
+        F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFB24189F5200D7109B /* SceneDelegate.swift */; };
+        F3C37C0124189F5200D7109B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37BFF24189F5200D7109B /* Main.storyboard */; };
+        F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0224189F5500D7109B /* Assets.xcassets */; };
+        F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */; };
+        F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1024189F5500D7109B /* RelentlessTests.swift */; };
+        F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */; };
+        F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
+        F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
+        F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F3C37BF524189F5200D7109B;
-			remoteInfo = Relentless;
-		};
-		F3C37C1824189F5500D7109B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F3C37BF524189F5200D7109B;
-			remoteInfo = Relentless;
-		};
+        F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = F3C37BF524189F5200D7109B;
+            remoteInfo = Relentless;
+        };
+        F3C37C1824189F5500D7109B /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = F3C37BF524189F5200D7109B;
+            remoteInfo = Relentless;
+        };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.debug.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
-		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
-		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
-		0B385B80241CDCC300FC2850 /* MagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTests.swift; sourceTree = "<group>"; };
-		0B385B84241CE00400FC2850 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
-		0B385B86241CE22D00FC2850 /* HouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
-		0BB1C9072424944E0064E7D7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		0BB1C9082424944E0064E7D7 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
-		0BB1C9092424944E0064E7D7 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		0BB1C90A2424944E0064E7D7 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		0BB1C90B2424944E0064E7D7 /* TitledItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
-		0BB1C90C2424944E0064E7D7 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		0BB1C90D2424944E0064E7D7 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		0BB1C90E2424944E0064E7D7 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
-		0BB1C90F2424944E0064E7D7 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		0BB1C9102424944E0064E7D7 /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
-		0BB1C9112424944E0064E7D7 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		0BBEF05824236A41002FF3DE /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
-		0BBEF06024237E15002FF3DE /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
-		0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.release.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.release.xcconfig"; sourceTree = "<group>"; };
-		4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D5E040D2425ED830005A134 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
-		5D5E040F2425EDA00005A134 /* HouseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseCell.swift; sourceTree = "<group>"; };
-		5D5E04102425EDA10005A134 /* HousesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
-		5D5E04112425EDA10005A134 /* DeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryViewController.swift; sourceTree = "<group>"; };
-		5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
-		5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
-		5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
-		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
-		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
-		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
-		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
-		5DE91781241FDAB000569453 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		5DE9178624206E1B00569453 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		5DE9178924206E1C00569453 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
-		6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNetworkController.swift; sourceTree = "<group>"; };
-		6249B500241C8BB0002F8A1B /* GameModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelController.swift; sourceTree = "<group>"; };
-		6249B502241C8D9F002F8A1B /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
-		6249B504241C952F002F8A1B /* GameItemsAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemsAllocator.swift; sourceTree = "<group>"; };
-		6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrdersAllocator.swift; sourceTree = "<group>"; };
-		6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemGenerator.swift; sourceTree = "<group>"; };
-		6249B510241CA76D002F8A1B /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
-		6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCategoryGenerator.swift; sourceTree = "<group>"; };
-		62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGenerator.swift; sourceTree = "<group>"; };
-		62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBar.swift; sourceTree = "<group>"; };
-		62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocator.swift; sourceTree = "<group>"; };
-		62EE1A7E241DE45A009406FB /* ItemsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
-		62EE1A80241DE480009406FB /* ItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemGenerator.swift; sourceTree = "<group>"; };
-		62EE1A82241DE611009406FB /* ListBasedGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBasedGenerator.swift; sourceTree = "<group>"; };
-		85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.debug.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.debug.xcconfig"; sourceTree = "<group>"; };
-		C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.debug.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless_RelentlessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.release.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.release.xcconfig"; sourceTree = "<group>"; };
-		F319B32A241B7A44005E3129 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		F319B332241B8195005E3129 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		F319B334241B8B7D005E3129 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
-		F319B338241D38F2005E3129 /* PackageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAdapter.swift; sourceTree = "<group>"; };
-		F319B33C241DCBC5005E3129 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
-		F319B340241DE2DF005E3129 /* ItemsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAdapter.swift; sourceTree = "<group>"; };
-		F319B342241DE575005E3129 /* OrdersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAdapter.swift; sourceTree = "<group>"; };
-		F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameError.swift; sourceTree = "<group>"; };
-		F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
-		F3BF7EFC242503E200A50EE3 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		F3BF7EFD242503E200A50EE3 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
-		F3BF7EFE242503E200A50EE3 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		F3BF7EFF242503E200A50EE3 /* TitledItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
-		F3BF7F00242503E200A50EE3 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		F3BF7F01242503E200A50EE3 /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
-		F3BF7F02242503E200A50EE3 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		F3BF7F03242503E200A50EE3 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		F3BF7F04242503E200A50EE3 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		F3BF7F05242503E200A50EE3 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
-		F3BF7F06242503E200A50EE3 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsAllocator.swift; sourceTree = "<group>"; };
-		F3BF7F1424264D5800A50EE3 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
-		F3BF7F162426FBFA00A50EE3 /* ItemsAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAdapterTests.swift; sourceTree = "<group>"; };
-		F3BF7F182426FE8300A50EE3 /* OrdersAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAdapterTests.swift; sourceTree = "<group>"; };
-		F3BF7F1A2426FFA000A50EE3 /* PackageAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAdapterTests.swift; sourceTree = "<group>"; };
-		F3C37BF624189F5200D7109B /* Relentless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Relentless.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3C37BF924189F5200D7109B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F3C37BFB24189F5200D7109B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F3C37C0024189F5200D7109B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F3C37C0224189F5500D7109B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F3C37C0524189F5500D7109B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F3C37C0724189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelentlessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3C37C1024189F5500D7109B /* RelentlessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelentlessTests.swift; sourceTree = "<group>"; };
-		F3C37C1224189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelentlessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelentlessUITests.swift; sourceTree = "<group>"; };
-		F3C37C1D24189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3C37C292418A83100D7109B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+        084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.debug.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.debug.xcconfig"; sourceTree = "<group>"; };
+        0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
+        0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
+        0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
+        0B385B80241CDCC300FC2850 /* MagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTests.swift; sourceTree = "<group>"; };
+        0B385B84241CE00400FC2850 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
+        0B385B86241CE22D00FC2850 /* HouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
+        0BB1C9072424944E0064E7D7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+        0BB1C9082424944E0064E7D7 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
+        0BB1C9092424944E0064E7D7 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+        0BB1C90A2424944E0064E7D7 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+        0BB1C90B2424944E0064E7D7 /* TitledItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
+        0BB1C90C2424944E0064E7D7 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+        0BB1C90D2424944E0064E7D7 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+        0BB1C90E2424944E0064E7D7 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+        0BB1C90F2424944E0064E7D7 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+        0BB1C9102424944E0064E7D7 /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+        0BB1C9112424944E0064E7D7 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+        0BBEF05824236A41002FF3DE /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+        0BBEF06024237E15002FF3DE /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+        0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.release.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.release.xcconfig"; sourceTree = "<group>"; };
+        4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+        5D5E040D2425ED830005A134 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+        5D5E040F2425EDA00005A134 /* HouseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseCell.swift; sourceTree = "<group>"; };
+        5D5E04102425EDA10005A134 /* HousesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
+        5D5E04112425EDA10005A134 /* DeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryViewController.swift; sourceTree = "<group>"; };
+        5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
+        5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
+        5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
+        5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+        5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
+        5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
+        5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
+        5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
+        5DE91781241FDAB000569453 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+        5DE9178624206E1B00569453 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+        5DE9178924206E1C00569453 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+        5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
+        6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNetworkController.swift; sourceTree = "<group>"; };
+        6249B500241C8BB0002F8A1B /* GameModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelController.swift; sourceTree = "<group>"; };
+        6249B502241C8D9F002F8A1B /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
+        6249B504241C952F002F8A1B /* GameItemsAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemsAllocator.swift; sourceTree = "<group>"; };
+        6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOrdersAllocator.swift; sourceTree = "<group>"; };
+        6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameItemGenerator.swift; sourceTree = "<group>"; };
+        6249B510241CA76D002F8A1B /* GameControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControllerManager.swift; sourceTree = "<group>"; };
+        6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCategoryGenerator.swift; sourceTree = "<group>"; };
+        62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGenerator.swift; sourceTree = "<group>"; };
+        62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBar.swift; sourceTree = "<group>"; };
+        62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocator.swift; sourceTree = "<group>"; };
+        62EE1A7E241DE45A009406FB /* ItemsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
+        62EE1A80241DE480009406FB /* ItemGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemGenerator.swift; sourceTree = "<group>"; };
+        62EE1A82241DE611009406FB /* ListBasedGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBasedGenerator.swift; sourceTree = "<group>"; };
+        85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.debug.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.debug.xcconfig"; sourceTree = "<group>"; };
+        C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.debug.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.debug.xcconfig"; sourceTree = "<group>"; };
+        D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+        E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless_RelentlessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+        E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.release.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.release.xcconfig"; sourceTree = "<group>"; };
+        F319B32A241B7A44005E3129 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+        F319B332241B8195005E3129 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+        F319B334241B8B7D005E3129 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+        F319B338241D38F2005E3129 /* PackageAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageAdapter.swift; sourceTree = "<group>"; };
+        F319B33C241DCBC5005E3129 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
+        F319B340241DE2DF005E3129 /* ItemsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAdapter.swift; sourceTree = "<group>"; };
+        F319B342241DE575005E3129 /* OrdersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAdapter.swift; sourceTree = "<group>"; };
+        F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameError.swift; sourceTree = "<group>"; };
+        F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNameExtension.swift; sourceTree = "<group>"; };
+        F3BF7EFC242503E200A50EE3 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+        F3BF7EFD242503E200A50EE3 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
+        F3BF7EFE242503E200A50EE3 /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+        F3BF7EFF242503E200A50EE3 /* TitledItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
+        F3BF7F00242503E200A50EE3 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+        F3BF7F01242503E200A50EE3 /* House.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+        F3BF7F02242503E200A50EE3 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+        F3BF7F03242503E200A50EE3 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+        F3BF7F04242503E200A50EE3 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+        F3BF7F05242503E200A50EE3 /* GameManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+        F3BF7F06242503E200A50EE3 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+        F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsAllocator.swift; sourceTree = "<group>"; };
+        F3BF7F1424264D5800A50EE3 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+        F3C37BF624189F5200D7109B /* Relentless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Relentless.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        F3C37BF924189F5200D7109B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+        F3C37BFB24189F5200D7109B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+        F3C37C0024189F5200D7109B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+        F3C37C0224189F5500D7109B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+        F3C37C0524189F5500D7109B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+        F3C37C0724189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelentlessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        F3C37C1024189F5500D7109B /* RelentlessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelentlessTests.swift; sourceTree = "<group>"; };
+        F3C37C1224189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RelentlessUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelentlessUITests.swift; sourceTree = "<group>"; };
+        F3C37C1D24189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        F3C37C292418A83100D7109B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F3C37BF324189F5200D7109B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C0924189F5500D7109B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C1424189F5500D7109B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        F3C37BF324189F5200D7109B /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C0924189F5500D7109B /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C1424189F5500D7109B /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0BBEF057242366F7002FF3DE /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				5DE9178624206E1B00569453 /* Item.swift */,
-				5DE9178924206E1C00569453 /* Game.swift */,
-				0BB1C90C2424944E0064E7D7 /* Item.swift */,
-				0BB1C9112424944E0064E7D7 /* Player.swift */,
-				0BB1C9102424944E0064E7D7 /* House.swift */,
-				0BB1C90A2424944E0064E7D7 /* Package.swift */,
-				0BB1C90B2424944E0064E7D7 /* TitledItem.swift */,
-				0BB1C9082424944E0064E7D7 /* Magazine.swift */,
-				0BB1C90E2424944E0064E7D7 /* GameManager.swift */,
-				0BB1C9072424944E0064E7D7 /* Game.swift */,
-				0BB1C9092424944E0064E7D7 /* Order.swift */,
-				0BB1C90F2424944E0064E7D7 /* Book.swift */,
-				0BB1C90D2424944E0064E7D7 /* Category.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		3E65A8001F62CDDCB474AA1D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D590E4100879906E5F03DB47 /* Pods_Relentless.framework */,
-				E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */,
-				4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5DE91778241FBAEC00569453 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				5DE9177B241FBBD400569453 /* JoinViewController.swift */,
-				5DE91781241FDAB000569453 /* GameViewController.swift */,
-				5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
-				5DE9177F241FD48800569453 /* PackingViewController.swift */,
-				5D8F69B224262F59003C8FCC /* CategoryViewController.swift */,
-				0BBEF05824236A41002FF3DE /* OrderViewController.swift */,
-				5D5E04112425EDA10005A134 /* DeliveryViewController.swift */,
-				5D5E040F2425EDA00005A134 /* HouseCell.swift */,
-				5D5E04102425EDA10005A134 /* HousesViewController.swift */,
-				5D5E04122425EDA10005A134 /* OrderHeaderView.swift */,
-				5D5E04132425EDA20005A134 /* PackageCell.swift */,
-				5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */,
-				0BBEF06024237E15002FF3DE /* ItemCell.swift */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		6249B4FD241C89A7002F8A1B /* Game Logic */ = {
-			isa = PBXGroup;
-			children = (
-				F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */,
-				6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */,
-				6249B502241C8D9F002F8A1B /* GameController.swift */,
-				6249B500241C8BB0002F8A1B /* GameModelController.swift */,
-				6249B504241C952F002F8A1B /* GameItemsAllocator.swift */,
-				6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */,
-				6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */,
-				6249B510241CA76D002F8A1B /* GameControllerManager.swift */,
-				62EE1A80241DE480009406FB /* ItemGenerator.swift */,
-				62EE1A7E241DE45A009406FB /* ItemsLists.swift */,
-				62EE1A82241DE611009406FB /* ListBasedGenerator.swift */,
-				62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
-				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
-				62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
-				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
-				6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
-				F319B33C241DCBC5005E3129 /* GameStatus.swift */,
-			);
-			path = "Game Logic";
-			sourceTree = "<group>";
-		};
-		6383A7D15720B53CEB18BFF7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */,
-				E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */,
-				C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */,
-				0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */,
-				084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */,
-				5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		F319B325241B79DC005E3129 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				F319B32A241B7A44005E3129 /* Network.swift */,
-				F319B332241B8195005E3129 /* NetworkManager.swift */,
-				F319B338241D38F2005E3129 /* PackageAdapter.swift */,
-				F319B340241DE2DF005E3129 /* ItemsAdapter.swift */,
-				F319B342241DE575005E3129 /* OrdersAdapter.swift */,
-				F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
-		F319B32D241B7AEB005E3129 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F3BF7F06242503E200A50EE3 /* Book.swift */,
-				F3BF7EFC242503E200A50EE3 /* Category.swift */,
-				F3BF7F02242503E200A50EE3 /* Game.swift */,
-				F3BF7F05242503E200A50EE3 /* GameManager.swift */,
-				F3BF7F01242503E200A50EE3 /* House.swift */,
-				F3BF7F00242503E200A50EE3 /* Item.swift */,
-				F3BF7EFD242503E200A50EE3 /* Magazine.swift */,
-				F3BF7EFE242503E200A50EE3 /* Order.swift */,
-				F3BF7F04242503E200A50EE3 /* Package.swift */,
-				F3BF7F03242503E200A50EE3 /* Player.swift */,
-				F3BF7EFF242503E200A50EE3 /* TitledItem.swift */,
-				F3BF7F1424264D5800A50EE3 /* Items.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		F3C37BED24189F5200D7109B = {
-			isa = PBXGroup;
-			children = (
-				F3C37C292418A83100D7109B /* GoogleService-Info.plist */,
-				F3C37BF824189F5200D7109B /* Relentless */,
-				F3C37C0F24189F5500D7109B /* RelentlessTests */,
-				F3C37C1A24189F5500D7109B /* RelentlessUITests */,
-				F3C37BF724189F5200D7109B /* Products */,
-				6383A7D15720B53CEB18BFF7 /* Pods */,
-				3E65A8001F62CDDCB474AA1D /* Frameworks */,
-				0BBEF057242366F7002FF3DE /* Recovered References */,
-			);
-			sourceTree = "<group>";
-		};
-		F3C37BF724189F5200D7109B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F3C37BF624189F5200D7109B /* Relentless.app */,
-				F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */,
-				F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		F3C37BF824189F5200D7109B /* Relentless */ = {
-			isa = PBXGroup;
-			children = (
-				5DE91778241FBAEC00569453 /* UI */,
-				6249B4FD241C89A7002F8A1B /* Game Logic */,
-				F319B32D241B7AEB005E3129 /* Model */,
-				F319B325241B79DC005E3129 /* Network */,
-				F3C37BF924189F5200D7109B /* AppDelegate.swift */,
-				F3C37BFB24189F5200D7109B /* SceneDelegate.swift */,
-				5D5E040D2425ED830005A134 /* ItemCell.xib */,
-				5D8F69B424266303003C8FCC /* HouseCell.xib */,
-				F3C37BFF24189F5200D7109B /* Main.storyboard */,
-				F3C37C0224189F5500D7109B /* Assets.xcassets */,
-				F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */,
-				F3C37C0724189F5500D7109B /* Info.plist */,
-			);
-			path = Relentless;
-			sourceTree = "<group>";
-		};
-		F3C37C0F24189F5500D7109B /* RelentlessTests */ = {
-			isa = PBXGroup;
-			children = (
-				F3BF7F1A2426FFA000A50EE3 /* PackageAdapterTests.swift */,
-				F3BF7F182426FE8300A50EE3 /* OrdersAdapterTests.swift */,
-				F319B334241B8B7D005E3129 /* NetworkTests.swift */,
-				F3C37C1024189F5500D7109B /* RelentlessTests.swift */,
-				F3C37C1224189F5500D7109B /* Info.plist */,
-				0B385B68241CBCFB00FC2850 /* PackageTests.swift */,
-				0B385B6C241CC9DE00FC2850 /* BookTests.swift */,
-				0B385B84241CE00400FC2850 /* OrderTests.swift */,
-				0B385B80241CDCC300FC2850 /* MagazineTests.swift */,
-				0B385B86241CE22D00FC2850 /* HouseTests.swift */,
-				0B1C9771241DDE210042FB01 /* GameManagerTests.swift */,
-				F3BF7F162426FBFA00A50EE3 /* ItemsAdapterTests.swift */,
-			);
-			path = RelentlessTests;
-			sourceTree = "<group>";
-		};
-		F3C37C1A24189F5500D7109B /* RelentlessUITests */ = {
-			isa = PBXGroup;
-			children = (
-				F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */,
-				F3C37C1D24189F5500D7109B /* Info.plist */,
-			);
-			path = RelentlessUITests;
-			sourceTree = "<group>";
-		};
+        0BBEF057242366F7002FF3DE /* Recovered References */ = {
+            isa = PBXGroup;
+            children = (
+                5DE9178624206E1B00569453 /* Item.swift */,
+                5DE9178924206E1C00569453 /* Game.swift */,
+                0BB1C90C2424944E0064E7D7 /* Item.swift */,
+                0BB1C9112424944E0064E7D7 /* Player.swift */,
+                0BB1C9102424944E0064E7D7 /* House.swift */,
+                0BB1C90A2424944E0064E7D7 /* Package.swift */,
+                0BB1C90B2424944E0064E7D7 /* TitledItem.swift */,
+                0BB1C9082424944E0064E7D7 /* Magazine.swift */,
+                0BB1C90E2424944E0064E7D7 /* GameManager.swift */,
+                0BB1C9072424944E0064E7D7 /* Game.swift */,
+                0BB1C9092424944E0064E7D7 /* Order.swift */,
+                0BB1C90F2424944E0064E7D7 /* Book.swift */,
+                0BB1C90D2424944E0064E7D7 /* Category.swift */,
+            );
+            name = "Recovered References";
+            sourceTree = "<group>";
+        };
+        3E65A8001F62CDDCB474AA1D /* Frameworks */ = {
+            isa = PBXGroup;
+            children = (
+                D590E4100879906E5F03DB47 /* Pods_Relentless.framework */,
+                E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */,
+                4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */,
+            );
+            name = Frameworks;
+            sourceTree = "<group>";
+        };
+        5DE91778241FBAEC00569453 /* UI */ = {
+            isa = PBXGroup;
+            children = (
+                5DE9177B241FBBD400569453 /* JoinViewController.swift */,
+                5DE91781241FDAB000569453 /* GameViewController.swift */,
+                5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
+                5DE9177F241FD48800569453 /* PackingViewController.swift */,
+                5D8F69B224262F59003C8FCC /* CategoryViewController.swift */,
+                0BBEF05824236A41002FF3DE /* OrderViewController.swift */,
+                5D5E04112425EDA10005A134 /* DeliveryViewController.swift */,
+                5D5E040F2425EDA00005A134 /* HouseCell.swift */,
+                5D5E04102425EDA10005A134 /* HousesViewController.swift */,
+                5D5E04122425EDA10005A134 /* OrderHeaderView.swift */,
+                5D5E04132425EDA20005A134 /* PackageCell.swift */,
+                5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */,
+                0BBEF06024237E15002FF3DE /* ItemCell.swift */,
+            );
+            path = UI;
+            sourceTree = "<group>";
+        };
+        6249B4FD241C89A7002F8A1B /* Game Logic */ = {
+            isa = PBXGroup;
+            children = (
+                F3BF7F122425067500A50EE3 /* ItemsAllocator.swift */,
+                6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */,
+                6249B502241C8D9F002F8A1B /* GameController.swift */,
+                6249B500241C8BB0002F8A1B /* GameModelController.swift */,
+                6249B504241C952F002F8A1B /* GameItemsAllocator.swift */,
+                6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */,
+                6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */,
+                6249B510241CA76D002F8A1B /* GameControllerManager.swift */,
+                62EE1A80241DE480009406FB /* ItemGenerator.swift */,
+                62EE1A7E241DE45A009406FB /* ItemsLists.swift */,
+                62EE1A82241DE611009406FB /* ListBasedGenerator.swift */,
+                62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
+                62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
+                62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
+                F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
+                6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
+                F319B33C241DCBC5005E3129 /* GameStatus.swift */,
+            );
+            path = "Game Logic";
+            sourceTree = "<group>";
+        };
+        6383A7D15720B53CEB18BFF7 /* Pods */ = {
+            isa = PBXGroup;
+            children = (
+                85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */,
+                E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */,
+                C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */,
+                0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */,
+                084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */,
+                5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */,
+            );
+            path = Pods;
+            sourceTree = "<group>";
+        };
+        F319B325241B79DC005E3129 /* Network */ = {
+            isa = PBXGroup;
+            children = (
+                F319B32A241B7A44005E3129 /* Network.swift */,
+                F319B332241B8195005E3129 /* NetworkManager.swift */,
+                F319B338241D38F2005E3129 /* PackageAdapter.swift */,
+                F319B340241DE2DF005E3129 /* ItemsAdapter.swift */,
+                F319B342241DE575005E3129 /* OrdersAdapter.swift */,
+                F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */,
+            );
+            path = Network;
+            sourceTree = "<group>";
+        };
+        F319B32D241B7AEB005E3129 /* Model */ = {
+            isa = PBXGroup;
+            children = (
+                F3BF7F06242503E200A50EE3 /* Book.swift */,
+                F3BF7EFC242503E200A50EE3 /* Category.swift */,
+                F3BF7F02242503E200A50EE3 /* Game.swift */,
+                F3BF7F05242503E200A50EE3 /* GameManager.swift */,
+                F3BF7F01242503E200A50EE3 /* House.swift */,
+                F3BF7F00242503E200A50EE3 /* Item.swift */,
+                F3BF7EFD242503E200A50EE3 /* Magazine.swift */,
+                F3BF7EFE242503E200A50EE3 /* Order.swift */,
+                F3BF7F04242503E200A50EE3 /* Package.swift */,
+                F3BF7F03242503E200A50EE3 /* Player.swift */,
+                F3BF7EFF242503E200A50EE3 /* TitledItem.swift */,
+                F3BF7F1424264D5800A50EE3 /* Items.swift */,
+            );
+            path = Model;
+            sourceTree = "<group>";
+        };
+        F3C37BED24189F5200D7109B = {
+            isa = PBXGroup;
+            children = (
+                F3C37C292418A83100D7109B /* GoogleService-Info.plist */,
+                F3C37BF824189F5200D7109B /* Relentless */,
+                F3C37C0F24189F5500D7109B /* RelentlessTests */,
+                F3C37C1A24189F5500D7109B /* RelentlessUITests */,
+                F3C37BF724189F5200D7109B /* Products */,
+                6383A7D15720B53CEB18BFF7 /* Pods */,
+                3E65A8001F62CDDCB474AA1D /* Frameworks */,
+                0BBEF057242366F7002FF3DE /* Recovered References */,
+            );
+            sourceTree = "<group>";
+        };
+        F3C37BF724189F5200D7109B /* Products */ = {
+            isa = PBXGroup;
+            children = (
+                F3C37BF624189F5200D7109B /* Relentless.app */,
+                F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */,
+                F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */,
+            );
+            name = Products;
+            sourceTree = "<group>";
+        };
+        F3C37BF824189F5200D7109B /* Relentless */ = {
+            isa = PBXGroup;
+            children = (
+                5DE91778241FBAEC00569453 /* UI */,
+                6249B4FD241C89A7002F8A1B /* Game Logic */,
+                F319B32D241B7AEB005E3129 /* Model */,
+                F319B325241B79DC005E3129 /* Network */,
+                F3C37BF924189F5200D7109B /* AppDelegate.swift */,
+                F3C37BFB24189F5200D7109B /* SceneDelegate.swift */,
+                5D5E040D2425ED830005A134 /* ItemCell.xib */,
+                5D8F69B424266303003C8FCC /* HouseCell.xib */,
+                F3C37BFF24189F5200D7109B /* Main.storyboard */,
+                F3C37C0224189F5500D7109B /* Assets.xcassets */,
+                F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */,
+                F3C37C0724189F5500D7109B /* Info.plist */,
+            );
+            path = Relentless;
+            sourceTree = "<group>";
+        };
+        F3C37C0F24189F5500D7109B /* RelentlessTests */ = {
+            isa = PBXGroup;
+            children = (
+                F319B334241B8B7D005E3129 /* NetworkTests.swift */,
+                F3C37C1024189F5500D7109B /* RelentlessTests.swift */,
+                F3C37C1224189F5500D7109B /* Info.plist */,
+                0B385B68241CBCFB00FC2850 /* PackageTests.swift */,
+                0B385B6C241CC9DE00FC2850 /* BookTests.swift */,
+                0B385B84241CE00400FC2850 /* OrderTests.swift */,
+                0B385B80241CDCC300FC2850 /* MagazineTests.swift */,
+                0B385B86241CE22D00FC2850 /* HouseTests.swift */,
+                0B1C9771241DDE210042FB01 /* GameManagerTests.swift */,
+            );
+            path = RelentlessTests;
+            sourceTree = "<group>";
+        };
+        F3C37C1A24189F5500D7109B /* RelentlessUITests */ = {
+            isa = PBXGroup;
+            children = (
+                F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */,
+                F3C37C1D24189F5500D7109B /* Info.plist */,
+            );
+            path = RelentlessUITests;
+            sourceTree = "<group>";
+        };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F3C37BF524189F5200D7109B /* Relentless */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */;
-			buildPhases = (
-				E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */,
-				F3C37BF224189F5200D7109B /* Sources */,
-				F3C37BF324189F5200D7109B /* Frameworks */,
-				F3C37BF424189F5200D7109B /* Resources */,
-				E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */,
-				F319B32C241B7A78005E3129 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Relentless;
-			productName = Relentless;
-			productReference = F3C37BF624189F5200D7109B /* Relentless.app */;
-			productType = "com.apple.product-type.application";
-		};
-		F3C37C0B24189F5500D7109B /* RelentlessTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */;
-			buildPhases = (
-				8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */,
-				F3C37C0824189F5500D7109B /* Sources */,
-				F3C37C0924189F5500D7109B /* Frameworks */,
-				F3C37C0A24189F5500D7109B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F3C37C0E24189F5500D7109B /* PBXTargetDependency */,
-			);
-			name = RelentlessTests;
-			productName = RelentlessTests;
-			productReference = F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		F3C37C1624189F5500D7109B /* RelentlessUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */;
-			buildPhases = (
-				C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */,
-				F3C37C1324189F5500D7109B /* Sources */,
-				F3C37C1424189F5500D7109B /* Frameworks */,
-				F3C37C1524189F5500D7109B /* Resources */,
-				8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F3C37C1924189F5500D7109B /* PBXTargetDependency */,
-			);
-			name = RelentlessUITests;
-			productName = RelentlessUITests;
-			productReference = F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
+        F3C37BF524189F5200D7109B /* Relentless */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */;
+            buildPhases = (
+                E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */,
+                F3C37BF224189F5200D7109B /* Sources */,
+                F3C37BF324189F5200D7109B /* Frameworks */,
+                F3C37BF424189F5200D7109B /* Resources */,
+                E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */,
+                F319B32C241B7A78005E3129 /* ShellScript */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+            );
+            name = Relentless;
+            productName = Relentless;
+            productReference = F3C37BF624189F5200D7109B /* Relentless.app */;
+            productType = "com.apple.product-type.application";
+        };
+        F3C37C0B24189F5500D7109B /* RelentlessTests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */;
+            buildPhases = (
+                8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */,
+                F3C37C0824189F5500D7109B /* Sources */,
+                F3C37C0924189F5500D7109B /* Frameworks */,
+                F3C37C0A24189F5500D7109B /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                F3C37C0E24189F5500D7109B /* PBXTargetDependency */,
+            );
+            name = RelentlessTests;
+            productName = RelentlessTests;
+            productReference = F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */;
+            productType = "com.apple.product-type.bundle.unit-test";
+        };
+        F3C37C1624189F5500D7109B /* RelentlessUITests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */;
+            buildPhases = (
+                C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */,
+                F3C37C1324189F5500D7109B /* Sources */,
+                F3C37C1424189F5500D7109B /* Frameworks */,
+                F3C37C1524189F5500D7109B /* Resources */,
+                8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                F3C37C1924189F5500D7109B /* PBXTargetDependency */,
+            );
+            name = RelentlessUITests;
+            productName = RelentlessUITests;
+            productReference = F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */;
+            productType = "com.apple.product-type.bundle.ui-testing";
+        };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		F3C37BEE24189F5200D7109B /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = OurNameIs;
-				TargetAttributes = {
-					F3C37BF524189F5200D7109B = {
-						CreatedOnToolsVersion = 11.3.1;
-					};
-					F3C37C0B24189F5500D7109B = {
-						CreatedOnToolsVersion = 11.3.1;
-						TestTargetID = F3C37BF524189F5200D7109B;
-					};
-					F3C37C1624189F5500D7109B = {
-						CreatedOnToolsVersion = 11.3.1;
-						TestTargetID = F3C37BF524189F5200D7109B;
-					};
-				};
-			};
-			buildConfigurationList = F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */;
-			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = F3C37BED24189F5200D7109B;
-			productRefGroup = F3C37BF724189F5200D7109B /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				F3C37BF524189F5200D7109B /* Relentless */,
-				F3C37C0B24189F5500D7109B /* RelentlessTests */,
-				F3C37C1624189F5500D7109B /* RelentlessUITests */,
-			);
-		};
+        F3C37BEE24189F5200D7109B /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastSwiftUpdateCheck = 1130;
+                LastUpgradeCheck = 1130;
+                ORGANIZATIONNAME = OurNameIs;
+                TargetAttributes = {
+                    F3C37BF524189F5200D7109B = {
+                        CreatedOnToolsVersion = 11.3.1;
+                    };
+                    F3C37C0B24189F5500D7109B = {
+                        CreatedOnToolsVersion = 11.3.1;
+                        TestTargetID = F3C37BF524189F5200D7109B;
+                    };
+                    F3C37C1624189F5500D7109B = {
+                        CreatedOnToolsVersion = 11.3.1;
+                        TestTargetID = F3C37BF524189F5200D7109B;
+                    };
+                };
+            };
+            buildConfigurationList = F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */;
+            compatibilityVersion = "Xcode 9.3";
+            developmentRegion = en;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+            );
+            mainGroup = F3C37BED24189F5200D7109B;
+            productRefGroup = F3C37BF724189F5200D7109B /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                F3C37BF524189F5200D7109B /* Relentless */,
+                F3C37C0B24189F5500D7109B /* RelentlessTests */,
+                F3C37C1624189F5500D7109B /* RelentlessUITests */,
+            );
+        };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		F3C37BF424189F5200D7109B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
-				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
-				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
-				F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,
-				F3C37C0124189F5200D7109B /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C0A24189F5500D7109B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C1524189F5500D7109B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        F3C37BF424189F5200D7109B /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
+                F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
+                F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+                5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
+                F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,
+                F3C37C0124189F5200D7109B /* Main.storyboard in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C0A24189F5500D7109B /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C1524189F5500D7109B /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RelentlessTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Relentless-RelentlessUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Relentless-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F319B32C241B7A78005E3129 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
+        8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+            );
+            inputPaths = (
+                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+                "${PODS_ROOT}/Manifest.lock",
+            );
+            name = "[CP] Check Pods Manifest.lock";
+            outputFileListPaths = (
+            );
+            outputPaths = (
+                "$(DERIVED_FILE_DIR)/Pods-RelentlessTests-checkManifestLockResult.txt",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+            showEnvVarsInLog = 0;
+        };
+        8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+                "${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+            );
+            name = "[CP] Embed Pods Frameworks";
+            outputFileListPaths = (
+                "${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks.sh\"\n";
+            showEnvVarsInLog = 0;
+        };
+        C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+            );
+            inputPaths = (
+                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+                "${PODS_ROOT}/Manifest.lock",
+            );
+            name = "[CP] Check Pods Manifest.lock";
+            outputFileListPaths = (
+            );
+            outputPaths = (
+                "$(DERIVED_FILE_DIR)/Pods-Relentless-RelentlessUITests-checkManifestLockResult.txt",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+            showEnvVarsInLog = 0;
+        };
+        E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+                "${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+            );
+            name = "[CP] Embed Pods Frameworks";
+            outputFileListPaths = (
+                "${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks.sh\"\n";
+            showEnvVarsInLog = 0;
+        };
+        E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+            );
+            inputPaths = (
+                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+                "${PODS_ROOT}/Manifest.lock",
+            );
+            name = "[CP] Check Pods Manifest.lock";
+            outputFileListPaths = (
+            );
+            outputPaths = (
+                "$(DERIVED_FILE_DIR)/Pods-Relentless-checkManifestLockResult.txt",
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+            showEnvVarsInLog = 0;
+        };
+        F319B32C241B7A78005E3129 /* ShellScript */ = {
+            isa = PBXShellScriptBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            inputFileListPaths = (
+            );
+            inputPaths = (
+            );
+            outputFileListPaths = (
+            );
+            outputPaths = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+            shellPath = /bin/sh;
+            shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+        };
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F3C37BF224189F5200D7109B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F3BF7F0A242503E200A50EE3 /* TitledItem.swift in Sources */,
-				F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */,
-				0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */,
-				F3BF7F11242503E200A50EE3 /* Book.swift in Sources */,
-				5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
-				0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
-				0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
-				0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */,
-				0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */,
-				6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */,
-				62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
-				6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
-				5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
-				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
-				6249B503241C8D9F002F8A1B /* GameController.swift in Sources */,
-				F3BF7F0D242503E200A50EE3 /* Game.swift in Sources */,
-				F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */,
-				F3BF7F09242503E200A50EE3 /* Order.swift in Sources */,
-				5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */,
-				6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */,
-				5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */,
-				F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */,
-				5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */,
-				F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */,
-				6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
-				62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */,
-				F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
-				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
-				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
-				62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
-				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
-				F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */,
-				F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
-				F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */,
-				5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
-				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
-				62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */,
-				F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,
-				F3BF7F0B242503E200A50EE3 /* Item.swift in Sources */,
-				62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */,
-				6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */,
-				F3BF7F1524264D5900A50EE3 /* Items.swift in Sources */,
-				F3BF7F0E242503E200A50EE3 /* Player.swift in Sources */,
-				0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */,
-				62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */,
-				F3BF7F08242503E200A50EE3 /* Magazine.swift in Sources */,
-				F3BF7F07242503E200A50EE3 /* Category.swift in Sources */,
-				F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */,
-				F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C0824189F5500D7109B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
-				F3BF7F172426FBFA00A50EE3 /* ItemsAdapterTests.swift in Sources */,
-				F3BF7F192426FE8300A50EE3 /* OrdersAdapterTests.swift in Sources */,
-				0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
-				F3BF7F1B2426FFA000A50EE3 /* PackageAdapterTests.swift in Sources */,
-				0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */,
-				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
-				0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */,
-				0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */,
-				F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */,
-				F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F3C37C1324189F5500D7109B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        F3C37BF224189F5200D7109B /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                F3BF7F0A242503E200A50EE3 /* TitledItem.swift in Sources */,
+                F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */,
+                0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */,
+                F3BF7F11242503E200A50EE3 /* Book.swift in Sources */,
+                5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
+                0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
+                0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
+                0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */,
+                0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */,
+                6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */,
+                62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
+                6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
+                5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
+                F319B32B241B7A44005E3129 /* Network.swift in Sources */,
+                6249B503241C8D9F002F8A1B /* GameController.swift in Sources */,
+                F3BF7F0D242503E200A50EE3 /* Game.swift in Sources */,
+                F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */,
+                F3BF7F09242503E200A50EE3 /* Order.swift in Sources */,
+                5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */,
+                6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */,
+                5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */,
+                F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */,
+                5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */,
+                F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */,
+                6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
+                62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */,
+                F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
+                6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
+                5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
+                62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
+                F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
+                F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */,
+                F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
+                F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */,
+                5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
+                F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
+                62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */,
+                F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,
+                F3BF7F0B242503E200A50EE3 /* Item.swift in Sources */,
+                62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */,
+                6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */,
+                F3BF7F1524264D5900A50EE3 /* Items.swift in Sources */,
+                F3BF7F0E242503E200A50EE3 /* Player.swift in Sources */,
+                0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */,
+                62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */,
+                F3BF7F08242503E200A50EE3 /* Magazine.swift in Sources */,
+                F3BF7F07242503E200A50EE3 /* Category.swift in Sources */,
+                F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */,
+                F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C0824189F5500D7109B /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
+                0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
+                0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */,
+                0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
+                0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */,
+                0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */,
+                F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */,
+                F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        F3C37C1324189F5500D7109B /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		F3C37C0E24189F5500D7109B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F3C37BF524189F5200D7109B /* Relentless */;
-			targetProxy = F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */;
-		};
-		F3C37C1924189F5500D7109B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F3C37BF524189F5200D7109B /* Relentless */;
-			targetProxy = F3C37C1824189F5500D7109B /* PBXContainerItemProxy */;
-		};
+        F3C37C0E24189F5500D7109B /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = F3C37BF524189F5200D7109B /* Relentless */;
+            targetProxy = F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */;
+        };
+        F3C37C1924189F5500D7109B /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = F3C37BF524189F5200D7109B /* Relentless */;
+            targetProxy = F3C37C1824189F5500D7109B /* PBXContainerItemProxy */;
+        };
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F3C37BFF24189F5200D7109B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3C37C0024189F5200D7109B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3C37C0524189F5500D7109B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
+        F3C37BFF24189F5200D7109B /* Main.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                F3C37C0024189F5200D7109B /* Base */,
+            );
+            name = Main.storyboard;
+            sourceTree = "<group>";
+        };
+        F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                F3C37C0524189F5500D7109B /* Base */,
+            );
+            name = LaunchScreen.storyboard;
+            sourceTree = "<group>";
+        };
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		F3C37C1E24189F5500D7109B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		F3C37C1F24189F5500D7109B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F3C37C2124189F5500D7109B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = Relentless/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		F3C37C2224189F5500D7109B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = Relentless/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		F3C37C2424189F5500D7109B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = RelentlessTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
-			};
-			name = Debug;
-		};
-		F3C37C2524189F5500D7109B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = RelentlessTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
-			};
-			name = Release;
-		};
-		F3C37C2724189F5500D7109B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = RelentlessUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Relentless;
-			};
-			name = Debug;
-		};
-		F3C37C2824189F5500D7109B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RVZD4FPJG5;
-				INFOPLIST_FILE = RelentlessUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Relentless;
-			};
-			name = Release;
-		};
+        F3C37C1E24189F5500D7109B /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_ENABLE_OBJC_WEAK = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                ENABLE_TESTABILITY = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_DYNAMIC_NO_PIC = NO;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_OPTIMIZATION_LEVEL = 0;
+                GCC_PREPROCESSOR_DEFINITIONS = (
+                    "DEBUG=1",
+                    "$(inherited)",
+                );
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+                MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+                MTL_FAST_MATH = YES;
+                ONLY_ACTIVE_ARCH = YES;
+                SDKROOT = iphoneos;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        F3C37C1F24189F5500D7109B /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_ENABLE_OBJC_WEAK = YES;
+                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_COMMA = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+                CLANG_WARN_STRICT_PROTOTYPES = YES;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                ENABLE_NS_ASSERTIONS = NO;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu11;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+                MTL_ENABLE_DEBUG_INFO = NO;
+                MTL_FAST_MATH = YES;
+                SDKROOT = iphoneos;
+                SWIFT_COMPILATION_MODE = wholemodule;
+                SWIFT_OPTIMIZATION_LEVEL = "-O";
+                VALIDATE_PRODUCT = YES;
+            };
+            name = Release;
+        };
+        F3C37C2124189F5500D7109B /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = W76H98A34A;
+                INFOPLIST_FILE = Relentless/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = 1;
+            };
+            name = Debug;
+        };
+        F3C37C2224189F5500D7109B /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = W76H98A34A;
+                INFOPLIST_FILE = Relentless/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = 1;
+            };
+            name = Release;
+        };
+        F3C37C2424189F5500D7109B /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = RVZD4FPJG5;
+                INFOPLIST_FILE = RelentlessTests/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
+            };
+            name = Debug;
+        };
+        F3C37C2524189F5500D7109B /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = RVZD4FPJG5;
+                INFOPLIST_FILE = RelentlessTests/Info.plist;
+                IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
+            };
+            name = Release;
+        };
+        F3C37C2724189F5500D7109B /* Debug */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = RVZD4FPJG5;
+                INFOPLIST_FILE = RelentlessUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = Relentless;
+            };
+            name = Debug;
+        };
+        F3C37C2824189F5500D7109B /* Release */ = {
+            isa = XCBuildConfiguration;
+            baseConfigurationReference = 0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                CODE_SIGN_STYLE = Automatic;
+                DEVELOPMENT_TEAM = RVZD4FPJG5;
+                INFOPLIST_FILE = RelentlessUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = (
+                    "$(inherited)",
+                    "@executable_path/Frameworks",
+                    "@loader_path/Frameworks",
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 5.0;
+                TARGETED_DEVICE_FAMILY = "1,2";
+                TEST_TARGET_NAME = Relentless;
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3C37C1E24189F5500D7109B /* Debug */,
-				F3C37C1F24189F5500D7109B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3C37C2124189F5500D7109B /* Debug */,
-				F3C37C2224189F5500D7109B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3C37C2424189F5500D7109B /* Debug */,
-				F3C37C2524189F5500D7109B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F3C37C2724189F5500D7109B /* Debug */,
-				F3C37C2824189F5500D7109B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
+        F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                F3C37C1E24189F5500D7109B /* Debug */,
+                F3C37C1F24189F5500D7109B /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                F3C37C2124189F5500D7109B /* Debug */,
+                F3C37C2224189F5500D7109B /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                F3C37C2424189F5500D7109B /* Debug */,
+                F3C37C2524189F5500D7109B /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                F3C37C2724189F5500D7109B /* Debug */,
+                F3C37C2824189F5500D7109B /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
 /* End XCConfigurationList section */
-	};
-	rootObject = F3C37BEE24189F5200D7109B /* Project object */;
+    };
+    rootObject = F3C37BEE24189F5200D7109B /* Project object */;
 }

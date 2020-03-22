@@ -130,13 +130,6 @@ class GameControllerManager: GameController {
         }
     }
 
-    @objc
-    func updateTimeLeft() {
-        roundTimeLeft -= 1
-        if roundTimeLeft == 0 {
-            endRound()
-        }
-    }
 
     @objc
     func endRound() {

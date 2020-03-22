@@ -45,13 +45,10 @@ class PackingViewController: UIViewController {
                                                name: .didChangePackages, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCurrentPackage),
-                                               name: .didChangePackages, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadItems),
                                                name: .didChangeItems, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
-                                               name: .didChangeCurrentSatisfaction, object: nil)
+                                               name: .didChangeSatisfactionBar, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
@@ -69,6 +66,7 @@ class PackingViewController: UIViewController {
         reloadItems()
         reloadCurrentPackage()
         reloadCategoryButton()
+        updateSatisfactionBar()
     }
     
     @objc func reloadPackages() {
@@ -76,11 +74,13 @@ class PackingViewController: UIViewController {
         packagesView.reloadData()
     }
 
-    @objc func reloadItems() {
+    func reloadItems() {
         items = gameController?.playerItems
+
         if let newCategory = items?.keys.first {
             changeCurrentCategory(to: newCategory)
         }
+
         itemsView.reloadData()
     }
 
@@ -128,6 +128,10 @@ class PackingViewController: UIViewController {
         let indexPath = self.packagesView.indexPathForItem(at: point)
 
         if let indexPath = indexPath {
+            if indexPath.item == packages?.count {
+                // addButton
+                return
+            }
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
                 packageForDelivery = packageCell.package

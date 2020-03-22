@@ -12,10 +12,6 @@ enum Category: Int, Codable, CaseIterable {
     case book
     case magazine
 
-    enum CategoryKeys: CodingKey {
-        case category
-    }
-
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CategoryKeys.self)
         let rawValue = try container.decode(Int.self, forKey: .category)
@@ -47,6 +43,10 @@ enum Category: Int, Codable, CaseIterable {
             return "Magazine"
         }
     }
+}
+
+enum CategoryKeys: CodingKey {
+    case category
 }
 
 enum CategoryError: Error {

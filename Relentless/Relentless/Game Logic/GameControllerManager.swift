@@ -171,6 +171,9 @@ class GameControllerManager: GameController {
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
+        if satisfactionBar.currentSatisfaction <= 0 {
+            endRound()
+        }
     }
 
     @objc
@@ -555,8 +558,5 @@ extension GameControllerManager {
 
     private func updateGameProperties(order: Order, isCorrect: Bool) {
         satisfactionBar.update(order: order, isCorrect: isCorrect)
-        if satisfactionBar.currentSatisfaction <= 0 {
-            endRound()
-        }
     }
 }

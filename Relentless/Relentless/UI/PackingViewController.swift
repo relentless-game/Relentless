@@ -76,9 +76,11 @@ class PackingViewController: UIViewController {
 
     func reloadItems() {
         items = gameController?.playerItems
+
         if let newCategory = items?.keys.first {
             changeCurrentCategory(to: newCategory)
         }
+
         itemsView.reloadData()
     }
 

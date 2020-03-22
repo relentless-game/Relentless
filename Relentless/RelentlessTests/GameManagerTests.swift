@@ -25,22 +25,31 @@ class GameManagerTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
-//    func testAddPackage_onePackage() {
-//        gameManager.addPackage(package: package1)
-//        XCTAssertEqual(gameManager.packages.count, 1)
-//        let package = gameManager.packages[0]
-//        XCTAssertEqual(gameManager.currentlyOpenPackage, package)
-//    }
-//
-//    func test_AddPackage_twoPackages_packageNumber() {
-//        gameManager.addPackage(package: package1)
-//        gameManager.addPackage(package: package2)
-//        XCTAssertEqual(gameManager.packages.count, 2)
-//        let firstPackage = gameManager.packages[0]
-//        let secondPackage = gameManager.packages[1]
-//        XCTAssertTrue(firstPackage.packageNumber < secondPackage.packageNumber)
-//        XCTAssertEqual(gameManager.currentlyOpenPackage, secondPackage)
-//    }
+    func testAddNewPackage_onePackage() {
+        gameManager.addNewPackage()
+        XCTAssertEqual(gameManager.packages.count, 1)
+    }
+
+    func testAddNewPackage_twoPackages() {
+        gameManager.addNewPackage()
+        gameManager.addNewPackage()
+        XCTAssertEqual(gameManager.packages.count, 2)
+        let firstPackage = gameManager.packages[0]
+        let secondPackage = gameManager.packages[1]
+        XCTAssertTrue(firstPackage.packageNumber < secondPackage.packageNumber)
+        XCTAssertEqual(gameManager.currentlyOpenPackage, secondPackage)
+    }
+
+    func testAddPackage_onePackage() {
+        gameManager.addPackage(package: package1)
+        XCTAssertEqual(gameManager.packages.count, 1)
+    }
+
+    func test_AddPackage_twoPackages_packageNumber() {
+        gameManager.addPackage(package: package1)
+        gameManager.addPackage(package: package2)
+        XCTAssertEqual(gameManager.packages.count, 2)
+    }
 
     func testRemovePackage_packageExists() {
         gameManager.addPackage(package: package1)
@@ -54,6 +63,19 @@ class GameManagerTests: XCTestCase {
         let package = Package(creator: "creator", packageNumber: 2, items: [Item]())
         gameManager.removePackage(package: package)
         XCTAssertEqual(gameManager.packages.count, 1)
+    }
+
+    func testOpenPackage() {
+        gameManager.addPackage(package: package1)
+        gameManager.openPackage(package: package1)
+        XCTAssertEqual(gameManager.currentlyOpenPackage, package1)
+    }
+
+    func testRemovePackage_whenPackageOpen() {
+        gameManager.addPackage(package: package1)
+        gameManager.openPackage(package: package1)
+        gameManager.removePackage(package: package1)
+        XCTAssertNil(gameManager.currentlyOpenPackage)
     }
 
 }

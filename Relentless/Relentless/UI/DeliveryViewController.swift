@@ -22,9 +22,6 @@ class DeliveryViewController: UIViewController {
         initCollectionViews()
         houses = gameController?.houses
         otherPlayers = gameController?.otherPlayers
-        print(gameController)
-        print(gameController?.otherPlayers.map { $0.userId })
-        print(gameController?.players.map { $0.userId })
     }
 
     func initCollectionViews() {

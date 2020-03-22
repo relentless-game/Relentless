@@ -11,12 +11,22 @@ import Foundation
 /// This is a utility class that encodes a `Package` as a `String` to be stored in the cloud,
 /// and decodes a `String` back to a `Package`.
 class PackageAdapter {
+    
+    // TODO: make use of Codable instead of encoding the attributes
     static func encodePackage(package: Package) -> String? {
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(package)
-            let string = String(data: data, encoding: .utf8)
-            return string
+            let creator = package.creator
+            let packageNumber = package.packageNumber
+            let items = Items(items: package.items)
+            
+            let itemsData = try encoder.encode(items)
+            let itemsString = String(data: itemsData, encoding: .utf8) ?? ""
+            let packageStringsArray = [creator, String(packageNumber), itemsString]
+            let encodedData = try encoder.encode(packageStringsArray)
+            let encodedString = String(data: encodedData, encoding: .utf8)
+            
+            return encodedString
         } catch {
             return nil
         }
@@ -28,7 +38,17 @@ class PackageAdapter {
             return nil
         }
         do {
-            let decodedPackage = try decoder.decode(Package.self, from: data)
+            let decodedPackageStringArray = try decoder.decode([String].self, from: data)
+            let creator = decodedPackageStringArray[0]
+            let packageNumber = Int(decodedPackageStringArray[1]) ?? 0
+            let itemsString = decodedPackageStringArray[2]
+            
+            let itemsData = itemsString.data(using: .utf8) ?? Data()
+            let itemsWrapper = try decoder.decode(Items.self, from: itemsData)
+            let items = itemsWrapper.items
+            
+            let decodedPackage = Package(creator: creator, packageNumber: packageNumber, items: items)
+            
             return decodedPackage
         } catch {
             return nil

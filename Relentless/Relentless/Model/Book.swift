@@ -27,8 +27,6 @@ class Book: TitledItem {
         try container.encode(name, forKey: .name)
         try container.encode(category, forKey: .category)
         
-        try container.encode("book", forKey: .type)
-
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)
     }

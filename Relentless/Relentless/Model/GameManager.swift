@@ -53,6 +53,9 @@ class GameManager: Game {
         guard let indexOfPackage = packages.firstIndex(of: package) else {
             return
         }
+        if currentlyOpenPackage == package {
+            currentlyOpenPackage = nil
+        }
         packages.remove(at: indexOfPackage)
     }
 

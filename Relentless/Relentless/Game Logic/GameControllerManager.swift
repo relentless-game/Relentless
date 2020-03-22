@@ -486,7 +486,8 @@ extension GameControllerManager {
     }
 
     private func generateDummyUserName() -> String {
-        "Player " + String(players.count + 1)
+        let random = Int.random(in: 1...100)
+        return "Player " + String(players.count + random)
     }
 
     /// To inform the network that this player has run out of orders

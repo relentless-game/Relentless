@@ -583,7 +583,11 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
+<<<<<<< HEAD
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerIconCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
+=======
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
+>>>>>>> master
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lqe-cw-nSZ">
@@ -768,8 +772,13 @@
         <segue reference="GPw-Oj-Gmi"/>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="Ed9-Qd-LTp"/>
+<<<<<<< HEAD
+        <segue reference="FQq-Pt-F3v"/>
+        <segue reference="5qg-Sa-A9a"/>
+=======
         <segue reference="biH-vW-GUr"/>
         <segue reference="gkd-Mi-ecb"/>
+>>>>>>> master
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

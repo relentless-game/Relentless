@@ -51,8 +51,8 @@ class Order: Hashable, Codable {
 
     func startOrder() {
         hasStarted = true
-        self.timer = Timer(timeInterval: 1, target: self,
-                           selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
+                                          userInfo: nil, repeats: true)
     }
 
     func stopTimer() {
@@ -66,8 +66,7 @@ class Order: Hashable, Codable {
 
     /// Returns true if package matches items in order
     func checkPackage(package: Package) -> Bool {
-        let sortedPackage = package.sort()
-        return sortedPackage.items == items
+        package.items == items
     }
 
     /// Returns number of differences between the items in the package and the items in the order
@@ -85,6 +84,7 @@ class Order: Hashable, Codable {
 
     func handleTimeOut() {
         NotificationCenter.default.post(name: .didTimeOutInOrder, object: nil)
+        stopTimer()
     }
 
 }

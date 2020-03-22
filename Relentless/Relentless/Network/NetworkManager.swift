@@ -231,7 +231,6 @@ class NetworkManager: Network {
             }
         })
         
-        // TODO: what happens to refHandle afterwards?
     }
     
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void) {
@@ -244,7 +243,6 @@ class NetworkManager: Network {
             action(gameStatus)
         })
         
-        // TODO: what happens to refHandle afterwards?
     }
     
     // Deletes all the packages under a player stored in the cloud.
@@ -259,9 +257,8 @@ class NetworkManager: Network {
             var players: [Player] = []
             if let dict = snapshot.value as? [String: [String: Any]] {
                 for playerInfo in dict.values {
-                    let playerInfoDict = playerInfo as? [String: String] ?? [:]
-                    let userId = playerInfoDict["userId"] ?? ""
-                    let userName = playerInfoDict["userName"] ?? ""
+                    let userId = playerInfo["userId"] as? String ?? ""
+                    let userName = playerInfo["userName"] as? String ?? ""
                     let player = Player(userId: userId, userName: userName, profileImage: nil)
                     players.append(player)
                 }

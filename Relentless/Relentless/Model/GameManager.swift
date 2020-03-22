@@ -53,6 +53,9 @@ class GameManager: Game {
         guard let indexOfPackage = packages.firstIndex(of: package) else {
             return
         }
+        if currentlyOpenPackage == package {
+            currentlyOpenPackage = nil
+        }
         packages.remove(at: indexOfPackage)
     }
 
@@ -90,13 +93,20 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
+    
+    func resetForNewRound() {
+        houses = [House]()
+        packages = [Package]()
+        cumulativePackageNumber = 0
+        currentlyOpenPackage = nil
+    }
 
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),
                                                name: .didChangeItemsInPackage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
                                                 name: .didTimeOutInOrder, object: nil)
     }
 
@@ -108,6 +118,11 @@ class GameManager: Game {
     @objc
     func notifyOrderUpdate(notification: Notification) {
         NotificationCenter.default.post(name: .didOrderUpdateInModel, object: nil)
+    }
+
+    @objc
+    func notifyOrderTimeOut(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderTimeOutInModel, object: nil)
     }
 
 }

@@ -171,6 +171,9 @@ class GameControllerManager: GameController {
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
+        if satisfactionBar.currentSatisfaction <= 0 {
+            endRound()
+        }
     }
 
     @objc
@@ -376,12 +379,6 @@ extension GameControllerManager {
     private func onGameStatusDidChange(gameStatus: GameStatus) {
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
         let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-
-//        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
-////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-////         print("did end game \(didEndGame)")
-//        let didEndGame = false
-
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
@@ -481,6 +478,7 @@ extension GameControllerManager {
     }
 
     private func handleRoundEnd() {
+        game?.resetForNewRound()
         difficultyLevel += 0.1
     }
 
@@ -492,7 +490,8 @@ extension GameControllerManager {
     }
 
     private func generateDummyUserName() -> String {
-        "Player " + String(players.count + 1)
+        let random = Int.random(in: 1...100)
+        return "Player " + String(players.count + random)
     }
 
     /// To inform the network that this player has run out of orders
@@ -559,8 +558,5 @@ extension GameControllerManager {
 
     private func updateGameProperties(order: Order, isCorrect: Bool) {
         satisfactionBar.update(order: order, isCorrect: isCorrect)
-        if satisfactionBar.currentSatisfaction <= 0 {
-            endRound()
-        }
     }
 }

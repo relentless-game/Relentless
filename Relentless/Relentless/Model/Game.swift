@@ -42,4 +42,6 @@ protocol Game {
     func openPackage(package: Package)
 
     func incrementRoundNumber()
+    
+    func resetForNewRound()
 }

@@ -37,7 +37,9 @@ class CategoryGenerator: GameCategoryGenerator {
         // choose unique random categories
         while categories.count < numberToGenerate {
             let index = Int.random(in: generationRange)
+            //if index < allCategories.count {
             categories.insert(allCategories[index])
+            //}
         }
         return Array(categories)
     }

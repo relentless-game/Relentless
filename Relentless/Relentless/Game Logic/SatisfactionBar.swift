@@ -20,9 +20,6 @@ class SatisfactionBar {
     var currentFractionalSatisfaction: Float {
         let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
         let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
-        print(range)
-        print(defaultSatisfactionChange)
-        print(adjustedCurrentSatisfaction)
         return Float(adjustedCurrentSatisfaction) / Float(range)
     }
 

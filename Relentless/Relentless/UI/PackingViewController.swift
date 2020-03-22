@@ -43,9 +43,6 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadPackages),
                                                name: .didChangePackages, object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(reloadCurrentPackage),
-//                                               name: .didChangePackages, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCurrentPackage),
                                                name: .didChangeItems, object: nil)
@@ -69,6 +66,7 @@ class PackingViewController: UIViewController {
         reloadItems()
         reloadCurrentPackage()
         reloadCategoryButton()
+        updateSatisfactionBar()
     }
     
     @objc func reloadPackages() {
@@ -91,11 +89,8 @@ class PackingViewController: UIViewController {
     }
 
     @objc func updateSatisfactionBar() {
-        print("update satisfaction bar \(gameController?.satisfactionBar.currentFractionalSatisfaction)")
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            print("val: \(value)")
-//            value = 1
-            satisfactionBar.setProgress(1, animated: true)
+            satisfactionBar.setProgress(value, animated: true)
         }
     }
 
@@ -131,6 +126,10 @@ class PackingViewController: UIViewController {
         let indexPath = self.packagesView.indexPathForItem(at: point)
 
         if let indexPath = indexPath {
+            if indexPath.item == packages?.count {
+                // addButton
+                return
+            }
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
                 packageForDelivery = packageCell.package

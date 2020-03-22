@@ -100,10 +100,8 @@ class NetworkManager: Network {
             let isGameIdValid = gameIdsTaken.contains(gameId)
             if isGameIdValid {
                 // next check
-                print("1")
                 self.checkGameAlreadyPlaying(userId: userId, userName: userName, gameId: gameId, completion: completion)
             } else {
-                 print("2")
                 completion(JoinGameError.invalidGameId)
             }
         }
@@ -116,11 +114,9 @@ class NetworkManager: Network {
             if let gameStatus = GameStatus.decodeFromString(string: statusString) {
                 let isGameStarted = gameStatus.isGamePlaying
                 if isGameStarted {
-                     print("4")
                     completion(JoinGameError.gameAlreadyPlaying)
                 } else {
                     // next check
-                     print("3")
                     self.checkGameRoomFull(userId: userId, userName: userName, gameId: gameId, completion: completion)
                 }
             }
@@ -137,10 +133,8 @@ class NetworkManager: Network {
             
             if numberOfPlayers < self.maxNumberOfPlayers {
                 self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
-                 print("5")
                 completion(nil) // nil indicates successful result
             } else {
-                 print("6")
                 completion(JoinGameError.gameRoomFull)
             }
         }
@@ -230,7 +224,7 @@ class NetworkManager: Network {
     
     func attachPackageListener(userId: String, gameId: Int, action: @escaping (Package) -> Void) {
         let path = "games/\(gameId)/users/\(userId)/packages"
-        let refHandle = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.childAdded, with: { snapshot in
             let packageString = snapshot.value as? String ?? ""
             if let package = PackageAdapter.decodePackage(from: packageString) {
                 action(package)
@@ -242,7 +236,7 @@ class NetworkManager: Network {
     
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void) {
         let path = "games/\(gameId)/status"
-        let refHandle = ref.child(path).observe(DataEventType.value, with: { snapshot in
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
             let gameStatusString = snapshot.value as? String ?? ""
             guard let gameStatus = GameStatus.decodeFromString(string: gameStatusString) else {
                 return

@@ -21,7 +21,7 @@ class Order: Hashable, Codable {
     }
     var hasStarted: Bool = false {
         didSet {
-            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object:  nil)
+            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
         }
     }
 
@@ -60,7 +60,8 @@ class Order: Hashable, Codable {
     }
 
     func resumeTimer() {
-        self.timer = Timer(timeInterval: 1, target: self,selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
+        self.timer = Timer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
+                           userInfo: nil, repeats: false)
     }
 
     /// Returns true if package matches items in order

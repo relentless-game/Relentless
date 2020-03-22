@@ -19,23 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         // for anonymous authentication
-        Auth.auth().signInAnonymously { authResult, error in
+        Auth.auth().signInAnonymously { authResult, _ in
             guard let user = authResult?.user else {
                 return
             }
             // TODO: figure out what to do with this
-            let isAnonymous = user.isAnonymous  // true
+            _ = user.isAnonymous  // true
             let uid = user.uid
             
             self.userId = uid
         }
-        
-        //TEST
-        let userid = "myuserid"
-        let gameController = GameControllerManager(userId: userid)
-        gameController.createGame()
-        
-        
+
         return true
     }
 

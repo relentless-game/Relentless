@@ -62,4 +62,5 @@ class TitledItem: Item {
 enum TitledItemKeys: CodingKey {
     case name
     case category
+    case type
 }

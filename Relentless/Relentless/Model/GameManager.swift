@@ -93,6 +93,13 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
+    
+    func resetForNewRound() {
+        houses = [House]()
+        packages = [Package]()
+        cumulativePackageNumber = 0
+        currentlyOpenPackage = nil
+    }
 
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(notifyItemChange(notification:)),

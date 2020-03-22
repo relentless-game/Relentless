@@ -22,6 +22,13 @@ class DeliveryViewController: UIViewController {
         initCollectionViews()
         houses = gameController?.houses
         otherPlayers = gameController?.otherPlayers
+        addObservers()
+    }
+    
+    func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundEnded),
+                                               name: .didEndRound, object: nil)
     }
 
     func initCollectionViews() {
@@ -29,6 +36,10 @@ class DeliveryViewController: UIViewController {
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
     }
 
+    @objc func handleRoundEnded() {
+        performSegue(withIdentifier: "endRound", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
         if segue.identifier == "cancelDelivery" {

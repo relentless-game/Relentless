@@ -52,12 +52,11 @@ class GameControllerManager: GameController {
     }
 
     // properties for network
+    var network: Network = NetworkManager()
 //    var userId: String? {
 //        game?.player.userId // unique ID given by Firebase
 //    }
     var userId: String?
-    var network: Network = NetworkManager()
-
     var gameId: Int? {
         game?.gameId
     }
@@ -109,7 +108,6 @@ class GameControllerManager: GameController {
         }
         pauseAllTimers()
         network.pauseRound(gameId: gameId, currentRound: roundNumber)
-        
         // terminate game if game does not resume within 30 seconds
         timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
                                             userInfo: nil, repeats: true)
@@ -487,6 +485,7 @@ extension GameControllerManager {
     }
 
     private func handleRoundStart() {
+        satisfactionBar.reset()
         roundTimeLeft = roundTimeInterval
         startRoundTimer()
         startOrders()
@@ -553,7 +552,7 @@ extension GameControllerManager {
     func retrieveItemsFromOpenPackage() -> [Item] {
         game?.currentlyOpenPackage?.items ?? []
     }
-
+    
     private func removeOrder(order: Order) {
         game?.removeOrder(order: order)
     }

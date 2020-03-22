@@ -39,6 +39,7 @@ class OrdersAdapter {
         guard let data = string.data(using: .utf8) else {
             return []
         }
+        
         let decoder = JSONDecoder()
         // an array of [itemsString, timeLimitInSeconds],
         // each itemsString representing items in an order.
@@ -51,6 +52,7 @@ class OrdersAdapter {
                 if let itemsData = itemsString.data(using: .utf8) {
                     let items = try decoder.decode(Items.self, from: itemsData).items
                     let order = Order(items: items, timeLimitInSeconds: timeLimit)
+                    
                     orders.append(order)
                 }
             }

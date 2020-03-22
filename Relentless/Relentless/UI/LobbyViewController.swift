@@ -29,15 +29,10 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
             createGame()
         } else {
             // Game has been created and joined.
-            initGameIdLabel()
+            initAll()
         }
         refreshPlayers()
         addObservers()
-//        initStartButton()
-//        initGameIdLabel()
-//        refreshPlayers()
-//        players = []
-//        players?.append(Player(userId: "yo", userName: "hi", profileImage: nil))
     }
 
     func addObservers() {
@@ -63,6 +58,11 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    func initAll() {
+        initGameIdLabel()
+        initStartButton()
+    }
+
     func initStartButton() {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
@@ -73,8 +73,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     @objc func gameJoined() {
         gameId = gameController?.gameId
-        initGameIdLabel()
-        initStartButton()
+        initAll()
     }
 
     @IBAction private func startGame(_ sender: Any) {

@@ -45,7 +45,7 @@ class SatisfactionBar {
                 currentSatisfaction = 100
             }
         } else {
-            let fraction = (1 - remainingTime) / totalTime
+            let fraction = (totalTime - remainingTime) / totalTime
             currentSatisfaction -= fraction * defaultSatisfactionChange
         }
     }

@@ -21,8 +21,6 @@ protocol GameModelController {
 
     func addNewPackage()
 
-    func addNewPackage()
-
     func addItem(item: Item)
 
     func removeItem(item: Item)

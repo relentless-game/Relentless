@@ -31,6 +31,7 @@ class House {
     }
 
     /// Returns the order with the fewest number of differences from the package.
+    /// If the package has same number of differences from two orders, the order with a smaller timeLeft will be returned
     /// Return value will only be nil if orders set is empty
     func getClosestOrder(for package: Package) -> Order? {
         var minNumberOfDifferences = Order.MAX_NUMBER_OF_ITEMS + 1
@@ -39,11 +40,11 @@ class House {
             let numberOfDifferences = order.getNumberOfDifferences(with: package)
             let hasFewerDifferences = numberOfDifferences < minNumberOfDifferences
 
-            guard let timeLimitForOrderWithMinDifference = orderWithMinDifferences?.timeLimit else {
+            guard let timeLeftForOrderWithMinDifference = orderWithMinDifferences?.timeLeft else {
                 continue
             }
             let hasSameNumberOfDifferencesButShorterTime = numberOfDifferences == minNumberOfDifferences
-                && order.timeLimit < timeLimitForOrderWithMinDifference
+                && order.timeLeft < timeLeftForOrderWithMinDifference
 
             let orderShouldBeFulfilled = hasFewerDifferences || hasSameNumberOfDifferencesButShorterTime
             if orderShouldBeFulfilled {

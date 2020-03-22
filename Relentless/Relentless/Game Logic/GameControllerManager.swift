@@ -131,6 +131,7 @@ class GameControllerManager: GameController {
         }
     }
 
+
     @objc
     func endRound() {
         guard isHost, let gameId = gameId, let roundNumber = game?.currentRoundNumber else {

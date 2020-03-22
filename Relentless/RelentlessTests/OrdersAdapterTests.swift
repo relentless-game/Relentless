@@ -23,7 +23,7 @@ class OrdersAdapterTests: XCTestCase {
         let itemsForOrder2 = [item4, item5, item6, item7]
         
         let order1 = Order(items: itemsForOrder1, timeLimitInSeconds: 30)
-        let order2 = Order(items: itemsForOrder2, timeLimitInSeconds: 30)
+        let order2 = Order(items: itemsForOrder2, timeLimitInSeconds: 100)
         let orders = [order1, order2]
         
         let encodedString = OrdersAdapter.encodeOrders(orders: orders)!

@@ -21,12 +21,7 @@ class Items: Codable {
     }
 
     enum ItemTypeKey: CodingKey {
-        case type
-    }
-
-    enum ItemTypes: String, Decodable {
-        case book
-        case magazine
+        case category
     }
 
     func encode(to encoder: Encoder) throws {
@@ -41,7 +36,7 @@ class Items: Codable {
         var itemsArray = itemsArrayForType
         while !itemsArrayForType.isAtEnd {
             let item = try itemsArrayForType.nestedContainer(keyedBy: ItemTypeKey.self)
-            let type = try item.decode(ItemTypes.self, forKey: ItemTypeKey.type)
+            let type = try item.decode(Category.self, forKey: ItemTypeKey.category)
             switch type {
             case .book:
                 items.append(try itemsArray.decode(Book.self))

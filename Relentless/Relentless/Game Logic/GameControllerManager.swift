@@ -475,6 +475,7 @@ extension GameControllerManager {
     }
 
     private func handleRoundEnd() {
+        game?.resetForNewRound()
         difficultyLevel += 0.1
     }
 

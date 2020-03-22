@@ -44,7 +44,8 @@ class PackageTests: XCTestCase {
     func testEquivalence() {
         let packageCopy = Package(creator: creator, packageNumber: packageNumber, items: items)
         XCTAssertTrue(packageCopy == package)
-        let packageCopyWithDifferentSequence = Package(creator: creator, packageNumber: packageNumber, items: items.reversed())
+        let packageCopyWithDifferentSequence = Package(creator: creator, packageNumber: packageNumber,
+                                                       items: items.reversed())
         XCTAssertTrue(packageCopyWithDifferentSequence == package)
     }
 }

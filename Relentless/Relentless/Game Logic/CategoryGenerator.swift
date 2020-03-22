@@ -31,13 +31,15 @@ class CategoryGenerator: GameCategoryGenerator {
             return allCategories
         }
 
-        let generationRange = 0...numberToGenerate
+        let generationRange = 0...allCategories.count - 1
         var categories = Set<Category>()
 
         // choose unique random categories
         while categories.count < numberToGenerate {
             let index = Int.random(in: generationRange)
+            //if index < allCategories.count {
             categories.insert(allCategories[index])
+            //}
         }
         return Array(categories)
     }

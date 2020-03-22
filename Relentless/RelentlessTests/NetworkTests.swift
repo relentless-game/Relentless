@@ -13,7 +13,6 @@ class NetworkTests: XCTestCase {
 //    func testCreateGame() {
 //        let networkManager = NetworkManager()
 //        let gameId = networkManager.createGame()
-//        print(gameId)
 //    }
 //
 //    func testTerminateGame() {

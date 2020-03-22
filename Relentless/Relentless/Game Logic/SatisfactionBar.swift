@@ -46,10 +46,7 @@ class SatisfactionBar {
             }
         } else {
             let fraction = Float(totalTime - remainingTime) / Float(totalTime)
-//            print("bef \(currentSatisfaction)")
-//            print(fraction)
             currentSatisfaction -= Int(fraction * Float(defaultSatisfactionChange))
-//            print("aft \(currentSatisfaction)")
         }
     }
 
@@ -59,7 +56,6 @@ class SatisfactionBar {
 
     // todo: allow different changes to satisfaction based on the order/house
     func updateForTimeOut() {
-//        print("oopy")
         currentSatisfaction -= defaultSatisfactionChange
     }
 

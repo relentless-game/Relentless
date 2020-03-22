@@ -376,12 +376,6 @@ extension GameControllerManager {
     private func onGameStatusDidChange(gameStatus: GameStatus) {
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
         let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-
-//        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 1
-////        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-////         print("did end game \(didEndGame)")
-//        let didEndGame = false
-
         let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely

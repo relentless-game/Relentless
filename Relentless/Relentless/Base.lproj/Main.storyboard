@@ -577,31 +577,33 @@
                                 <rect key="frame" x="74" y="10" width="664" height="90"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bVW-No-eN7">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="134" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayerIconCell" id="67h-1F-3nX" customClass="PlayerIconCell" customModule="Relentless" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="134" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Lqe-cw-nSZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="134" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fd3-cJ-oto">
-                                                    <rect key="frame" x="4" y="14.666666666666664" width="42" height="21"/>
+                                                    <rect key="frame" x="46" y="14.666666666666664" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="fd3-cJ-oto" firstAttribute="centerX" secondItem="Lqe-cw-nSZ" secondAttribute="centerX" id="QRa-k2-nRd"/>
                                                 <constraint firstItem="fd3-cJ-oto" firstAttribute="centerY" secondItem="Lqe-cw-nSZ" secondAttribute="centerY" id="zF7-oa-9Zk"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="134" height="50"/>
                                         <connections>
                                             <outlet property="textLabel" destination="fd3-cJ-oto" id="fvz-3s-dZb"/>
                                         </connections>
@@ -645,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d61-Up-zwN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="3516"/>
+            <point key="canvasLocation" x="131.52709359605913" y="3516"/>
         </scene>
         <!--Houses-->
         <scene sceneID="FMr-hJ-UbY">
@@ -765,11 +767,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="GPw-Oj-Gmi"/>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="Ed9-Qd-LTp"/>
         <segue reference="biH-vW-GUr"/>
-        <segue reference="gkd-Mi-ecb"/>
+        <segue reference="5qg-Sa-A9a"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

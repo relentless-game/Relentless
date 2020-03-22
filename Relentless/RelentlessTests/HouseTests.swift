@@ -28,6 +28,8 @@ class HouseTests: XCTestCase {
         orderTwo = Order(items: itemsForSecondOrder, timeLimitInSeconds: timeLimitForOrderTwo)
         orders = Set<Order>([orderOne, orderTwo])
         house = House(orders: Set<Order>(orders))
+        orderOne.startOrder()
+        orderTwo.startOrder()
     }
 
     func testInit() {

@@ -25,8 +25,10 @@ class MagazineTests: XCTestCase {
     func testComparison() {
         let magazineWithSmallerName = Magazine(name: String(title.dropFirst()))
         let magazineWithBiggerName = Magazine(name: title.uppercased())
+        let book = Book(name: String(title.dropFirst()))
         XCTAssertTrue(magazineWithSmallerName < magazine)
         XCTAssertTrue(magazine < magazineWithBiggerName)
+        XCTAssertTrue(book < magazine)
     }
 
     func testEquals(other: Item) {

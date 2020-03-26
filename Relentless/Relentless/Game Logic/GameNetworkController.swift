@@ -15,9 +15,6 @@ protocol GameNetworkController {
     var userId: String? { get }
     var gameId: Int? { get }
 
-    /// Player automatically joins game upon successful creation of game
-    func createGame()
-
     func joinGame(gameId: Int)
 
     /// To leave the game before it starts

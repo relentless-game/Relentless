@@ -22,6 +22,7 @@ class GameControllerManager: GameController {
     var gameCategories: [Category] = []
     var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
     var money: Int = 0
+    var isHost: Bool
 
     // properties for model
     var game: Game?
@@ -64,7 +65,7 @@ class GameControllerManager: GameController {
     init(userId: String) {
         self.userId = userId
         //game?.player.userId = userId
-
+        isHost = false
         addObservers()
     }
 

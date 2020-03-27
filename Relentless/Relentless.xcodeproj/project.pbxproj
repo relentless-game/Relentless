@@ -39,6 +39,9 @@
 		62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */; };
 		62D0EBCB242CBDDA00FDAFAF /* GameHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */; };
 		62D0EBCD242CBE4600FDAFAF /* GameHostControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */; };
+		62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */; };
+		62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */; };
+		62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD2242DDE7100FDAFAF /* Bulb.swift */; };
 		62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */; };
 		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
 		62EE1A7F241DE45A009406FB /* ItemsLists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7E241DE45A009406FB /* ItemsLists.swift */; };
@@ -150,6 +153,9 @@
 		62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGenerator.swift; sourceTree = "<group>"; };
 		62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostController.swift; sourceTree = "<group>"; };
 		62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostControllerManager.swift; sourceTree = "<group>"; };
+		62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmicItem.swift; sourceTree = "<group>"; };
+		62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmState.swift; sourceTree = "<group>"; };
+		62D0EBD2242DDE7100FDAFAF /* Bulb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulb.swift; sourceTree = "<group>"; };
 		62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBar.swift; sourceTree = "<group>"; };
 		62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocator.swift; sourceTree = "<group>"; };
 		62EE1A7E241DE45A009406FB /* ItemsLists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
@@ -346,6 +352,9 @@
 				F3BF7F03242503E200A50EE3 /* Player.swift */,
 				F3BF7EFF242503E200A50EE3 /* TitledItem.swift */,
 				F3BF7F1424264D5800A50EE3 /* Items.swift */,
+				62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */,
+				62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */,
+				62D0EBD2242DDE7100FDAFAF /* Bulb.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -697,6 +706,7 @@
 				62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
 				6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
 				5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
+				62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */,
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
 				6249B503241C8D9F002F8A1B /* GameController.swift in Sources */,
 				F3BF7F0D242503E200A50EE3 /* Game.swift in Sources */,
@@ -712,6 +722,7 @@
 				6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
 				62EE1A81241DE480009406FB /* ItemGenerator.swift in Sources */,
 				F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
+				62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
@@ -722,6 +733,7 @@
 				5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
 				62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */,
+				62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */,
 				F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,
 				F3BF7F0B242503E200A50EE3 /* Item.swift in Sources */,
 				62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */,

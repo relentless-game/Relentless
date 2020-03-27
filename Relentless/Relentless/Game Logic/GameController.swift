@@ -14,6 +14,7 @@ protocol GameController: GameNetworkController, GameModelController {
     var gameCategories: [Category] { get }
     var satisfactionBar: SatisfactionBar { get set }
     var money: Int { get }
+    var isHost: Bool { get set }
 
     func endGame()
 

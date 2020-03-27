@@ -10,6 +10,11 @@ import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
 
+    override init(userId: String) {
+        super.init(userId: userId)
+        isHost = true
+    }
+
     /// Player who invokes this method becomes the host and joins the game.
     func createGame() {
         network.createGame(completion: { gameId in

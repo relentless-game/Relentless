@@ -29,7 +29,7 @@ class GameViewController: UIViewController {
     }
 
     @IBAction private func proceed(_ sender: Any) {
-        gameController?.startRound()
+        (gameController as? GameHostController)?.startRound()
     }
 
     @objc func handleRoundStarted() {

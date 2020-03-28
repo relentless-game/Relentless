@@ -53,7 +53,7 @@ class GameManager: Game {
     }
 
     func removePart(part: Part, from assembledItem: AssembledItem) {
-        assembledItem.removePart(part)
+        assembledItem.removePart(part: part)
     }
 
     /// Removes the package if it exists. Else, do nothing.

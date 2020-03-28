@@ -9,7 +9,7 @@
 import Foundation
 
 class AssembledItem: Item {
-    private var unsortedParts: [Part] {
+    internal var unsortedParts: [Part] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
         }

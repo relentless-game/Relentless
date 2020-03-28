@@ -36,7 +36,8 @@ class ItemsAllocator: GameItemsAllocator {
         let numberOfPartsForEachPlayer = parts.count / players.count
         for player in players {
             while player.parts.count < numberOfPartsForEachPlayer {
-                guard let partToAllocate = getRandomAny(from: parts) as? Part, let indexOfAllocatedPart = parts.firstIndex(of: partToAllocate) else {
+                guard let partToAllocate = getRandomAny(from: parts) as? Part,
+                    let indexOfAllocatedPart = parts.firstIndex(of: partToAllocate) else {
                     continue
                 }
                 player.parts.insert(partToAllocate)
@@ -50,7 +51,8 @@ class ItemsAllocator: GameItemsAllocator {
         let numberOfItemsForEachPlayer = itemsToAssign.count / players.count
         for player in players {
             while player.items.count < numberOfItemsForEachPlayer {
-                guard let itemToAllocate = getRandomAny(from: itemsToAssign) as? Item, let indexOfAllocatedItem = itemsToAssign.firstIndex(of: itemToAllocate) else {
+                guard let itemToAllocate = getRandomAny(from: itemsToAssign) as? Item,
+                    let indexOfAllocatedItem = itemsToAssign.firstIndex(of: itemToAllocate) else {
                     continue
                 }
                 player.items.insert(itemToAllocate)

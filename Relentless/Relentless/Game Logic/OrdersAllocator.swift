@@ -24,7 +24,8 @@ class OrdersAllocator: GameOrdersAllocator {
         let numOfOrders = defaultNumOfOrders + Int(difficultyLevel * Float(defaultNumOfOrders))
         let maxNumOfItems = defaultMaxNumOfItems + Int(difficultyLevel * Float(defaultMaxNumOfItems))
         for player in players {
-            // bug: goes into infinite loop with current order generation method if the number of items cannot be combined to create distinct numOfOrders orders
+            // bug: goes into infinite loop with current order generation method if the number of items
+            // cannot be combined to create distinct numOfOrders orders 
             while player.orders.count < numOfOrders {
                 let order = generateOrder(maxNumOfItems: maxNumOfItems, currPlayer: player, allPlayers: players)
                 player.orders.insert(order)

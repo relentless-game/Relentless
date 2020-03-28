@@ -64,7 +64,8 @@ class Package: Codable {
     }
 
     func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAssembledItemChange), name: .didChangeAssembledItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAssembledItemChange),
+                                               name: .didChangeAssembledItem, object: nil)
     }
 
     @objc

@@ -288,7 +288,12 @@ class NetworkManager: Network {
     }
 
     func resumeRound(gameId: Int, currentRound: Int) {
-        // do something
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
+                                          isPaused: false, currentRound: currentRound,
+                                          isResumed: true).encodeToString() else {
+            return
+        }
+        ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
 
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {

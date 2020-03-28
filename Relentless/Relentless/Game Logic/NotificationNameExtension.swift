@@ -30,6 +30,8 @@ extension Notification.Name {
     static let newPlayerDidJoin = Notification.Name("newPlayerDidJoin")
     static let didStartGame = Notification.Name("didStartGame")
     static let didStartRound = Notification.Name("didStartRound")
+    static let didPauseRound = Notification.Name("didPauseRound")
+    static let didResumeRound = Notification.Name("didResumeRound")
     static let didEndGame = Notification.Name("didEndGame")
     static let didEndRound = Notification.Name("didEndRound")
     static let didEndGamePrematurely = Notification.Name("didEndGamePrematurely")

@@ -10,7 +10,8 @@ import UIKit
 
 class PackingViewController: UIViewController {
     var gameController: GameController?
-
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    
     @IBOutlet private var packagesView: UICollectionView!
     @IBOutlet private var itemsView: UICollectionView!
     @IBOutlet private var currentPackageView: UICollectionView!
@@ -52,6 +53,15 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAppMovedToBackground),
+                                               name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAppMovedToForeground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundPaused),
+                                               name: .didPauseRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -95,6 +105,15 @@ class PackingViewController: UIViewController {
             satisfactionBar.setProgress(value, animated: true)
         }
     }
+    
+    @objc func handleRoundPaused() {
+        print("handle round paused triggered. gonna seg to pause game")
+        performSegue(withIdentifier: "pauseGame", sender: self)
+    }
+    
+//    @objc func handleRoundResumed() {
+//        print("handle round resumed")
+//    }
 
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
@@ -164,6 +183,7 @@ class PackingViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("here")
         removeAllPreviousViewControllers()
         if segue.identifier == "toHouses" {
             let viewController = segue.destination as? HousesViewController
@@ -178,8 +198,47 @@ class PackingViewController: UIViewController {
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
+        if segue.identifier == "pauseGame" {
+            print("prepare for segue to pause game")
+            let viewController = segue.destination as? PauseViewController
+            viewController?.gameController = gameController
+        }
     }
 
+    /////// FOR BACKGROUND STUFF
+    
+    // TODO: end it before segue
+    func registerBackgroundTask() {
+        print("registered")
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        let timer = Timer(timeInterval: 30.0, target: self, selector: #selector(endGame), userInfo: nil, repeats: false)
+        RunLoop.current.add(timer, forMode: .default)
+        gameController?.pauseRound()
+        assert(backgroundTask != .invalid)
+    }
+    
+    @objc func handleAppMovedToForeground() {
+        print("gonna move to foreground")
+        gameController?.resumeRound()
+    }
+
+    func endBackgroundTask() {
+        print("Background task ended.")
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
+    }
+    
+    @objc func handleAppMovedToBackground() {
+        print("App moved to background!")
+        registerBackgroundTask()
+    }
+    
+    @objc func endGame() {
+        print("the game has ended!")
+        endBackgroundTask()
+    }
 }
 
 extension PackingViewController: CategoryChangeDelegate {

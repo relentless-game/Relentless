@@ -377,12 +377,17 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
-        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
+        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0 && !gameStatus.isPaused
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0 
+        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying &&
+            !gameStatus.isPaused
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
-
+        let didPauseRound = gameStatus.isPaused
+        let didResumeRound = gameStatus.isResumed
+        
+        print(gameStatus)
+        
         if didEndGamePrematurely {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
@@ -398,8 +403,14 @@ extension GameControllerManager {
         } else if didEndRound {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
+        } else if didPauseRound {
+            print("did pause round")
+            NotificationCenter.default.post(name: .didPauseRound, object: nil)
+        } else if didResumeRound {
+            print("did resume round")
+            NotificationCenter.default.post(name: .didResumeRound, object: nil)
+            // for resumeRound, need to invalidate the timeOutTimer
         }
-        // for resumeRound, need to invalidate the timeOutTimer
     }
 
     private func startOrders() {

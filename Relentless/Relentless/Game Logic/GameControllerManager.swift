@@ -17,7 +17,8 @@ class GameControllerManager: GameController {
     private var timeOutTimer = Timer()
 
     var gameCategories: [Category] = []
-    var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
+    var satisfactionBar = SatisfactionBar(minSatisfaction: GameParameters.minSatisfaction,
+                                          maxSatisfaction: GameParameters.maxSatisfaction)
     var money: Int = 0
     var isHost: Bool
     var gameParameters: GameParameters
@@ -63,8 +64,8 @@ class GameControllerManager: GameController {
     init(userId: String, gameParameters: GameParameters) {
         self.userId = userId
         self.gameParameters = gameParameters
-        //game?.player.userId = userId
-        isHost = false
+        // game?.player.userId = userId
+        self.isHost = false
         addObservers()
     }
 
@@ -146,6 +147,7 @@ class GameControllerManager: GameController {
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction <= 0 {
+            satisfactionBar.penalise()
             endRound()
         }
     }
@@ -357,7 +359,7 @@ extension GameControllerManager {
     }
 
     internal func updateSatisfaction(satisfactionLevel: Int) {
-        money += satisfactionLevel * 2 // arbitrary translation rate; to change next time
+        money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
         numOfSatisfactionLevelsReceived += 1
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
 
@@ -382,7 +384,12 @@ extension GameControllerManager {
         }
         var houses = [House]()
         for orders in splitOrders {
-            houses.append(House(orders: Set(orders)))
+            let satisfactionFactor = Float.random(in: GameParameters.houseSatisfactionFactorRange)
+            for order in orders {
+                let originalTimeLimit = order.timeLimit
+                order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
+            }
+            houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
         }
         game?.houses = houses
     }

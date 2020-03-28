@@ -46,14 +46,14 @@ class RhythmicItem: Item {
         }
         if self.category.rawValue < otherItem.category.rawValue {
             return true
-        } else if self.category.rawValue == otherItem.category.rawValue {
+        } else if self.category.rawValue > otherItem.category.rawValue {
+            return false
+        } else {
             if unitDuration < otherItem.unitDuration {
                 return true
             } else {
                 return checkStatesAreLessThan(otherItem: otherItem)
             }
-        } else {
-            return false
         }
     }
 

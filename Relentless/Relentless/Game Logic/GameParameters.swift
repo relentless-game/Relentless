@@ -19,10 +19,20 @@ class GameParameters {
     static var roundTime: Double = 240
     static var dailyExpense: Int = 50
 
+    static var minSatisfaction: Int = 0
+    static var maxSatisfaction: Int = 100
     static var defaultSatisfactionChange: Float = 25
     static var satisfactionIncreaseForCorrectItem: Float = 1
 
+    static var houseSatisfactionFactorRange: ClosedRange<Float> = 0.5...1.0
+    static var satisfactionToMoneyTranslation: Int = 2
+
+    static var satisfactionRunOutPenalty: Int {
+        Int(0.2 * Float(maxSatisfaction))
+    }
+
     init(difficultyLevel: Float) {
+        assert(GameParameters.difficultyRange.contains(difficultyLevel))
         self.difficultyLevel = difficultyLevel
     }
 

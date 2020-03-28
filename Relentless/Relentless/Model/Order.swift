@@ -13,7 +13,11 @@ class Order: Hashable, Codable {
 
     var items: [Item]
     var timer: Timer?
-    var timeLimit: Int
+    var timeLimit: Int {
+        didSet {
+            timeLeft = timeLimit
+        }
+    }
     var timeLeft: Int {
         didSet {
             NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)

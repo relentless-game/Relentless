@@ -9,7 +9,7 @@
 import Foundation
 
 /// This is a wrapper class that contains an array of items of heterogeneous types.
-class Items: Codable {
+class ItemFactory: Codable {
     let items: [Item]
     
     init(items: [Item]) {
@@ -42,6 +42,8 @@ class Items: Codable {
                 items.append(try itemsArray.decode(Book.self))
             case .magazine:
                 items.append(try itemsArray.decode(Magazine.self))
+            case .toyCar:
+                items.append(try itemsArray.decode(ToyCar.self))
             }
         }
         self.items = items

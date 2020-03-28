@@ -50,6 +50,12 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
+    var playerParts: [Part] {
+        guard let parts = game?.player.parts else {
+            return []
+        }
+        return Array(parts)
+    }
 
     // properties for network
     var network: Network = NetworkManager()
@@ -203,15 +209,15 @@ class GameControllerManager: GameController {
         }
         // first choose categories
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
-        let categories = categoryGenerator.generateCategories()
+        let gameCategories = categoryGenerator.generateCategories()
 
         // allocate items according to chosen categories
         let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
         guard let players = game?.allPlayers else {
             return
         }
-        itemsAllocator.allocateItems(categories: categories, players: players)
-        gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
+//        itemsAllocator.allocateItems(categories: categories, players: players)
+        itemsAllocator.allocateItems(categories: gameCategories, players: players)
 
         // update other devices
         network.allocateItems(gameId: gameId, players: players)

@@ -15,6 +15,7 @@ class Player {
     let userName: String
     let profileImage: UIImage?
     var items: Set<Item> = []
+    var parts: Set<Part> = []
     var orders: Set<Order> = []
 
     init(userId: String, userName: String, profileImage: UIImage?) {
@@ -28,6 +29,9 @@ extension Player: Equatable {
     static func == (lhs: Player, rhs: Player) -> Bool {
         lhs.userId == rhs.userId &&
             lhs.userName == rhs.userName &&
-            lhs.profileImage == rhs.profileImage
+            lhs.profileImage == rhs.profileImage &&
+            lhs.items == rhs.items &&
+            lhs.parts == rhs.parts &&
+            lhs.orders == rhs.orders
     }
 }

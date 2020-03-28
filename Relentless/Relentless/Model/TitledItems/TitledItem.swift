@@ -1,5 +1,5 @@
 //
-//  Titled.swift
+//  TitledItem.swift
 //  Relentless
 //
 //  Created by Chow Yi Yin on 14/3/20.
@@ -50,10 +50,6 @@ class TitledItem: Item {
         hasher.combine(name)
     }
     
-//    /// These methods below should be overriden by subclasses
-//    @objc override dynamic func toString() -> String {
-//        "Item"
-//    }
     override func toString() -> String {
         "TitledItem"
     }

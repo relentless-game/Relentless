@@ -51,8 +51,8 @@ class Order: Hashable, Codable {
 
     func startOrder() {
         hasStarted = true
-        self.timer = Timer(timeInterval: 1, target: self,
-                           selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                          selector: #selector(updateTimeLeft), userInfo: nil, repeats: true)
     }
 
     func stopTimer() {

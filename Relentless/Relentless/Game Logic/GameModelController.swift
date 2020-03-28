@@ -17,6 +17,7 @@ protocol GameModelController {
     var otherPlayers: [Player] { get }
     var playerPackages: [Package] { get }
     var playerItems: [Category: [Item]] { get }
+    var playerParts: [Part] { get }
     var openedPackage: Package? { get }
 
     func addNewPackage()

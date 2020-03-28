@@ -34,19 +34,12 @@ class SatisfactionBar {
     }
 
     /// Updates satisfaction value based on correctness of order fulfilment and time used
-    func update(order: Order, isCorrect: Bool) {
-        let remainingTime = Float(order.timeLeft)
-        let totalTime = Float(order.timeLimit)
+    func update(order: Order, package: Package?, isCorrect: Bool) {
+        let satisfactionChange = calculateSatisfactionChange(order: order, package: package, isCorrect: isCorrect)
+        currentSatisfaction += Int(satisfactionChange)
 
-        if isCorrect {
-            let fraction = remainingTime / totalTime
-            currentSatisfaction += Int(fraction * Float(defaultSatisfactionChange))
-            if currentSatisfaction > 100 {
-                currentSatisfaction = 100
-            }
-        } else {
-            let fraction = Float(totalTime - remainingTime) / Float(totalTime)
-            currentSatisfaction -= Int(fraction * Float(defaultSatisfactionChange))
+        if currentSatisfaction > 100 {
+            currentSatisfaction = 100
         }
     }
 
@@ -54,9 +47,44 @@ class SatisfactionBar {
         currentSatisfaction = startingSatisfaction
     }
 
-    // todo: allow different changes to satisfaction based on the order/house
-    func updateForTimeOut() {
-        currentSatisfaction -= defaultSatisfactionChange
+    /// Calculate satisfaction change based on correctness of package, the amount of time taken
+    /// and the number of correct items
+    private func calculateSatisfactionChange(order: Order, package: Package?, isCorrect: Bool) -> Float {
+        let remainingTime = Float(order.timeLeft)
+        let totalTime = Float(order.timeLimit)
+
+        if package != nil && isCorrect {
+            return handleCorrectPackage(remainingTime: remainingTime, totalTime: totalTime, order: order)
+        } else {
+            return handleWrongPackage(totalTime: totalTime, remainingTime: remainingTime, order: order,
+                                      package: package)
+        }
+    }
+
+    private func handleCorrectPackage(remainingTime: Float, totalTime: Float, order: Order) -> Float {
+        let timeProportionLeft = remainingTime / totalTime
+        let numberOfCorrectItems = order.items.count
+        let increase = GameParameters.defaultSatisfactionChange * timeProportionLeft
+            + Float(numberOfCorrectItems) * GameParameters.satisfactionIncreaseForCorrectItem
+        return increase
+    }
+
+    private func handleWrongPackage(totalTime: Float, remainingTime: Float, order: Order,
+                                    package: Package?) -> Float {
+        let numberOfCorrectItems = getNumberOfCorrectItems(package: package, order: order)
+
+        let timeProportionUsed = (totalTime - remainingTime) / totalTime
+        let decrease = GameParameters.defaultSatisfactionChange * timeProportionUsed
+            - Float(numberOfCorrectItems) * GameParameters.satisfactionIncreaseForCorrectItem
+        return -decrease
+    }
+
+    private func getNumberOfCorrectItems(package: Package?, order: Order) -> Int {
+        guard let package = package else {
+            return 0
+        }
+        let numberOfCorrectItems = order.items.count - order.getNumberOfDifferences(with: package)
+        return numberOfCorrectItems
     }
 
 }

@@ -11,18 +11,16 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeInterval: Double = 120 // in seconds
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
     private var timeOutTimer = Timer()
-    private var dailyExpense: Int = 100
-    internal var difficultyLevel: Float = 0
 
     var gameCategories: [Category] = []
     var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
     var money: Int = 0
     var isHost: Bool
+    var gameParameters: GameParameters
 
     // properties for model
     var game: Game?
@@ -62,8 +60,9 @@ class GameControllerManager: GameController {
     }
     private var numOfSatisfactionLevelsReceived = 0
 
-    init(userId: String) {
+    init(userId: String, gameParameters: GameParameters) {
         self.userId = userId
+        self.gameParameters = gameParameters
         //game?.player.userId = userId
         isHost = false
         addObservers()
@@ -137,7 +136,7 @@ class GameControllerManager: GameController {
         let allOrders = houses.flatMap { $0.orders }
         let timedOutOrders = allOrders.filter { $0.timeLeft <= 0 }
         for order in timedOutOrders {
-            satisfactionBar.updateForTimeOut()
+            updateSatisfaction(order: order, package: nil, isCorrect: false)
             removeOrder(order: order)
         }
         NotificationCenter.default.post(name: .didOrderTimeOut, object: nil)
@@ -363,7 +362,7 @@ extension GameControllerManager {
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
 
         if numOfSatisfactionLevelsReceived == players.count - 1 {
-            money -= dailyExpense
+            money -= GameParameters.dailyExpense
             numOfSatisfactionLevelsReceived = 0 // reset
             NotificationCenter.default.post(name: .didChangeMoney, object: nil)
         }
@@ -391,8 +390,7 @@ extension GameControllerManager {
     private func handleGameEnd() {
         game = nil
         orderStartTimer = Timer()
-        difficultyLevel = 0
-        dailyExpense = 100
+        gameParameters.reset() // reset game parameters
 
         gameCategories = []
         satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
@@ -401,12 +399,12 @@ extension GameControllerManager {
 
     private func handleRoundEnd() {
         game?.resetForNewRound()
-        difficultyLevel += 0.1
+        gameParameters.incrementDifficulty()
     }
 
     private func handleRoundStart() {
         satisfactionBar.reset()
-        roundTimeLeft = roundTimeInterval
+        roundTimeLeft = GameParameters.roundTime
         startRoundTimer()
         startOrders()
     }
@@ -456,7 +454,7 @@ extension GameControllerManager {
         }
         removePackage(package: package)
         removeOrder(order: order)
-        updateGameProperties(order: order, isCorrect: isCorrect)
+        updateSatisfaction(order: order, package: package, isCorrect: isCorrect)
     }
 
     func openPackage(package: Package) {
@@ -478,7 +476,7 @@ extension GameControllerManager {
         game?.removeOrder(order: order)
     }
 
-    private func updateGameProperties(order: Order, isCorrect: Bool) {
-        satisfactionBar.update(order: order, isCorrect: isCorrect)
+    private func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
+        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
     }
 }

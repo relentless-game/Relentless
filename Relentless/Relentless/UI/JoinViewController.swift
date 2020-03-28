@@ -24,7 +24,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         teamCodeTextField.delegate = self
         initUserId()
         if let userId = self.userId {
-            gameController = GameControllerManager(userId: userId)
+            // Difficulty level for `GameParameter` should be determined by settings page
+            let gameParameters = GameParameters(difficultyLevel: 0)
+            gameController = GameControllerManager(userId: userId, gameParameters: gameParameters)
         }
         addObservers()
     }

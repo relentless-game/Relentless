@@ -10,8 +10,12 @@ import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
 
-    override init(userId: String) {
-        super.init(userId: userId)
+    var hostParameters: GameHostParameters? {
+        gameParameters as? GameHostParameters
+    }
+
+    init(userId: String, gameHostParameters: GameHostParameters) {
+        super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
     }
 
@@ -69,15 +73,21 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     private func initialiseItems() {
-        guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId else {
+        guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId,
+            let parameters = hostParameters else {
             return
         }
+
         // first choose categories
-        let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
+        let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
+                                                  difficultyLevel: parameters.difficultyLevel,
+                                                  numOfCategories: parameters.numOfCategories)
         let categories = categoryGenerator.generateCategories()
 
         // allocate items according to chosen categories
-        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
+        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers,
+                                            difficultyLevel: parameters.difficultyLevel,
+                                            numOfPairsPerCategory: parameters.numOfPairsPerCategory)
         guard let players = game?.allPlayers else {
             return
         }
@@ -89,10 +99,13 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     private func initialiseOrders() {
-        let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
-        guard let players = game?.allPlayers, let gameId = gameId else {
+        guard let players = game?.allPlayers, let gameId = gameId, let parameters = hostParameters else {
             return
         }
+        let ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
+                                              maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
+                                              numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
+                                              probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
         ordersAllocator.allocateOrders(players: players)
 
         // update other devices

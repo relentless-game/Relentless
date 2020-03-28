@@ -12,11 +12,13 @@ class ItemsLists {
 
     /// At least three similar book titles will be picked together
     static let books = [[Book(name: "The title of the book is"),
-                         Book(name: "The book title is title is"), Book(name: "The book title")],
-                        [Book(name: "Is the book title"), Book(name: "Book is the title"),
+                         Book(name: "The book title is title is")],
+                        [Book(name: "The book title"),
+                         Book(name: "Is the book title")],
+                        [Book(name: "Book is the title"),
                          Book(name: "Is the title book")],
-                        [Book(name: "Title is the book"), Book(name: "The title title is the book title"),
-                         Book(name: "Is title is the title")]]
+                        [Book(name: "Title is the book"),
+                         Book(name: "The title title is the book title")]]
 
     /// At least two homophones will be picked together
     static let magazines = [[Magazine(name: "lamp"), Magazine(name: "lamb")],
@@ -59,8 +61,7 @@ class ItemsLists {
                         [Bulb(unitDuration: 1, stateSequence: [RhythmState.unlit,
                                                                RhythmState.lit, RhythmState.unlit]),
                          Bulb(unitDuration: 1, stateSequence: [RhythmState.unlit, RhythmState.lit,
-                                                               RhythmState.lit]),
-                         Bulb(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.lit, RhythmState.unlit])],
+                                                               RhythmState.lit])],
                         [Bulb(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.unlit,
                                                                RhythmState.lit, RhythmState.unlit,
                                                                RhythmState.lit]),

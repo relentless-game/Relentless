@@ -58,6 +58,7 @@ class House {
 
     func removeOrder(order: Order) {
         orders.remove(order)
+        order.stopTimer()
     }
 
     @objc

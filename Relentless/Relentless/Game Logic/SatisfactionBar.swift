@@ -30,7 +30,7 @@ class SatisfactionBar {
         satisfactionRange = minSatisfaction...maxSatisfaction
         startingSatisfaction = (maxSatisfaction + minSatisfaction) / 2
         currentSatisfaction = startingSatisfaction
-        defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction))
+        defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction)) / 2
     }
 
     /// Updates satisfaction value based on correctness of order fulfilment and time used

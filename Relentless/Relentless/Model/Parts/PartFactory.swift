@@ -39,9 +39,9 @@ class PartFactory: Codable {
             let type = try part.decode(PartType.self, forKey: PartFactoryTypeKeys.partType)
             switch type {
             case .wheel:
-                parts.append(try partsArray.decode(Wheel.self))
+                parts.append(try partsArray.decode(ToyCarWheel.self))
             case .battery:
-                parts.append(try partsArray.decode(Battery.self))
+                parts.append(try partsArray.decode(ToyCarBattery.self))
             case .toyCarBody:
                 parts.append(try partsArray.decode(ToyCarBody.self))
             }

@@ -11,7 +11,7 @@ import Foundation
 class Package: Codable {
     let creator: String /// user name of the player that created this package
     let packageNumber: Int
-    var unsortedItems = [Item]() {
+    private var unsortedItems = [Item]() {
         didSet {
             NotificationCenter.default.post(name: .didChangeItemsInPackage, object: nil)
         }

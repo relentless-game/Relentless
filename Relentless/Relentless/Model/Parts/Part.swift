@@ -7,12 +7,28 @@
 //
 
 import Foundation
-class Part: Hashable, Codable {
-
+class Part: Item {
     var partType: PartType
 
-    init(partType: PartType) {
+    init(category: Category, partType: PartType) {
         self.partType = partType
+        super.init(category: category)
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: PartKeys.self)
+        self.partType = try container.decode(PartType.self, forKey: .partType)
+
+        let superDecoder = try container.superDecoder()
+        try super.init(from: superDecoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: PartKeys.self)
+        try container.encode(partType, forKey: .partType)
+
+        let superEncoder = container.superEncoder()
+        try super.encode(to: superEncoder)
     }
 
     static func == (lhs: Part, rhs: Part) -> Bool {
@@ -23,28 +39,28 @@ class Part: Hashable, Codable {
     }
 
     /// These methods below should be overriden by subclasses
-    func equals(other: Part) -> Bool {
+    override func equals(other: Item) -> Bool {
         false
     }
 
-    func toString() -> String {
+    override func toString() -> String {
         "Part"
     }
 
-    func hash(into hasher: inout Hasher) {
+    override func hash(into hasher: inout Hasher) {
         hasher.combine(partType)
     }
 
     func isLessThan(other: Part) -> Bool {
         false
     }
+
+    /// This method should be overriden by subclasses
+    override func isLessThan(other: Item) -> Bool {
+        false
+    }
 }
 
-extension Part: Comparable {
-    static func < (lhs: Part, rhs: Part) -> Bool {
-        if lhs.partType != rhs.partType {
-            return lhs.partType.rawValue < rhs.partType.rawValue
-        }
-        return lhs.isLessThan(other: rhs)
-    }
+enum PartKeys: CodingKey {
+    case partType
 }

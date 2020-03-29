@@ -10,13 +10,14 @@ import Foundation
 
 class ToyCarBody: Part {
     static let partType = PartType.toyCarBody
-    static let toyCarHeader = "Toy Car Body: "
+    static let category = ToyCar.category
+    static let toyCarBodyHeader = "Toy Car Body: "
 
     var colour: Colour
 
     init(colour: Colour) {
         self.colour = colour
-        super.init(partType: ToyCarBody.partType)
+        super.init(category: ToyCarBody.category, partType: ToyCarBody.partType)
     }
 
     enum ToyCarBodyKeys: CodingKey {
@@ -39,7 +40,7 @@ class ToyCarBody: Part {
         try super.encode(to: superEncoder)
     }
 
-    override func equals(other: Part) -> Bool {
+    override func equals(other: Item) -> Bool {
         guard let otherToyCarBody = other as? ToyCarBody else {
             return false
         }
@@ -47,7 +48,7 @@ class ToyCarBody: Part {
     }
 
     override func toString() -> String {
-        ToyCarBody.toyCarHeader + colour.rawValue
+        ToyCarBody.toyCarBodyHeader + colour.rawValue
     }
 
     override func hash(into hasher: inout Hasher) {
@@ -55,16 +56,16 @@ class ToyCarBody: Part {
         hasher.combine(colour)
     }
 
-    override func isLessThan(other: Part) -> Bool {
+    override func isLessThan(other: Item) -> Bool {
         guard let otherToyCarBody = other as? ToyCarBody else {
             return false
         }
         if self.partType.rawValue < otherToyCarBody.partType.rawValue {
             return true
-        } else if self.partType.rawValue == otherToyCarBody.partType.rawValue {
-            return !self.colour.rawValue.lexicographicallyPrecedes(otherToyCarBody.colour.rawValue)
-        } else {
+        } else if self.partType.rawValue > otherToyCarBody.partType.rawValue {
             return false
+        } else {
+            return self.colour.rawValue.lexicographicallyPrecedes(otherToyCarBody.colour.rawValue)
         }
     }
 }

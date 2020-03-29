@@ -7,23 +7,24 @@
 //
 
 import Foundation
-class Battery: Part {
+class ToyCarBattery: Part {
     static let partType = PartType.battery
-    static let batteryHeader = "Battery: "
+    static let category = ToyCar.category
+    static let toyCarBatteryHeader = "Toy Car Battery: "
 
     var label: String
 
     init(label: String) {
         self.label = label
-        super.init(partType: Battery.partType)
+        super.init(category: ToyCarBattery.category, partType: ToyCarBattery.partType)
     }
 
-    enum BatteryKeys: CodingKey {
+    enum ToyCarBatteryKeys: CodingKey {
         case label
     }
 
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: BatteryKeys.self)
+        let container = try decoder.container(keyedBy: ToyCarBatteryKeys.self)
         self.label = try container.decode(String.self, forKey: .label)
 
         let superDecoder = try container.superDecoder()
@@ -31,22 +32,22 @@ class Battery: Part {
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: BatteryKeys.self)
+        var container = encoder.container(keyedBy: ToyCarBatteryKeys.self)
         try container.encode(label, forKey: .label)
 
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)
     }
 
-    override func equals(other: Part) -> Bool {
-        guard let otherBattery = other as? Battery else {
+    override func equals(other: Item) -> Bool {
+        guard let otherBattery = other as? ToyCarBattery else {
             return false
         }
         return otherBattery.label == self.label
     }
     
     override func toString() -> String {
-        Battery.batteryHeader + label
+        ToyCarBattery.toyCarBatteryHeader + label
     }
 
     override func hash(into hasher: inout Hasher) {
@@ -54,16 +55,18 @@ class Battery: Part {
         hasher.combine(label)
     }
 
-    override func isLessThan(other: Part) -> Bool {
-        guard let otherBattery = other as? Battery else {
+    override func isLessThan(other: Item) -> Bool {
+        guard let otherBattery = other as? ToyCarBattery else {
             return false
         }
         if self.partType.rawValue < otherBattery.partType.rawValue {
             return true
-        } else if self.partType.rawValue == otherBattery.partType.rawValue {
-            return !self.label.lexicographicallyPrecedes(otherBattery.label)
-        } else {
+        } else if self.partType.rawValue > otherBattery.partType.rawValue {
             return false
+        } else {
+            let lowerCasedLabel = self.label.lowercased()
+            let otherLowerCasedLabel = otherBattery.label.lowercased()
+            return lowerCasedLabel.lexicographicallyPrecedes(otherLowerCasedLabel)
         }
     }
 }

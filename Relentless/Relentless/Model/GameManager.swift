@@ -48,14 +48,6 @@ class GameManager: Game {
         cumulativePackageNumber += 1
     }
 
-    func addPart(part: Part, to assembledItem: AssembledItem) {
-        assembledItem.addPart(part: part)
-    }
-
-    func removePart(part: Part, from assembledItem: AssembledItem) {
-        assembledItem.removePart(part: part)
-    }
-
     /// Removes the package if it exists. Else, do nothing.
     func removePackage(package: Package) {
         guard let indexOfPackage = packages.firstIndex(of: package) else {
@@ -73,6 +65,10 @@ class GameManager: Game {
 
     func removeItem(item: Item) {
         currentlyOpenPackage?.removeItem(item: item)
+    }
+
+    func constructAssembledItem(parts: [Part]) throws -> AssembledItem {
+        try ItemAssembler.assembleItem(parts: parts)
     }
 
     func checkPackage(package: Package, for house: House) -> Bool {
@@ -114,8 +110,8 @@ class GameManager: Game {
                                                name: .didChangeItemsInPackage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
-                                                name: .didTimeOutInOrder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
+                                               name: .didTimeOutInOrder, object: nil)
     }
 
     @objc

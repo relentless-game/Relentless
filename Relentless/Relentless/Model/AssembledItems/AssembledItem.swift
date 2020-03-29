@@ -59,10 +59,10 @@ class AssembledItem: Item {
         }
         if self.category.rawValue < otherItem.category.rawValue {
             return true
-        } else if self.category.rawValue == otherItem.category.rawValue {
-            return checkPartsAreLessThan(otherItem: otherItem)
-        } else {
+        } else if self.category.rawValue > otherItem.category.rawValue {
             return false
+        } else {
+            return checkPartsAreLessThan(otherItem: otherItem)
         }
     }
 

@@ -22,7 +22,8 @@ class AssembledItemsGenerator: ItemGenerator {
     private static func createToyCars(numberToGenerate: Int) -> [ToyCar] {
         var toyCars = Set<ToyCar>()
         var numberOfCarsNeeded = numberToGenerate
-        let totalNumberOfCombinations = calculateTotalCombinations(partTypes: ToyCar.partTypesNeeded)
+        let totalNumberOfCombinations = calculateTotalCombinations(partTypesAndFrequency:
+            ToyCar.partTypesAndFrequencies)
         if totalNumberOfCombinations < numberToGenerate {
             numberOfCarsNeeded = totalNumberOfCombinations
         }
@@ -37,21 +38,22 @@ class AssembledItemsGenerator: ItemGenerator {
     }
 
     private static func createToyCar() -> ToyCar? {
-        guard let wheel = selectWheel(), let battery = selectBattery(), let toyCarBody = selectToyCarBody() else {
+        guard let wheel = selectToyCarWheel(), let battery = selectToyCarBattery(),
+            let toyCarBody = selectToyCarBody() else {
             return nil
         }
         return ToyCar(wheel: wheel, battery: battery, toyCarBody: toyCarBody)
     }
 
-    private static func selectWheel() -> Wheel? {
-        guard let wheel = randomSelect(list: PartsLists.wheels) as? Wheel else {
+    private static func selectToyCarWheel() -> ToyCarWheel? {
+        guard let wheel = randomSelect(list: PartsLists.toyCarWheels) as? ToyCarWheel else {
             return nil
         }
         return wheel
     }
 
-    private static func selectBattery() -> Battery? {
-        guard let battery = randomSelect(list: PartsLists.batteries) as? Battery else {
+    private static func selectToyCarBattery() -> ToyCarBattery? {
+        guard let battery = randomSelect(list: PartsLists.toyCarBatteries) as? ToyCarBattery else {
             return nil
         }
         return battery
@@ -70,21 +72,37 @@ class AssembledItemsGenerator: ItemGenerator {
         return list[randomNumber]
     }
 
-    private static func calculateTotalCombinations(partTypes: [PartType]) -> Int {
+    private static func calculateTotalCombinations(partTypesAndFrequency: [(PartType, Int)]) -> Int {
         var numberOfCombininations = 1
-        for partType in partTypes {
+        for partAndFrequency in partTypesAndFrequency {
+            let partType = partAndFrequency.0
+            let frequency = partAndFrequency.1
             switch partType {
             case PartType.wheel:
-                numberOfCombininations *= PartsLists.wheels.count
+                numberOfCombininations *= choose(number: PartsLists.toyCarWheels.count, from: frequency)
             case PartType.battery:
-                numberOfCombininations *= PartsLists.batteries.count
+                numberOfCombininations *= choose(number: PartsLists.toyCarBatteries.count, from: frequency)
             case PartType.toyCarBody:
-                numberOfCombininations *= PartsLists.toyCarBodies.count
+                numberOfCombininations *= choose(number: PartsLists.toyCarBodies.count, from: frequency)
             default:
                 continue
             }
         }
         return numberOfCombininations
+    }
+
+    /// referenced from:
+    /// https://stackoverflow.com/questions/39308300/find-the-best-way-for-combination-without-repetition-calculation-in-swift
+    static func choose(number: Int, from total: Int) -> Int {
+        assert(number >= 0 && total >= 0)
+        if number > total {
+            return 0
+        }
+        var result = 1
+        for current in 0 ..< min(number, total - number) {
+            result = (result * (total - current)) / (current + 1)
+        }
+        return result
     }
 
 }

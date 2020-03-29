@@ -10,23 +10,27 @@ import Foundation
 class ToyCar: AssembledItem {
     static let category = Category.toyCar
     static let toyCarHeader = "ToyCar: "
-    static let partTypesNeeded = [PartType.wheel, PartType.battery, PartType.toyCarBody]
+    static let partTypesAndFrequencies = [(PartType.wheel, 1),
+                                          (PartType.battery, 1),
+                                          (PartType.toyCarBody, 1)]
 
-    init(wheel: Wheel, battery: Battery, toyCarBody: ToyCarBody) {
+    init(wheel: ToyCarWheel, battery: ToyCarBattery, toyCarBody: ToyCarBody) {
         let toyCarParts = [wheel, battery, toyCarBody].sorted()
         super.init(parts: toyCarParts, category: ToyCar.category)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AssembledItemKeys.self)
+
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AssembledItemKeys.self)
-        try container.encode(unsortedParts, forKey: .parts)
-        try container.encode(category, forKey: .category)
+//        try container.encode(unsortedParts, forKey: .parts)
+//        try container.encode(category, forKey: .category)
+
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)
     }

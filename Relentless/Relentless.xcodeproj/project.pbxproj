@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B09CA44242F447600F29648 /* ItemAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA43242F447600F29648 /* ItemAssembler.swift */; };
+		0B09CA48242F53C200F29648 /* ToyCarWheelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA47242F53C200F29648 /* ToyCarWheelTests.swift */; };
+		0B09CA4A242F582F00F29648 /* ToyCarBatteryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA49242F582F00F29648 /* ToyCarBatteryTests.swift */; };
+		0B09CA4C242F5BFE00F29648 /* ToyCarBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA4B242F5BFE00F29648 /* ToyCarBodyTests.swift */; };
 		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
 		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
 		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
@@ -18,8 +22,8 @@
 		0B781576242CC311006CF4C2 /* AssembledItemsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */; };
 		0B78157B242CC3DB006CF4C2 /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78157A242CC3DB006CF4C2 /* Part.swift */; };
 		0B78157E242CC699006CF4C2 /* PartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78157D242CC699006CF4C2 /* PartType.swift */; };
-		0B781580242CC845006CF4C2 /* Wheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78157F242CC845006CF4C2 /* Wheel.swift */; };
-		0B781582242CC919006CF4C2 /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781581242CC919006CF4C2 /* Battery.swift */; };
+		0B781580242CC845006CF4C2 /* ToyCarWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78157F242CC845006CF4C2 /* ToyCarWheel.swift */; };
+		0B781582242CC919006CF4C2 /* ToyCarBattery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781581242CC919006CF4C2 /* ToyCarBattery.swift */; };
 		0B781584242CC993006CF4C2 /* ToyCarBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781583242CC993006CF4C2 /* ToyCarBody.swift */; };
 		0B781586242CCA08006CF4C2 /* Colour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781585242CCA08006CF4C2 /* Colour.swift */; };
 		0B781588242CCAD2006CF4C2 /* PartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781587242CCAD2006CF4C2 /* PartFactory.swift */; };
@@ -111,6 +115,10 @@
 
 /* Begin PBXFileReference section */
 		084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.debug.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0B09CA43242F447600F29648 /* ItemAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAssembler.swift; sourceTree = "<group>"; };
+		0B09CA47242F53C200F29648 /* ToyCarWheelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarWheelTests.swift; sourceTree = "<group>"; };
+		0B09CA49242F582F00F29648 /* ToyCarBatteryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBatteryTests.swift; sourceTree = "<group>"; };
+		0B09CA4B242F5BFE00F29648 /* ToyCarBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBodyTests.swift; sourceTree = "<group>"; };
 		0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
 		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
 		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
@@ -122,8 +130,8 @@
 		0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssembledItemsGenerator.swift; sourceTree = "<group>"; };
 		0B78157A242CC3DB006CF4C2 /* Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
 		0B78157D242CC699006CF4C2 /* PartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartType.swift; sourceTree = "<group>"; };
-		0B78157F242CC845006CF4C2 /* Wheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wheel.swift; sourceTree = "<group>"; };
-		0B781581242CC919006CF4C2 /* Battery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
+		0B78157F242CC845006CF4C2 /* ToyCarWheel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarWheel.swift; sourceTree = "<group>"; };
+		0B781581242CC919006CF4C2 /* ToyCarBattery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBattery.swift; sourceTree = "<group>"; };
 		0B781583242CC993006CF4C2 /* ToyCarBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBody.swift; sourceTree = "<group>"; };
 		0B781585242CCA08006CF4C2 /* Colour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colour.swift; sourceTree = "<group>"; };
 		0B781587242CCAD2006CF4C2 /* PartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartFactory.swift; sourceTree = "<group>"; };
@@ -282,10 +290,10 @@
 			isa = PBXGroup;
 			children = (
 				0B78157A242CC3DB006CF4C2 /* Part.swift */,
-				0B781581242CC919006CF4C2 /* Battery.swift */,
+				0B781581242CC919006CF4C2 /* ToyCarBattery.swift */,
 				0B781583242CC993006CF4C2 /* ToyCarBody.swift */,
 				0B781585242CCA08006CF4C2 /* Colour.swift */,
-				0B78157F242CC845006CF4C2 /* Wheel.swift */,
+				0B78157F242CC845006CF4C2 /* ToyCarWheel.swift */,
 				0B78157D242CC699006CF4C2 /* PartType.swift */,
 				0B781587242CCAD2006CF4C2 /* PartFactory.swift */,
 			);
@@ -409,6 +417,7 @@
 				0B78157C242CC680006CF4C2 /* Item */,
 				F3BF7F02242503E200A50EE3 /* Game.swift */,
 				F3BF7F05242503E200A50EE3 /* GameManager.swift */,
+				0B09CA43242F447600F29648 /* ItemAssembler.swift */,
 				F3BF7F01242503E200A50EE3 /* House.swift */,
 				F3BF7EFE242503E200A50EE3 /* Order.swift */,
 				F3BF7F04242503E200A50EE3 /* Package.swift */,
@@ -475,6 +484,9 @@
 				0B385B80241CDCC300FC2850 /* MagazineTests.swift */,
 				0B385B86241CE22D00FC2850 /* HouseTests.swift */,
 				0B1C9771241DDE210042FB01 /* GameManagerTests.swift */,
+				0B09CA47242F53C200F29648 /* ToyCarWheelTests.swift */,
+				0B09CA49242F582F00F29648 /* ToyCarBatteryTests.swift */,
+				0B09CA4B242F5BFE00F29648 /* ToyCarBodyTests.swift */,
 			);
 			path = RelentlessTests;
 			sourceTree = "<group>";
@@ -763,6 +775,7 @@
 				0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */,
 				6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */,
 				62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
+				0B09CA44242F447600F29648 /* ItemAssembler.swift in Sources */,
 				0B781588242CCAD2006CF4C2 /* PartFactory.swift in Sources */,
 				6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
 				5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
@@ -787,11 +800,11 @@
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				62EE1A83241DE611009406FB /* ListBasedGenerator.swift in Sources */,
-				0B781582242CC919006CF4C2 /* Battery.swift in Sources */,
+				0B781582242CC919006CF4C2 /* ToyCarBattery.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
 				F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */,
 				F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
-				0B781580242CC845006CF4C2 /* Wheel.swift in Sources */,
+				0B781580242CC845006CF4C2 /* ToyCarWheel.swift in Sources */,
 				F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */,
 				5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
@@ -818,12 +831,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
+				0B09CA4C242F5BFE00F29648 /* ToyCarBodyTests.swift in Sources */,
 				0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
 				F3BF7F2124275EF900A50EE3 /* ItemsAdapterTests.swift in Sources */,
+				0B09CA4A242F582F00F29648 /* ToyCarBatteryTests.swift in Sources */,
 				F3BF7F2024275EF900A50EE3 /* PackageAdapterTests.swift in Sources */,
 				0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */,
 				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
 				0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */,
+				0B09CA48242F53C200F29648 /* ToyCarWheelTests.swift in Sources */,
 				F3BF7F1F24275EF900A50EE3 /* OrdersAdapterTests.swift in Sources */,
 				0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */,
 				F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */,

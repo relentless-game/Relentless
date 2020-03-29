@@ -14,8 +14,8 @@ enum PartType: Int, Codable, CaseIterable {
     case toyCarBody
 
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CategoryKeys.self)
-        let rawValue = try container.decode(Int.self, forKey: .category)
+        let container = try decoder.container(keyedBy: PartTypeKeys.self)
+        let rawValue = try container.decode(Int.self, forKey: .partType)
         switch rawValue {
         case PartType.wheel.rawValue:
             self = .wheel
@@ -29,14 +29,14 @@ enum PartType: Int, Codable, CaseIterable {
     }
 
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CategoryKeys.self)
+        var container = encoder.container(keyedBy: PartTypeKeys.self)
         switch self {
         case .wheel:
-            try container.encode(PartType.wheel.rawValue, forKey: .category)
+            try container.encode(PartType.wheel.rawValue, forKey: .partType)
         case .battery:
-            try container.encode(PartType.battery.rawValue, forKey: .category)
+            try container.encode(PartType.battery.rawValue, forKey: .partType)
         case .toyCarBody:
-            try container.encode(PartType.toyCarBody.rawValue, forKey: .category)
+            try container.encode(PartType.toyCarBody.rawValue, forKey: .partType)
         }
     }
 
@@ -52,8 +52,8 @@ enum PartType: Int, Codable, CaseIterable {
     }
 }
 
-enum PartKeys: CodingKey {
-    case category
+enum PartTypeKeys: CodingKey {
+    case partType
 }
 
 enum PartTypeError: Error {

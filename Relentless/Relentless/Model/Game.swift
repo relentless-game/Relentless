@@ -31,9 +31,7 @@ protocol Game {
 
     func removeItem(item: Item)
 
-    func addPart(part: Part, to assembledItem: AssembledItem)
-
-    func removePart(part: Part, from assembledItem: AssembledItem)
+    func constructAssembledItem(parts: [Part]) throws -> AssembledItem
 
     func checkPackage(package: Package, for house: House) -> Bool
 

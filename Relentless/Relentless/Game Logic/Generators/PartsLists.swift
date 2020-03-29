@@ -9,8 +9,8 @@
 import Foundation
 class PartsLists {
 
-    static let wheels = [Wheel(radius: 1.0), Wheel(radius: 2.5)]
-    static let batteries = [Battery(label: "AA"), Battery(label: "AAA")]
+    static let toyCarWheels = [ToyCarWheel(radius: 1.0), ToyCarWheel(radius: 2.5)]
+    static let toyCarBatteries = [ToyCarBattery(label: "AA"), ToyCarBattery(label: "AAA")]
     static var toyCarBodies: [ToyCarBody] {
         let colours = Colour.allCases
         var bodies = [ToyCarBody]()

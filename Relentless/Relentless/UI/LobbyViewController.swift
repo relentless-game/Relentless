@@ -26,7 +26,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
             // Difficulty level for `GameParameter` should be determined by settings page
-            let gameHostParameters = GameHostParameters(difficultyLevel: 0)
+            let gameHostParameters = GameHostParameters(difficultyLevel: 1.0)
             gameController = GameHostControllerManager(userId: userId,
                                                        gameHostParameters: gameHostParameters)
             createGame()

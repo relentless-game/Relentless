@@ -11,7 +11,7 @@ import Foundation
 class SatisfactionBar {
 
     var satisfactionRange: ClosedRange<Int>
-    var currentSatisfaction: Int {
+    var currentSatisfaction: Float {
         didSet {
             NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
         }
@@ -21,30 +21,40 @@ class SatisfactionBar {
     // Returns a float from 0...1
     var currentFractionalSatisfaction: Float {
         let range = satisfactionRange.upperBound - satisfactionRange.lowerBound
-        let adjustedCurrentSatisfaction = currentSatisfaction - satisfactionRange.lowerBound
+        let adjustedCurrentSatisfaction = currentSatisfaction - Float(satisfactionRange.lowerBound)
         return Float(adjustedCurrentSatisfaction) / Float(range)
     }
-    var defaultSatisfactionChange: Int
 
     init(minSatisfaction: Int, maxSatisfaction: Int) {
         satisfactionRange = minSatisfaction...maxSatisfaction
-        startingSatisfaction = (maxSatisfaction + minSatisfaction) / 2
-        currentSatisfaction = startingSatisfaction
-        defaultSatisfactionChange = Int(0.4 * Float(currentSatisfaction)) / 2
+        startingSatisfaction = maxSatisfaction
+        currentSatisfaction = Float(startingSatisfaction)
     }
 
     /// Updates satisfaction value based on correctness of order fulfilment and time used
     func update(order: Order, package: Package?, isCorrect: Bool) {
         let satisfactionChange = calculateSatisfactionChange(order: order, package: package, isCorrect: isCorrect)
-        currentSatisfaction += Int(satisfactionChange)
+        currentSatisfaction += satisfactionChange
 
         if currentSatisfaction > 100 {
             currentSatisfaction = 100
         }
+
+        if currentSatisfaction < 0 {
+            currentSatisfaction = 0
+        }
     }
 
     func reset() {
-        currentSatisfaction = startingSatisfaction
+        currentSatisfaction = Float(startingSatisfaction)
+    }
+
+    func penalise() {
+        currentSatisfaction -= GameParameters.satisfactionRunOutPenalty
+    }
+
+    func decrementWithTime() {
+        currentSatisfaction -= GameParameters.satisfactionUnitDecrease
     }
 
     /// Calculate satisfaction change based on correctness of package, the amount of time taken

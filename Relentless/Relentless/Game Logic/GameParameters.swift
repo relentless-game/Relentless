@@ -16,7 +16,7 @@ class GameParameters {
     static let difficultyRange: ClosedRange<Float> = 1.0...10.0
     static var difficultyChange: Float = 0.5
 
-    static var roundTime: Double = 240
+    static var roundTime: Int = 240
     static var dailyExpense: Int = 50
 
     static var minSatisfaction: Int = 0
@@ -27,8 +27,12 @@ class GameParameters {
     static var houseSatisfactionFactorRange: ClosedRange<Float> = 0.5...1.0
     static var satisfactionToMoneyTranslation: Int = 2
 
-    static var satisfactionRunOutPenalty: Int {
-        Int(0.2 * Float(maxSatisfaction))
+    static var satisfactionRunOutPenalty: Float {
+        0.2 * Float(maxSatisfaction)
+    }
+
+    static var satisfactionUnitDecrease: Float {
+        (Float(maxSatisfaction) / Float(roundTime)).rounded(.up)
     }
 
     init(difficultyLevel: Float) {

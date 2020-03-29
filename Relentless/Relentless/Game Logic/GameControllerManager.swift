@@ -11,7 +11,11 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeLeft: Double = 0
+    private var roundTimeLeft: Int = 0 {
+        didSet {
+            satisfactionBar.decrementWithTime()
+        }
+    }
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
     private var timeOutTimer = Timer()
@@ -146,7 +150,7 @@ class GameControllerManager: GameController {
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
-        if satisfactionBar.currentSatisfaction <= 0 {
+        if satisfactionBar.currentSatisfaction == 0 {
             satisfactionBar.penalise()
             endRound()
         }

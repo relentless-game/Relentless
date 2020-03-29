@@ -53,6 +53,7 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
                                                name: UIApplication.willResignActiveNotification, object: nil)
@@ -106,15 +107,6 @@ class PackingViewController: UIViewController {
         }
     }
     
-    @objc func handleRoundPaused() {
-        print("handle round paused triggered. gonna seg to pause game")
-        performSegue(withIdentifier: "pauseGame", sender: self)
-    }
-    
-//    @objc func handleRoundResumed() {
-//        print("handle round resumed")
-//    }
-
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
     }
@@ -186,18 +178,22 @@ class PackingViewController: UIViewController {
         print("here")
         removeAllPreviousViewControllers()
         if segue.identifier == "toHouses" {
+            print("here1")
             let viewController = segue.destination as? HousesViewController
             viewController?.gameController = gameController
         }
         if segue.identifier == "deliverPackage" {
+            print("here2")
             let viewController = segue.destination as? DeliveryViewController
             viewController?.gameController = gameController
             viewController?.packageForDelivery = packageForDelivery
         }
         if segue.identifier == "endRound" {
+            print("here3")
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
+        // for pausing feature
         if segue.identifier == "pauseGame" {
             print("prepare for segue to pause game")
             let viewController = segue.destination as? PauseViewController
@@ -205,25 +201,26 @@ class PackingViewController: UIViewController {
         }
     }
 
-    /////// FOR BACKGROUND STUFF
-    
+    // The following methods are for the pausing feature
     // TODO: end it before segue
-    func registerBackgroundTask() {
-        print("registered")
-        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-            self?.endBackgroundTask()
-        }
-        let timer = Timer(timeInterval: 30.0, target: self, selector: #selector(endGame), userInfo: nil, repeats: false)
-        RunLoop.current.add(timer, forMode: .default)
-        gameController?.pauseRound()
-        assert(backgroundTask != .invalid)
-    }
-    
     @objc func handleAppMovedToForeground() {
-        print("gonna move to foreground")
         gameController?.resumeRound()
+        guard let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused else {
+            return
+        }
+
+        if numberOfPlayersPaused == 0 {
+            //timer?.invalidate()
+        } else {
+            // performSegue(withIdentifier: "pauseGame", sender: self)
+        }
     }
 
+    @objc func handleRoundPaused() {
+        print("received notification did round pause")
+        performSegue(withIdentifier: "pauseGame", sender: self)
+    }
+    
     func endBackgroundTask() {
         print("Background task ended.")
         UIApplication.shared.endBackgroundTask(backgroundTask)
@@ -232,12 +229,15 @@ class PackingViewController: UIViewController {
     
     @objc func handleAppMovedToBackground() {
         print("App moved to background!")
-        registerBackgroundTask()
-    }
-    
-    @objc func endGame() {
-        print("the game has ended!")
-        endBackgroundTask()
+        gameController?.pauseRound()
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+        
+        let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused
+        if numberOfPlayersPaused == 1 {
+            assert(backgroundTask != .invalid)
+        }
     }
 }
 

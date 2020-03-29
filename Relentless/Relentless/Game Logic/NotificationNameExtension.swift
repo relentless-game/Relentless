@@ -44,4 +44,5 @@ extension Notification.Name {
     static let didOrderTimeOut = Notification.Name("didOrderTimeOut") // an order timed out
     static let didChangeSatisfactionBar = Notification.Name("didChangeSatisfactionBar")
     static let didChangeMoney = Notification.Name("didChangeMoney")
+    static let didUpdateCountDown = Notification.Name("didUpdateCountDown") // for pausing 
 }

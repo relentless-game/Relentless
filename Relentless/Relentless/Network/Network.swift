@@ -100,4 +100,7 @@ protocol Network {
     
     /// Resets the players out of orders.
     func resetPlayersOutOfOrders(gameId: Int)
+    
+    /// Updates the game status. Currently this is used for pausing/resuming a game.
+    func updateGameStatus(gameId: Int, gameStatus: GameStatus)
 }

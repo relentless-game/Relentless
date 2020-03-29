@@ -17,15 +17,18 @@ struct GameStatus: Codable {
     var isPaused: Bool
     var isResumed: Bool
     var currentRound: Int
+    var numberOfPlayersPaused: Int = 0
+    var countDownToResume: Int
     
     init(isGamePlaying: Bool, isRoundPlaying: Bool, isGameEndedPrematurely: Bool,
-         isPaused: Bool, currentRound: Int, isResumed: Bool = false) {
+         isPaused: Bool, currentRound: Int, isResumed: Bool = false, countDownToResume: Int = 30) {
         self.isGamePlaying = isGamePlaying
         self.isRoundPlaying = isRoundPlaying
         self.isGameEndedPrematurely = isGameEndedPrematurely
         self.isPaused = isPaused
         self.isResumed = isResumed
         self.currentRound = currentRound
+        self.countDownToResume = countDownToResume
     }
     
     func encodeToString() -> String? {

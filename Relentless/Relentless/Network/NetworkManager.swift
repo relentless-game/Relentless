@@ -321,4 +321,10 @@ class NetworkManager: Network {
     func resetPlayersOutOfOrders(gameId: Int) {
         ref.child("games/\(gameId)/playersOutOfOrders").setValue(nil)
     }
+    
+    // this is currently used for pausing/resuming a game
+    func updateGameStatus(gameId: Int, gameStatus: GameStatus) {
+        let gameStatusString = gameStatus.encodeToString()
+        ref.child("games/\(gameId)/status").setValue(gameStatusString)
+    }
 }

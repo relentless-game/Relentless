@@ -803,6 +803,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="LQV-Rq-bIx"/>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
         <segue reference="FQq-Pt-F3v"/>

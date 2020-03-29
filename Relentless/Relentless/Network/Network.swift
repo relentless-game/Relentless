@@ -41,7 +41,7 @@ protocol Network {
     func startRound(gameId: Int, roundNumber: Int)
     
     /// This is called by the host player to terminate the current round.
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Int)
+    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float)
 
     /// This is called to pause the current round.
     func pauseRound(gameId: Int, currentRound: Int)

@@ -281,20 +281,20 @@ class GameControllerManager: GameController {
 extension GameControllerManager {
 
     /// Player who invokes this method becomes the host and joins the game.
-    func createGame() {
+    func createGame(userName: String) {
         network.createGame(completion: { gameId in
-            self.joinGame(gameId: gameId)
+            self.joinGame(gameId: gameId, userName: userName)
             self.isHost = true
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
-    /// Player joins the game and gets a dummy username
-    internal func joinGame(gameId: Int) {
+    /// Player joins the game and with user defined username
+    internal func joinGame(gameId: Int, userName: String) {
         guard let userId = self.userId else {
             return
         }
-        let userName = generateDummyUserName()
+        
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
 
             if let error = error {
@@ -303,6 +303,15 @@ extension GameControllerManager {
                 self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
             }
         })
+    }
+    
+    /// Enables the player to edit their username and profile image before the game starts
+    func editUserInfo(username: String, profile: PlayerAvatar) {
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        network.editUserInfo(userId: userId, gameId: gameId,
+                             username: username, profile: profile)
     }
 
     func leaveGame(userId: String) {

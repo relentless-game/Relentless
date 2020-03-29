@@ -7,17 +7,16 @@
 //
 
 import Foundation
-import UIKit
 
 /// This struct represents a player in the game.
 class Player {
     var userId: String
     let userName: String
-    let profileImage: UIImage?
+    let profileImage: PlayerAvatar?
     var items: Set<Item> = []
     var orders: Set<Order> = []
 
-    init(userId: String, userName: String, profileImage: UIImage?) {
+    init(userId: String, userName: String, profileImage: PlayerAvatar?) {
         self.userId = userId
         self.userName = userName
         self.profileImage = profileImage

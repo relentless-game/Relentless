@@ -16,9 +16,13 @@ protocol GameNetworkController {
     var gameId: Int? { get }
 
     /// Player automatically joins game upon successful creation of game
-    func createGame()
+    /// The creator needs to input their username when creating the game.
+    func createGame(userName: String)
 
-    func joinGame(gameId: Int)
+    func joinGame(gameId: Int, userName: String)
+    
+    /// Enables the player to edit their username and profile image before the game starts
+    func editUserInfo(username: String, profile: PlayerAvatar)
 
     /// To leave the game before it starts
     /// Terminates the game if host calls this method

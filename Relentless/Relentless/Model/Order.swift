@@ -13,7 +13,11 @@ class Order: Hashable, Codable {
 
     var items: [Item]
     var timer: Timer?
-    var timeLimit: Int
+    var timeLimit: Int {
+        didSet {
+            timeLeft = timeLimit
+        }
+    }
     var timeLeft: Int {
         didSet {
             NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
@@ -51,8 +55,8 @@ class Order: Hashable, Codable {
 
     func startOrder() {
         hasStarted = true
-        self.timer = Timer(timeInterval: 1, target: self,
-                           selector: #selector(updateTimeLeft), userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
+                                          userInfo: nil, repeats: true)
     }
 
     func stopTimer() {
@@ -84,6 +88,7 @@ class Order: Hashable, Codable {
 
     func handleTimeOut() {
         NotificationCenter.default.post(name: .didTimeOutInOrder, object: nil)
+        stopTimer()
     }
 
 }

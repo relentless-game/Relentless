@@ -13,21 +13,19 @@ class CategoryGenerator: GameCategoryGenerator {
 
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var numOfCategories: Int
 
-    var defaultNumOfCats: Int = 1 // per player
-
-    init(numberOfPlayers: Int, difficultyLevel: Float) {
+    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
+        self.numOfCategories = numOfCategories
     }
 
     func generateCategories() -> [Category] {
-        let numberToGenerate = numberOfPlayers * (defaultNumOfCats + Int(difficultyLevel *
-            Float(defaultNumOfCats)))
         let allCategories = Category.allCases
 
         // if number of categories is less than required, just return all available categories
-        if allCategories.count < numberToGenerate {
+        if allCategories.count < numOfCategories {
             return allCategories
         }
 
@@ -35,11 +33,9 @@ class CategoryGenerator: GameCategoryGenerator {
         var categories = Set<Category>()
 
         // choose unique random categories
-        while categories.count < numberToGenerate {
+        while categories.count < numOfCategories {
             let index = Int.random(in: generationRange)
-            //if index < allCategories.count {
             categories.insert(allCategories[index])
-            //}
         }
         return Array(categories)
     }

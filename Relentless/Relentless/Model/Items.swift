@@ -42,6 +42,8 @@ class Items: Codable {
                 items.append(try itemsArray.decode(Book.self))
             case .magazine:
                 items.append(try itemsArray.decode(Magazine.self))
+            case .bulb:
+                items.append(try itemsArray.decode(Bulb.self))
             }
         }
         self.items = items

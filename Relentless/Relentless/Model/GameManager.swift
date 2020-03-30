@@ -106,7 +106,7 @@ class GameManager: Game {
                                                name: .didChangeItemsInPackage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
+         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
                                                 name: .didTimeOutInOrder, object: nil)
     }
 
@@ -118,6 +118,11 @@ class GameManager: Game {
     @objc
     func notifyOrderUpdate(notification: Notification) {
         NotificationCenter.default.post(name: .didOrderUpdateInModel, object: nil)
+    }
+
+    @objc
+    func notifyOrderTimeOut(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderTimeOutInModel, object: nil)
     }
 
 }

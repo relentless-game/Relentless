@@ -11,18 +11,21 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeInterval: Double = 120 // in seconds
-    private var roundTimeLeft: Double = 0
+    private var roundTimeLeft: Int = 0 {
+        didSet {
+            satisfactionBar.decrementWithTime()
+        }
+    }
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
     private var timeOutTimer = Timer()
-    private var difficultyLevel: Float = 0
-    private var dailyExpense: Int = 100
 
-    var isHost: Bool = false
     var gameCategories: [Category] = []
-    var satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
+    var satisfactionBar = SatisfactionBar(minSatisfaction: GameParameters.minSatisfaction,
+                                          maxSatisfaction: GameParameters.maxSatisfaction)
     var money: Int = 0
+    var isHost: Bool
+    var gameParameters: GameParameters
 
     // properties for model
     var game: Game?
@@ -68,22 +71,12 @@ class GameControllerManager: GameController {
     }
     private var numOfSatisfactionLevelsReceived = 0
 
-    init(userId: String) {
+    init(userId: String, gameParameters: GameParameters) {
         self.userId = userId
-        //game?.player.userId = userId
-
+        self.gameParameters = gameParameters
+        // game?.player.userId = userId
+        self.isHost = false
         addObservers()
-    }
-
-    /// Should only be called by host
-    func startGame() {
-        guard let gameId = gameId else {
-            return
-        }
-        guard isHost else {
-            return
-        }
-        network.startGame(gameId: gameId)
     }
 
     @objc
@@ -92,20 +85,6 @@ class GameControllerManager: GameController {
             return
         }
         network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
-    }
-
-    func startRound() {
-        guard isHost else {
-            return
-        }
-
-        // items and orders are generated and allocated by the host only
-        initialiseItems()
-        initialiseOrders()
-        // network is notified to start round by the host only
-        if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
-            network.startRound(gameId: gameId, roundNumber: roundNumber)
-        }
     }
 
     func pauseRound() {
@@ -137,7 +116,7 @@ class GameControllerManager: GameController {
 
     @objc
     func endRound() {
-        guard isHost, let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
+        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
         network.terminateRound(gameId: gameId, roundNumber: roundNumber,
@@ -168,7 +147,7 @@ class GameControllerManager: GameController {
         let allOrders = houses.flatMap { $0.orders }
         let timedOutOrders = allOrders.filter { $0.timeLeft <= 0 }
         for order in timedOutOrders {
-            satisfactionBar.updateForTimeOut()
+            updateSatisfaction(order: order, package: nil, isCorrect: false)
             removeOrder(order: order)
         }
         NotificationCenter.default.post(name: .didOrderTimeOut, object: nil)
@@ -177,7 +156,8 @@ class GameControllerManager: GameController {
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
-        if satisfactionBar.currentSatisfaction <= 0 {
+        if satisfactionBar.currentSatisfaction == 0 {
+            satisfactionBar.penalise()
             endRound()
         }
     }
@@ -286,15 +266,6 @@ class GameControllerManager: GameController {
 
 extension GameControllerManager {
 
-    /// Player who invokes this method becomes the host and joins the game.
-    func createGame() {
-        network.createGame(completion: { gameId in
-            self.joinGame(gameId: gameId)
-            self.isHost = true
-            NotificationCenter.default.post(name: .didCreateGame, object: nil)
-        })
-    }
-
     /// Player joins the game and gets a dummy username
     internal func joinGame(gameId: Int) {
         guard let userId = self.userId else {
@@ -311,17 +282,13 @@ extension GameControllerManager {
         })
     }
 
+    @objc
     func leaveGame(userId: String) {
         guard let gameId = gameId else {
             return
         }
         game = nil
-
-        if isHost {
-            network.terminateGame(gameId: gameId, isGameEndedPrematurely: true)
-        } else {
-            network.quitGame(userId: userId, gameId: gameId)
-        }
+        network.quitGame(userId: userId, gameId: gameId)
     }
 
     func sendPackage(package: Package, to destination: Player) -> Bool {
@@ -351,7 +318,12 @@ extension GameControllerManager {
         NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
-    private func attachNetworkListeners(userId: String, gameId: Int) {
+    @objc
+    internal func attachNetworkListeners(userId: String, gameId: Int) {
+        attachNonHostListeners(userId: userId, gameId: gameId)
+    }
+
+    internal func attachNonHostListeners(userId: String, gameId: Int) {
         self.network.attachPlayerJoinListener(gameId: gameId, action: self.onNewPlayerDidJoin)
         self.network.attachGameStatusListener(gameId: gameId, action: self.onGameStatusDidChange)
         self.network.attachTeamSatisfactionListener(gameId: gameId,
@@ -365,15 +337,6 @@ extension GameControllerManager {
         self.network.attachPackageListener(userId: userId, gameId: gameId, action: { package in
             self.game?.addPackage(package: package)
         })
-        // to handle when everyone runs out of order
-        if isHost {
-            self.network.attachOutOfOrdersListener(gameId: gameId, action: { numOfPlayersOutOfOrders in
-                if numOfPlayersOutOfOrders == self.players.count {
-                    self.endRound() // the host will end the round when everyone runs out of orders
-                }
-            })
-        }
-        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -431,24 +394,20 @@ extension GameControllerManager {
         randomOrder.startOrder()
     }
 
-    private func onTeamSatisfactionChange(satisfactionLevel: Int) {
-        money += satisfactionLevel * 2 // arbitrary translation rate; to change next time
+    @objc
+    internal func onTeamSatisfactionChange(satisfactionLevel: Int) {
+        updateSatisfaction(satisfactionLevel: satisfactionLevel)
+    }
+
+    internal func updateSatisfaction(satisfactionLevel: Int) {
+        money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
         numOfSatisfactionLevelsReceived += 1
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
-        
+
         if numOfSatisfactionLevelsReceived == players.count - 1 {
-            money -= dailyExpense
+            money -= GameParameters.dailyExpense
             numOfSatisfactionLevelsReceived = 0 // reset
             NotificationCenter.default.post(name: .didChangeMoney, object: nil)
-        }
-
-        guard isHost else {
-            return
-        }
-
-        // the host checks the lose condition and ends the game if fulfilled
-        if money < 0 {
-            endGame()
         }
     }
 
@@ -466,7 +425,12 @@ extension GameControllerManager {
         }
         var houses = [House]()
         for orders in splitOrders {
-            houses.append(House(orders: Set(orders)))
+            let satisfactionFactor = Float.random(in: GameParameters.houseSatisfactionFactorRange)
+            for order in orders {
+                let originalTimeLimit = order.timeLimit
+                order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
+            }
+            houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
         }
         game?.houses = houses
     }
@@ -474,10 +438,8 @@ extension GameControllerManager {
     private func handleGameEnd() {
         game = nil
         orderStartTimer = Timer()
-        difficultyLevel = 0
-        dailyExpense = 100
+        gameParameters.reset() // reset game parameters
 
-        isHost = false
         gameCategories = []
         satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
         money = 0
@@ -485,12 +447,12 @@ extension GameControllerManager {
 
     private func handleRoundEnd() {
         game?.resetForNewRound()
-        difficultyLevel += 0.1
+        gameParameters.incrementDifficulty()
     }
 
     private func handleRoundStart() {
         satisfactionBar.reset()
-        roundTimeLeft = roundTimeInterval
+        roundTimeLeft = GameParameters.roundTime
         startRoundTimer()
         startOrders()
     }
@@ -540,7 +502,7 @@ extension GameControllerManager {
         }
         removePackage(package: package)
         removeOrder(order: order)
-        updateGameProperties(order: order, isCorrect: isCorrect)
+        updateSatisfaction(order: order, package: package, isCorrect: isCorrect)
     }
 
     func openPackage(package: Package) {
@@ -562,7 +524,7 @@ extension GameControllerManager {
         game?.removeOrder(order: order)
     }
 
-    private func updateGameProperties(order: Order, isCorrect: Bool) {
-        satisfactionBar.update(order: order, isCorrect: isCorrect)
+    private func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
+        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
     }
 }

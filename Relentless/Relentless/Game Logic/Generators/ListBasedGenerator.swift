@@ -23,6 +23,8 @@ class ListBasedGenerator: ItemGenerator {
             return ItemsLists.books
         case Category.magazine:
             return ItemsLists.magazines
+        case Category.bulb:
+            return ItemsLists.bulbs
         default:
             return []
         }

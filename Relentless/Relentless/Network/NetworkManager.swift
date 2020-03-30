@@ -169,7 +169,7 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Int) {
+    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
             return

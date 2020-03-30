@@ -11,15 +11,13 @@ import Foundation
 class ItemsAllocator: GameItemsAllocator {
 
     var numberOfPlayers: Int
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Float
+    var numOfPairsPerCategory: Int
 
-    // Refers to number of groups of items to choose per category
-    // Groups are used to ensure that a minimum number of similar items are chosen
-    var defaultNumOfGroups: Int = 2
-
-    init(numberOfPlayers: Int, difficultyLevel: Float) {
+    init(numberOfPlayers: Int, difficultyLevel: Float, numOfPairsPerCategory: Int) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
+        self.numOfPairsPerCategory = numOfPairsPerCategory
     }
 
     /// Generates items based on the given categories and allocates them to the given players
@@ -82,8 +80,6 @@ class ItemsAllocator: GameItemsAllocator {
     /// Generates items based on the specified categories
     private func generateItems(categories: [Category]) -> [Item] {
         var items = [Item]()
-        let numberToGenerate = numberOfPlayers * (defaultNumOfGroups + Int(difficultyLevel *
-            Float(defaultNumOfGroups))) // per category
         for category in categories {
             items.append(contentsOf: generateItems(category: category, numberToGenerate: numberToGenerate))
         }
@@ -93,7 +89,7 @@ class ItemsAllocator: GameItemsAllocator {
     /// Generates items for specified category
     private func generateItems(category: Category, numberToGenerate: Int) -> [Item] {
         switch category {
-        case Category.book, Category.magazine:
+        case Category.book, Category.magazine, Category.bulb:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
         case Category.toyCar:
             return AssembledItemsGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)

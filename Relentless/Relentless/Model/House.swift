@@ -10,14 +10,19 @@ import Foundation
 
 class House {
 
+    /// Ranges from 0 (non-inclusive) to 1 (inclusive)
+    var satisfactionFactor: Float
+
     var orders: Set<Order> {
         didSet {
             NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
         }
     }
 
-    init(orders: Set<Order>) {
+    init(orders: Set<Order>, satisfactionFactor: Float) {
+        assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders
+        self.satisfactionFactor = satisfactionFactor
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didTimeUpdateInOrder, object: nil)
     }

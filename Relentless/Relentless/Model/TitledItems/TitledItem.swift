@@ -26,7 +26,7 @@ class TitledItem: Item {
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: TitledItemKeys.self)
         try container.encode(name, forKey: .name)
-//        try container.encode(category, forKey: .category)
+        try container.encode(category, forKey: .category)
 
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)

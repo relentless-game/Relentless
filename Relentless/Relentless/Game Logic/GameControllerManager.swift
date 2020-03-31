@@ -53,13 +53,6 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
-    var playerParts: [Part] {
-        guard let parts = game?.player.parts else {
-            return []
-        }
-        return Array(parts)
-    }
-
     // properties for network
     var network: Network = NetworkManager()
 //    var userId: String? {
@@ -184,37 +177,6 @@ class GameControllerManager: GameController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleSatisfactionBarChange(notification:)),
                                                name: .didChangeCurrentSatisfaction, object: nil)
-    }
-
-    private func initialiseItems() {
-        guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId else {
-            return
-        }
-        // first choose categories
-        let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
-        let gameCategories = categoryGenerator.generateCategories()
-
-        // allocate items according to chosen categories
-        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers, difficultyLevel: difficultyLevel)
-        guard let players = game?.allPlayers else {
-            return
-        }
-//        itemsAllocator.allocateItems(categories: categories, players: players)
-        itemsAllocator.allocateItems(categories: gameCategories, players: players)
-
-        // update other devices
-        network.allocateItems(gameId: gameId, players: players)
-    }
-
-    private func initialiseOrders() {
-        let ordersAllocator = OrdersAllocator(difficultyLevel: difficultyLevel)
-        guard let players = game?.allPlayers, let gameId = gameId else {
-            return
-        }
-        ordersAllocator.allocateOrders(players: players)
-        
-        // update other devices
-        network.allocateOrders(gameId: gameId, players: players)
     }
 
     private func getActiveOrders() -> [Order] {

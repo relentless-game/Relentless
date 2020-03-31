@@ -33,12 +33,12 @@ class ItemsAllocator: GameItemsAllocator {
         var parts = Array(Set(items.flatMap { $0.unsortedParts }))
         let numberOfPartsForEachPlayer = parts.count / players.count
         for player in players {
-            while player.parts.count < numberOfPartsForEachPlayer {
-                guard let partToAllocate = getRandomAny(from: parts) as? Part,
-                    let indexOfAllocatedPart = parts.firstIndex(of: partToAllocate) else {
+            let initialItemCount = player.items.count
+            while player.items.count < numberOfPartsForEachPlayer + initialItemCount {
+                guard let partToAllocate = getRandomItem(from: parts) as? Part, let indexOfAllocatedPart = parts.firstIndex(of: partToAllocate) else {
                     continue
                 }
-                player.parts.insert(partToAllocate)
+                player.items.insert(partToAllocate)
                 parts.remove(at: indexOfAllocatedPart)
             }
         }
@@ -49,8 +49,8 @@ class ItemsAllocator: GameItemsAllocator {
         let numberOfItemsForEachPlayer = itemsToAssign.count / players.count
         for player in players {
             while player.items.count < numberOfItemsForEachPlayer {
-                guard let itemToAllocate = getRandomAny(from: itemsToAssign) as? Item,
-                    let indexOfAllocatedItem = itemsToAssign.firstIndex(of: itemToAllocate) else {
+                let itemToAllocate = getRandomItem(from: itemsToAssign)
+                guard let indexOfAllocatedItem = itemsToAssign.firstIndex(of: itemToAllocate) else {
                     continue
                 }
                 player.items.insert(itemToAllocate)
@@ -64,7 +64,7 @@ class ItemsAllocator: GameItemsAllocator {
         }
     }
 
-    private func getRandomAny(from list: [Any]) -> Any {
+    private func getRandomItem(from list: [Item]) -> Item {
         let indexRange = 0...(list.count - 1)
         let randomIndex = Int.random(in: indexRange)
         return list[randomIndex]
@@ -81,7 +81,7 @@ class ItemsAllocator: GameItemsAllocator {
     private func generateItems(categories: [Category]) -> [Item] {
         var items = [Item]()
         for category in categories {
-            items.append(contentsOf: generateItems(category: category, numberToGenerate: numberToGenerate))
+            items.append(contentsOf: generateItems(category: category, numberToGenerate: numOfPairsPerCategory))
         }
         return items
     }

@@ -46,6 +46,8 @@ class ItemFactory: Codable {
                 items.append(try itemsArray.decode(ToyCar.self))
             case .bulb:
                 items.append(try itemsArray.decode(Bulb.self))
+            default:
+                continue
             }
         }
         self.items = items

@@ -294,6 +294,8 @@ class NetworkManager: Network {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
+        // reset pause countdown
+        updatePauseCountDown(gameId: gameId, countDown: 30)
     }
 
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
@@ -326,5 +328,17 @@ class NetworkManager: Network {
     func updateGameStatus(gameId: Int, gameStatus: GameStatus) {
         let gameStatusString = gameStatus.encodeToString()
         ref.child("games/\(gameId)/status").setValue(gameStatusString)
+    }
+    
+    func attachPauseCountDownListener(gameId: Int, action: @escaping (Int) -> Void) {
+        let path = "games/\(gameId)/countdown"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let countdown = snapshot.value as? Int ?? 30
+            action(countdown)
+        })
+    }
+    
+    func updatePauseCountDown(gameId: Int, countDown: Int) {
+        ref.child("games/\(gameId)/countdown").setValue(countDown)
     }
 }

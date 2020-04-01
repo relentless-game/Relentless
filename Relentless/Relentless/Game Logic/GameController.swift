@@ -16,6 +16,7 @@ protocol GameController: GameNetworkController, GameModelController {
     var satisfactionBar: SatisfactionBar { get set }
     var money: Int { get }
     var gameStatus: GameStatus? { get set } // for pausing
+    var pauseCountDown: Int { get set } // for pausing
     
     func startGame()
 

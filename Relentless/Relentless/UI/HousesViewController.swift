@@ -38,6 +38,10 @@ class HousesViewController: UIViewController {
         performSegue(withIdentifier: "endRound", sender: self)
     }
 
+    @IBAction func handleReturnToPackingView(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func openOrders(_ sender: UIView) {
         guard let activeHouse = activeHouse,
             let orders = gameController?.retrieveActiveOrders(for: activeHouse),

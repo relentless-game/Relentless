@@ -40,6 +40,10 @@ class DeliveryViewController: UIViewController {
         performSegue(withIdentifier: "endRound", sender: self)
     }
     
+    @IBAction func handleReturnToPackingView(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
         if segue.identifier == "cancelDelivery" {
@@ -96,7 +100,8 @@ extension DeliveryViewController: UICollectionViewDelegate {
             let player = otherPlayers[indexPath.item]
             _ = gameController?.sendPackage(package: packageForDelivery, to: player)
         }
-        performSegue(withIdentifier: "cancelDelivery", sender: self)
+        // performSegue(withIdentifier: "cancelDelivery", sender: self)
+        dismiss(animated: true, completion: nil)
     }
 }
 

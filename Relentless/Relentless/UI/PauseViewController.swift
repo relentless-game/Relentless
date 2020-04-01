@@ -13,6 +13,7 @@ class PauseViewController: UIViewController {
     var gameController: GameController?
 
     override func viewDidLoad() {
+        print("pause view loaded")
         super.viewDidLoad()
         addObservers()
     }
@@ -28,21 +29,26 @@ class PauseViewController: UIViewController {
     }
     
     @objc private func updateCountDownLabel() {
-        guard let countDown = gameController?.gameStatus?.countDownToResume else {
-            return
-        }
+        let countDown = gameController?.pauseCountDown ?? -1
         self.textLabel.text = String(countDown)
     }
     
     @objc private func handleRoundResumed() {
-        performSegue(withIdentifier: "resumeGame", sender: self)
+        dismiss(animated: true, completion: nil)
+        print("dismissed pause view")
+//        performSegue(withIdentifier: "resumeGame", sender: self)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //removeAllPreviousViewControllers()
+        removeAllPreviousViewControllers()
         if segue.identifier == "resumeGame" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController
         }
+    }
+    
+    deinit {
+        print("pause view VC is deinitialised")
+        NotificationCenter.default.removeObserver(self)
     }
 }

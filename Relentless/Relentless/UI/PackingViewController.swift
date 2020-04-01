@@ -31,10 +31,13 @@ class PackingViewController: UIViewController {
     private let addPackageIdentifier = "AddPackageButton"
 
     override func viewDidLoad() {
+        print("view loaded")
         super.viewDidLoad()
         initialiseCollectionViews()
         addObservers()
         reloadAllViews()
+        // added
+        registerBackgroundTask()
     }
 
     func addObservers() {
@@ -198,12 +201,20 @@ class PackingViewController: UIViewController {
             print("prepare for segue to pause game")
             let viewController = segue.destination as? PauseViewController
             viewController?.gameController = gameController
+            //NotificationCenter.default.removeObserver(self)
         }
+    }
+    
+    deinit {
+        print("packing VC is deinitialised")
+        NotificationCenter.default.removeObserver(self)
     }
 
     // The following methods are for the pausing feature
     // TODO: end it before segue
     @objc func handleAppMovedToForeground() {
+        print("App moved to foreground!")
+        endBackgroundTask()
         gameController?.resumeRound()
         guard let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused else {
             return
@@ -213,6 +224,12 @@ class PackingViewController: UIViewController {
             //timer?.invalidate()
         } else {
             // performSegue(withIdentifier: "pauseGame", sender: self)
+        }
+        
+        // reinstate background task
+        //if updateTimer != nil && backgroundTask ==  .invalid {
+        if backgroundTask ==  .invalid {
+            registerBackgroundTask()
         }
     }
 
@@ -227,17 +244,23 @@ class PackingViewController: UIViewController {
         backgroundTask = .invalid
     }
     
-    @objc func handleAppMovedToBackground() {
-        print("App moved to background!")
-        gameController?.pauseRound()
+    func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
-        
-        let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused
-        if numberOfPlayersPaused == 1 {
-            assert(backgroundTask != .invalid)
-        }
+    }
+    
+    @objc func handleAppMovedToBackground() {
+        print("App moved to background!")
+        gameController?.pauseRound()
+//        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+//            self?.endBackgroundTask()
+//        }
+
+//        let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused
+//        if numberOfPlayersPaused == 1 {
+//            assert(backgroundTask != .invalid)
+//        }
     }
 }
 

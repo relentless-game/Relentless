@@ -66,6 +66,9 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundPaused),
                                                name: .didPauseRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundResumed),
+                                               name: .didResumeRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -201,7 +204,7 @@ class PackingViewController: UIViewController {
             print("prepare for segue to pause game")
             let viewController = segue.destination as? PauseViewController
             viewController?.gameController = gameController
-            //NotificationCenter.default.removeObserver(self)
+            NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
         }
     }
     
@@ -231,6 +234,7 @@ class PackingViewController: UIViewController {
         if backgroundTask ==  .invalid {
             registerBackgroundTask()
         }
+
     }
 
     @objc func handleRoundPaused() {
@@ -248,6 +252,14 @@ class PackingViewController: UIViewController {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
+    }
+    
+    @objc func handleRoundResumed() {
+        print("handle round resumed called in packing VC")
+        dismiss(animated: true, completion: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundPaused),
+                                               name: .didPauseRound, object: nil)
     }
     
     @objc func handleAppMovedToBackground() {

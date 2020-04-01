@@ -34,8 +34,8 @@ class PauseViewController: UIViewController {
     }
     
     @objc private func handleRoundResumed() {
-        dismiss(animated: true, completion: nil)
-        print("dismissed pause view")
+//        dismiss(animated: true, completion: nil)
+//        print("dismissed pause view")
 //        performSegue(withIdentifier: "resumeGame", sender: self)
     }
 

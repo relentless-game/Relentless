@@ -181,21 +181,18 @@ class PackingViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("here")
         removeAllPreviousViewControllers()
         if segue.identifier == "toHouses" {
-            print("here1")
             let viewController = segue.destination as? HousesViewController
             viewController?.gameController = gameController
         }
         if segue.identifier == "deliverPackage" {
-            print("here2")
             let viewController = segue.destination as? DeliveryViewController
             viewController?.gameController = gameController
             viewController?.packageForDelivery = packageForDelivery
         }
         if segue.identifier == "endRound" {
-            print("here3")
+            removaBackgroundObservers() // prevent background observers from responding to notifs
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
@@ -215,6 +212,23 @@ class PackingViewController: UIViewController {
 
     // The following methods are for the pausing feature
     // TODO: end it before segue
+    
+    // to be called when segue to game VC in between rounds
+    private func removaBackgroundObservers() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.willResignActiveNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.willEnterForegroundNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .didPauseRound,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .didResumeRound,
+                                                  object: nil)
+    }
+    
     @objc func handleAppMovedToForeground() {
         print("App moved to foreground!")
         endBackgroundTask()

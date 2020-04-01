@@ -15,7 +15,6 @@ class GameControllerManager: GameController {
     private var roundTimeLeft: Double = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
-    private var timeOutTimer = Timer()
     private var difficultyLevel: Float = 0
     private var dailyExpense: Int = 100
     
@@ -109,19 +108,14 @@ class GameControllerManager: GameController {
 
     func pauseRound() {
         print("PAUSE ROUND CALLED")
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber, var newGameStatus = gameStatus else {
+        guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
 
         pauseAllTimers()
-        // network.pauseRound(gameId: gameId, currentRound: roundNumber)
-        // terminate game if game does not resume within 30 seconds
-//        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
-//                                            userInfo: nil, repeats: true)
-
+        
         newGameStatus.numberOfPlayersPaused += 1
         newGameStatus.isResumed = false
-        print("game status in pause round is \(newGameStatus)")
         gameStatus = newGameStatus
 
         let numberOfPlayersPaused = newGameStatus.numberOfPlayersPaused
@@ -136,26 +130,23 @@ class GameControllerManager: GameController {
     }
     
     @objc private func decrementPauseTimer() {
-        print("pause timer decremented!")
         guard let gameId = gameId else {
             return
         }
-        
         pauseCountDown -= 1
-        print("countdown is \(pauseCountDown)")
         network.updatePauseCountDown(gameId: gameId, countDown: pauseCountDown)
     }
 
     func resumeRound() {
-        print("RESUME ROUND CALLED")
         guard let gameId = gameId, let roundNumber = game?.currentRoundNumber, var newGameStatus = gameStatus else {
             return
         }
-        // only resume if all players are back
+        
         newGameStatus.numberOfPlayersPaused -= 1
         gameStatus = newGameStatus
-        let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
         
+        // only resume if all players are back
+        let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
         if areAllPlayersBack {
             resumeAllTimers()
             pauseTimer?.invalidate()
@@ -413,7 +404,6 @@ extension GameControllerManager {
                 }
             })
         }
-        // NotificationCenter.default.post(name: .didJoinGame, object: nil)
     }
     
     private func onPauseCountDownDidChange(countdown: Int) {
@@ -438,11 +428,8 @@ extension GameControllerManager {
             gameStatus.numberOfPlayersPaused == 0 && !gameStatus.isResumed
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
-        // let didPauseRound = gameStatus.isPaused
         let didPauseRound = gameStatus.isRoundPlaying && gameStatus.numberOfPlayersPaused != 0
         let didResumeRound = gameStatus.isResumed && gameStatus.isRoundPlaying
-        
-        //let didRunOutPauseTime = gameStatus.numberOfPlayersPaused != 0 && gameStatus.countDownToResume == 0
         
         print(gameStatus)
         
@@ -468,7 +455,6 @@ extension GameControllerManager {
             print("did resume round")
             pauseTimer?.invalidate()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)
-            // for resumeRound, need to invalidate the timeOutTimer
         }
     }
 

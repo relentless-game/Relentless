@@ -31,12 +31,10 @@ class PackingViewController: UIViewController {
     private let addPackageIdentifier = "AddPackageButton"
 
     override func viewDidLoad() {
-        print("view loaded")
         super.viewDidLoad()
         initialiseCollectionViews()
         addObservers()
         reloadAllViews()
-        // added
         registerBackgroundTask()
     }
 
@@ -196,24 +194,17 @@ class PackingViewController: UIViewController {
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
-        // for pausing feature
+        // for background pausing feature
         if segue.identifier == "pauseGame" {
-            print("prepare for segue to pause game")
             let viewController = segue.destination as? PauseViewController
             viewController?.gameController = gameController
             NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
         }
     }
     
-    deinit {
-        print("packing VC is deinitialised")
-        NotificationCenter.default.removeObserver(self)
-    }
-
     // The following methods are for the pausing feature
-    // TODO: end it before segue
     
-    // to be called when segue to game VC in between rounds
+    // Called before segue to Game VC at the end of a round
     private func removaBackgroundObservers() {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIApplication.willResignActiveNotification,
@@ -229,64 +220,42 @@ class PackingViewController: UIViewController {
                                                   object: nil)
     }
     
-    @objc func handleAppMovedToForeground() {
-        print("App moved to foreground!")
+    @objc private func handleAppMovedToForeground() {
         endBackgroundTask()
         gameController?.resumeRound()
-        guard let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused else {
-            return
-        }
-
-        if numberOfPlayersPaused == 0 {
-            //timer?.invalidate()
-        } else {
-            // performSegue(withIdentifier: "pauseGame", sender: self)
-        }
-        
-        // reinstate background task
-        //if updateTimer != nil && backgroundTask ==  .invalid {
         if backgroundTask ==  .invalid {
             registerBackgroundTask()
         }
-
     }
 
-    @objc func handleRoundPaused() {
-        print("received notification did round pause")
+    @objc private func handleRoundPaused() {
         performSegue(withIdentifier: "pauseGame", sender: self)
     }
     
-    func endBackgroundTask() {
-        print("Background task ended.")
+    private func endBackgroundTask() {
         UIApplication.shared.endBackgroundTask(backgroundTask)
         backgroundTask = .invalid
     }
     
-    func registerBackgroundTask() {
+    private func registerBackgroundTask() {
         backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
             self?.endBackgroundTask()
         }
     }
     
-    @objc func handleRoundResumed() {
-        print("handle round resumed called in packing VC")
+    @objc private func handleRoundResumed() {
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundPaused),
                                                name: .didPauseRound, object: nil)
     }
     
-    @objc func handleAppMovedToBackground() {
-        print("App moved to background!")
+    @objc private func handleAppMovedToBackground() {
         gameController?.pauseRound()
-//        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
-//            self?.endBackgroundTask()
-//        }
-
-//        let numberOfPlayersPaused = gameController?.gameStatus?.numberOfPlayersPaused
-//        if numberOfPlayersPaused == 1 {
-//            assert(backgroundTask != .invalid)
-//        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

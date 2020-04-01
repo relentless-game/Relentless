@@ -16,33 +16,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="2zI-Dx-AcW">
+                                <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dws-fj-lBf">
-                                <rect key="frame" x="335" y="30" width="142" height="294"/>
+                                <rect key="frame" x="82" y="30" width="648" height="294"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Relentless" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvb-h5-65x">
-                                        <rect key="frame" x="0.0" y="0.0" width="142" height="74"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="142" height="80"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="2Uv-ly-Vd9">
+                                        <rect key="frame" x="0.0" y="0.0" width="648" height="74"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
+                                        <rect key="frame" x="0.0" y="104" width="648" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Create Game"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Create Game">
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <font key="NSFont" size="36" name="CooperHewitt-Bold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
                                         <connections>
                                             <segue destination="OPb-V7-r8L" kind="show" id="Ed9-Qd-LTp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="142" height="80"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
+                                        <rect key="frame" x="0.0" y="214" width="648" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Join Game"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Join Game">
+                                                    <attributes>
+                                                        <font key="NSFont" size="36" name="CooperHewitt-Bold"/>
+                                                        <font key="NSOriginalFont" size="36" name="CooperHewitt-Bold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
                                         <connections>
                                             <segue destination="GSL-Qu-8tE" kind="show" id="vKT-ZM-cVP"/>
                                         </connections>
@@ -50,19 +66,23 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="682" y="30" width="56" height="42"/>
+                                <rect key="frame" x="738" y="30" width="0.0" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="More"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dws-fj-lBf" firstAttribute="centerX" secondItem="AiJ-P2-MDo" secondAttribute="centerX" id="1hl-K7-ejg"/>
                             <constraint firstItem="vGr-HW-t0D" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dws-fj-lBf" secondAttribute="trailing" constant="8" symbolic="YES" id="6NU-3b-tZf"/>
+                            <constraint firstItem="2zI-Dx-AcW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8zI-i9-6JQ"/>
+                            <constraint firstItem="2zI-Dx-AcW" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="JKM-Bh-vEy"/>
                             <constraint firstItem="vGr-HW-t0D" firstAttribute="top" secondItem="AiJ-P2-MDo" secondAttribute="top" constant="30" id="KP9-f6-gnf"/>
+                            <constraint firstItem="2zI-Dx-AcW" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="WpO-0c-HQ5"/>
                             <constraint firstItem="AiJ-P2-MDo" firstAttribute="bottom" secondItem="dws-fj-lBf" secondAttribute="bottom" constant="30" id="n6z-FL-3mC"/>
                             <constraint firstItem="dws-fj-lBf" firstAttribute="top" secondItem="AiJ-P2-MDo" secondAttribute="top" constant="30" id="r6g-9t-uYY"/>
                             <constraint firstItem="AiJ-P2-MDo" firstAttribute="trailing" secondItem="vGr-HW-t0D" secondAttribute="trailing" constant="30" id="xic-LP-fmg"/>
+                            <constraint firstItem="2zI-Dx-AcW" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="zga-QI-bWq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AiJ-P2-MDo"/>
                     </view>
@@ -769,6 +789,10 @@
             <point key="canvasLocation" x="829" y="3519"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="1000" height="564.33331298828125"/>
+        <image name="title" width="800" height="220"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="Ed9-Qd-LTp"/>

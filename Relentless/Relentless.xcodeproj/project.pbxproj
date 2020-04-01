@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
-    archiveVersion = 1;
-    classes = {
-    };
-    objectVersion = 51;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
 
 /* Begin PBXBuildFile section */
 		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
@@ -27,6 +27,8 @@
 		5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
 		5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
 		5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
+		5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */; };
+		5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */; };
 		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
 		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
 		623C9F8E242E149A008B2657 /* GameHostParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623C9F8D242E149A008B2657 /* GameHostParameters.swift */; };
@@ -86,24 +88,23 @@
 		F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 		F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 		F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
-
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-        F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = F3C37BF524189F5200D7109B;
-            remoteInfo = Relentless;
-        };
-        F3C37C1824189F5500D7109B /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = F3C37BF524189F5200D7109B;
-            remoteInfo = Relentless;
-        };
+		F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C37BF524189F5200D7109B;
+			remoteInfo = Relentless;
+		};
+		F3C37C1824189F5500D7109B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F3C37BEE24189F5200D7109B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F3C37BF524189F5200D7109B;
+			remoteInfo = Relentless;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,8 @@
 		5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
 		5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
 		5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
+		5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
+		5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
 		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
@@ -213,30 +216,30 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-        F3C37BF324189F5200D7109B /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        F3C37C0924189F5500D7109B /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        F3C37C1424189F5500D7109B /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		F3C37BF324189F5200D7109B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C37C0924189F5500D7109B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C37C1424189F5500D7109B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -268,6 +271,15 @@
 				4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5D632CF52434491000A58523 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */,
+				5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		5DE91778241FBAEC00569453 /* UI */ = {
@@ -393,6 +405,7 @@
 		F3C37BF824189F5200D7109B /* Relentless */ = {
 			isa = PBXGroup;
 			children = (
+				5D632CF52434491000A58523 /* Fonts */,
 				5DE91778241FBAEC00569453 /* UI */,
 				6249B4FD241C89A7002F8A1B /* Game Logic */,
 				F319B32D241B7AEB005E3129 /* Model */,
@@ -440,258 +453,260 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-        F3C37BF524189F5200D7109B /* Relentless */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */;
-            buildPhases = (
-                E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */,
-                F3C37BF224189F5200D7109B /* Sources */,
-                F3C37BF324189F5200D7109B /* Frameworks */,
-                F3C37BF424189F5200D7109B /* Resources */,
-                E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */,
-                F319B32C241B7A78005E3129 /* ShellScript */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-            );
-            name = Relentless;
-            productName = Relentless;
-            productReference = F3C37BF624189F5200D7109B /* Relentless.app */;
-            productType = "com.apple.product-type.application";
-        };
-        F3C37C0B24189F5500D7109B /* RelentlessTests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */;
-            buildPhases = (
-                8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */,
-                F3C37C0824189F5500D7109B /* Sources */,
-                F3C37C0924189F5500D7109B /* Frameworks */,
-                F3C37C0A24189F5500D7109B /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                F3C37C0E24189F5500D7109B /* PBXTargetDependency */,
-            );
-            name = RelentlessTests;
-            productName = RelentlessTests;
-            productReference = F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */;
-            productType = "com.apple.product-type.bundle.unit-test";
-        };
-        F3C37C1624189F5500D7109B /* RelentlessUITests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */;
-            buildPhases = (
-                C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */,
-                F3C37C1324189F5500D7109B /* Sources */,
-                F3C37C1424189F5500D7109B /* Frameworks */,
-                F3C37C1524189F5500D7109B /* Resources */,
-                8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                F3C37C1924189F5500D7109B /* PBXTargetDependency */,
-            );
-            name = RelentlessUITests;
-            productName = RelentlessUITests;
-            productReference = F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */;
-            productType = "com.apple.product-type.bundle.ui-testing";
-        };
+		F3C37BF524189F5200D7109B /* Relentless */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */;
+			buildPhases = (
+				E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */,
+				F3C37BF224189F5200D7109B /* Sources */,
+				F3C37BF324189F5200D7109B /* Frameworks */,
+				F3C37BF424189F5200D7109B /* Resources */,
+				E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */,
+				F319B32C241B7A78005E3129 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Relentless;
+			productName = Relentless;
+			productReference = F3C37BF624189F5200D7109B /* Relentless.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F3C37C0B24189F5500D7109B /* RelentlessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */;
+			buildPhases = (
+				8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */,
+				F3C37C0824189F5500D7109B /* Sources */,
+				F3C37C0924189F5500D7109B /* Frameworks */,
+				F3C37C0A24189F5500D7109B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3C37C0E24189F5500D7109B /* PBXTargetDependency */,
+			);
+			name = RelentlessTests;
+			productName = RelentlessTests;
+			productReference = F3C37C0C24189F5500D7109B /* RelentlessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F3C37C1624189F5500D7109B /* RelentlessUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */;
+			buildPhases = (
+				C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */,
+				F3C37C1324189F5500D7109B /* Sources */,
+				F3C37C1424189F5500D7109B /* Frameworks */,
+				F3C37C1524189F5500D7109B /* Resources */,
+				8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3C37C1924189F5500D7109B /* PBXTargetDependency */,
+			);
+			name = RelentlessUITests;
+			productName = RelentlessUITests;
+			productReference = F3C37C1724189F5500D7109B /* RelentlessUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-        F3C37BEE24189F5200D7109B /* Project object */ = {
-            isa = PBXProject;
-            attributes = {
-                LastSwiftUpdateCheck = 1130;
-                LastUpgradeCheck = 1130;
-                ORGANIZATIONNAME = OurNameIs;
-                TargetAttributes = {
-                    F3C37BF524189F5200D7109B = {
-                        CreatedOnToolsVersion = 11.3.1;
-                    };
-                    F3C37C0B24189F5500D7109B = {
-                        CreatedOnToolsVersion = 11.3.1;
-                        TestTargetID = F3C37BF524189F5200D7109B;
-                    };
-                    F3C37C1624189F5500D7109B = {
-                        CreatedOnToolsVersion = 11.3.1;
-                        TestTargetID = F3C37BF524189F5200D7109B;
-                    };
-                };
-            };
-            buildConfigurationList = F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */;
-            compatibilityVersion = "Xcode 9.3";
-            developmentRegion = en;
-            hasScannedForEncodings = 0;
-            knownRegions = (
-                en,
-                Base,
-            );
-            mainGroup = F3C37BED24189F5200D7109B;
-            productRefGroup = F3C37BF724189F5200D7109B /* Products */;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (
-                F3C37BF524189F5200D7109B /* Relentless */,
-                F3C37C0B24189F5500D7109B /* RelentlessTests */,
-                F3C37C1624189F5500D7109B /* RelentlessUITests */,
-            );
-        };
+		F3C37BEE24189F5200D7109B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = OurNameIs;
+				TargetAttributes = {
+					F3C37BF524189F5200D7109B = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					F3C37C0B24189F5500D7109B = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = F3C37BF524189F5200D7109B;
+					};
+					F3C37C1624189F5500D7109B = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = F3C37BF524189F5200D7109B;
+					};
+				};
+			};
+			buildConfigurationList = F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F3C37BED24189F5200D7109B;
+			productRefGroup = F3C37BF724189F5200D7109B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F3C37BF524189F5200D7109B /* Relentless */,
+				F3C37C0B24189F5500D7109B /* RelentlessTests */,
+				F3C37C1624189F5500D7109B /* RelentlessUITests */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-        F3C37BF424189F5200D7109B /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
-                F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
-                F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-                5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
-                F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,
-                F3C37C0124189F5200D7109B /* Main.storyboard in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        F3C37C0A24189F5500D7109B /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        F3C37C1524189F5500D7109B /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		F3C37BF424189F5200D7109B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
+				5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */,
+				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
+				5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */,
+				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
+				F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,
+				F3C37C0124189F5200D7109B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C37C0A24189F5500D7109B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F3C37C1524189F5500D7109B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-        8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-            );
-            inputPaths = (
-                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-                "${PODS_ROOT}/Manifest.lock",
-            );
-            name = "[CP] Check Pods Manifest.lock";
-            outputFileListPaths = (
-            );
-            outputPaths = (
-                "$(DERIVED_FILE_DIR)/Pods-RelentlessTests-checkManifestLockResult.txt",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-            showEnvVarsInLog = 0;
-        };
-        8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-                "${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-            );
-            name = "[CP] Embed Pods Frameworks";
-            outputFileListPaths = (
-                "${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-            );
-            inputPaths = (
-                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-                "${PODS_ROOT}/Manifest.lock",
-            );
-            name = "[CP] Check Pods Manifest.lock";
-            outputFileListPaths = (
-            );
-            outputPaths = (
-                "$(DERIVED_FILE_DIR)/Pods-Relentless-RelentlessUITests-checkManifestLockResult.txt",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-            showEnvVarsInLog = 0;
-        };
-        E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-                "${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-            );
-            name = "[CP] Embed Pods Frameworks";
-            outputFileListPaths = (
-                "${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-            );
-            inputPaths = (
-                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-                "${PODS_ROOT}/Manifest.lock",
-            );
-            name = "[CP] Check Pods Manifest.lock";
-            outputFileListPaths = (
-            );
-            outputPaths = (
-                "$(DERIVED_FILE_DIR)/Pods-Relentless-checkManifestLockResult.txt",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-            showEnvVarsInLog = 0;
-        };
-        F319B32C241B7A78005E3129 /* ShellScript */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputFileListPaths = (
-            );
-            inputPaths = (
-            );
-            outputFileListPaths = (
-            );
-            outputPaths = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-        };
+		8465407CC4BB4256A4C06112 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RelentlessTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C962092BF41ABBB3A9CC027 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C57B123212B29BE330CEF3A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Relentless-RelentlessUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E128D0428DD181FAC3B5F25D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Relentless/Pods-Relentless-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E28346A68D4A81C5D9369CA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Relentless-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F319B32C241B7A78005E3129 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -787,319 +802,319 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-        F3C37C0E24189F5500D7109B /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = F3C37BF524189F5200D7109B /* Relentless */;
-            targetProxy = F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */;
-        };
-        F3C37C1924189F5500D7109B /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = F3C37BF524189F5200D7109B /* Relentless */;
-            targetProxy = F3C37C1824189F5500D7109B /* PBXContainerItemProxy */;
-        };
+		F3C37C0E24189F5500D7109B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3C37BF524189F5200D7109B /* Relentless */;
+			targetProxy = F3C37C0D24189F5500D7109B /* PBXContainerItemProxy */;
+		};
+		F3C37C1924189F5500D7109B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F3C37BF524189F5200D7109B /* Relentless */;
+			targetProxy = F3C37C1824189F5500D7109B /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-        F3C37BFF24189F5200D7109B /* Main.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                F3C37C0024189F5200D7109B /* Base */,
-            );
-            name = Main.storyboard;
-            sourceTree = "<group>";
-        };
-        F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                F3C37C0524189F5500D7109B /* Base */,
-            );
-            name = LaunchScreen.storyboard;
-            sourceTree = "<group>";
-        };
+		F3C37BFF24189F5200D7109B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3C37C0024189F5200D7109B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F3C37C0524189F5500D7109B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-        F3C37C1E24189F5500D7109B /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_ENABLE_OBJC_WEAK = YES;
-                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_COMMA = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-                CLANG_WARN_STRICT_PROTOTYPES = YES;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = dwarf;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                ENABLE_TESTABILITY = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu11;
-                GCC_DYNAMIC_NO_PIC = NO;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_OPTIMIZATION_LEVEL = 0;
-                GCC_PREPROCESSOR_DEFINITIONS = (
-                    "DEBUG=1",
-                    "$(inherited)",
-                );
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-                MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-                MTL_FAST_MATH = YES;
-                ONLY_ACTIVE_ARCH = YES;
-                SDKROOT = iphoneos;
-                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-            };
-            name = Debug;
-        };
-        F3C37C1F24189F5500D7109B /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_ENABLE_OBJC_WEAK = YES;
-                CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_COMMA = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-                CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-                CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-                CLANG_WARN_STRICT_PROTOTYPES = YES;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                ENABLE_NS_ASSERTIONS = NO;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu11;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-                MTL_ENABLE_DEBUG_INFO = NO;
-                MTL_FAST_MATH = YES;
-                SDKROOT = iphoneos;
-                SWIFT_COMPILATION_MODE = wholemodule;
-                SWIFT_OPTIMIZATION_LEVEL = "-O";
-                VALIDATE_PRODUCT = YES;
-            };
-            name = Release;
-        };
-        F3C37C2124189F5500D7109B /* Debug */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = W76H98A34A;
-                INFOPLIST_FILE = Relentless/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = 1;
-            };
-            name = Debug;
-        };
-        F3C37C2224189F5500D7109B /* Release */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = W76H98A34A;
-                INFOPLIST_FILE = Relentless/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = 1;
-            };
-            name = Release;
-        };
-        F3C37C2424189F5500D7109B /* Debug */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = RVZD4FPJG5;
-                INFOPLIST_FILE = RelentlessTests/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                    "@loader_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
-            };
-            name = Debug;
-        };
-        F3C37C2524189F5500D7109B /* Release */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = RVZD4FPJG5;
-                INFOPLIST_FILE = RelentlessTests/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 13.2;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                    "@loader_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
-            };
-            name = Release;
-        };
-        F3C37C2724189F5500D7109B /* Debug */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = RVZD4FPJG5;
-                INFOPLIST_FILE = RelentlessUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                    "@loader_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_TARGET_NAME = Relentless;
-            };
-            name = Debug;
-        };
-        F3C37C2824189F5500D7109B /* Release */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */;
-            buildSettings = {
-                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = RVZD4FPJG5;
-                INFOPLIST_FILE = RelentlessUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "@executable_path/Frameworks",
-                    "@loader_path/Frameworks",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                SWIFT_VERSION = 5.0;
-                TARGETED_DEVICE_FAMILY = "1,2";
-                TEST_TARGET_NAME = Relentless;
-            };
-            name = Release;
-        };
+		F3C37C1E24189F5500D7109B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F3C37C1F24189F5500D7109B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F3C37C2124189F5500D7109B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W76H98A34A;
+				INFOPLIST_FILE = Relentless/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F3C37C2224189F5500D7109B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W76H98A34A;
+				INFOPLIST_FILE = Relentless/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F3C37C2424189F5500D7109B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 084C0B3AEBB321432A953940 /* Pods-RelentlessTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
+				INFOPLIST_FILE = RelentlessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
+			};
+			name = Debug;
+		};
+		F3C37C2524189F5500D7109B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
+				INFOPLIST_FILE = RelentlessTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Relentless.app/Relentless";
+			};
+			name = Release;
+		};
+		F3C37C2724189F5500D7109B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C439830683AC6A1B549FABBB /* Pods-Relentless-RelentlessUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
+				INFOPLIST_FILE = RelentlessUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Relentless;
+			};
+			name = Debug;
+		};
+		F3C37C2824189F5500D7109B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
+				INFOPLIST_FILE = RelentlessUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.liuzechu.RelentlessUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Relentless;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-        F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                F3C37C1E24189F5500D7109B /* Debug */,
-                F3C37C1F24189F5500D7109B /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                F3C37C2124189F5500D7109B /* Debug */,
-                F3C37C2224189F5500D7109B /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                F3C37C2424189F5500D7109B /* Debug */,
-                F3C37C2524189F5500D7109B /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                F3C37C2724189F5500D7109B /* Debug */,
-                F3C37C2824189F5500D7109B /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
+		F3C37BF124189F5200D7109B /* Build configuration list for PBXProject "Relentless" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C37C1E24189F5500D7109B /* Debug */,
+				F3C37C1F24189F5500D7109B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3C37C2024189F5500D7109B /* Build configuration list for PBXNativeTarget "Relentless" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C37C2124189F5500D7109B /* Debug */,
+				F3C37C2224189F5500D7109B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3C37C2324189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C37C2424189F5500D7109B /* Debug */,
+				F3C37C2524189F5500D7109B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F3C37C2624189F5500D7109B /* Build configuration list for PBXNativeTarget "RelentlessUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F3C37C2724189F5500D7109B /* Debug */,
+				F3C37C2824189F5500D7109B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 	};
 	rootObject = F3C37BEE24189F5200D7109B /* Project object */;

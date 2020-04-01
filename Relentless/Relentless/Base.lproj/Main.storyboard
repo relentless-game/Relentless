@@ -753,7 +753,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ue2-Nq-dfs">
                                 <rect key="frame" x="74" y="30" width="664" height="294"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="I0w-5h-8SG">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="I0w-5h-8SG">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -814,8 +814,7 @@
         <image name="title" width="800" height="220"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GPw-Oj-Gmi"/>
-        <segue reference="fdU-OW-AMW"/>
+        <segue reference="qID-Ae-TMA"/>
         <segue reference="Ed9-Qd-LTp"/>
         <segue reference="FQq-Pt-F3v"/>
         <segue reference="5qg-Sa-A9a"/>

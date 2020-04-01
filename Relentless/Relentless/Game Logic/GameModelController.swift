@@ -34,4 +34,6 @@ protocol GameModelController {
     func retrieveActiveOrders(for house: House) -> [Order]
 
     func retrieveItemsFromOpenPackage() -> [Item]
+
+    func retrieveOpenPackage() -> Package?
 }

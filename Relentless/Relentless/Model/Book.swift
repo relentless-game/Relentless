@@ -43,6 +43,6 @@ class Book: TitledItem {
     }
 
     override func toDisplayString() -> String {
-        Book.bookHeader + name
+        name
     }
 }

@@ -26,6 +26,7 @@ class Part: Item {
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PartKeys.self)
         try container.encode(partType, forKey: .partType)
+        try container.encode(category, forKey: .category)
 
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)
@@ -63,4 +64,5 @@ class Part: Item {
 
 enum PartKeys: CodingKey {
     case partType
+    case category
 }

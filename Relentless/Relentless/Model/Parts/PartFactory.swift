@@ -38,9 +38,9 @@ class PartFactory: Codable {
             let part = try partsArrayForType.nestedContainer(keyedBy: PartFactoryTypeKeys.self)
             let type = try part.decode(PartType.self, forKey: PartFactoryTypeKeys.partType)
             switch type {
-            case .wheel:
+            case .toyCarWheel:
                 parts.append(try partsArray.decode(ToyCarWheel.self))
-            case .battery:
+            case .toyCarBattery:
                 parts.append(try partsArray.decode(ToyCarBattery.self))
             case .toyCarBody:
                 parts.append(try partsArray.decode(ToyCarBody.self))

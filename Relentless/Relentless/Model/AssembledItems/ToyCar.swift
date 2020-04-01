@@ -10,8 +10,8 @@ import Foundation
 class ToyCar: AssembledItem {
     static let category = Category.toyCar
     static let toyCarHeader = "ToyCar: "
-    static let partTypesAndFrequencies = [(PartType.wheel, 1),
-                                          (PartType.battery, 1),
+    static let partTypesAndFrequencies = [(PartType.toyCarWheel, 1),
+                                          (PartType.toyCarBattery, 1),
                                           (PartType.toyCarBody, 1)]
 
     init(wheel: ToyCarWheel, battery: ToyCarBattery, toyCarBody: ToyCarBody) {

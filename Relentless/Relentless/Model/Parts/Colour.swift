@@ -14,8 +14,8 @@ enum Colour: String, Codable, CaseIterable {
     case green
 
     init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CategoryKeys.self)
-        let rawValue = try container.decode(String.self, forKey: .category)
+        let container = try decoder.container(keyedBy: ColourKeys.self)
+        let rawValue = try container.decode(String.self, forKey: .colour)
         switch rawValue {
         case Colour.blue.rawValue:
             self = .blue

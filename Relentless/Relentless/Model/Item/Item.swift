@@ -22,7 +22,7 @@ class Item: Hashable, Codable {
         }
         return lhs.equals(other: rhs)
     }
-
+    
     /// These methods below should be overriden by subclasses
     func equals(other: Item) -> Bool {
         false

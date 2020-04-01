@@ -8,7 +8,7 @@
 
 import Foundation
 class ToyCarBattery: Part {
-    static let partType = PartType.battery
+    static let partType = PartType.toyCarBattery
     static let category = ToyCar.category
     static let toyCarBatteryHeader = "Toy Car Battery: "
 
@@ -21,6 +21,8 @@ class ToyCarBattery: Part {
 
     enum ToyCarBatteryKeys: CodingKey {
         case label
+        case partType
+        case category
     }
 
     required init(from decoder: Decoder) throws {
@@ -34,7 +36,9 @@ class ToyCarBattery: Part {
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ToyCarBatteryKeys.self)
         try container.encode(label, forKey: .label)
-
+        try container.encode(partType, forKey: .partType)
+        try container.encode(category, forKey: .category)
+        
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)
     }

@@ -9,18 +9,18 @@
 import Foundation
 
 enum PartType: Int, Codable, CaseIterable {
-    case wheel
-    case battery
+    case toyCarWheel
+    case toyCarBattery
     case toyCarBody
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PartTypeKeys.self)
         let rawValue = try container.decode(Int.self, forKey: .partType)
         switch rawValue {
-        case PartType.wheel.rawValue:
-            self = .wheel
-        case PartType.battery.rawValue:
-            self = .battery
+        case PartType.toyCarWheel.rawValue:
+            self = .toyCarWheel
+        case PartType.toyCarBattery.rawValue:
+            self = .toyCarBattery
         case PartType.toyCarBody.rawValue:
             self = .toyCarBody
         default:
@@ -31,10 +31,10 @@ enum PartType: Int, Codable, CaseIterable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PartTypeKeys.self)
         switch self {
-        case .wheel:
-            try container.encode(PartType.wheel.rawValue, forKey: .partType)
-        case .battery:
-            try container.encode(PartType.battery.rawValue, forKey: .partType)
+        case .toyCarWheel:
+            try container.encode(PartType.toyCarWheel.rawValue, forKey: .partType)
+        case .toyCarBattery:
+            try container.encode(PartType.toyCarBattery.rawValue, forKey: .partType)
         case .toyCarBody:
             try container.encode(PartType.toyCarBody.rawValue, forKey: .partType)
         }
@@ -42,12 +42,12 @@ enum PartType: Int, Codable, CaseIterable {
 
     func toString() -> String {
         switch self {
-        case .wheel:
-            return "Book"
-        case .battery:
-            return "Magazine"
+        case .toyCarWheel:
+            return "Toy Car Wheel"
+        case .toyCarBattery:
+            return "Toy Car Battery"
         case .toyCarBody:
-            return "Toy Car"
+            return "Toy Car Body"
         }
     }
 }

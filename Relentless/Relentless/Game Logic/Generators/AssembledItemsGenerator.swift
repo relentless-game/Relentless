@@ -78,12 +78,12 @@ class AssembledItemsGenerator: ItemGenerator {
             let partType = partAndFrequency.0
             let frequency = partAndFrequency.1
             switch partType {
-            case PartType.wheel:
-                numberOfCombininations *= choose(number: PartsLists.toyCarWheels.count, from: frequency)
-            case PartType.battery:
-                numberOfCombininations *= choose(number: PartsLists.toyCarBatteries.count, from: frequency)
+            case PartType.toyCarWheel:
+                numberOfCombininations *= choose(number: frequency, from: PartsLists.toyCarWheels.count)
+            case PartType.toyCarBattery:
+                numberOfCombininations *= choose(number: frequency, from: PartsLists.toyCarBatteries.count)
             case PartType.toyCarBody:
-                numberOfCombininations *= choose(number: PartsLists.toyCarBodies.count, from: frequency)
+                numberOfCombininations *= choose(number: frequency, from: PartsLists.toyCarBodies.count)
             default:
                 continue
             }

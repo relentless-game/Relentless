@@ -9,7 +9,7 @@
 import Foundation
 
 class ToyCarWheel: Part {
-    static let partType = PartType.wheel
+    static let partType = PartType.toyCarWheel
     static let category = ToyCar.category
     static let toyCarWheelHeader = "Toy Car Wheel: "
 
@@ -22,6 +22,8 @@ class ToyCarWheel: Part {
 
     enum ToyCarWheelKeys: CodingKey {
         case radius
+        case partType
+        case category
     }
 
     required init(from decoder: Decoder) throws {
@@ -35,6 +37,8 @@ class ToyCarWheel: Part {
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ToyCarWheelKeys.self)
         try container.encode(radius, forKey: .radius)
+        try container.encode(partType, forKey: .partType)
+        try container.encode(category, forKey: .category)
 
         let superEncoder = container.superEncoder()
         try super.encode(to: superEncoder)

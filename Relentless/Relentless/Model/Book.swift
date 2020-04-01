@@ -41,4 +41,8 @@ class Book: TitledItem {
     override func toString() -> String {
         Book.bookHeader + name
     }
+
+    override func toDisplayString() -> String {
+        Book.bookHeader + name
+    }
 }

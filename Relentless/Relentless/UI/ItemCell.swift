@@ -24,7 +24,7 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setTextFor(item: Item) {
-        textLabel.text = item.toString()
+        textLabel.text = item.toDisplayString()
     }
 
     func setBackgroundFor(item: Item) {
@@ -34,7 +34,23 @@ class ItemCell: UICollectionViewCell {
         case .magazine:
             background.image = ItemCell.magazineImage
         case .bulb:
-            background.image = ItemCell.unlitRobotImage
+            guard let litRobotImage = ItemCell.litRobotImage,
+                let unlitRobotImage = ItemCell.unlitRobotImage else {
+                return
+            }
+            if let robot = item as? Bulb {
+                background.animationDuration = TimeInterval(robot.unitDuration)
+                var images = [UIImage]()
+                for state in robot.stateSequence {
+                    if state == .lit {
+                        images.append(litRobotImage)
+                    } else if state == .unlit {
+                        images.append(unlitRobotImage)
+                    }
+                }
+                background.animationImages = images
+                background.startAnimating()
+            }
         }
     }
 }

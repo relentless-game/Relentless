@@ -47,6 +47,9 @@ class Item: Hashable, Comparable, Codable {
         "Item"
     }
 
+    func toDisplayString() -> String {
+        "Item"
+    }
 }
 
 enum ItemCategoryKeys: CodingKey {

@@ -34,7 +34,7 @@
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Create Game">
                                                     <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <font key="NSFont" size="36" name="CooperHewitt-Bold"/>
                                                     </attributes>
                                                 </fragment>
@@ -53,8 +53,8 @@
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Join Game">
                                                     <attributes>
+                                                        <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <font key="NSFont" size="36" name="CooperHewitt-Bold"/>
-                                                        <font key="NSOriginalFont" size="36" name="CooperHewitt-Bold"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>

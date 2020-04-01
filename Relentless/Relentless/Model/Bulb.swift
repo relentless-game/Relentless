@@ -41,6 +41,10 @@ class Bulb: RhythmicItem {
     }
 
     override func toString() -> String {
-        Bulb.bulbHeader + String(unitDuration) + stateSequence.description
+        "Bulb.bulbHeader + String(unitDuration) + stateSequence.description"
+    }
+
+    override func toDisplayString() -> String {
+        ""
     }
 }

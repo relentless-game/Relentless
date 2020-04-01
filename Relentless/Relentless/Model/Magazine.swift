@@ -41,4 +41,8 @@ class Magazine: TitledItem {
     override func toString() -> String {
         Magazine.magazineHeader + name
     }
+
+    override func toDisplayString() -> String {
+        Magazine.magazineHeader + name
+    }
 }

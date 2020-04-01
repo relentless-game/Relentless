@@ -150,7 +150,6 @@ class PackingViewController: UIViewController {
             if let categoriesAsKeys = items?.keys {
                 viewController.categories = Array(categoriesAsKeys)
             }
-            viewController.categories = [Category.book, Category.magazine]
             viewController.categoryChangeDelegate = self
             if let pres = viewController.presentationController {
                 pres.delegate = self

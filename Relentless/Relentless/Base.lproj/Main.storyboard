@@ -185,7 +185,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOo-2V-Pfk">
-                                                    <rect key="frame" x="29" y="14.666666666666664" width="42" height="21"/>
+                                                    <rect key="frame" x="15" y="5" width="70" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -193,7 +193,11 @@
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="OOo-2V-Pfk" secondAttribute="trailing" constant="15" id="07e-Cq-hc8"/>
+                                                <constraint firstItem="OOo-2V-Pfk" firstAttribute="top" secondItem="n0q-NN-LoE" secondAttribute="top" constant="5" id="0nQ-As-r24"/>
+                                                <constraint firstItem="OOo-2V-Pfk" firstAttribute="leading" secondItem="n0q-NN-LoE" secondAttribute="leading" constant="15" id="7Qw-Er-WzL"/>
                                                 <constraint firstItem="OOo-2V-Pfk" firstAttribute="centerX" secondItem="n0q-NN-LoE" secondAttribute="centerX" id="9dD-Z2-QiU"/>
+                                                <constraint firstAttribute="bottom" secondItem="OOo-2V-Pfk" secondAttribute="bottom" constant="5" id="PSh-D2-Ozy"/>
                                                 <constraint firstItem="OOo-2V-Pfk" firstAttribute="centerY" secondItem="n0q-NN-LoE" secondAttribute="centerY" id="aOy-c4-06K"/>
                                             </constraints>
                                         </collectionViewCellContentView>
@@ -817,8 +821,7 @@
         <image name="title" width="800" height="220"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GPw-Oj-Gmi"/>
-        <segue reference="fdU-OW-AMW"/>
+        <segue reference="qID-Ae-TMA"/>
         <segue reference="Ed9-Qd-LTp"/>
         <segue reference="FQq-Pt-F3v"/>
         <segue reference="5qg-Sa-A9a"/>

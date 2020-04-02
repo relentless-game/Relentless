@@ -85,7 +85,6 @@ class GameControllerManager: GameController {
     }
 
     func pauseRound() {
-        print("PAUSE ROUND CALLED")
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
@@ -371,8 +370,6 @@ extension GameControllerManager {
         let didPauseRound = gameStatus.isRoundPlaying && gameStatus.numberOfPlayersPaused != 0
         let didResumeRound = gameStatus.isResumed && gameStatus.isRoundPlaying
         
-        print(gameStatus)
-        
         if didEndGamePrematurely {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
@@ -389,10 +386,8 @@ extension GameControllerManager {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
         } else if didPauseRound {
-            print("did pause round")
             NotificationCenter.default.post(name: .didPauseRound, object: nil)
         } else if didResumeRound {
-            print("did resume round")
             pauseTimer?.invalidate()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)
         }

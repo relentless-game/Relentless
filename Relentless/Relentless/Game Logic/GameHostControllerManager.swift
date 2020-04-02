@@ -92,7 +92,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return
         }
         itemsAllocator.allocateItems(categories: categories, players: players)
-        gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
+        gameCategories = categories
 
         // update other devices
         network.allocateItems(gameId: gameId, players: players)

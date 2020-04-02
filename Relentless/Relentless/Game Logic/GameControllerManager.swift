@@ -53,7 +53,6 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
-
     // properties for network
     var network: Network = NetworkManager()
 //    var userId: String? {

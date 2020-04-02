@@ -1,5 +1,5 @@
 //
-//  Titled.swift
+//  TitledItem.swift
 //  Relentless
 //
 //  Created by Chow Yi Yin on 14/3/20.
@@ -38,10 +38,12 @@ class TitledItem: Item {
         }
         if self.category.rawValue < otherItem.category.rawValue {
             return true
-        } else if self.category.rawValue == otherItem.category.rawValue {
-            return !self.name.lexicographicallyPrecedes(otherItem.name)
-        } else {
+        } else if self.category.rawValue > otherItem.category.rawValue {
             return false
+        } else {
+            let lowerCasedName = self.name.lowercased()
+            let otherLowerCasedName = otherItem.name.lowercased()
+            return lowerCasedName.lexicographicallyPrecedes(otherLowerCasedName)
         }
     }
 

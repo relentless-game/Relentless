@@ -50,7 +50,7 @@ class OrdersAdapter {
                 let itemsString = orderString[0]
                 let timeLimit = Int(orderString[1]) ?? -1
                 if let itemsData = itemsString.data(using: .utf8) {
-                    let items = try decoder.decode(Items.self, from: itemsData).items
+                    let items = try decoder.decode(ItemFactory.self, from: itemsData).items
                     let order = Order(items: items, timeLimitInSeconds: timeLimit)
                     
                     orders.append(order)

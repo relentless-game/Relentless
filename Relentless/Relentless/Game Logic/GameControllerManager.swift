@@ -334,15 +334,6 @@ extension GameControllerManager {
             self.game?.addPackage(package: package)
         })
         self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
-        
-        // to handle when everyone runs out of order
-        if isHost {
-            self.network.attachOutOfOrdersListener(gameId: gameId, action: { numOfPlayersOutOfOrders in
-                if numOfPlayersOutOfOrders == self.players.count {
-                    self.endRound() // the host will end the round when everyone runs out of orders
-                }
-            })
-        }
     }
     
     private func onPauseCountDownDidChange(countdown: Int) {

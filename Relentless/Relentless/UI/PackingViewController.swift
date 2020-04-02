@@ -190,7 +190,7 @@ class PackingViewController: UIViewController {
             viewController?.packageForDelivery = packageForDelivery
         }
         if segue.identifier == "endRound" {
-            removaBackgroundObservers() // prevent background observers from responding to notifs
+            removeBackgroundObservers() // prevent background observers from responding to notifs
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
@@ -205,7 +205,7 @@ class PackingViewController: UIViewController {
     // The following methods are for the pausing feature
     
     // Called before segue to Game VC at the end of a round
-    private func removaBackgroundObservers() {
+    private func removeBackgroundObservers() {
         NotificationCenter.default.removeObserver(self,
                                                   name: UIApplication.willResignActiveNotification,
                                                   object: nil)

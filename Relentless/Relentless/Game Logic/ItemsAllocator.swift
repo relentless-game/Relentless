@@ -10,45 +10,64 @@ import Foundation
 
 class ItemsAllocator: GameItemsAllocator {
 
-    var generatedItemsByCategory: [Category: [Item]] = [:]
-
     var numberOfPlayers: Int
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Float
+    var numOfPairsPerCategory: Int
 
-    // Refers to number of groups of items to choose per category
-    // Groups are used to ensure that a minimum number of similar items are chosen
-    var defaultNumOfGroups: Int = 2
-
-    init(numberOfPlayers: Int, difficultyLevel: Float) {
+    init(numberOfPlayers: Int, difficultyLevel: Float, numOfPairsPerCategory: Int) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
+        self.numOfPairsPerCategory = numOfPairsPerCategory
     }
 
     /// Generates items based on the given categories and allocates them to the given players
     func allocateItems(categories: [Category], players: [Player]) {
-        generateItems(categories: categories)
-        var items = consolidateAllItems()
-        let numberOfItemsForEachPlayer = items.count / players.count
+        let allItems = generateItems(categories: categories)
+        let nonAssembledItems = allItems.filter { ($0 as? AssembledItem) == nil }
+        allocateNonAssembledItems(items: nonAssembledItems, to: players)
+        let assembledItems = allItems.compactMap { $0 as? AssembledItem }
+        allocateParts(items: assembledItems, to: players)
+    }
+
+    private func allocateParts(items: [AssembledItem], to players: [Player]) {
+        var parts = Array(Set(items.flatMap { $0.unsortedParts }))
+        let numberOfPartsForEachPlayer = parts.count / players.count
         for player in players {
-            while player.items.count < numberOfItemsForEachPlayer {
-                let indexOfAllocatedItem = allocateRandomItem(to: player, items: items)
-                items.remove(at: indexOfAllocatedItem)
+            let initialItemCount = player.items.count
+            while player.items.count < numberOfPartsForEachPlayer + initialItemCount {
+                guard let partToAllocate = getRandomItem(from: parts) as? Part, let indexOfAllocatedPart = parts.firstIndex(of: partToAllocate) else {
+                    continue
+                }
+                player.items.insert(partToAllocate)
+                parts.remove(at: indexOfAllocatedPart)
             }
-        }
-        // randomly assign remaining items
-        while !items.isEmpty {
-            allocateToRandomPlayer(players: players, item: items[0])
-            items.remove(at: 0)
         }
     }
 
-    /// Chooses a random item from all items and assigns it to the player
-    private func allocateRandomItem(to player: Player, items: [Item]) -> Int {
-        let indexRange = 0...(items.count - 1)
+    private func allocateNonAssembledItems(items: [Item], to players: [Player]) {
+        var itemsToAssign = items
+        let numberOfItemsForEachPlayer = itemsToAssign.count / players.count
+        for player in players {
+            while player.items.count < numberOfItemsForEachPlayer {
+                let itemToAllocate = getRandomItem(from: itemsToAssign)
+                guard let indexOfAllocatedItem = itemsToAssign.firstIndex(of: itemToAllocate) else {
+                    continue
+                }
+                player.items.insert(itemToAllocate)
+                itemsToAssign.remove(at: indexOfAllocatedItem)
+            }
+        }
+        // randomly assign remaining items
+        while !itemsToAssign.isEmpty {
+            allocateToRandomPlayer(players: players, item: items[0])
+            itemsToAssign.remove(at: 0)
+        }
+    }
+
+    private func getRandomItem(from list: [Item]) -> Item {
+        let indexRange = 0...(list.count - 1)
         let randomIndex = Int.random(in: indexRange)
-        let randomItem = items[randomIndex]
-        player.items.insert(randomItem)
-        return randomIndex
+        return list[randomIndex]
     }
 
     /// Chooses a random player and allocates the item to that player
@@ -59,35 +78,23 @@ class ItemsAllocator: GameItemsAllocator {
     }
 
     /// Generates items based on the specified categories
-    private func generateItems(categories: [Category]) {
-        var items = [Category: [Item]]()
-        let numberToGenerate = numberOfPlayers * (defaultNumOfGroups + Int(difficultyLevel *
-            Float(defaultNumOfGroups))) // per category
+    private func generateItems(categories: [Category]) -> [Item] {
+        var items = [Item]()
         for category in categories {
-            items[category] = generateItems(category: category, numberToGenerate: numberToGenerate)
+            items.append(contentsOf: generateItems(category: category, numberToGenerate: numOfPairsPerCategory))
         }
-        generatedItemsByCategory = items
+        return items
     }
 
     /// Generates items for specified category
     private func generateItems(category: Category, numberToGenerate: Int) -> [Item] {
         switch category {
-        case Category.book, Category.magazine:
+        case Category.book, Category.magazine, Category.bulb:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
-//        default:
-//            return [Item]()
+        case Category.toyCar:
+            return AssembledItemsGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
+        default:
+            return [Item]()
         }
-    }
-
-    /// Consolidates all generated items into a single array
-    private func consolidateAllItems() -> [Item] {
-        var items = [Item]()
-        for category in generatedItemsByCategory.keys {
-            guard let categoryItems = generatedItemsByCategory[category] else {
-                continue
-            }
-            items.append(contentsOf: categoryItems)
-        }
-        return items
     }
 }

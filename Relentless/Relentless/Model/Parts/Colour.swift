@@ -41,14 +41,7 @@ enum Colour: String, Codable, CaseIterable {
     }
 
     func toString() -> String {
-        switch self {
-        case .blue:
-            return "blue"
-        case .red:
-            return "red"
-        case .green:
-            return "green"
-        }
+        return self.rawValue
     }
 }
 

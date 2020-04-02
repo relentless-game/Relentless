@@ -13,22 +13,22 @@ class ToyCarWheel: Part {
     static let category = ToyCar.category
     static let toyCarWheelHeader = "Toy Car Wheel: "
 
-    var radius: Double
+    var shape: Shape
 
-    init(radius: Double) {
-        self.radius = radius
+    init(shape: Shape) {
+        self.shape = shape
         super.init(category: ToyCarWheel.category, partType: ToyCarWheel.partType)
     }
 
     enum ToyCarWheelKeys: CodingKey {
-        case radius
+        case shape
         case partType
         case category
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ToyCarWheelKeys.self)
-        self.radius = try container.decode(Double.self, forKey: .radius)
+        self.shape = try container.decode(Shape.self, forKey: .shape)
 
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
@@ -36,7 +36,7 @@ class ToyCarWheel: Part {
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ToyCarWheelKeys.self)
-        try container.encode(radius, forKey: .radius)
+        try container.encode(shape, forKey: .shape)
         try container.encode(partType, forKey: .partType)
         try container.encode(category, forKey: .category)
 
@@ -48,16 +48,16 @@ class ToyCarWheel: Part {
         guard let otherWheel = other as? ToyCarWheel else {
             return false
         }
-        return otherWheel.radius == self.radius
+        return otherWheel.shape == self.shape
     }
 
     override func toString() -> String {
-        ToyCarWheel.toyCarWheelHeader + String(radius)
+        ToyCarWheel.toyCarWheelHeader + shape.toString()
     }
 
     override func hash(into hasher: inout Hasher) {
         hasher.combine(partType)
-        hasher.combine(radius)
+        hasher.combine(shape)
     }
 
     override func isLessThan(other: Item) -> Bool {
@@ -67,7 +67,7 @@ class ToyCarWheel: Part {
         if self.partType.rawValue < otherWheel.partType.rawValue {
             return true
         } else if self.partType.rawValue == otherWheel.partType.rawValue {
-            return self.radius < otherWheel.radius
+            return self.shape.rawValue.lexicographicallyPrecedes(otherWheel.shape.rawValue)
         } else {
             return false
         }

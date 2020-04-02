@@ -12,9 +12,9 @@ class ToyCarBattery: Part {
     static let category = ToyCar.category
     static let toyCarBatteryHeader = "Toy Car Battery: "
 
-    var label: String
+    var label: Label
 
-    init(label: String) {
+    init(label: Label) {
         self.label = label
         super.init(category: ToyCarBattery.category, partType: ToyCarBattery.partType)
     }
@@ -27,7 +27,7 @@ class ToyCarBattery: Part {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ToyCarBatteryKeys.self)
-        self.label = try container.decode(String.self, forKey: .label)
+        self.label = try container.decode(Label.self, forKey: .label)
 
         let superDecoder = try container.superDecoder()
         try super.init(from: superDecoder)
@@ -51,7 +51,7 @@ class ToyCarBattery: Part {
     }
     
     override func toString() -> String {
-        ToyCarBattery.toyCarBatteryHeader + label
+        ToyCarBattery.toyCarBatteryHeader + label.toString()
     }
 
     override func hash(into hasher: inout Hasher) {
@@ -68,8 +68,8 @@ class ToyCarBattery: Part {
         } else if self.partType.rawValue > otherBattery.partType.rawValue {
             return false
         } else {
-            let lowerCasedLabel = self.label.lowercased()
-            let otherLowerCasedLabel = otherBattery.label.lowercased()
+            let lowerCasedLabel = self.label.toString().lowercased()
+            let otherLowerCasedLabel = otherBattery.label.toString().lowercased()
             return lowerCasedLabel.lexicographicallyPrecedes(otherLowerCasedLabel)
         }
     }

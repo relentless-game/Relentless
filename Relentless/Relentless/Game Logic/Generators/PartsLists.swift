@@ -9,8 +9,22 @@
 import Foundation
 class PartsLists {
 
-    static let toyCarWheels = [ToyCarWheel(radius: 1.0), ToyCarWheel(radius: 2.5)]
-    static let toyCarBatteries = [ToyCarBattery(label: "AA"), ToyCarBattery(label: "AAA")]
+    static var toyCarWheels: [ToyCarWheel] {
+        let shapes = Shape.allCases
+        var wheels = [ToyCarWheel]()
+        for shape in shapes {
+            wheels.append(ToyCarWheel(shape: shape))
+        }
+        return wheels
+    }
+    static var toyCarBatteries: [ToyCarBattery] {
+        let labels = Label.allCases
+        var batteries = [ToyCarBattery]()
+        for label in labels {
+            batteries.append(ToyCarBattery(label: label))
+        }
+        return batteries
+    }
     static var toyCarBodies: [ToyCarBody] {
         let colours = Colour.allCases
         var bodies = [ToyCarBody]()

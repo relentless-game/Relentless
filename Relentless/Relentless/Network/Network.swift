@@ -41,7 +41,7 @@ protocol Network {
     func startRound(gameId: Int, roundNumber: Int)
     
     /// This is called by the host player to terminate the current round.
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Int)
+    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float)
 
     /// This is called to pause the current round.
     func pauseRound(gameId: Int, currentRound: Int)
@@ -104,4 +104,12 @@ protocol Network {
     /// Enables the user to edit their name and profile image before the game starts.
     func editUserInfo(userId: String, gameId: Int, username: String, profile: PlayerAvatar)
 
+    /// Updates the game status. Currently this is used for pausing/resuming a game.
+    func updateGameStatus(gameId: Int, gameStatus: GameStatus)
+    
+    /// Notifies the user count down to termination of game during the pausing state
+    func attachPauseCountDownListener(gameId: Int, action: @escaping (Int) -> Void)
+    
+    /// Notifies the network count down to termination of game during the pausing state
+    func updatePauseCountDown(gameId: Int, countDown: Int)
 }

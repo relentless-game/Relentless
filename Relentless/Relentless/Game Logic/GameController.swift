@@ -11,16 +11,16 @@ import Foundation
 /// Handles game logic
 protocol GameController: GameNetworkController, GameModelController {
 
-    var isHost: Bool { get set }
     var gameCategories: [Category] { get }
     var satisfactionBar: SatisfactionBar { get set }
     var money: Int { get }
-
-    func startGame()
-
+    var isHost: Bool { get set }
+    var gameParameters: GameParameters { get }
+    
+    var gameStatus: GameStatus? { get set } // for pausing
+    var pauseCountDown: Int { get set } // for pausing
+    
     func endGame()
-
-    func startRound()
 
     func pauseRound()
 

@@ -14,6 +14,7 @@ extension Notification.Name {
     static let didTimeUpdateInOrder = Notification.Name("didTimeUpdateInOrder")
     static let didTimeOutInOrder = Notification.Name("didTimeOutInOrder")
     static let didOrderUpdateInHouse = Notification.Name("didOrderUpdateInHouse")
+    static let didChangeAssembledItem = Notification.Name("didChangeAssembledItem")
 
     /// Notifications from `Model`(for `GameControllerManager`)
     static let didChangePackagesInModel = Notification.Name("didChangePackagesInModel")
@@ -30,6 +31,8 @@ extension Notification.Name {
     static let newPlayerDidJoin = Notification.Name("newPlayerDidJoin")
     static let didStartGame = Notification.Name("didStartGame")
     static let didStartRound = Notification.Name("didStartRound")
+    static let didPauseRound = Notification.Name("didPauseRound")
+    static let didResumeRound = Notification.Name("didResumeRound")
     static let didEndGame = Notification.Name("didEndGame")
     static let didEndRound = Notification.Name("didEndRound")
     static let didEndGamePrematurely = Notification.Name("didEndGamePrematurely")
@@ -42,4 +45,5 @@ extension Notification.Name {
     static let didOrderTimeOut = Notification.Name("didOrderTimeOut") // an order timed out
     static let didChangeSatisfactionBar = Notification.Name("didChangeSatisfactionBar")
     static let didChangeMoney = Notification.Name("didChangeMoney")
+    static let didUpdateCountDown = Notification.Name("didUpdateCountDown") // for pausing 
 }

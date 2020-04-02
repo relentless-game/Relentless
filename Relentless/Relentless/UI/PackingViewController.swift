@@ -10,7 +10,8 @@ import UIKit
 
 class PackingViewController: UIViewController {
     var gameController: GameController?
-
+    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    
     @IBOutlet private var packagesView: UICollectionView!
     @IBOutlet private var itemsView: UICollectionView!
     @IBOutlet private var currentPackageView: UICollectionView!
@@ -34,6 +35,7 @@ class PackingViewController: UIViewController {
         initialiseCollectionViews()
         addObservers()
         reloadAllViews()
+        registerBackgroundTask()
     }
 
     func addObservers() {
@@ -52,6 +54,19 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        // The following observers are for the pausing feature
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAppMovedToBackground),
+                                               name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAppMovedToForeground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundPaused),
+                                               name: .didPauseRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundResumed),
+                                               name: .didResumeRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -95,7 +110,7 @@ class PackingViewController: UIViewController {
             satisfactionBar.setProgress(value, animated: true)
         }
     }
-
+    
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
     }
@@ -150,7 +165,7 @@ class PackingViewController: UIViewController {
             if let categoriesAsKeys = items?.keys {
                 viewController.categories = Array(categoriesAsKeys)
             }
-            viewController.categories = [Category.book, Category.magazine]
+            viewController.categories = Category.allCases
             viewController.categoryChangeDelegate = self
             if let pres = viewController.presentationController {
                 pres.delegate = self
@@ -175,11 +190,73 @@ class PackingViewController: UIViewController {
             viewController?.packageForDelivery = packageForDelivery
         }
         if segue.identifier == "endRound" {
+            removeBackgroundObservers() // prevent background observers from responding to notifs
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
+        // for background pausing feature
+        if segue.identifier == "pauseGame" {
+            let viewController = segue.destination as? PauseViewController
+            viewController?.gameController = gameController
+            NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        }
+    }
+    
+    // The following methods are for the pausing feature
+    
+    // Called before segue to Game VC at the end of a round
+    private func removeBackgroundObservers() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.willResignActiveNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIApplication.willEnterForegroundNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .didPauseRound,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .didResumeRound,
+                                                  object: nil)
+    }
+    
+    @objc private func handleAppMovedToForeground() {
+        endBackgroundTask()
+        gameController?.resumeRound()
+        if backgroundTask ==  .invalid {
+            registerBackgroundTask()
+        }
     }
 
+    @objc private func handleRoundPaused() {
+        performSegue(withIdentifier: "pauseGame", sender: self)
+    }
+    
+    private func endBackgroundTask() {
+        UIApplication.shared.endBackgroundTask(backgroundTask)
+        backgroundTask = .invalid
+    }
+    
+    private func registerBackgroundTask() {
+        backgroundTask = UIApplication.shared.beginBackgroundTask { [weak self] in
+            self?.endBackgroundTask()
+        }
+    }
+    
+    @objc private func handleRoundResumed() {
+        dismiss(animated: true, completion: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleRoundPaused),
+                                               name: .didPauseRound, object: nil)
+    }
+    
+    @objc private func handleAppMovedToBackground() {
+        gameController?.pauseRound()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension PackingViewController: CategoryChangeDelegate {

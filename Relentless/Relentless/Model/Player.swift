@@ -27,6 +27,8 @@ extension Player: Equatable {
     static func == (lhs: Player, rhs: Player) -> Bool {
         lhs.userId == rhs.userId &&
             lhs.userName == rhs.userName &&
-            lhs.profileImage == rhs.profileImage
+            lhs.profileImage == rhs.profileImage &&
+            lhs.items == rhs.items &&
+            lhs.orders == rhs.orders
     }
 }

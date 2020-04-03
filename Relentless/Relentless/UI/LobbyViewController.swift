@@ -25,8 +25,12 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         initUserId()
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
-            gameController = GameControllerManager(userId: userId)
-            createGame()
+            // Difficulty level for `GameParameter` should be determined by settings page
+            let gameHostParameters = GameHostParameters(difficultyLevel: 1.0)
+            gameController = GameHostControllerManager(userId: userId,
+                                                       gameHostParameters: gameHostParameters)
+            // TODO: change how username is entered
+            createGame(username: "New Player")
         } else {
             // Game has been created and joined.
             initAll()
@@ -75,9 +79,9 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         gameId = gameController?.gameId
         initAll()
     }
-
+    
     @IBAction private func startGame(_ sender: Any) {
-        gameController?.startGame()
+        (gameController as? GameHostController)?.startGame()
     }
 
     func initGameIdLabel() {
@@ -87,8 +91,8 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         gameIdLabel.text = String(gameId)
     }
 
-    func createGame() {
-        gameController?.createGame()
+    func createGame(username: String) {
+        (gameController as? GameHostController)?.createGame(username: username)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

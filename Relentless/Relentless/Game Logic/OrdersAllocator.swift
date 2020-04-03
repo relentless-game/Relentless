@@ -12,20 +12,22 @@ class OrdersAllocator: GameOrdersAllocator {
 
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
 
-    var defaultNumOfOrders: Int = 5 // per player
-    var defaultMaxNumOfItems: Int = 3 // per order; update to use static variable in `Order`
-    var defaultTimeLimit: Int = 30 // in seconds
+    var maxNumOfItemsPerOrder: Int
+    var numOfOrdersPerPlayer: Int
+    var probabilityOfSelectingOwnItem: Float
 
-    init(difficultyLevel: Float) {
+    init(difficultyLevel: Float, maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
+         probabilityOfSelectingOwnItem: Float) {
         self.difficultyLevel = difficultyLevel
+        self.maxNumOfItemsPerOrder = maxNumOfItemsPerOrder
+        self.numOfOrdersPerPlayer = numOfOrdersPerPlayer
+        self.probabilityOfSelectingOwnItem = probabilityOfSelectingOwnItem
     }
 
     func allocateOrders(players: [Player]) {
-        let numOfOrders = defaultNumOfOrders + Int(difficultyLevel * Float(defaultNumOfOrders))
-        let maxNumOfItems = defaultMaxNumOfItems + Int(difficultyLevel * Float(defaultMaxNumOfItems))
         for player in players {
-            while player.orders.count < numOfOrders {
-                let order = generateOrder(maxNumOfItems: maxNumOfItems, currPlayer: player, allPlayers: players)
+            while player.orders.count < numOfOrdersPerPlayer {
+                let order = generateOrder(maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player, allPlayers: players)
                 player.orders.insert(order)
             }
         }
@@ -33,37 +35,40 @@ class OrdersAllocator: GameOrdersAllocator {
 
     private func generateOrder(maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player]) -> Order {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
-
-        // choose player's own items for half of the order
-        let numberOfOwnItems = numberOfItems / 2
-        let selectedOwnItems = selectItems(from: currPlayer.items, numberToSelect: numberOfOwnItems)
-        // choose other players' items as remaining items for order
-        let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
-        let selectedOthersItems = selectItems(from: othersItems,
-                                              numberToSelect: numberOfItems - numberOfOwnItems)
-        var allSelectedItems = [Item]()
-        allSelectedItems.append(contentsOf: selectedOwnItems)
-        allSelectedItems.append(contentsOf: selectedOthersItems)
-
-        let order = Order(items: allSelectedItems, timeLimitInSeconds: defaultTimeLimit)
+        let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
+                                        allPlayers: allPlayers)
+        let timeAllocated = numberOfItems * GameHostParameters.timeForEachItem
+        let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
         return order
     }
 
-    /// Randomly choose `numberToSelect` items from given items
-    private func selectItems(from items: Set<Item>, numberToSelect: Int) -> [Item] {
-        // to prevent getting stuck in an infinite loop below
-        guard !items.isEmpty else {
-            return []
-        }
-        
+    private func selectItems(numberOfItems: Int, currPlayer: Player, allPlayers: [Player]) -> [Item] {
         var selectedItems = [Item]()
-        while selectedItems.count < numberToSelect {
-            guard let randomItem = items.randomElement() else {
-                continue
+        let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
+
+        while selectedItems.count < numberOfItems {
+            let randomNumber = Float.random(in: 0...1)
+            if randomNumber <= probabilityOfSelectingOwnItem {
+                guard let selectedItem = selectRandomItem(from: currPlayer.items) else {
+                    continue
+                }
+                selectedItems.append(selectedItem)
+            } else {
+                guard let selectedItem = selectRandomItem(from: othersItems) else {
+                    continue
+                }
+                selectedItems.append(selectedItem)
             }
-            selectedItems.append(randomItem)
         }
+
         return selectedItems
+    }
+
+    private func selectRandomItem(from items: Set<Item>) -> Item? {
+        guard let randomItem = items.randomElement() else {
+            return nil
+        }
+        return randomItem
     }
 
     /// Extracts and combines the items of all other players 
@@ -74,5 +79,4 @@ class OrdersAllocator: GameOrdersAllocator {
         }
         return Set(othersItems)
     }
-
 }

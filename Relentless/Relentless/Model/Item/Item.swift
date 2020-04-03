@@ -8,19 +8,12 @@
 
 import Foundation
 
-class Item: Hashable, Comparable, Codable {
+class Item: Hashable, Codable {
 
     var category: Category
 
     init(category: Category) {
         self.category = category
-    }
-
-    static func < (lhs: Item, rhs: Item) -> Bool {
-        if lhs.category != rhs.category {
-            return lhs.category.rawValue < rhs.category.rawValue
-        }
-        return lhs.isLessThan(other: rhs)
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {
@@ -29,7 +22,7 @@ class Item: Hashable, Comparable, Codable {
         }
         return lhs.equals(other: rhs)
     }
-
+    
     /// These methods below should be overriden by subclasses
     func equals(other: Item) -> Bool {
         false
@@ -39,16 +32,21 @@ class Item: Hashable, Comparable, Codable {
         false
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(category)
-    }
-
     func toString() -> String {
         "Item"
     }
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(category)
+    }
+
 }
 
-enum ItemCategoryKeys: CodingKey {
-    case category
+extension Item: Comparable {
+    static func < (lhs: Item, rhs: Item) -> Bool {
+        if lhs.category != rhs.category {
+            return lhs.category.rawValue < rhs.category.rawValue
+        }
+        return lhs.isLessThan(other: rhs)
+    }
 }

@@ -12,6 +12,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
 
     static var teamCodeCharacterLimit = 4
     @IBOutlet private var teamCodeTextField: UITextField!
+    @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var joinButton: UIButton!
     var gameController: GameController?
     var userId: String?
@@ -24,7 +25,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         teamCodeTextField.delegate = self
         initUserId()
         if let userId = self.userId {
-            gameController = GameControllerManager(userId: userId)
+            // Difficulty level for `GameParameter` should be determined by settings page
+            let gameParameters = GameParameters(difficultyLevel: 1.0)
+            gameController = GameControllerManager(userId: userId, gameParameters: gameParameters)
         }
         addObservers()
     }
@@ -95,9 +98,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction private func tryJoinGame(_ sender: Any) {
-        if let text = teamCodeTextField.text, let gameId = Int(text) {
+        if let text = teamCodeTextField.text, let gameId = Int(text),
+            let username = usernameTextField.text {
             self.gameId = gameId
-            _ = gameController?.joinGame(gameId: gameId)
+            _ = gameController?.joinGame(gameId: gameId, userName: username)
         }
     }
 

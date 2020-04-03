@@ -106,7 +106,8 @@ class GameControllerManager: GameController {
         network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
     }
     
-    @objc private func decrementPauseTimer() {
+    @objc
+    private func decrementPauseTimer() {
         guard let gameId = gameId else {
             return
         }
@@ -199,6 +200,11 @@ class GameControllerManager: GameController {
         NotificationCenter.default.post(name: .didChangePackages, object: nil)
     }
 
+    @objc
+    func handleChangeOfOpenPackage(notification: Notification) {
+        NotificationCenter.default.post(name: .didChangeOpenPackage, object: nil)
+    }
+
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
                                                name: .didChangeItemsInModel, object: nil)
@@ -211,6 +217,9 @@ class GameControllerManager: GameController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleSatisfactionBarChange(notification:)),
                                                name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleChangeOfOpenPackage(notification:)),
+                                               name: .didChangeOpenPackageInModel, object: nil)
     }
 
     private func getActiveOrders() -> [Order] {

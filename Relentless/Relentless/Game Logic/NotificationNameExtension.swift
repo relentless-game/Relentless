@@ -21,6 +21,7 @@ extension Notification.Name {
     static let didChangeItemsInModel = Notification.Name("didChangeItemsInModel")
     static let didOrderUpdateInModel = Notification.Name("didOrderUpdateInModel")
     static let didOrderTimeOutInModel = Notification.Name("didTimeOutInModel")
+    static let didChangeOpenPackageInModel = Notification.Name("didChangeOpenPackageInModel")
 
     /// Notifications from `SatisfactionBar` (for `GameControllerManager`)
     static let didChangeCurrentSatisfaction = Notification.Name("didChangeCurrentSatisfaction")
@@ -45,5 +46,6 @@ extension Notification.Name {
     static let didOrderTimeOut = Notification.Name("didOrderTimeOut") // an order timed out
     static let didChangeSatisfactionBar = Notification.Name("didChangeSatisfactionBar")
     static let didChangeMoney = Notification.Name("didChangeMoney")
-    static let didUpdateCountDown = Notification.Name("didUpdateCountDown") // for pausing 
+    static let didUpdateCountDown = Notification.Name("didUpdateCountDown") // for pausing
+    static let didChangeOpenPackage = Notification.Name("didChangeOpenPackage")
 }

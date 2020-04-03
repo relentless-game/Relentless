@@ -17,7 +17,6 @@ class ItemsAdapter {
             let itemsWrapper = ItemFactory(items: items)
             let data = try encoder.encode(itemsWrapper)
             let string = String(data: data, encoding: .utf8)
-            print(string)
             return string
         } catch {
             return nil

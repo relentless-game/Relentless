@@ -21,12 +21,16 @@ class ItemsAllocator: GameItemsAllocator {
     }
 
     /// Generates items based on the given categories and allocates them to the given players
-    func allocateItems(categories: [Category], players: [Player]) {
+    func allocateItems(categories: [Category], players: [Player]) -> [Item] {
         let allItems = generateItems(categories: categories)
+
         let nonAssembledItems = allItems.filter { ($0 as? AssembledItem) == nil }
         allocateNonAssembledItems(items: nonAssembledItems, to: players)
+
         let assembledItems = allItems.compactMap { $0 as? AssembledItem }
         allocateParts(items: assembledItems, to: players)
+
+        return allItems
     }
 
     private func allocateParts(items: [AssembledItem], to players: [Player]) {
@@ -94,8 +98,6 @@ class ItemsAllocator: GameItemsAllocator {
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
         case Category.toyCar:
             return AssembledItemsGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
-        default:
-            return [Item]()
         }
     }
 }

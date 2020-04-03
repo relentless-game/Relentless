@@ -33,7 +33,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Create Game"/>
                                         <connections>
-                                            <segue destination="OPb-V7-r8L" kind="show" id="Ed9-Qd-LTp"/>
+                                            <segue destination="OPb-V7-r8L" kind="show" identifier="createGame" id="Ed9-Qd-LTp"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
@@ -116,6 +116,11 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="Qly-4Q-AfV"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TZn-eT-lCD">
+                                <rect key="frame" x="725" y="61" width="32" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -123,7 +128,9 @@
                             <constraint firstItem="NWI-yc-x0u" firstAttribute="top" secondItem="91j-D0-Wbh" secondAttribute="top" constant="30" id="IWy-Sh-Sbz"/>
                             <constraint firstItem="hD0-n4-H0U" firstAttribute="top" secondItem="91j-D0-Wbh" secondAttribute="top" constant="30" id="Jz4-XC-sZl"/>
                             <constraint firstItem="91j-D0-Wbh" firstAttribute="bottom" secondItem="hD0-n4-H0U" secondAttribute="bottom" constant="30" id="TkD-PO-ce0"/>
+                            <constraint firstItem="TZn-eT-lCD" firstAttribute="top" secondItem="91j-D0-Wbh" secondAttribute="top" constant="61" id="coD-QG-5l8"/>
                             <constraint firstItem="NWI-yc-x0u" firstAttribute="leading" secondItem="91j-D0-Wbh" secondAttribute="leading" constant="30" id="dr5-Xe-zEq"/>
+                            <constraint firstItem="91j-D0-Wbh" firstAttribute="trailing" secondItem="TZn-eT-lCD" secondAttribute="trailing" constant="11" id="oBs-rn-36e"/>
                             <constraint firstItem="hD0-n4-H0U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NWI-yc-x0u" secondAttribute="trailing" constant="8" symbolic="YES" id="tyo-bV-s6D"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="91j-D0-Wbh"/>
@@ -132,6 +139,7 @@
                     <connections>
                         <outlet property="joinButton" destination="FtR-Rh-iSH" id="Q3X-rF-a03"/>
                         <outlet property="teamCodeTextField" destination="3BX-fr-kSS" id="uTm-Ia-lrf"/>
+                        <outlet property="usernameTextField" destination="TZn-eT-lCD" id="3PW-5t-qzW"/>
                         <segue destination="OPb-V7-r8L" kind="show" identifier="joinGame" id="NHt-Cf-6dI"/>
                     </connections>
                 </viewController>

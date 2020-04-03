@@ -101,6 +101,9 @@ protocol Network {
     /// Resets the players out of orders.
     func resetPlayersOutOfOrders(gameId: Int)
     
+    /// Enables the user to edit their name and profile image before the game starts.
+    func editUserInfo(userId: String, gameId: Int, username: String, profile: PlayerAvatar)
+
     /// Updates the game status. Currently this is used for pausing/resuming a game.
     func updateGameStatus(gameId: Int, gameStatus: GameStatus)
     

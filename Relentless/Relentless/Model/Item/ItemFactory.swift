@@ -45,7 +45,9 @@ class ItemFactory: Codable {
                 items.append(try itemsArray.decode(Magazine.self))
             case .toyCar:
                 let partType = try item.decode(PartType.self, forKey: ItemTypeKey.partType)
-                let itemsArrayAndDecodedItem = try decodeAssembledItemOrPart(partType: partType, container: itemsArray, category: Category.toyCar)
+                let itemsArrayAndDecodedItem = try decodeAssembledItemOrPart(partType: partType,
+                                                                             container: itemsArray,
+                                                                             category: Category.toyCar)
                 itemsArray = itemsArrayAndDecodedItem.0
                 guard let item = itemsArrayAndDecodedItem.1 else {
                     continue

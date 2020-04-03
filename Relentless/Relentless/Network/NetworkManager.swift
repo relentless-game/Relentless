@@ -149,6 +149,15 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
     
+    func editUserInfo(userId: String, gameId: Int, username: String, profile: PlayerAvatar) {
+        let userProfile = [
+            "userId": userId,
+            "userName": username,
+            "profile": profile.rawValue
+        ]
+        ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
+    }
+    
     func quitGame(userId: String, gameId: Int) {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
@@ -259,7 +268,9 @@ class NetworkManager: Network {
                 for playerInfo in dict.values {
                     let userId = playerInfo["userId"] as? String ?? ""
                     let userName = playerInfo["userName"] as? String ?? ""
-                    let player = Player(userId: userId, userName: userName, profileImage: nil)
+                    let userProfileString = playerInfo["profile"] as? String ?? ""
+                    let userProfileAvatar = PlayerAvatar(rawValue: userProfileString)
+                    let player = Player(userId: userId, userName: userName, profileImage: userProfileAvatar)
                     players.append(player)
                 }
             }

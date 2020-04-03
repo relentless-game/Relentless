@@ -38,7 +38,7 @@ class HousesViewController: UIViewController {
         performSegue(withIdentifier: "endRound", sender: self)
     }
 
-    @IBAction func handleReturnToPackingView(_ sender: Any) {
+    @IBAction private func handleReturnToPackingView(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     

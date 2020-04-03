@@ -11,7 +11,8 @@ import Foundation
 protocol GameHostController {
 
     /// Player automatically joins game upon successful creation of game
-    func createGame()
+    /// The creator needs to input their username when creating the game.
+    func createGame(username: String)
 
     func startGame()
 

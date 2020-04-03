@@ -9,7 +9,7 @@
 import Foundation
 
 class GameControllerManager: GameController {
-    
+
     // properties for game logic
     private var roundTimeLeft: Int = 0 {
         didSet {
@@ -262,20 +262,28 @@ class GameControllerManager: GameController {
 
 extension GameControllerManager {
 
-    /// Player joins the game and gets a dummy username
-    internal func joinGame(gameId: Int) {
+    /// Player joins the game and with user defined username
+    internal func joinGame(gameId: Int, userName: String) {
         guard let userId = self.userId else {
             return
         }
-        let userName = generateDummyUserName()
+        
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
-
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
                 self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
             }
         })
+    }
+    
+    /// Enables the player to edit their username and profile image before the game starts
+    func editUserInfo(username: String, profile: PlayerAvatar) {
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        network.editUserInfo(userId: userId, gameId: gameId,
+                             username: username, profile: profile)
     }
 
     @objc

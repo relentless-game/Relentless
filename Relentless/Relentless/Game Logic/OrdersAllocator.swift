@@ -79,5 +79,4 @@ class OrdersAllocator: GameOrdersAllocator {
         }
         return Set(othersItems)
     }
-
 }

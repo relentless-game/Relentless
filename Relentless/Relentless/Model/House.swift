@@ -19,6 +19,10 @@ class House {
         }
     }
 
+    var activeOrders: [Order] {
+        orders.filter { $0.hasStarted }
+    }
+
     init(orders: Set<Order>, satisfactionFactor: Float) {
         assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders
@@ -27,9 +31,9 @@ class House {
                                                name: .didTimeUpdateInOrder, object: nil)
     }
 
-    /// Returns true if the package correctly matches any of the orders
+    /// Returns true if the package correctly matches any of the active orders
     func checkPackage(package: Package) -> Bool {
-        for order in orders where order.checkPackage(package: package) {
+        for order in activeOrders where order.checkPackage(package: package) {
             return true
         }
         return false
@@ -42,7 +46,7 @@ class House {
     func getClosestOrder(for package: Package) -> Order? {
         var minNumberOfDifferences = Order.MAX_NUMBER_OF_ITEMS + 1
         var orderWithMinDifferences = orders.first
-        for order in orders {
+        for order in activeOrders {
             let numberOfDifferences = order.getNumberOfDifferences(with: package)
             let hasFewerDifferences = numberOfDifferences < minNumberOfDifferences
 

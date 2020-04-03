@@ -74,6 +74,8 @@
 		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
+		F30E1D2C2435B08E00AD6A7B /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */; };
+		F30E1D2E243638AB00AD6A7B /* PlayerAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */; };
 		F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
 		F319B333241B8195005E3129 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B332241B8195005E3129 /* NetworkManager.swift */; };
 		F319B335241B8B7D005E3129 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B334241B8B7D005E3129 /* NetworkTests.swift */; };
@@ -210,6 +212,8 @@
 		D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless_RelentlessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.release.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.release.xcconfig"; sourceTree = "<group>"; };
+		F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
+		F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAvatar.swift; sourceTree = "<group>"; };
 		F319B32A241B7A44005E3129 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		F319B332241B8195005E3129 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		F319B334241B8B7D005E3129 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
@@ -373,6 +377,7 @@
 				5D5E04132425EDA20005A134 /* PackageCell.swift */,
 				5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */,
 				0BBEF06024237E15002FF3DE /* ItemCell.swift */,
+				F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */,
 				62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */,
 				62D0EBD2242DDE7100FDAFAF /* Bulb.swift */,
+				F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -798,6 +804,8 @@
 				F3BF7F10242503E200A50EE3 /* GameManager.swift in Sources */,
 				0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */,
 				5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
+				F30E1D2E243638AB00AD6A7B /* PlayerAvatar.swift in Sources */,
+				F30E1D2C2435B08E00AD6A7B /* PauseViewController.swift in Sources */,
 				0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
 				0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
 				0B09CA622435793F00F29648 /* Label.swift in Sources */,

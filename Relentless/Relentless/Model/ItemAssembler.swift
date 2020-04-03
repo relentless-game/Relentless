@@ -30,8 +30,9 @@ class ItemAssembler {
     }
 
     private static func createToyCar(parts: [Part]) throws -> ToyCar {
-        let hasCorrectNumberOfItems = checkIfHasCorrectNumberOfParts(parts: parts,
-                                                                     requiredPartsAndFrequencies: ToyCar.partTypesAndFrequencies)
+        let hasCorrectNumberOfItems =
+            checkIfHasCorrectNumberOfParts(parts: parts,
+                                           requiredPartsAndFrequencies: ToyCar.partTypesAndFrequencies)
         if !hasCorrectNumberOfItems {
             throw ItemAssembledError.assembledItemConstructionError
         } else {

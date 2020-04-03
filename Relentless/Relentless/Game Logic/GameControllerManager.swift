@@ -18,7 +18,6 @@ class GameControllerManager: GameController {
     }
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
-    private var timeOutTimer = Timer()
 
     var gameCategories: [Category] = []
     var satisfactionBar = SatisfactionBar(minSatisfaction: GameParameters.minSatisfaction,
@@ -53,7 +52,6 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
-
     // properties for network
     var network: Network = NetworkManager()
 //    var userId: String? {
@@ -63,8 +61,13 @@ class GameControllerManager: GameController {
     var gameId: Int? {
         game?.gameId
     }
+    var gameStatus: GameStatus? // added this for the background pause feature
     private var numOfSatisfactionLevelsReceived = 0
 
+    // for pausing the game
+    var pauseTimer: Timer?
+    var pauseCountDown: Int = 30
+    
     init(userId: String, gameParameters: GameParameters) {
         self.userId = userId
         self.gameParameters = gameParameters
@@ -82,22 +85,52 @@ class GameControllerManager: GameController {
     }
 
     func pauseRound() {
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
+        guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
+
         pauseAllTimers()
-        network.pauseRound(gameId: gameId, currentRound: roundNumber)
-        // terminate game if game does not resume within 30 seconds
-        timeOutTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(endGame),
-                                            userInfo: nil, repeats: true)
+        
+        newGameStatus.numberOfPlayersPaused += 1
+        newGameStatus.isResumed = false
+        gameStatus = newGameStatus
+
+        let numberOfPlayersPaused = newGameStatus.numberOfPlayersPaused
+        if numberOfPlayersPaused == 1 {
+            let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(decrementPauseTimer),
+                              userInfo: nil, repeats: true)
+            RunLoop.current.add(timer, forMode: .default)
+            pauseTimer = timer
+        }
+        
+        network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
+    }
+    
+    @objc private func decrementPauseTimer() {
+        guard let gameId = gameId else {
+            return
+        }
+        pauseCountDown -= 1
+        network.updatePauseCountDown(gameId: gameId, countDown: pauseCountDown)
     }
 
     func resumeRound() {
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
+        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber, var newGameStatus = gameStatus else {
             return
         }
-        resumeAllTimers()
-        network.resumeRound(gameId: gameId, currentRound: roundNumber)
+        
+        newGameStatus.numberOfPlayersPaused -= 1
+        gameStatus = newGameStatus
+        
+        // only resume if all players are back
+        let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
+        if areAllPlayersBack {
+            resumeAllTimers()
+            pauseTimer?.invalidate()
+            network.resumeRound(gameId: gameId, currentRound: roundNumber)
+        } else {
+            network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
+        }
     }
 
     @objc
@@ -229,20 +262,28 @@ class GameControllerManager: GameController {
 
 extension GameControllerManager {
 
-    /// Player joins the game and gets a dummy username
-    internal func joinGame(gameId: Int) {
+    /// Player joins the game and with user defined username
+    internal func joinGame(gameId: Int, userName: String) {
         guard let userId = self.userId else {
             return
         }
-        let userName = generateDummyUserName()
+        
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
-
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
                 self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
             }
         })
+    }
+    
+    /// Enables the player to edit their username and profile image before the game starts
+    func editUserInfo(username: String, profile: PlayerAvatar) {
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        network.editUserInfo(userId: userId, gameId: gameId,
+                             username: username, profile: profile)
     }
 
     @objc
@@ -300,6 +341,12 @@ extension GameControllerManager {
         self.network.attachPackageListener(userId: userId, gameId: gameId, action: { package in
             self.game?.addPackage(package: package)
         })
+        self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
+    }
+    
+    private func onPauseCountDownDidChange(countdown: Int) {
+        pauseCountDown = countdown
+        NotificationCenter.default.post(name: .didUpdateCountDown, object: nil)
     }
 
     private func onNewPlayerDidJoin(players: [Player]) {
@@ -309,18 +356,25 @@ extension GameControllerManager {
 
     // for game status listener
     private func onGameStatusDidChange(gameStatus: GameStatus) {
+        // update game status
+        self.gameStatus = gameStatus
+        
         let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying
+            && gameStatus.numberOfPlayersPaused == 0
+        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0 
+        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying &&
+            gameStatus.numberOfPlayersPaused == 0 && !gameStatus.isResumed
         let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
         let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
-
+        let didPauseRound = gameStatus.isRoundPlaying && gameStatus.numberOfPlayersPaused != 0
+        let didResumeRound = gameStatus.isResumed && gameStatus.isRoundPlaying
+        
         if didEndGamePrematurely {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
         } else if didStartGame {
             NotificationCenter.default.post(name: .didStartGame, object: nil)
-        } else if didEndGame {
+        } else if didEndGame /*|| didRunOutPauseTime*/ {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGame, object: nil)
         } else if didStartRound {
@@ -330,8 +384,12 @@ extension GameControllerManager {
         } else if didEndRound {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
+        } else if didPauseRound {
+            NotificationCenter.default.post(name: .didPauseRound, object: nil)
+        } else if didResumeRound {
+            pauseTimer?.invalidate()
+            NotificationCenter.default.post(name: .didResumeRound, object: nil)
         }
-        // for resumeRound, need to invalidate the timeOutTimer
     }
 
     private func startOrders() {
@@ -419,7 +477,7 @@ extension GameControllerManager {
         startRoundTimer()
         startOrders()
     }
-
+    
     private func generateDummyUserName() -> String {
         let random = Int.random(in: 1...100)
         return "Player " + String(players.count + random)

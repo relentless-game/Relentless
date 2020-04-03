@@ -20,9 +20,9 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     /// Player who invokes this method becomes the host and joins the game.
-    func createGame() {
+    func createGame(username: String) {
         network.createGame(completion: { gameId in
-            self.joinGame(gameId: gameId)
+            self.joinGame(gameId: gameId, userName: username)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
@@ -92,7 +92,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return
         }
         itemsAllocator.allocateItems(categories: categories, players: players)
-        gameCategories = Array(itemsAllocator.generatedItemsByCategory.keys)
+        gameCategories = categories
 
         // update other devices
         network.allocateItems(gameId: gameId, players: players)

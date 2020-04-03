@@ -10,7 +10,7 @@ import UIKit
 
 class CategoryViewController: UIViewController {
     var categories: [Category]?
-    var categoryChangeDelegate: CategoryChangeDelegate?
+    weak var categoryChangeDelegate: CategoryChangeDelegate?
     private let categoryCellIdentifier = "CategoryCell"
 
     override func viewDidLoad() {
@@ -18,7 +18,7 @@ class CategoryViewController: UIViewController {
     }
 }
 
-protocol CategoryChangeDelegate {
+protocol CategoryChangeDelegate: AnyObject {
     func setCategory(_ category: Category)
 }
 

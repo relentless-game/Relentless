@@ -18,7 +18,7 @@ class PackageAdapter {
         do {
             let creator = package.creator
             let packageNumber = package.packageNumber
-            let items = Items(items: package.items)
+            let items = ItemFactory(items: package.items)
             
             let itemsData = try encoder.encode(items)
             let itemsString = String(data: itemsData, encoding: .utf8) ?? ""
@@ -44,7 +44,7 @@ class PackageAdapter {
             let itemsString = decodedPackageStringArray[2]
             
             let itemsData = itemsString.data(using: .utf8) ?? Data()
-            let itemsWrapper = try decoder.decode(Items.self, from: itemsData)
+            let itemsWrapper = try decoder.decode(ItemFactory.self, from: itemsData)
             let items = itemsWrapper.items
             
             let decodedPackage = Package(creator: creator, packageNumber: packageNumber, items: items)

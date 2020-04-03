@@ -67,6 +67,10 @@ class GameManager: Game {
         currentlyOpenPackage?.removeItem(item: item)
     }
 
+    func constructAssembledItem(parts: [Part]) throws -> AssembledItem {
+        try ItemAssembler.assembleItem(parts: parts)
+    }
+
     func checkPackage(package: Package, for house: House) -> Bool {
         house.checkPackage(package: package)
     }
@@ -106,8 +110,8 @@ class GameManager: Game {
                                                name: .didChangeItemsInPackage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
-                                                name: .didTimeOutInOrder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
+                                               name: .didTimeOutInOrder, object: nil)
     }
 
     @objc

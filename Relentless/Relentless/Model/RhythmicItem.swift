@@ -26,18 +26,16 @@ class RhythmicItem: Item {
         let container = try decoder.container(keyedBy: RhythmicItemKeys.self)
         self.unitDuration = try container.decode(Int.self, forKey: .unitDuration)
         self.stateSequence = try container.decode([RhythmState].self, forKey: .stateSequence)
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: RhythmicItemKeys.self)
         try container.encode(unitDuration, forKey: .unitDuration)
         try container.encode(stateSequence, forKey: .stateSequence)
-        try container.encode(category, forKey: .category)
 
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func isLessThan(other: Item) -> Bool {
@@ -92,5 +90,4 @@ class RhythmicItem: Item {
 enum RhythmicItemKeys: CodingKey {
     case unitDuration
     case stateSequence
-    case category
 }

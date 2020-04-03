@@ -19,17 +19,14 @@ class Part: Item {
         let container = try decoder.container(keyedBy: PartKeys.self)
         self.partType = try container.decode(PartType.self, forKey: .partType)
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PartKeys.self)
         try container.encode(partType, forKey: .partType)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        
+        try super.encode(to: encoder)
     }
 
     static func == (lhs: Part, rhs: Part) -> Bool {

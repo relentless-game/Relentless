@@ -44,6 +44,8 @@ class PartFactory: Codable {
                 parts.append(try partsArray.decode(ToyCarBattery.self))
             case .toyCarBody:
                 parts.append(try partsArray.decode(ToyCarBody.self))
+            default:
+                continue
             }
         }
         self.parts = parts

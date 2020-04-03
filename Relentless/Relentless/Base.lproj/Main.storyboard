@@ -86,6 +86,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="g9W-p3-nzt">
+                                <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hD0-n4-H0U">
                                 <rect key="frame" x="306" y="30" width="200" height="294"/>
                                 <subviews>
@@ -104,20 +108,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
+                                    <button opaque="NO" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
                                         <rect key="frame" x="0.0" y="146" width="200" height="148"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Join"/>
+                                        <state key="normal" image="button_joinroom"/>
                                         <connections>
                                             <action selector="tryJoinGame:" destination="GSL-Qu-8tE" eventType="touchUpInside" id="CSc-Cx-ZFH"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74" y="30" width="54" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Back"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
+                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
+                                <state key="normal" image="button_back"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="Qly-4Q-AfV"/>
                                 </connections>
@@ -130,7 +132,7 @@
                             <constraint firstItem="hD0-n4-H0U" firstAttribute="top" secondItem="91j-D0-Wbh" secondAttribute="top" constant="30" id="Jz4-XC-sZl"/>
                             <constraint firstItem="91j-D0-Wbh" firstAttribute="bottom" secondItem="hD0-n4-H0U" secondAttribute="bottom" constant="30" id="TkD-PO-ce0"/>
                             <constraint firstItem="NWI-yc-x0u" firstAttribute="leading" secondItem="91j-D0-Wbh" secondAttribute="leading" constant="30" id="dr5-Xe-zEq"/>
-                            <constraint firstItem="hD0-n4-H0U" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NWI-yc-x0u" secondAttribute="trailing" constant="8" symbolic="YES" id="tyo-bV-s6D"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NWI-yc-x0u" secondAttribute="trailing" id="tyo-bV-s6D"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="91j-D0-Wbh"/>
                     </view>
@@ -473,6 +475,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="RDi-c3-XHl">
+                                <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yUK-fd-0Ra">
                                 <rect key="frame" x="74" y="30" width="664" height="294"/>
                                 <subviews>
@@ -483,7 +489,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZgK-DQ-aom">
-                                        <rect key="frame" x="0.0" y="46" width="664" height="128"/>
+                                        <rect key="frame" x="0.0" y="46" width="664" height="248"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="Gvr-mO-Yhk">
                                             <size key="itemSize" width="50" height="50"/>
@@ -522,27 +528,31 @@
                                             <outlet property="delegate" destination="OPb-V7-r8L" id="XCR-fb-ETQ"/>
                                         </connections>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anY-5e-9Gb">
-                                        <rect key="frame" x="0.0" y="184" width="664" height="110"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <state key="normal" title="Start"/>
-                                        <connections>
-                                            <action selector="startGame:" destination="OPb-V7-r8L" eventType="touchUpInside" id="3sy-m1-MGO"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="anY-5e-9Gb" secondAttribute="trailing" id="2zA-tw-JaY"/>
-                                    <constraint firstItem="anY-5e-9Gb" firstAttribute="leading" secondItem="yUK-fd-0Ra" secondAttribute="leading" id="Nns-cn-FBb"/>
                                     <constraint firstItem="oAv-mF-SMh" firstAttribute="centerX" secondItem="yUK-fd-0Ra" secondAttribute="centerX" id="S59-Sc-TQp"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRu-mm-Ztf">
-                                <rect key="frame" x="74" y="30" width="54" height="42"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Back"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRu-mm-Ztf">
+                                <rect key="frame" x="74" y="30" width="120" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="HaE-4f-E5c"/>
+                                    <constraint firstAttribute="height" constant="40" id="uZC-zk-opy"/>
+                                </constraints>
+                                <state key="normal" image="button_back"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="Bzf-a8-1jP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anY-5e-9Gb">
+                                <rect key="frame" x="618" y="30" width="120" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="5lM-Ub-iB3"/>
+                                    <constraint firstAttribute="height" constant="40" id="pE3-b7-coC"/>
+                                </constraints>
+                                <state key="normal" image="button_start"/>
+                                <connections>
+                                    <action selector="startGame:" destination="OPb-V7-r8L" eventType="touchUpInside" id="3sy-m1-MGO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -550,6 +560,8 @@
                         <constraints>
                             <constraint firstItem="yUK-fd-0Ra" firstAttribute="centerX" secondItem="D7K-n0-wiz" secondAttribute="centerX" id="2Ls-LN-bdI"/>
                             <constraint firstItem="QRu-mm-Ztf" firstAttribute="leading" secondItem="DQ7-oH-cPx" secondAttribute="leading" constant="30" id="3pr-4v-C67"/>
+                            <constraint firstItem="anY-5e-9Gb" firstAttribute="top" secondItem="DQ7-oH-cPx" secondAttribute="top" constant="30" id="BhV-Gp-sZQ"/>
+                            <constraint firstItem="DQ7-oH-cPx" firstAttribute="trailing" secondItem="anY-5e-9Gb" secondAttribute="trailing" constant="30" id="EMM-QP-xI6"/>
                             <constraint firstItem="DQ7-oH-cPx" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QRu-mm-Ztf" secondAttribute="trailing" id="P1N-cB-MM0"/>
                             <constraint firstItem="DQ7-oH-cPx" firstAttribute="trailing" secondItem="yUK-fd-0Ra" secondAttribute="trailing" constant="30" id="RXL-p7-T0f"/>
                             <constraint firstItem="DQ7-oH-cPx" firstAttribute="bottom" secondItem="yUK-fd-0Ra" secondAttribute="bottom" constant="30" id="iDr-D3-gDs"/>
@@ -794,17 +806,19 @@
         <image name="add_blue" width="250" height="250"/>
         <image name="background" width="1000" height="564.33331298828125"/>
         <image name="box_items" width="1176.6666259765625" height="1000"/>
+        <image name="button_back" width="165.33332824707031" height="58"/>
         <image name="button_createroom" width="316.66665649414062" height="66.333335876464844"/>
         <image name="button_joinroom" width="316.33334350585938" height="66.333335876464844"/>
         <image name="button_more" width="165" height="89.333335876464844"/>
+        <image name="button_start" width="165" height="58"/>
         <image name="package_blue" width="250" height="162.33332824707031"/>
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
-        <segue reference="Ed9-Qd-LTp"/>
-        <segue reference="FQq-Pt-F3v"/>
+        <segue reference="NHt-Cf-6dI"/>
+        <segue reference="q2U-Sj-S2g"/>
         <segue reference="5qg-Sa-A9a"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>

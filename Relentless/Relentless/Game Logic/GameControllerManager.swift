@@ -53,7 +53,7 @@ class GameControllerManager: GameController {
         return itemsByCategory
     }
     // properties for network
-    var network: Network = NetworkManager()
+    var network: Network = NetworkManager(numOfPlayersRange: GameParameters.numOfPlayersRange)
 //    var userId: String? {
 //        game?.player.userId // unique ID given by Firebase
 //    }
@@ -267,7 +267,7 @@ extension GameControllerManager {
         guard let userId = self.userId else {
             return
         }
-        
+
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)

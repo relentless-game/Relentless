@@ -13,7 +13,7 @@ class GameHostParameters: GameParameters {
 
     static var timeForEachItem: Int = 40
 
-    // Item generation
+    /// For item generation
     var numOfCategories: Int {
         let difficultyFraction = difficultyLevel / GameParameters.difficultyRange.upperBound
         let numberOfCategories = Category.allCases.count
@@ -23,12 +23,12 @@ class GameHostParameters: GameParameters {
         Int((difficultyLevel / 2).rounded(.up))
     }
 
-    // Order generation
+    /// For order generation
     var maxNumOfItemsPerOrder: Int {
         Int((difficultyLevel / 2).rounded(.up))
     }
 
-    // Order allocation
+    /// For order allocation
     var numOfOrdersPerPlayer: Int {
         Int((difficultyLevel / 2).rounded(.up))
     }
@@ -38,5 +38,13 @@ class GameHostParameters: GameParameters {
         assert(probability >= 0 && probability <= 1)
         return probability
     }
+
+    /*
+    /// For package items limit
+    // Should be between 0 and 1
+    var probabilityOfHavingPackageLimit: Float {
+        
+    }
+ */
 
 }

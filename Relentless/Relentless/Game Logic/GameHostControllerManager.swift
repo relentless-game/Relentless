@@ -31,7 +31,18 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let gameId = gameId else {
             return
         }
-        network.startGame(gameId: gameId)
+        network.startGame(gameId: gameId, completion: { error in
+            if let error = error {
+                self.handleUnsuccessfulStart(error: error)
+            }
+        })
+    }
+
+    private func handleUnsuccessfulStart(error: StartGameError) {
+        switch error {
+        case .insufficientPlayers:
+            NotificationCenter.default.post(name: .insufficientPlayers, object: nil)
+        }
     }
 
     func startRound() {

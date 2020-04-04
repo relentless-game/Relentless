@@ -40,7 +40,7 @@ enum Label: String, Codable, CaseIterable {
     }
 
     func toString() -> String {
-        return self.rawValue
+        self.rawValue
     }
 }
 

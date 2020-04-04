@@ -49,6 +49,9 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleGameStarted),
                                                name: .didStartGame, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleInsufficientPlayers),
+                                               name: .insufficientPlayers, object: nil)
     }
 
     @objc func refreshPlayers() {
@@ -73,6 +76,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     @objc func handleGameStarted() {
         performSegue(withIdentifier: "startGame", sender: self)
+    }
+
+    @objc func handleInsufficientPlayers() {
+        let minNumOfPlayers = GameParameters.numOfPlayersRange.lowerBound
+        let alert = createAlert(title: "Sorry.",
+                                message: "You need at least " + String(minNumOfPlayers) + " players to play."
+                                    + " Get your friends to join the game!",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
     }
 
     @objc func gameJoined() {
@@ -100,6 +112,16 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         }
+    }
+
+    func createAlert(title: String, message: String, action: String) -> UIAlertController {
+        let controller = UIAlertController(title: String(title),
+                                           message: String(message),
+                                           preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: String(action),
+                                          style: .default)
+        controller.addAction(defaultAction)
+        return controller
     }
 }
 

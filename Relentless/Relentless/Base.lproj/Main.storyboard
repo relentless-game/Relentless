@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="CooperHewitt-Bold.otf">
+            <string>CooperHewitt-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Title-->
         <scene sceneID="tne-QT-ifu">
@@ -20,17 +25,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="408" y="30" width="330" height="178"/>
+                                <rect key="frame" x="243" y="30" width="495" height="268"/>
                                 <state key="normal" image="button_more"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dws-fj-lBf">
-                                <rect key="frame" x="-394" y="30" width="1600" height="294"/>
+                                <rect key="frame" x="6" y="30" width="800" height="294"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="2Uv-ly-Vd9">
-                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="74"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="800" height="74"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="104" width="800" height="80"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="createRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
                                         </constraints>
@@ -43,7 +49,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="214" width="800" height="80"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="joinRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
                                         </constraints>
@@ -93,14 +100,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hD0-n4-H0U">
                                 <rect key="frame" x="306" y="30" width="200" height="294"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
-                                        <rect key="frame" x="0.0" y="66" width="200" height="50"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
+                                        <rect key="frame" x="0.0" y="30" width="200" height="50"/>
                                         <accessibility key="accessibilityConfiguration" identifier="teamCodeTextField"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="MQX-b5-eCd"/>
@@ -109,8 +116,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
-                                        <rect key="frame" x="0.0" y="146" width="200" height="148"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
+                                        <rect key="frame" x="0.0" y="110" width="200" height="184"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="joinButton"/>
                                         <state key="normal" image="button_joinroom"/>
                                         <connections>
                                             <action selector="tryJoinGame:" destination="GSL-Qu-8tE" eventType="touchUpInside" id="CSc-Cx-ZFH"/>
@@ -119,7 +127,8 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74" y="30" width="330" height="116"/>
+                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
+                                <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <state key="normal" image="button_back"/>
                                 <connections>
                                     <action selector="handleBackButtonPressed:" destination="GSL-Qu-8tE" eventType="touchUpInside" id="AvV-QD-SuA"/>
@@ -580,6 +589,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QRu-mm-Ztf">
                                 <rect key="frame" x="74" y="30" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="HaE-4f-E5c"/>
                                     <constraint firstAttribute="height" constant="40" id="uZC-zk-opy"/>
@@ -592,6 +602,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anY-5e-9Gb">
                                 <rect key="frame" x="618" y="30" width="120" height="40"/>
+                                <accessibility key="accessibilityConfiguration" identifier="startButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="5lM-Ub-iB3"/>
                                     <constraint firstAttribute="height" constant="40" id="pE3-b7-coC"/>
@@ -848,6 +859,13 @@
             <point key="canvasLocation" x="829" y="3519"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fdU-OW-AMW"/>
+        <segue reference="NHt-Cf-6dI"/>
+        <segue reference="q2U-Sj-S2g"/>
+        <segue reference="gkd-Mi-ecb"/>
+        <segue reference="Qly-4Q-AfV"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="add_blue" width="250" height="250"/>
         <image name="background" width="1000" height="564.33331298828125"/>
@@ -861,11 +879,4 @@
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fdU-OW-AMW"/>
-        <segue reference="NHt-Cf-6dI"/>
-        <segue reference="q2U-Sj-S2g"/>
-        <segue reference="gkd-Mi-ecb"/>
-        <segue reference="Qly-4Q-AfV"/>
-    </inferredMetricsTieBreakers>
 </document>

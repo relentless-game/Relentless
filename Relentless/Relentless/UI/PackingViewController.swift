@@ -154,6 +154,7 @@ class PackingViewController: UIViewController {
 
     @objc
     func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
+        print("long press called")
         if longPressGR.state == .ended {
             return
         }
@@ -169,6 +170,7 @@ class PackingViewController: UIViewController {
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
                 packageForDelivery = packageCell.package
+                print("gonna perform segue to delivery VC")
                 performSegue(withIdentifier: "deliverPackage", sender: self)
             }
         }
@@ -224,6 +226,7 @@ class PackingViewController: UIViewController {
             viewController?.gameController = gameController
         }
         if segue.identifier == "deliverPackage" {
+            print("gonna segue to delivery VC")
             let viewController = segue.destination as? DeliveryViewController
             viewController?.gameController = gameController
             viewController?.packageForDelivery = packageForDelivery

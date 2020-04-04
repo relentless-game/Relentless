@@ -102,9 +102,10 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction private func handleBackButtonPressed(_ sender: Any) {
-        if gameController?.isHost == true {
-            gameController?.endGame()
+        guard let userId = userId else {
+            return
         }
+        gameController?.leaveGame(userId: userId)
         removeObservers()
         //dismiss(animated: true, completion: nil)
     }

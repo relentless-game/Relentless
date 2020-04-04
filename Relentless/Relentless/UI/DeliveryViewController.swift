@@ -17,7 +17,9 @@ class DeliveryViewController: UIViewController {
     let playersIdentifier = "PlayerIconCell"
     @IBOutlet private var playersCollectionView: UICollectionView!
     @IBOutlet private var housesCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
+        print("delivery VC loaded")
         super.viewDidLoad()
         initCollectionViews()
         houses = gameController?.houses
@@ -44,13 +46,13 @@ class DeliveryViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        removeAllPreviousViewControllers()
-        if segue.identifier == "cancelDelivery" {
-            let viewController = segue.destination as? PackingViewController
-            viewController?.gameController = gameController
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        removeAllPreviousViewControllers()
+//        if segue.identifier == "cancelDelivery" {
+//            let viewController = segue.destination as? PackingViewController
+//            viewController?.gameController = gameController
+//        }
+//    }
 }
 
 extension DeliveryViewController: UICollectionViewDataSource {

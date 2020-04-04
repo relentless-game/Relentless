@@ -199,6 +199,11 @@ class GameControllerManager: GameController {
         NotificationCenter.default.post(name: .didChangePackages, object: nil)
     }
 
+    @objc
+    func handleItemLimitReached(notification: Notification) {
+        NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
+    }
+
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
                                                name: .didChangeItemsInModel, object: nil)
@@ -211,6 +216,9 @@ class GameControllerManager: GameController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleSatisfactionBarChange(notification:)),
                                                name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleItemLimitReached(notification:)),
+                                               name: .didItemLimitReachedInModel, object: nil)
     }
 
     private func getActiveOrders() -> [Order] {
@@ -342,6 +350,9 @@ extension GameControllerManager {
             self.game?.addPackage(package: package)
         })
         self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
+        self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
+            self.game?.packageItemsLimit = limit
+        })
     }
     
     private func onPauseCountDownDidChange(countdown: Int) {
@@ -417,10 +428,10 @@ extension GameControllerManager {
 
     @objc
     internal func onTeamSatisfactionChange(satisfactionLevel: Int) {
-        updateSatisfaction(satisfactionLevel: satisfactionLevel)
+        updateMoney(satisfactionLevel: satisfactionLevel)
     }
 
-    internal func updateSatisfaction(satisfactionLevel: Int) {
+    internal func updateMoney(satisfactionLevel: Int) {
         money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
         numOfSatisfactionLevelsReceived += 1
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)

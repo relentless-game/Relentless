@@ -49,6 +49,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         // items and orders are generated and allocated by the host only
         initialiseItems()
         initialiseOrders()
+        initialisePackageItemsLimit()
+
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
@@ -75,7 +77,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     override func onTeamSatisfactionChange(satisfactionLevel: Int) {
-        updateSatisfaction(satisfactionLevel: satisfactionLevel)
+        updateMoney(satisfactionLevel: satisfactionLevel)
         
         // checks the lose condition and ends the game if fulfilled
         if money < 0 {
@@ -121,6 +123,22 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
         // update other devices
         network.allocateOrders(gameId: gameId, players: players)
+    }
+
+    private func initialisePackageItemsLimit() {
+        guard let parameters = hostParameters, let gameId = gameId else {
+            return
+        }
+        let allOrders = players.flatMap { $0.orders }
+        let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
+                                                                    probabilityOfHavingLimit:
+                                                                        parameters.probabilityOfHavingPackageLimit)
+        guard let packageItemsLimit = packageItemsLimitGenerator.generateItemsLimit() else {
+            return
+        }
+
+        // update other devices
+        network.setPackageItemsLimit(gameId: gameId, limit: packageItemsLimit)
     }
 
 }

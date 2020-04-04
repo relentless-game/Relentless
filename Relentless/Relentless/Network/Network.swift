@@ -115,4 +115,10 @@ protocol Network {
     
     /// Notifies the network count down to termination of game during the pausing state
     func updatePauseCountDown(gameId: Int, countDown: Int)
+
+    /// This method is called by the host to inform all players of the limit for the number of items in packages
+    func setPackageItemsLimit(gameId: Int, limit: Int)
+
+    /// Notifies the player of the limit for the number of items in packages
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
 }

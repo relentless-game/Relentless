@@ -39,12 +39,10 @@ class GameHostParameters: GameParameters {
         return probability
     }
 
-    /*
     /// For package items limit
     // Should be between 0 and 1
     var probabilityOfHavingPackageLimit: Float {
-        
+        difficultyLevel / 50
     }
- */
 
 }

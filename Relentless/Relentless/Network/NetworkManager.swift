@@ -375,4 +375,16 @@ class NetworkManager: Network {
     func updatePauseCountDown(gameId: Int, countDown: Int) {
         ref.child("games/\(gameId)/countdown").setValue(countDown)
     }
+
+    func setPackageItemsLimit(gameId: Int, limit: Int) {
+        ref.child("games/\(gameId)/packageItemsLimit").setValue(limit)
+    }
+
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void) {
+        let path = "games/\(gameId)/packageItemsLimit"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let packageItemsLimit = snapshot.value as? Int
+            action(packageItemsLimit)
+        })
+    }
 }

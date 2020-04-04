@@ -9,7 +9,7 @@
 import Foundation
 
 /// Handles game logic
-protocol GameController: GameNetworkController, GameModelController {
+protocol GameController: GameModelController, GameNetworkController {
 
     var gameCategories: [Category] { get }
     var satisfactionBar: SatisfactionBar { get set }

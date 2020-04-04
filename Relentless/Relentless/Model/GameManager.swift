@@ -27,7 +27,11 @@ class GameManager: Game {
     }
     var houses = [House]()
     var cumulativePackageNumber = 0
-    var currentlyOpenPackage: Package?
+    var currentlyOpenPackage: Package? {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeOpenPackageInModel, object: nil)
+        }
+    }
     var currentRoundNumber = 0
 
     init(gameId: Int, player: Player) {

@@ -54,6 +54,9 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadCurrentPackage),
+                                               name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
@@ -67,6 +70,7 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
+
     }
 
     func initialiseCollectionViews() {

@@ -36,8 +36,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
     func startRound() {
         // items and orders are generated and allocated by the host only
-        initialiseItems()
-        initialiseOrders()
+        let items = initialiseItems()
+        initialiseOrders(items: items)
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
@@ -87,44 +87,61 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
     }
 
-    private func initialiseItems() {
+    private func initialiseItems() -> [Item] {
         guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId,
             let parameters = hostParameters else {
-            return
+            return []
         }
 
-        // first choose categories
-        let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
-                                                  difficultyLevel: parameters.difficultyLevel,
-                                                  numOfCategories: parameters.numOfCategories)
-        let categories = categoryGenerator.generateCategories()
+        let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
 
         // allocate items according to chosen categories
-        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers,
-                                            difficultyLevel: parameters.difficultyLevel,
-                                            numOfPairsPerCategory: parameters.numOfPairsPerCategory)
-        guard let players = game?.allPlayers else {
-            return
-        }
-        itemsAllocator.allocateItems(categories: categories, players: players)
+        let allocatedItems = allocateItems(numberOfPlayers: numberOfPlayers,
+                                           parameters: parameters, categories: categories)
+
         gameCategories = categories
 
         // update other devices
         network.allocateItems(gameId: gameId, players: players)
+
+        return allocatedItems
     }
 
-    private func initialiseOrders() {
+    private func initialiseOrders(items: [Item]) {
         guard let players = game?.allPlayers, let gameId = gameId, let parameters = hostParameters else {
             return
         }
+
+        allocateOrders(players: players, parameters: parameters, items: items)
+
+        // update other devices
+        network.allocateOrders(gameId: gameId, players: players)
+    }
+
+    private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
+        let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
+                                                  difficultyLevel: parameters.difficultyLevel,
+                                                  numOfCategories: parameters.numOfCategories)
+        return categoryGenerator.generateCategories()
+    }
+
+    private func allocateItems(numberOfPlayers: Int, parameters: GameHostParameters, categories: [Category]) -> [Item] {
+        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers,
+                                            difficultyLevel: parameters.difficultyLevel,
+                                            numOfPairsPerCategory: parameters.numOfPairsPerCategory)
+        guard let players = game?.allPlayers else {
+            return []
+        }
+        let allocatedItems = itemsAllocator.allocateItems(categories: categories, players: players)
+        return allocatedItems
+    }
+
+    private func allocateOrders(players: [Player], parameters: GameHostParameters, items: [Item]) {
         let ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                               maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                               numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
                                               probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
-        ordersAllocator.allocateOrders(players: players)
-
-        // update other devices
-        network.allocateOrders(gameId: gameId, players: players)
+        ordersAllocator.allocateOrders(players: players, items: items)
     }
 
 }

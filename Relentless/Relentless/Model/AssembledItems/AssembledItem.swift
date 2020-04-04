@@ -9,11 +9,14 @@
 import Foundation
 
 class AssembledItem: Item {
+    static let partType = PartType.partContainer
     internal var unsortedParts: [Part] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
         }
     }
+
+    let partType = AssembledItem.partType
 
     var parts: [Part] {
         unsortedParts.sorted()
@@ -29,8 +32,16 @@ class AssembledItem: Item {
         let partsObject = try container.decode(PartFactory.self, forKey: .parts)
         self.unsortedParts = partsObject.parts
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: AssembledItemKeys.self)
+        let partFactoryWrapper = PartFactory(parts: unsortedParts)
+        try container.encode(partFactoryWrapper, forKey: .parts)
+        try container.encode(partType, forKey: .partType)
+
+        try super.encode(to: encoder)
     }
 
     func addPart(part: Part) {
@@ -42,15 +53,6 @@ class AssembledItem: Item {
             return
         }
         unsortedParts.remove(at: partIndex)
-    }
-
-    override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: AssembledItemKeys.self)
-        try container.encode(unsortedParts, forKey: .parts)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
     }
 
     override func isLessThan(other: Item) -> Bool {
@@ -101,4 +103,5 @@ class AssembledItem: Item {
 enum AssembledItemKeys: CodingKey {
     case parts
     case category
+    case partType
 }

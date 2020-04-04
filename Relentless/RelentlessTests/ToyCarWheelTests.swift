@@ -46,6 +46,6 @@ class ToyCarWheelTests: XCTestCase {
     func testToString() {
         let wheel: Item = ToyCarWheel(shape: shape)
         let string = wheel.toString()
-        XCTAssertEqual(string, ToyCarWheel.toyCarWheelHeader + shape.toString())
+        XCTAssertEqual(string, ToyCarWheel.toyCarWheelHeader + shape.rawValue)
     }
 }

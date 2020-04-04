@@ -17,6 +17,7 @@ class HouseTests: XCTestCase {
     let timeLimitForOrderOne = 2
     let timeLimitForOrderTwo = 1
     let satisfactionFactor: Float = 0.1
+
     var orderOne: Order!
     var orderTwo: Order!
     var orders: Set<Order>!

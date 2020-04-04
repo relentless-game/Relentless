@@ -46,6 +46,6 @@ class ToyCarBatteryTests: XCTestCase {
     func testToString() {
         let battery: Item = ToyCarBattery(label: label)
         let string = battery.toString()
-        XCTAssertEqual(string, ToyCarBattery.toyCarBatteryHeader + label.toString())
+        XCTAssertEqual(string, ToyCarBattery.toyCarBatteryHeader + label.rawValue)
     }
 }

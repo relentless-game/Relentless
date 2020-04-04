@@ -67,7 +67,7 @@ class GameViewController: UIViewController {
         }
         generateMoneyLeftText(money: money)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startRound" {
             let viewController = segue.destination as? PackingViewController

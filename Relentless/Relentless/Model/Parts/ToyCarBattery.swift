@@ -66,4 +66,8 @@ class ToyCarBattery: Part {
             return lowerCasedLabel.lexicographicallyPrecedes(otherLowerCasedLabel)
         }
     }
+
+    override func toDisplayString() -> String {
+        ""
+    }
 }

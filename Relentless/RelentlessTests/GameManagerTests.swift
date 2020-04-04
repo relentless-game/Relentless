@@ -13,7 +13,7 @@ class GameManagerTests: XCTestCase {
     let gameId = 1
     let userId = "userId"
     let userName = "username"
-    let profileImage = PlayerAvatar(rawValue: "blue")
+    let profileImage = PlayerAvatar.red
     let package1 = Package(creator: "user", packageNumber: 1, items: [])
     let package2 = Package(creator: "creator", packageNumber: 2, items: [])
     var gameManager: GameManager!

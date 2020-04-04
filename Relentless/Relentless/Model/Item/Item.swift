@@ -36,6 +36,10 @@ class Item: Hashable, Codable {
         "Item"
     }
 
+    func toDisplayString() -> String {
+        "Item"
+    }
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(category)
     }

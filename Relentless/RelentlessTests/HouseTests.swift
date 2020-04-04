@@ -16,6 +16,7 @@ class HouseTests: XCTestCase {
     let itemsForSecondOrder = [Book(name: "bookOne"), Book(name: "bookTwo"), Magazine(name: "magazineOne")]
     let timeLimitForOrderOne = 2
     let timeLimitForOrderTwo = 1
+    let satisfactionFactor: Float = 0.1
 
     var orderOne: Order!
     var orderTwo: Order!
@@ -27,13 +28,13 @@ class HouseTests: XCTestCase {
         orderOne = Order(items: itemsForFirstOrder, timeLimitInSeconds: timeLimitForOrderOne)
         orderTwo = Order(items: itemsForSecondOrder, timeLimitInSeconds: timeLimitForOrderTwo)
         orders = Set<Order>([orderOne, orderTwo])
-        house = House(orders: Set<Order>(orders))
+        house = House(orders: Set<Order>(orders), satisfactionFactor: satisfactionFactor)
         orderOne.startOrder()
         orderTwo.startOrder()
     }
 
     func testInit() {
-        let house = House(orders: orders)
+        let house = House(orders: orders, satisfactionFactor: satisfactionFactor)
         XCTAssertEqual(house.orders, orders)
     }
 

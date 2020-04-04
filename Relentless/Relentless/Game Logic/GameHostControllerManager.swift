@@ -35,11 +35,15 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     func startRound() {
+        guard let game = game else {
+            return
+        }
         // items and orders are generated and allocated by the host only
         let items = initialiseItems()
         initialiseOrders(items: items)
         // network is notified to start round by the host only
-        if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
+        if let gameId = gameId {
+            let roundNumber = game.currentRoundNumber
             network.startRound(gameId: gameId, roundNumber: roundNumber)
         }
     }
@@ -68,23 +72,15 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         
         // checks the lose condition and ends the game if fulfilled
         if money < 0 {
-            endGame(score: game?.currentRoundNumber)
+            endGame()
         }
     }
 
-    private func endGame(score: Int?) {
-        guard let gameId = gameId, let finalScore = score, let players = game?.allPlayers else {
+    private func endGame() {
+        guard let gameId = gameId else {
             return
         }
         network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
-
-        let userNamesOfPlayers = players.map { $0.userName }
-        do {
-            try localStorage.updateScoreBoard(with: ScoreRecord(score: finalScore,
-                                                                userNamesOfPlayers: userNamesOfPlayers))
-        } catch {
-            return
-        }
     }
 
     private func initialiseItems() -> [Item] {
@@ -93,8 +89,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return []
         }
 
-        let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
-
+        //let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
+        let categories = [Category.book]
         // allocate items according to chosen categories
         let allocatedItems = allocateItems(numberOfPlayers: numberOfPlayers,
                                            parameters: parameters, categories: categories)

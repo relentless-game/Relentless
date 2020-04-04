@@ -28,6 +28,8 @@
 		0B09CA6D2437595400F29648 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6C2437595400F29648 /* LocalStorageManager.swift */; };
 		0B09CA6F2437596B00F29648 /* JsonScoreBoardStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6E2437596B00F29648 /* JsonScoreBoardStorage.swift */; };
 		0B09CA7124375E9100F29648 /* GameLocalStorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA7024375E9100F29648 /* GameLocalStorageController.swift */; };
+		0B09CA732438325A00F29648 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA722438325A00F29648 /* GameOverViewController.swift */; };
+		0B09CA74243834B500F29648 /* GameItemGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */; };
 		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
 		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
 		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
@@ -136,9 +138,9 @@
 		0B09CA47242F53C200F29648 /* ToyCarWheelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarWheelTests.swift; sourceTree = "<group>"; };
 		0B09CA49242F582F00F29648 /* ToyCarBatteryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBatteryTests.swift; sourceTree = "<group>"; };
 		0B09CA4B242F5BFE00F29648 /* ToyCarBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToyCarBodyTests.swift; sourceTree = "<group>"; };
-		0B09CA4F2432DFF000F29648 /* ItemsLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemsLists.swift; path = Generators/ItemsLists.swift; sourceTree = "<group>"; };
-		0B09CA512432DFFF00F29648 /* ItemGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemGenerator.swift; path = Generators/ItemGenerator.swift; sourceTree = "<group>"; };
-		0B09CA532432E00400F29648 /* ListBasedGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ListBasedGenerator.swift; path = Generators/ListBasedGenerator.swift; sourceTree = "<group>"; };
+		0B09CA4F2432DFF000F29648 /* ItemsLists.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsLists.swift; sourceTree = "<group>"; };
+		0B09CA512432DFFF00F29648 /* ItemGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemGenerator.swift; sourceTree = "<group>"; };
+		0B09CA532432E00400F29648 /* ListBasedGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListBasedGenerator.swift; sourceTree = "<group>"; };
 		0B09CA552432E99A00F29648 /* Book.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		0B09CA562432E99A00F29648 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
 		0B09CA572432E99A00F29648 /* TitledItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitledItem.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		0B09CA6C2437595400F29648 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		0B09CA6E2437596B00F29648 /* JsonScoreBoardStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonScoreBoardStorage.swift; sourceTree = "<group>"; };
 		0B09CA7024375E9100F29648 /* GameLocalStorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocalStorageController.swift; sourceTree = "<group>"; };
+		0B09CA722438325A00F29648 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
 		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
 		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
@@ -306,6 +309,12 @@
 			children = (
 				0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */,
 				0B781589242CCBBE006CF4C2 /* PartsLists.swift */,
+				0B09CA4F2432DFF000F29648 /* ItemsLists.swift */,
+				0B09CA512432DFFF00F29648 /* ItemGenerator.swift */,
+				6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */,
+				0B09CA532432E00400F29648 /* ListBasedGenerator.swift */,
+				62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
+				6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -389,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				5DE9177B241FBBD400569453 /* JoinViewController.swift */,
+				0B09CA722438325A00F29648 /* GameOverViewController.swift */,
 				5DE91781241FDAB000569453 /* GameViewController.swift */,
 				5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
 				5DE9177F241FD48800569453 /* PackingViewController.swift */,
@@ -420,15 +430,9 @@
 				62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */,
 				6249B504241C952F002F8A1B /* GameItemsAllocator.swift */,
 				6249B506241C9541002F8A1B /* GameOrdersAllocator.swift */,
-				6279B93E2424581E000AF3D6 /* GameCategoryGenerator.swift */,
-				0B09CA512432DFFF00F29648 /* ItemGenerator.swift */,
-				0B09CA532432E00400F29648 /* ListBasedGenerator.swift */,
-				0B09CA4F2432DFF000F29648 /* ItemsLists.swift */,
-				62CEC6FE241CBEA900936CB6 /* CategoryGenerator.swift */,
 				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
 				62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */,
 				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
-				6249B50E241CA68A002F8A1B /* GameItemGenerator.swift */,
 				F319B33C241DCBC5005E3129 /* GameStatus.swift */,
 				62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */,
 				623C9F8D242E149A008B2657 /* GameHostParameters.swift */,
@@ -822,6 +826,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B09CA5A2432E99A00F29648 /* TitledItem.swift in Sources */,
+				0B09CA732438325A00F29648 /* GameOverViewController.swift in Sources */,
 				0B78157E242CC699006CF4C2 /* PartType.swift in Sources */,
 				0B09CA7124375E9100F29648 /* GameLocalStorageController.swift in Sources */,
 				0B09CA5F2432E9A900F29648 /* Item.swift in Sources */,
@@ -838,6 +843,7 @@
 				0B09CA622435793F00F29648 /* Label.swift in Sources */,
 				0BBEF05C24237980002FF3DE /* LobbyViewController.swift in Sources */,
 				0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */,
+				0B09CA74243834B500F29648 /* GameItemGenerator.swift in Sources */,
 				6279B93F2424581F000AF3D6 /* GameCategoryGenerator.swift in Sources */,
 				62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
 				0B09CA44242F447600F29648 /* ItemAssembler.swift in Sources */,

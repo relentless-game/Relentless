@@ -16,8 +16,8 @@ class LocalStorageManager: LocalStorage {
         try scoreBoard.getExistingScores()
     }
 
-    /// updates the existing scoreboard and returns the updated scores in descending order
-    func updateScoreBoard(with newScore: ScoreRecord) throws {
-        try scoreBoard.updateScoreBoard(with: newScore)
+    /// updates the existing scoreboard
+    func updateScoreBoard(with newScore: ScoreRecord) {
+        scoreBoard.updateScoreBoard(with: newScore)
     }
 }

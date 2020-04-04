@@ -15,6 +15,14 @@ class ScoreRecord: Codable {
         self.score = score
         self.userNamesOfPlayers = userNamesOfPlayers
     }
+
+    func toString() -> String {
+        var string = "Score: " + String(score)
+        for userName in userNamesOfPlayers {
+            string += "\n" + userName
+        }
+        return string
+    }
 }
 
 extension ScoreRecord: Comparable {

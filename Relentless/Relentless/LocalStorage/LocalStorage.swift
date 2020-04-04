@@ -13,5 +13,5 @@ protocol LocalStorage {
     func getExistingScores() throws -> [ScoreRecord]
 
     /// updates the existing scoreboard 
-    func updateScoreBoard(with newScore: ScoreRecord) throws
+    func updateScoreBoard(with newScore: ScoreRecord)
 }

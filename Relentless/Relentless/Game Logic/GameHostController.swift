@@ -16,6 +16,7 @@ protocol GameHostController {
 
     func startGame()
 
+    /// Attempts to start round. Does nothing if there is no game currently
     func startRound()
 
 }

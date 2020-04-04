@@ -31,7 +31,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         }
         addObservers()
     }
-
+    
     func initUserId() {
         if let delegate = delegate {
             userId = delegate.userId
@@ -51,6 +51,13 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleGameAlreadyPlaying),
                                                name: .gameAlreadyPlaying, object: nil)
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .invalidGameId, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .gameRoomFull, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .gameAlreadyPlaying, object: nil)
     }
 
     // Code obtained and modified from:
@@ -106,6 +113,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleJoinSuccess() {
+        removeObservers()
         performSegue(withIdentifier: "joinGame", sender: self)
     }
 
@@ -147,5 +155,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                                           style: .default)
         controller.addAction(defaultAction)
         return controller
+    }
+    
+    @IBAction private func handleBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }

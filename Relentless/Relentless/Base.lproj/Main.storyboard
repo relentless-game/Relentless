@@ -600,6 +600,12 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="Bzf-a8-1jP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="76n-bu-VYA">
+                                <rect key="frame" x="746" y="30" width="32" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="gear" catalog="system"/>
+                                <connections>
+                                    <action selector="navigateToSettings:" destination="OPb-V7-r8L" eventType="touchUpInside" id="eRe-O5-nIp"/>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anY-5e-9Gb">
                                 <rect key="frame" x="618" y="30" width="120" height="40"/>
                                 <accessibility key="accessibilityConfiguration" identifier="startButton"/>
@@ -632,13 +638,15 @@
                     <connections>
                         <outlet property="gameIdLabel" destination="oAv-mF-SMh" id="QHU-ry-7ZD"/>
                         <outlet property="playersView" destination="ZgK-DQ-aom" id="Oro-yo-6d2"/>
+                        <outlet property="settingsButton" destination="76n-bu-VYA" id="eCL-sD-MtV"/>
                         <outlet property="startButton" destination="anY-5e-9Gb" id="tYa-Lh-3IS"/>
                         <segue destination="MLN-lP-Xqv" kind="show" identifier="startGame" id="q2U-Sj-S2g"/>
+                        <segue destination="lhc-Fy-Lzw" kind="show" identifier="toSettings" id="OPt-aV-Fry"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZY8-cv-VcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="828" y="908"/>
+            <point key="canvasLocation" x="827.58620689655174" y="908"/>
         </scene>
         <!--Delivery-->
         <scene sceneID="KM9-ei-gvj">
@@ -858,6 +866,63 @@
             </objects>
             <point key="canvasLocation" x="829" y="3519"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="WHH-KM-YqP">
+            <objects>
+                <viewController id="lhc-Fy-Lzw" customClass="SettingsViewController" customModule="Relentless" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oSJ-sr-efm">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bTR-Z5-trH">
+                                <rect key="frame" x="124" y="34" width="564" height="286"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Difficulty Level" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oPt-Rk-y6x">
+                                        <rect key="frame" x="0.0" y="0.0" width="564" height="256"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fG9-yP-jty">
+                                        <rect key="frame" x="0.0" y="256" width="564" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="10" minimumValueImage="1.circle" catalog="system" maximumValueImage="10.circle" translatesAutoresizingMaskIntoConstraints="NO" id="FnM-UP-Cb5">
+                                        <rect key="frame" x="-2" y="277" width="568" height="10"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="FnM-UP-Cb5" secondAttribute="height" multiplier="188:3" id="XO5-ky-mHA"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="sliderValueChanged:" destination="lhc-Fy-Lzw" eventType="valueChanged" id="Ytf-sO-9U7"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oPt-Rk-y6x" secondAttribute="bottom" constant="30" id="CH5-2Y-xQ5"/>
+                                    <constraint firstItem="oPt-Rk-y6x" firstAttribute="top" secondItem="bTR-Z5-trH" secondAttribute="top" id="l9v-C9-r2T"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bTR-Z5-trH" firstAttribute="leading" secondItem="cqf-ny-eb5" secondAttribute="leading" constant="80" id="7Kq-32-hjN"/>
+                            <constraint firstItem="bTR-Z5-trH" firstAttribute="centerY" secondItem="cqf-ny-eb5" secondAttribute="centerY" id="Ibh-Db-6NW"/>
+                            <constraint firstItem="bTR-Z5-trH" firstAttribute="top" secondItem="cqf-ny-eb5" secondAttribute="top" constant="34" id="efT-s3-Pnw"/>
+                            <constraint firstItem="bTR-Z5-trH" firstAttribute="centerX" secondItem="cqf-ny-eb5" secondAttribute="centerX" id="p6F-DR-FFB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cqf-ny-eb5"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6XK-hM-FRa"/>
+                    <connections>
+                        <outlet property="difficultyLevelLabel" destination="fG9-yP-jty" id="LbG-Ad-uHH"/>
+                        <outlet property="difficultyLevelSlider" destination="FnM-UP-Cb5" id="pSo-Mm-L69"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ItR-8d-2MM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1555.4187192118227" y="908"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
@@ -867,6 +932,13 @@
         <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="1.circle" catalog="system" width="64" height="60"/>
+        <image name="10.circle" catalog="system" width="64" height="60"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="fdU-OW-AMW"/>
+        <segue reference="Ed9-Qd-LTp"/>
         <image name="add_blue" width="250" height="250"/>
         <image name="background" width="1000" height="564.33331298828125"/>
         <image name="box_items" width="1176.6666259765625" height="1000"/>

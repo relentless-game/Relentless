@@ -24,7 +24,7 @@ class GameControllerManager: GameController {
                                           maxSatisfaction: GameParameters.maxSatisfaction)
     var money: Int = 0
     var isHost: Bool
-    var gameParameters: GameParameters
+    var gameParameters: GameParameters?
 
     // properties for model
     var game: Game?
@@ -53,7 +53,7 @@ class GameControllerManager: GameController {
         return itemsByCategory
     }
     // properties for network
-    var network: Network = NetworkManager()
+    var network: Network = NetworkManager(numOfPlayersRange: GameParameters.numOfPlayersRange)
 //    var userId: String? {
 //        game?.player.userId // unique ID given by Firebase
 //    }
@@ -68,7 +68,7 @@ class GameControllerManager: GameController {
     var pauseTimer: Timer?
     var pauseCountDown: Int = 30
     
-    init(userId: String, gameParameters: GameParameters) {
+    init(userId: String, gameParameters: GameParameters?) {
         self.userId = userId
         self.gameParameters = gameParameters
         // game?.player.userId = userId
@@ -200,6 +200,10 @@ class GameControllerManager: GameController {
     }
 
     @objc
+    func handleItemLimitReached(notification: Notification) {
+        NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
+
+    @objc
     func handleChangeOfOpenPackage(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeOpenPackage, object: nil)
     }
@@ -216,6 +220,9 @@ class GameControllerManager: GameController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleSatisfactionBarChange(notification:)),
                                                name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleItemLimitReached(notification:)),
+                                               name: .didItemLimitReachedInModel, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleChangeOfOpenPackage(notification:)),
                                                name: .didChangeOpenPackageInModel, object: nil)
@@ -275,7 +282,7 @@ extension GameControllerManager {
         guard let userId = self.userId else {
             return
         }
-        
+
         network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
@@ -350,6 +357,12 @@ extension GameControllerManager {
             self.game?.addPackage(package: package)
         })
         self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
+        self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
+            self.game?.packageItemsLimit = limit
+        })
+        self.network.attachGameParametersListener(gameId: gameId, action: { gameParameters in
+            self.gameParameters = gameParameters
+        })
     }
     
     private func onPauseCountDownDidChange(countdown: Int) {
@@ -435,7 +448,7 @@ extension GameControllerManager {
         }
     }
 
-    internal func updateSatisfaction(satisfactionLevel: Int) {
+    internal func updateMoney(satisfactionLevel: Int) {
         money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
         numOfSatisfactionLevelsReceived += 1
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
@@ -472,9 +485,12 @@ extension GameControllerManager {
     }
 
     private func handleGameEnd() {
+        guard let parameters = gameParameters else {
+            return
+        }
         game = nil
         orderStartTimer = Timer()
-        gameParameters.reset() // reset game parameters
+        parameters.reset() // reset game parameters
 
         gameCategories = []
         satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
@@ -482,6 +498,9 @@ extension GameControllerManager {
     }
 
     private func handleRoundEnd() {
+        guard let parameters = gameParameters else {
+            return
+        }
         game?.resetForNewRound()
         gameParameters.incrementDifficulty()
         

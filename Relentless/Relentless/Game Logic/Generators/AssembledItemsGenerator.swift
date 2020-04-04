@@ -92,7 +92,8 @@ class AssembledItemsGenerator: ItemGenerator {
     }
 
     /// referenced from:
-    /// https://stackoverflow.com/questions/39308300/find-the-best-way-for-combination-without-repetition-calculation-in-swift
+    /// https://stackoverflow.com/questions/39308300/find-the-best-way
+    /// -for-combination-without-repetition-calculation-in-swift
     static func choose(number: Int, from total: Int) -> Int {
         assert(number >= 0 && total >= 0)
         if number > total {

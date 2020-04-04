@@ -21,6 +21,12 @@ class PlayerImageHelper {
     static let cyanPackage = UIImage(named: "package_cyan.png")
     static let bluePackage = UIImage(named: "package_blue.png")
     static let purplePackage = UIImage(named: "package_purple.png")
+    static let redAdd = UIImage(named: "add_red.png")
+    static let yellowAdd = UIImage(named: "add_yellow.png")
+    static let greenAdd = UIImage(named: "add_green.png")
+    static let cyanAdd = UIImage(named: "add_cyan.png")
+    static let blueAdd = UIImage(named: "add_blue.png")
+    static let purpleAdd = UIImage(named: "add_purple.png")
 
     static func getAvatarImage(for avatar: PlayerAvatar) -> UIImage? {
         switch avatar {
@@ -53,6 +59,23 @@ class PlayerImageHelper {
             return bluePackage
         case .purple:
             return purplePackage
+        }
+    }
+
+    static func getAddImage(for avatar: PlayerAvatar) -> UIImage? {
+        switch avatar {
+        case .red:
+            return redAdd
+        case .yellow:
+            return yellowAdd
+        case .green:
+            return greenAdd
+        case .cyan:
+            return cyanAdd
+        case .blue:
+            return blueAdd
+        case .purple:
+            return purpleAdd
         }
     }
 }

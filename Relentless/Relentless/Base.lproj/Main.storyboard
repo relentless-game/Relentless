@@ -306,7 +306,7 @@
                                             <outlet property="textLabel" destination="Yp8-GH-5MN" id="HnI-xa-B22"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddPackageButton" id="CuI-Vw-acR" customClass="PackageCell" customModule="Relentless" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddPackageButton" id="CuI-Vw-acR" customClass="AddPackageButton" customModule="Relentless" customModuleProvider="target">
                                         <rect key="frame" x="100" y="10" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="NMZ-d7-da7">
@@ -326,6 +326,9 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="addImage" destination="Ecd-ma-hza" id="jnz-RD-94j"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -612,7 +615,7 @@
                                                     <action selector="changeAvatarLeft:" destination="OPb-V7-r8L" eventType="touchUpInside" id="2IJ-Wn-Gwl"/>
                                                 </connections>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_blue" translatesAutoresizingMaskIntoConstraints="NO" id="hwe-N8-plo">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_red" translatesAutoresizingMaskIntoConstraints="NO" id="hwe-N8-plo">
                                                 <rect key="frame" x="549" y="0.0" width="55" height="55"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="55" id="HQQ-IL-R7j"/>
@@ -914,6 +917,7 @@
     <resources>
         <image name="add_blue" width="250" height="250"/>
         <image name="avatar_blue" width="250" height="162.33332824707031"/>
+        <image name="avatar_red" width="250" height="162.33332824707031"/>
         <image name="background" width="1000" height="564.33331298828125"/>
         <image name="box_items" width="1176.6666259765625" height="1000"/>
         <image name="button_back" width="165.33332824707031" height="58"/>

@@ -26,6 +26,22 @@ class ItemCell: UICollectionViewCell {
         }
     }
 
+    override var isSelected: Bool {
+        set {
+        }
+        get {
+            super.isSelected
+        }
+    }
+
+    override var isHighlighted: Bool {
+        set {
+        }
+        get {
+             super.isHighlighted
+        }
+    }
+
     static let bookImage = UIImage(named: "book.png")
     static let magazineImage = UIImage(named: "magazine.png")
     static let unlitRobotImage = UIImage(named: "robot_lit.png")
@@ -63,6 +79,7 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBookBackgroundFor(item: Item) {
+        print("its a book now?")
         background.image = ItemCell.bookImage
     }
 

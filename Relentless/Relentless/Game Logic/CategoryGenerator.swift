@@ -39,7 +39,7 @@ class CategoryGenerator: GameCategoryGenerator {
         }
 
         // ADDED FOR TESTING
-        return [Category.toyCar]
+//        return [Category.toyCar]
         
         return Array(categories)
     }

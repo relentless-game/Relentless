@@ -11,8 +11,8 @@ import Foundation
 /// This struct represents a player in the game.
 class Player {
     var userId: String
-    let userName: String
-    let profileImage: PlayerAvatar
+    var userName: String
+    var profileImage: PlayerAvatar
     var items: Set<Item> = []
     var orders: Set<Order> = []
 

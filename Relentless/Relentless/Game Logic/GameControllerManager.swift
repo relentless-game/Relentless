@@ -38,7 +38,7 @@ class GameControllerManager: GameController {
         game?.allPlayers ?? []
     }
     var otherPlayers: [Player] {
-        game?.allPlayers.filter { $0 != game?.player } ?? []
+        game?.allPlayers.filter { $0.userId != game?.player.userId } ?? []
     }
     var playerPackages: [Package] {
         game?.packages ?? []
@@ -363,10 +363,9 @@ extension GameControllerManager {
     private func onNewPlayerDidJoin(players: [Player]) {
         game?.allPlayers = players
         // change the player itself
-        for player in players {
-            if player.userId == self.userId {
-                game?.player = player
-            }
+        for player in players where player.userId == self.userId {
+            game?.player.userName = player.userName
+            game?.player.profileImage = player.profileImage
         }
         NotificationCenter.default.post(name: .newPlayerDidJoin, object: nil)
     }

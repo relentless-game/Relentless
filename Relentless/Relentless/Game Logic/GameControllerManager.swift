@@ -147,8 +147,7 @@ class GameControllerManager: GameController {
         guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
-        network.terminateRound(gameId: gameId, roundNumber: roundNumber,
-                               satisfactionLevel: satisfactionBar.currentSatisfaction)
+        network.terminateRound(gameId: gameId, roundNumber: roundNumber)
         network.resetPlayersOutOfOrders(gameId: gameId)
     }
 
@@ -425,8 +424,15 @@ extension GameControllerManager {
     }
 
     @objc
-    internal func onTeamSatisfactionChange(satisfactionLevel: Int) {
-        updateSatisfaction(satisfactionLevel: satisfactionLevel)
+    internal func onTeamSatisfactionChange(satisfactionLevels: [Float]) {
+        let numberOfPlayers = game?.allPlayers.count
+        // only sum up the satisfaction levels if every player's is received
+        if satisfactionLevels.count == numberOfPlayers {
+            let sum = satisfactionLevels.reduce(0) { result, number in
+                result + number
+            }
+            updateSatisfaction(satisfactionLevel: Int(sum))
+        }
     }
 
     internal func updateSatisfaction(satisfactionLevel: Int) {
@@ -478,6 +484,12 @@ extension GameControllerManager {
     private func handleRoundEnd() {
         game?.resetForNewRound()
         gameParameters.incrementDifficulty()
+        
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        let satisfaction = satisfactionBar.currentSatisfaction
+        network.updateIndividualSatisfactionLevel(gameId: gameId, userId: userId, satisfactionLevel: satisfaction)
     }
 
     private func handleRoundStart() {

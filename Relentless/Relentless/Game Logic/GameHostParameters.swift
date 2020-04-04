@@ -39,4 +39,8 @@ class GameHostParameters: GameParameters {
         return probability
     }
 
+    static func probabilityOfSelectingAssembledItem(numberOfPlayers: Int) -> Float {
+        1 / Float(numberOfPlayers)
+    }
+
 }

@@ -51,6 +51,8 @@ class ItemCell: UICollectionViewCell {
                 background.animationImages = images
                 background.startAnimating()
             }
+        case .toyCar:
+            return
         }
     }
 }

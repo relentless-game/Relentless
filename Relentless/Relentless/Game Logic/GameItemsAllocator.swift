@@ -10,9 +10,7 @@ import Foundation
 
 protocol GameItemsAllocator {
 
-    var generatedItemsByCategory: [Category: [Item]] { get }
-
-    /// Allocate random items from the specified categories to the specified players
-    func allocateItems(categories: [Category], players: [Player])
+    /// Allocate random items from the specified categories to the specified players and returns the items that were allocated
+    func allocateItems(categories: [Category], players: [Player]) -> [Item]
 
 }

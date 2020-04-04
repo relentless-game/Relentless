@@ -16,7 +16,10 @@ protocol GameController: GameNetworkController, GameModelController {
     var money: Int { get }
     var isHost: Bool { get set }
     var gameParameters: GameParameters { get }
-
+    
+    var gameStatus: GameStatus? { get set } // for pausing
+    var pauseCountDown: Int { get set } // for pausing
+    
     func endGame()
 
     func pauseRound()

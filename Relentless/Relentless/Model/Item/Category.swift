@@ -11,6 +11,7 @@ import Foundation
 enum Category: Int, Codable, CaseIterable {
     case book
     case magazine
+    case toyCar
     case bulb
 
     init(from decoder: Decoder) throws {
@@ -21,6 +22,8 @@ enum Category: Int, Codable, CaseIterable {
             self = .book
         case Category.magazine.rawValue:
             self = .magazine
+        case Category.toyCar.rawValue:
+            self = .toyCar
         case Category.bulb.rawValue:
             self = .bulb
         default:
@@ -35,6 +38,8 @@ enum Category: Int, Codable, CaseIterable {
             try container.encode(Category.book.rawValue, forKey: .category)
         case .magazine:
             try container.encode(Category.magazine.rawValue, forKey: .category)
+        case .toyCar:
+            try container.encode(Category.toyCar.rawValue, forKey: .category)
         case .bulb:
             try container.encode(Category.bulb.rawValue, forKey: .category)
         }
@@ -46,6 +51,8 @@ enum Category: Int, Codable, CaseIterable {
             return "Book"
         case .magazine:
             return "Magazine"
+        case .toyCar:
+            return "Toy Car"
         case .bulb:
             return "Bulb"
         }

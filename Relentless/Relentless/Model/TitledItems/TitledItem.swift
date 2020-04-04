@@ -1,5 +1,5 @@
 //
-//  Titled.swift
+//  TitledItem.swift
 //  Relentless
 //
 //  Created by Chow Yi Yin on 14/3/20.
@@ -19,17 +19,13 @@ class TitledItem: Item {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TitledItemKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: TitledItemKeys.self)
         try container.encode(name, forKey: .name)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
     
     override func isLessThan(other: Item) -> Bool {
@@ -38,10 +34,12 @@ class TitledItem: Item {
         }
         if self.category.rawValue < otherItem.category.rawValue {
             return true
-        } else if self.category.rawValue == otherItem.category.rawValue {
-            return !self.name.lexicographicallyPrecedes(otherItem.name)
-        } else {
+        } else if self.category.rawValue > otherItem.category.rawValue {
             return false
+        } else {
+            let lowerCasedName = self.name.lowercased()
+            let otherLowerCasedName = otherItem.name.lowercased()
+            return lowerCasedName.lexicographicallyPrecedes(otherLowerCasedName)
         }
     }
 

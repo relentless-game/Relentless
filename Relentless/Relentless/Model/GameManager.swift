@@ -27,7 +27,11 @@ class GameManager: Game {
     }
     var houses = [House]()
     var cumulativePackageNumber = 0
-    var currentlyOpenPackage: Package?
+    var currentlyOpenPackage: Package? {
+        didSet {
+            NotificationCenter.default.post(name: .didChangeOpenPackageInModel, object: nil)
+        }
+    }
     var currentRoundNumber = 0
 
     init(gameId: Int, player: Player) {
@@ -65,6 +69,10 @@ class GameManager: Game {
 
     func removeItem(item: Item) {
         currentlyOpenPackage?.removeItem(item: item)
+    }
+
+    func constructAssembledItem(parts: [Part]) throws -> AssembledItem {
+        try ItemAssembler.assembleItem(parts: parts)
     }
 
     func checkPackage(package: Package, for house: House) -> Bool {
@@ -106,8 +114,8 @@ class GameManager: Game {
                                                name: .didChangeItemsInPackage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
                                                name: .didOrderUpdateInHouse, object: nil)
-         NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
-                                                name: .didTimeOutInOrder, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderTimeOut(notification:)),
+                                               name: .didTimeOutInOrder, object: nil)
     }
 
     @objc

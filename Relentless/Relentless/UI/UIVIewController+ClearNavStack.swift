@@ -21,6 +21,9 @@ extension UIViewController {
             return
         }
         for index in 0...count - 2 {
+            if let viewController = navigationController?.viewControllers[index] {
+                NotificationCenter.default.removeObserver(viewController)
+            }
             navigationController?.viewControllers.remove(at: index)
         }
     }

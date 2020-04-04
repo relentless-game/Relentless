@@ -28,10 +28,10 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     func startGame() {
-        guard let gameId = gameId else {
+        guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
-        network.startGame(gameId: gameId, completion: { error in
+        network.startGame(gameId: gameId, gameParameters: gameParameters, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulStart(error: error)
             }

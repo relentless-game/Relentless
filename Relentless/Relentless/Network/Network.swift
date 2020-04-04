@@ -38,7 +38,7 @@ protocol Network {
     /// - parameters:
     ///     - completion: a closure that is called to propagate possible errors
     ///     that occur when starting a game. `nil` is passed into it to indicate success
-    func startGame(gameId: Int, completion: @escaping (StartGameError?) -> Void)
+    func startGame(gameId: Int, gameParameters: GameParameters, completion: @escaping (StartGameError?) -> Void)
     
     /// This is called by the host player to start a new round with the specified round number.
     func startRound(gameId: Int, roundNumber: Int)
@@ -121,4 +121,7 @@ protocol Network {
 
     /// Notifies the player of the limit for the number of items in packages
     func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
+
+    /// Notifies the player of the game parameters for the game
+    func attachGameParametersListener(gameId: Int, action: @escaping (GameParameters) -> Void)
 }

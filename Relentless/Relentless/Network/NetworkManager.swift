@@ -163,12 +163,13 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int, completion: @escaping (StartGameError?) -> Void) {
+    func startGame(gameId: Int, gameParameters: GameParameters, completion: @escaping (StartGameError?) -> Void) {
         // enough players -> start game
-        checkEnoughPlayers(gameId: gameId, completion: completion)
+        checkEnoughPlayers(gameId: gameId, gameParameters: gameParameters, completion: completion)
     }
 
-    private func checkEnoughPlayers(gameId: Int, completion: @escaping (StartGameError?) -> Void) {
+    private func checkEnoughPlayers(gameId: Int, gameParameters: GameParameters,
+                                    completion: @escaping (StartGameError?) -> Void) {
         ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
             var numberOfPlayers = 0
             for _ in snapshot.children {
@@ -176,7 +177,7 @@ class NetworkManager: Network {
             }
             let minNumOfPlayers = self.numOfPlayersRange.lowerBound
             if numberOfPlayers >= minNumOfPlayers {
-                self.startGameInDatabase(gameId: gameId)
+                self.startGameInDatabase(gameId: gameId, gameParameters: gameParameters)
                 completion(nil) // nil indicates successful result
             } else {
                 completion(StartGameError.insufficientPlayers)
@@ -184,13 +185,14 @@ class NetworkManager: Network {
         }
     }
 
-    private func startGameInDatabase(gameId: Int) {
+    private func startGameInDatabase(gameId: Int, gameParameters: GameParameters) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
                                           isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
+        ref.child("games/\(gameId)/gameParameters").setValue(gameParameters)
     }
 
     func startRound(gameId: Int, roundNumber: Int) {
@@ -385,6 +387,15 @@ class NetworkManager: Network {
         _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
             let packageItemsLimit = snapshot.value as? Int
             action(packageItemsLimit)
+        })
+    }
+
+    func attachGameParametersListener(gameId: Int, action: @escaping (GameParameters) -> Void) {
+        let path = "games/\(gameId)/gameParameters"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            if let gameParameters = snapshot.value as? GameParameters {
+                action(gameParameters)
+            }
         })
     }
 }

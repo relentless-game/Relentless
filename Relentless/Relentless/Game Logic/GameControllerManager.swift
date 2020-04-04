@@ -24,7 +24,7 @@ class GameControllerManager: GameController {
                                           maxSatisfaction: GameParameters.maxSatisfaction)
     var money: Int = 0
     var isHost: Bool
-    var gameParameters: GameParameters
+    var gameParameters: GameParameters?
 
     // properties for model
     var game: Game?
@@ -68,7 +68,7 @@ class GameControllerManager: GameController {
     var pauseTimer: Timer?
     var pauseCountDown: Int = 30
     
-    init(userId: String, gameParameters: GameParameters) {
+    init(userId: String, gameParameters: GameParameters?) {
         self.userId = userId
         self.gameParameters = gameParameters
         // game?.player.userId = userId
@@ -353,6 +353,9 @@ extension GameControllerManager {
         self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
             self.game?.packageItemsLimit = limit
         })
+        self.network.attachGameParametersListener(gameId: gameId, action: { gameParameters in
+            self.gameParameters = gameParameters
+        })
     }
     
     private func onPauseCountDownDidChange(countdown: Int) {
@@ -468,9 +471,12 @@ extension GameControllerManager {
     }
 
     private func handleGameEnd() {
+        guard let parameters = gameParameters else {
+            return
+        }
         game = nil
         orderStartTimer = Timer()
-        gameParameters.reset() // reset game parameters
+        parameters.reset() // reset game parameters
 
         gameCategories = []
         satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
@@ -478,8 +484,11 @@ extension GameControllerManager {
     }
 
     private func handleRoundEnd() {
+        guard let parameters = gameParameters else {
+            return
+        }
         game?.resetForNewRound()
-        gameParameters.incrementDifficulty()
+        parameters.incrementDifficulty()
     }
 
     private func handleRoundStart() {

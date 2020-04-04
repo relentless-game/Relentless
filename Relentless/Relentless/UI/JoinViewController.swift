@@ -25,9 +25,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         teamCodeTextField.delegate = self
         initUserId()
         if let userId = self.userId {
-            // Difficulty level for `GameParameter` should be determined by settings page
-            let gameParameters = GameParameters(difficultyLevel: 1.0)
-            gameController = GameControllerManager(userId: userId, gameParameters: gameParameters)
+            // Game parameters should be taken from the game host
+            gameController = GameControllerManager(userId: userId, gameParameters: nil)
         }
         addObservers()
     }
@@ -112,7 +111,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     @objc func handleGameRoomFull() {
         let maxNumOfPlayers = GameParameters.numOfPlayersRange.upperBound
         let alert = createAlert(title: "Sorry.",
-                                message: "The team is already full. There is a maximum of " + String(maxNumOfPlayers) + " players.",
+                                message: "The team is already full. There is a maximum of "
+                                    + String(maxNumOfPlayers) + " players.",
                                 action: "Ok.")
         self.present(alert, animated: true, completion: nil)
     }

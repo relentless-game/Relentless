@@ -561,9 +561,17 @@ extension GameControllerManager {
     func retrieveItemsFromOpenPackage() -> [Item] {
         game?.currentlyOpenPackage?.items ?? []
     }
+
+    func retrieveOpenPackage() -> Package? {
+        game?.currentlyOpenPackage
+    }
     
     private func removeOrder(order: Order) {
         game?.removeOrder(order: order)
+    }
+
+    func constructAssembledItem(parts: [Part]) throws {
+        try game?.constructAssembledItem(parts: parts)
     }
 
     private func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {

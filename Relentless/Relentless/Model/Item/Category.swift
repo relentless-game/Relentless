@@ -12,7 +12,7 @@ enum Category: Int, Codable, CaseIterable {
     case book
     case magazine
     case toyCar
-    case bulb
+    case robot
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CategoryKeys.self)
@@ -24,8 +24,8 @@ enum Category: Int, Codable, CaseIterable {
             self = .magazine
         case Category.toyCar.rawValue:
             self = .toyCar
-        case Category.bulb.rawValue:
-            self = .bulb
+        case Category.robot.rawValue:
+            self = .robot
         default:
             throw CategoryError.unknownValue
         }
@@ -40,8 +40,8 @@ enum Category: Int, Codable, CaseIterable {
             try container.encode(Category.magazine.rawValue, forKey: .category)
         case .toyCar:
             try container.encode(Category.toyCar.rawValue, forKey: .category)
-        case .bulb:
-            try container.encode(Category.bulb.rawValue, forKey: .category)
+        case .robot:
+            try container.encode(Category.robot.rawValue, forKey: .category)
         }
     }
 
@@ -53,8 +53,8 @@ enum Category: Int, Codable, CaseIterable {
             return "Magazine"
         case .toyCar:
             return "Toy Car"
-        case .bulb:
-            return "Bulb"
+        case .robot:
+            return "Robot"
         }
     }
 }

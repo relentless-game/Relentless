@@ -19,6 +19,8 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet private var gameIdLabel: UILabel!
     @IBOutlet private var startButton: UIButton!
     @IBOutlet private var playersView: UICollectionView!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var avatarImage: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,14 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         }
         refreshPlayers()
         addObservers()
+        updateViews()
+    }
+
+    func updateViews() {
+        if let player = gameController?.player {
+            usernameTextField.text = player.userName
+            avatarImage.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
+        }
     }
 
     func addObservers() {
@@ -60,6 +70,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     @objc func refreshPlayers() {
         players = gameController?.players
         playersView.reloadData()
+        updateViews()
     }
 
     func initUserId() {
@@ -85,7 +96,29 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         gameId = gameController?.gameId
         initAll()
     }
-    
+
+    @IBAction private func changeName(_ sender: Any) {
+        if let avatar = gameController?.player?.profileImage, let username = usernameTextField.text {
+            gameController?.editUserInfo(username: username, profile: avatar)
+        }
+    }
+
+    @IBAction private func changeAvatarLeft(_ sender: Any) {
+        if let prevAvatar = gameController?.player?.profileImage,
+            let username = gameController?.player?.userName {
+            let avatar = PlayerAvatar.getPreviousAvatar(avatar: prevAvatar)
+            gameController?.editUserInfo(username: username, profile: avatar)
+        }
+    }
+
+    @IBAction private func changeAvatarRight(_ sender: Any) {
+        if let prevAvatar = gameController?.player?.profileImage,
+            let username = gameController?.player?.userName {
+            let avatar = PlayerAvatar.getNextAvatar(avatar: prevAvatar)
+            gameController?.editUserInfo(username: username, profile: avatar)
+        }
+    }
+
     @IBAction private func startGame(_ sender: Any) {
         (gameController as? GameHostController)?.startGame()
     }
@@ -98,7 +131,8 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     func createGame(username: String) {
-        (gameController as? GameHostController)?.createGame(username: username)
+        // TODO: how do we decide default avatar?
+        (gameController as? GameHostController)?.createGame(username: username, avatar: .red)
     }
     
     @IBAction private func handleBackButtonPressed(_ sender: Any) {
@@ -130,8 +164,8 @@ extension LobbyViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: playerIdentifier, for: indexPath)
-        if let playerCell = cell as? PlayerCell, let name = players?[indexPath.row].userName {
-            playerCell.setText(to: name)
+        if let playerCell = cell as? PlayerCell, let player = players?[indexPath.row] {
+            playerCell.setPlayer(to: player)
         }
         return cell
     }
@@ -144,13 +178,5 @@ extension LobbyViewController: UICollectionViewDelegateFlowLayout {
         let width = collectionView.frame.width / 3 - 20
         let height = collectionView.frame.height / 2 - 20
         return CGSize(width: width, height: height)
-    }
-}
-
-class PlayerCell: UICollectionViewCell {
-    @IBOutlet private var textLabel: UILabel!
-
-    func setText(to text: String) {
-        textLabel.text = text
     }
 }

@@ -12,11 +12,11 @@ import Foundation
 class Player {
     var userId: String
     let userName: String
-    let profileImage: PlayerAvatar?
+    let profileImage: PlayerAvatar
     var items: Set<Item> = []
     var orders: Set<Order> = []
 
-    init(userId: String, userName: String, profileImage: PlayerAvatar?) {
+    init(userId: String, userName: String, profileImage: PlayerAvatar) {
         self.userId = userId
         self.userName = userName
         self.profileImage = profileImage

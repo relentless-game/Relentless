@@ -403,7 +403,6 @@ extension PackingViewController: UICollectionViewDelegate {
                 } else {
                     selectedParts.insert(part)
                 }
-                print(selectedParts)
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

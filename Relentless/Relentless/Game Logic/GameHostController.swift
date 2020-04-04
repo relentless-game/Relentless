@@ -12,7 +12,7 @@ protocol GameHostController {
 
     /// Player automatically joins game upon successful creation of game
     /// The creator needs to input their username when creating the game.
-    func createGame(username: String)
+    func createGame(username: String, avatar: PlayerAvatar)
 
     func startGame()
 

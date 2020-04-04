@@ -27,8 +27,9 @@ protocol Network {
     /// - parameters:
     ///     - completion: a closure that is called to propagate possible errors
     ///     that occur when joining a game. `nil` is passed into it to indicate success.
-    func joinGame(userId: String, userName: String, gameId: Int, completion: @escaping (JoinGameError?) -> Void)
-    
+    func joinGame(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
+                  completion: @escaping (JoinGameError?) -> Void)
+
     /// A non-host player can call this function to quit the game before the game starts.
     /// If a host wishes to quit the game, the whole game will terminate,
     /// and the host should use the `terminateGamePrematurely` function.

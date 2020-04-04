@@ -31,6 +31,9 @@ class GameControllerManager: GameController {
     var houses: [House] {
         game?.houses ?? []
     }
+    var player: Player? {
+        game?.player
+    }
     var players: [Player] {
         game?.allPlayers ?? []
     }
@@ -271,16 +274,16 @@ class GameControllerManager: GameController {
 extension GameControllerManager {
 
     /// Player joins the game and with user defined username
-    internal func joinGame(gameId: Int, userName: String) {
+    internal func joinGame(gameId: Int, userName: String, avatar: PlayerAvatar) {
         guard let userId = self.userId else {
             return
         }
         
-        network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
+        network.joinGame(userId: userId, userName: userName, avatar: avatar, gameId: gameId, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
-                self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
+                self.handleSuccessfulJoin(userName: userName, userId: userId, avatar: avatar, gameId: gameId)
             }
         })
     }
@@ -323,8 +326,8 @@ extension GameControllerManager {
         }
     }
 
-    private func handleSuccessfulJoin(userName: String, userId: String, gameId: Int) {
-        let player = Player(userId: userId, userName: userName, profileImage: nil)
+    private func handleSuccessfulJoin(userName: String, userId: String, avatar: PlayerAvatar, gameId: Int) {
+        let player = Player(userId: userId, userName: userName, profileImage: avatar)
         self.game = GameManager(gameId: gameId, player: player)
         attachNetworkListeners(userId: userId, gameId: gameId)
         NotificationCenter.default.post(name: .didJoinGame, object: nil)
@@ -359,6 +362,12 @@ extension GameControllerManager {
 
     private func onNewPlayerDidJoin(players: [Player]) {
         game?.allPlayers = players
+        // change the player itself
+        for player in players {
+            if player.userId == self.userId {
+                game?.player = player
+            }
+        }
         NotificationCenter.default.post(name: .newPlayerDidJoin, object: nil)
     }
 

@@ -8,5 +8,39 @@
 
 enum PlayerAvatar: String {
     // TODO: rename later
-    case red, orange, yellow, green, blue, indigo, violet
+    case red, yellow, green, cyan, blue, purple
+
+    static func getPreviousAvatar(avatar: PlayerAvatar) -> PlayerAvatar {
+        switch avatar {
+        case .red:
+            return .purple
+        case .yellow:
+            return .red
+        case .green:
+            return .yellow
+        case .cyan:
+            return .green
+        case .blue:
+            return .cyan
+        case .purple:
+            return .blue
+        }
+    }
+
+    static func getNextAvatar(avatar: PlayerAvatar) -> PlayerAvatar {
+        switch avatar {
+        case .red:
+            return .yellow
+        case .yellow:
+            return .green
+        case .green:
+            return .cyan
+        case .cyan:
+            return .blue
+        case .blue:
+            return .purple
+        case .purple:
+            return .red
+        }
+    }
 }

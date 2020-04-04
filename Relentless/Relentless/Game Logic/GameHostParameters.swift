@@ -43,6 +43,9 @@ class GameHostParameters: GameParameters {
     // Should be between 0 and 1
     var probabilityOfHavingPackageLimit: Float {
         difficultyLevel / 50
+
+    static func probabilityOfSelectingAssembledItem(numberOfPlayers: Int) -> Float {
+        1 / Float(numberOfPlayers)
     }
 
     /// For random events

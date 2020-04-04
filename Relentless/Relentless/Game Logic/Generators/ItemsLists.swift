@@ -54,19 +54,18 @@ class ItemsLists {
                             [Magazine(name: "know"), Magazine(name: "no")]]
 
     /// At least two similar rhythms will be picked together
-    static let bulbs = [[Bulb(unitDuration: 1, stateSequence: [RhythmState.lit,
-                                                               RhythmState.unlit, RhythmState.lit]),
-                         Bulb(unitDuration: 2, stateSequence: [RhythmState.lit,
-                                                               RhythmState.unlit, RhythmState.lit])],
-                        [Bulb(unitDuration: 1, stateSequence: [RhythmState.unlit,
-                                                               RhythmState.lit, RhythmState.unlit]),
-                         Bulb(unitDuration: 1, stateSequence: [RhythmState.unlit, RhythmState.lit,
-                                                               RhythmState.lit])],
-                        [Bulb(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.unlit,
-                                                               RhythmState.lit, RhythmState.unlit,
-                                                               RhythmState.lit]),
-                         Bulb(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.unlit,
-                                                               RhythmState.lit, RhythmState.lit,
-                                                               RhythmState.unlit])]]
-
+    static let robots = [[Robot(unitDuration: 1, stateSequence: [RhythmState.lit,
+                                                                 RhythmState.unlit, RhythmState.lit]),
+                          Robot(unitDuration: 2, stateSequence: [RhythmState.lit,
+                                                                 RhythmState.unlit, RhythmState.lit])],
+                         [Robot(unitDuration: 1, stateSequence: [RhythmState.unlit,
+                                                                 RhythmState.lit, RhythmState.unlit]),
+                          Robot(unitDuration: 1, stateSequence: [RhythmState.unlit, RhythmState.lit,
+                                                                 RhythmState.lit])],
+                         [Robot(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.unlit,
+                                                                 RhythmState.lit, RhythmState.unlit,
+                                                                 RhythmState.lit]),
+                          Robot(unitDuration: 1, stateSequence: [RhythmState.lit, RhythmState.unlit,
+                                                                 RhythmState.lit, RhythmState.lit,
+                                                                 RhythmState.unlit])]]
 }

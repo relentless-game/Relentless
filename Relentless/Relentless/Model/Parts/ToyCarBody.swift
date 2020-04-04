@@ -65,4 +65,8 @@ class ToyCarBody: Part {
             return self.colour.rawValue.lexicographicallyPrecedes(otherToyCarBody.colour.rawValue)
         }
     }
+
+    override func toDisplayString() -> String {
+        ""
+    }
 }

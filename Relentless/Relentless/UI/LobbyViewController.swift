@@ -54,6 +54,12 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
                                                selector: #selector(handleInsufficientPlayers),
                                                name: .insufficientPlayers, object: nil)
     }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .newPlayerDidJoin, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didStartGame, object: nil)
+    }
 
     @objc func refreshPlayers() {
         players = gameController?.players
@@ -115,6 +121,14 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     func createGame(username: String) {
         (gameController as? GameHostController)?.createGame(username: username)
+    }
+    
+    @IBAction private func handleBackButtonPressed(_ sender: Any) {
+        if gameController?.isHost == true {
+            gameController?.endGame()
+        }
+        removeObservers()
+        //dismiss(animated: true, completion: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

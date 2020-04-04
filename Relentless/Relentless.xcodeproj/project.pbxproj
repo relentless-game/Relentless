@@ -46,6 +46,7 @@
 		0BBEF05D24237980002FF3DE /* PackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177F241FD48800569453 /* PackingViewController.swift */; };
 		0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF06024237E15002FF3DE /* ItemCell.swift */; };
 		5276658A1D503C3522811721 /* Pods_Relentless_RelentlessUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */; };
+		5D1B680B2438889A00676890 /* ItemCellState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1B680A2438889A00676890 /* ItemCellState.swift */; };
 		5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D5E040D2425ED830005A134 /* ItemCell.xib */; };
 		5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E040F2425EDA00005A134 /* HouseCell.swift */; };
 		5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04102425EDA10005A134 /* HousesViewController.swift */; };
@@ -53,6 +54,8 @@
 		5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
 		5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
 		5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
+		5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */; };
+		5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */; };
 		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
 		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
 		62134B0C2438359400C46DC4 /* PackageItemsLimitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62134B0B2438359400C46DC4 /* PackageItemsLimitGenerator.swift */; };
@@ -71,7 +74,7 @@
 		62D0EBCD242CBE4600FDAFAF /* GameHostControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */; };
 		62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */; };
 		62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */; };
-		62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD2242DDE7100FDAFAF /* Bulb.swift */; };
+		62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD2242DDE7100FDAFAF /* Robot.swift */; };
 		62D0EBD5242DFB6900FDAFAF /* GameParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */; };
 		62DC2AE4243893E0006EB27F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AE3243893E0006EB27F /* Event.swift */; };
 		62DC2AE624389406006EB27F /* AppreciationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AE524389406006EB27F /* AppreciationEvent.swift */; };
@@ -112,6 +115,9 @@
 		F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 		F3C37C2B2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 		F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
+		F3D29A4D24383E050041C333 /* HomeScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A4C24383E050041C333 /* HomeScreenTests.swift */; };
+		F3D29A4F24383F590041C333 /* LobbyViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */; };
+		F3D29A51243842C60041C333 /* JoinViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +186,7 @@
 		0BBEF06024237E15002FF3DE /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		0F0E3076A12799C79C747669 /* Pods-Relentless-RelentlessUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless-RelentlessUITests.release.xcconfig"; path = "Target Support Files/Pods-Relentless-RelentlessUITests/Pods-Relentless-RelentlessUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RelentlessTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D1B680A2438889A00676890 /* ItemCellState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCellState.swift; sourceTree = "<group>"; };
 		5D5E040D2425ED830005A134 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		5D5E040F2425EDA00005A134 /* HouseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseCell.swift; sourceTree = "<group>"; };
 		5D5E04102425EDA10005A134 /* HousesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousesViewController.swift; sourceTree = "<group>"; };
@@ -187,6 +194,8 @@
 		5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
 		5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
 		5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
+		5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
+		5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
 		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
@@ -212,7 +221,7 @@
 		62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostControllerManager.swift; sourceTree = "<group>"; };
 		62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmicItem.swift; sourceTree = "<group>"; };
 		62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmState.swift; sourceTree = "<group>"; };
-		62D0EBD2242DDE7100FDAFAF /* Bulb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulb.swift; sourceTree = "<group>"; };
+		62D0EBD2242DDE7100FDAFAF /* Robot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
 		62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameters.swift; sourceTree = "<group>"; };
 		62DC2AE3243893E0006EB27F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		62DC2AE524389406006EB27F /* AppreciationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppreciationEvent.swift; sourceTree = "<group>"; };
@@ -263,6 +272,9 @@
 		F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelentlessUITests.swift; sourceTree = "<group>"; };
 		F3C37C1D24189F5500D7109B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3C37C292418A83100D7109B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F3D29A4C24383E050041C333 /* HomeScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenTests.swift; sourceTree = "<group>"; };
+		F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewControllerTests.swift; sourceTree = "<group>"; };
+		F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -383,6 +395,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5D632CF52434491000A58523 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */,
+				5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		5DE91778241FBAEC00569453 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +420,7 @@
 				5D5E04132425EDA20005A134 /* PackageCell.swift */,
 				5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */,
 				0BBEF06024237E15002FF3DE /* ItemCell.swift */,
+				5D1B680A2438889A00676890 /* ItemCellState.swift */,
 				F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */,
 				62CC1D6E2438817200C942C7 /* SettingsViewController.swift */,
 			);
@@ -486,7 +508,7 @@
 				F3BF7F03242503E200A50EE3 /* Player.swift */,
 				62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */,
 				62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */,
-				62D0EBD2242DDE7100FDAFAF /* Bulb.swift */,
+				62D0EBD2242DDE7100FDAFAF /* Robot.swift */,
 				F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */,
 			);
 			path = Model;
@@ -495,6 +517,7 @@
 		F3C37BED24189F5200D7109B = {
 			isa = PBXGroup;
 			children = (
+				F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */,
 				F3C37C292418A83100D7109B /* GoogleService-Info.plist */,
 				F3C37BF824189F5200D7109B /* Relentless */,
 				F3C37C0F24189F5500D7109B /* RelentlessTests */,
@@ -519,6 +542,7 @@
 		F3C37BF824189F5200D7109B /* Relentless */ = {
 			isa = PBXGroup;
 			children = (
+				5D632CF52434491000A58523 /* Fonts */,
 				5DE91778241FBAEC00569453 /* UI */,
 				6249B4FD241C89A7002F8A1B /* Game Logic */,
 				F319B32D241B7AEB005E3129 /* Model */,
@@ -538,6 +562,8 @@
 		F3C37C0F24189F5500D7109B /* RelentlessTests */ = {
 			isa = PBXGroup;
 			children = (
+				F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */,
+				F3D29A4C24383E050041C333 /* HomeScreenTests.swift */,
 				F3BF7F1E24275EF900A50EE3 /* ItemsAdapterTests.swift */,
 				F3BF7F1C24275EF900A50EE3 /* OrdersAdapterTests.swift */,
 				F3BF7F1D24275EF900A50EE3 /* PackageAdapterTests.swift */,
@@ -677,6 +703,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
+				5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */,
+				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
+				5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */,
 				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
 				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
@@ -840,6 +869,7 @@
 				62CC1D6F2438817200C942C7 /* SettingsViewController.swift in Sources */,
 				5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
 				F30E1D2E243638AB00AD6A7B /* PlayerAvatar.swift in Sources */,
+				5D1B680B2438889A00676890 /* ItemCellState.swift in Sources */,
 				F30E1D2C2435B08E00AD6A7B /* PauseViewController.swift in Sources */,
 				0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
 				0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
@@ -881,7 +911,7 @@
 				6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
 				F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
 				0B09CA6424357A6700F29648 /* Shape.swift in Sources */,
-				62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */,
+				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				62D0EBD5242DFB6900FDAFAF /* GameParameters.swift in Sources */,
@@ -936,7 +966,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3D29A4D24383E050041C333 /* HomeScreenTests.swift in Sources */,
 				F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */,
+				F3D29A51243842C60041C333 /* JoinViewControllerTests.swift in Sources */,
+				F3D29A4F24383F590041C333 /* LobbyViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

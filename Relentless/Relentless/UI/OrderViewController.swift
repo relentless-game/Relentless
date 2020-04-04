@@ -66,3 +66,13 @@ extension OrderViewController: UICollectionViewDataSource {
         }
     }
 }
+
+extension OrderViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width / 4.1
+        let height = collectionView.frame.height / 2.1
+        return CGSize(width: width, height: height)
+    }
+}

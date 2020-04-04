@@ -40,7 +40,8 @@ class Package: Codable {
         var container = encoder.container(keyedBy: PackageKeys.self)
         try container.encode(creator, forKey: .creator)
         try container.encode(packageNumber, forKey: .packageNumber)
-        try container.encode(unsortedItems, forKey: .items)
+        let itemFactoryWrapper = ItemFactory(items: unsortedItems)
+        try container.encode(itemFactoryWrapper, forKey: .items)
 
     }
 

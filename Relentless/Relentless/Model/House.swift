@@ -66,8 +66,13 @@ class House {
     }
 
     func removeOrder(order: Order) {
-        orders.remove(order)
+        var ordersAsArray = Array(orders)
+        guard let indexOfOrder = ordersAsArray.firstIndex(of: order) else {
+            return
+        }
+        ordersAsArray.remove(at: indexOfOrder)
         order.stopTimer()
+        orders = Set(ordersAsArray)
     }
 
     @objc

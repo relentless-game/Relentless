@@ -10,7 +10,7 @@ import XCTest
 @testable import Relentless
 
 class ToyCarBatteryTests: XCTestCase {
-    let label = "AA"
+    let label = Label.aa
     var battery: ToyCarBattery!
 
     override func setUp() {
@@ -24,11 +24,11 @@ class ToyCarBatteryTests: XCTestCase {
     }
 
     func testComparison() {
-        let batteryWithSmallerName = ToyCarBattery(label: String(label.dropFirst()))
-        let batteryWithBiggerName = ToyCarBattery(label: label + "A")
-        let magazine = Magazine(name: String(label.dropFirst()))
-        XCTAssertTrue(batteryWithSmallerName < battery)
-        XCTAssertTrue(battery < batteryWithBiggerName)
+        let batteryWithSmallerLabel = ToyCarBattery(label: Label.d)
+        let batteryWithBiggerLabel = ToyCarBattery(label: Label.pp3)
+        let magazine = Magazine(name: String(label.toString().dropFirst()))
+        XCTAssertTrue(batteryWithSmallerLabel < battery)
+        XCTAssertTrue(battery < batteryWithBiggerLabel)
         XCTAssertTrue(magazine < battery) // battery has category toy car > magazine
     }
 
@@ -46,6 +46,6 @@ class ToyCarBatteryTests: XCTestCase {
     func testToString() {
         let battery: Item = ToyCarBattery(label: label)
         let string = battery.toString()
-        XCTAssertEqual(string, ToyCarBattery.toyCarBatteryHeader + label)
+        XCTAssertEqual(string, ToyCarBattery.toyCarBatteryHeader + label.toString())
     }
 }

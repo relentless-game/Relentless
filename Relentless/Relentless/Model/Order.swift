@@ -75,7 +75,17 @@ class Order: Hashable, Codable {
 
     /// Returns number of differences between the items in the package and the items in the order
     func getNumberOfDifferences(with package: Package) -> Int {
-        items.count - zip(items, package.items).filter { $0.0 == $0.1 }.count
+        var numberOfSimilarities = 0
+        var orderItems = items
+        var packageItems = package.items
+        for item in items where packageItems.contains(item) {
+            guard let packageItemIndex = packageItems.firstIndex(of: item), let orderItemIndex = orderItems.firstIndex(of: item) else {
+                continue
+            }
+            packageItems.remove(at: packageItemIndex)
+            orderItems.remove(at: orderItemIndex)
+        }
+        return orderItems.count + packageItems.count
     }
 
     @objc

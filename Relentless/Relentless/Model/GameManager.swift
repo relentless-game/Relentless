@@ -46,7 +46,8 @@ class GameManager: Game {
 
     /// Adds a new package and sets this package as the currenlty open package
     func addNewPackage() {
-        let emptyPackage = Package(creator: player.userName, packageNumber: cumulativePackageNumber, items: [Item]())
+        let emptyPackage = Package(creator: player.userName, creatorAvatar: player.profileImage,
+                                   packageNumber: cumulativePackageNumber, items: [Item]())
         packages.append(emptyPackage)
         currentlyOpenPackage = emptyPackage
         cumulativePackageNumber += 1

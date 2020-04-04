@@ -16,7 +16,7 @@ class ItemFactory: Codable {
         self.items = items
     }
     
-    enum ItemsKey: CodingKey {
+    enum ItemFactoryKey: CodingKey {
         case items
     }
 
@@ -26,13 +26,13 @@ class ItemFactory: Codable {
     }
 
     func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: ItemsKey.self)
+        var container = encoder.container(keyedBy: ItemFactoryKey.self)
         try container.encode(items, forKey: .items)
     }
     
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: ItemsKey.self)
-        var itemsArrayForType = try container.nestedUnkeyedContainer(forKey: ItemsKey.items)
+        let container = try decoder.container(keyedBy: ItemFactoryKey.self)
+        var itemsArrayForType = try container.nestedUnkeyedContainer(forKey: ItemFactoryKey.items)
         var items = [Item]()
         var itemsArray = itemsArrayForType
         while !itemsArrayForType.isAtEnd {
@@ -74,18 +74,20 @@ class ItemFactory: Codable {
         case PartType.toyCarBody:
             let item = try dataContainer.decode(ToyCarBody.self)
             return (dataContainer, item)
-//        default:
-//            return try decodeAssembledItem(container: container, category: category)
+        case PartType.partContainer:
+            return try decodeAssembledItem(container: container, category: category)
         }
     }
 
-    private func decodeAssembledItem(container: UnkeyedDecodingContainer, category: Category) throws -> Item? {
+    private func decodeAssembledItem(container: UnkeyedDecodingContainer,
+                                     category: Category) throws -> (UnkeyedDecodingContainer, Item?) {
         var dataContainer = container
         switch category {
         case .toyCar:
-            return try dataContainer.decode(ToyCar.self)
+            let toyCar = try dataContainer.decode(ToyCar.self)
+            return (dataContainer, toyCar)
         default:
-            return nil
+            return (dataContainer, nil)
         }
     }
 }

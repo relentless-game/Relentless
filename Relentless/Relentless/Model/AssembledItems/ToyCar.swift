@@ -20,19 +20,11 @@ class ToyCar: AssembledItem {
     }
 
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: AssembledItemKeys.self)
-
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: AssembledItemKeys.self)
-        try container.encode(unsortedParts, forKey: .parts)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func equals(other: Item) -> Bool {
@@ -45,7 +37,7 @@ class ToyCar: AssembledItem {
     override func toString() -> String {
         var string = ToyCar.toyCarHeader
         for part in unsortedParts {
-            string += "\n" + part.toString()
+            string += " " + part.toString()
         }
         return string
     }

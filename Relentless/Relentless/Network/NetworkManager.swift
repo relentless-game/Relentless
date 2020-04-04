@@ -11,12 +11,13 @@ import Firebase
 
 class NetworkManager: Network {
 
-    let maxNumberOfPlayers = 6
+    var numOfPlayersRange: ClosedRange<Int>
 
     private var ref: DatabaseReference!
 
-    init() {
+    init(numOfPlayersRange: ClosedRange<Int>) {
         ref = Database.database().reference()
+        self.numOfPlayersRange = numOfPlayersRange
     }
     
     func createGame(completion: @escaping (Int) -> Void) {
@@ -130,8 +131,8 @@ class NetworkManager: Network {
             for _ in snapshot.children {
                 numberOfPlayers += 1
             }
-            
-            if numberOfPlayers < self.maxNumberOfPlayers {
+            let maxNumOfPlayers = self.numOfPlayersRange.upperBound
+            if numberOfPlayers < maxNumOfPlayers {
                 self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
                 completion(nil) // nil indicates successful result
             } else {
@@ -162,14 +163,38 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
+    func startGame(gameId: Int, gameParameters: GameParameters, completion: @escaping (StartGameError?) -> Void) {
+        // enough players -> start game
+        checkEnoughPlayers(gameId: gameId, gameParameters: gameParameters, completion: completion)
+    }
+
+    private func checkEnoughPlayers(gameId: Int, gameParameters: GameParameters,
+                                    completion: @escaping (StartGameError?) -> Void) {
+        ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
+            var numberOfPlayers = 0
+            for _ in snapshot.children {
+                numberOfPlayers += 1
+            }
+            let minNumOfPlayers = self.numOfPlayersRange.lowerBound
+            if numberOfPlayers >= minNumOfPlayers {
+                self.startGameInDatabase(gameId: gameId, gameParameters: gameParameters)
+                completion(nil) // nil indicates successful result
+            } else {
+                completion(StartGameError.insufficientPlayers)
+            }
+        }
+    }
+
+    private func startGameInDatabase(gameId: Int, gameParameters: GameParameters) {
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                          isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
+        ref.child("games/\(gameId)/gameParameters").setValue(gameParameters)
     }
-    
+
     func startRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
@@ -359,5 +384,26 @@ class NetworkManager: Network {
     
     func updatePauseCountDown(gameId: Int, countDown: Int) {
         ref.child("games/\(gameId)/countdown").setValue(countDown)
+    }
+
+    func setPackageItemsLimit(gameId: Int, limit: Int) {
+        ref.child("games/\(gameId)/packageItemsLimit").setValue(limit)
+    }
+
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void) {
+        let path = "games/\(gameId)/packageItemsLimit"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let packageItemsLimit = snapshot.value as? Int
+            action(packageItemsLimit)
+        })
+    }
+
+    func attachGameParametersListener(gameId: Int, action: @escaping (GameParameters) -> Void) {
+        let path = "games/\(gameId)/gameParameters"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            if let gameParameters = snapshot.value as? GameParameters {
+                action(gameParameters)
+            }
+        })
     }
 }

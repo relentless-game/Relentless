@@ -10,7 +10,7 @@ import Foundation
 
 class OrdersAllocator: GameOrdersAllocator {
 
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Float
 
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int

@@ -20,6 +20,7 @@ protocol Game {
     var currentRoundNumber: Int { get set }
     var defaultNumberOfHouses: Int { get }
     var currentlyOpenPackage: Package? { get }
+    var packageItemsLimit: Int? { get set }
 
     func addPackage(package: Package)
 

@@ -14,9 +14,36 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         gameParameters as? GameHostParameters
     }
 
+    /// Event might occur when timer fires based on game parameters.
+    var eventTimer = Timer()
+
     init(userId: String, gameHostParameters: GameHostParameters) {
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
+        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
+                                               target: self,
+                                               selector: #selector(generateEvent), userInfo: nil,
+                                               repeats: false)
+    }
+
+    @objc
+    func generateEvent() {
+        guard let parameters = hostParameters else {
+            return
+        }
+
+        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probabilityOfEvent)
+        guard let event = eventGenerator.generate() else {
+            return
+        }
+        // This will only make the event occur in the host
+        // Modify to send the enum `EventType` through the network
+        // Converting to actual event should be done through listener
+        switch event {
+        case .appreciationEvent:
+            let event = AppreciationEvent()
+            event.occur()
+        }
     }
 
     /// Player who invokes this method becomes the host and joins the game.
@@ -28,16 +55,29 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     func startGame() {
-        guard let gameId = gameId else {
+        guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
-        network.startGame(gameId: gameId)
+        network.startGame(gameId: gameId, gameParameters: gameParameters, completion: { error in
+            if let error = error {
+                self.handleUnsuccessfulStart(error: error)
+            }
+        })
+    }
+
+    private func handleUnsuccessfulStart(error: StartGameError) {
+        switch error {
+        case .insufficientPlayers:
+            NotificationCenter.default.post(name: .insufficientPlayers, object: nil)
+        }
     }
 
     func startRound() {
         // items and orders are generated and allocated by the host only
         let items = initialiseItems()
         initialiseOrders(items: items)
+        initialisePackageItemsLimit()
+
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
@@ -136,6 +176,22 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
                                               numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
                                               probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
         ordersAllocator.allocateOrders(players: players, items: items)
+    }
+
+    private func initialisePackageItemsLimit() {
+        guard let parameters = hostParameters, let gameId = gameId else {
+            return
+        }
+        let allOrders = players.flatMap { $0.orders }
+        let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
+                                                                    probabilityOfHavingLimit:
+                                                                        parameters.probabilityOfHavingPackageLimit)
+        guard let packageItemsLimit = packageItemsLimitGenerator.generateItemsLimit() else {
+            return
+        }
+
+        // update other devices
+        network.setPackageItemsLimit(gameId: gameId, limit: packageItemsLimit)
     }
 
 }

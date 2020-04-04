@@ -45,4 +45,10 @@ class GameHostParameters: GameParameters {
         difficultyLevel / 50
     }
 
+    /// For random events
+    // Should be between 0 and 1
+    var probabilityOfEvent: Float {
+        difficultyLevel / 50
+    }
+
 }

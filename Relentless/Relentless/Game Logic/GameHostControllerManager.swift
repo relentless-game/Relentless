@@ -14,9 +14,36 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         gameParameters as? GameHostParameters
     }
 
+    /// Event might occur when timer fires based on game parameters.
+    var eventTimer = Timer()
+
     init(userId: String, gameHostParameters: GameHostParameters) {
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
+        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
+                                               target: self,
+                                               selector: #selector(generateEvent), userInfo: nil,
+                                               repeats: false)
+    }
+
+    @objc
+    func generateEvent() {
+        guard let parameters = hostParameters else {
+            return
+        }
+
+        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probabilityOfEvent)
+        guard let event = eventGenerator.generate() else {
+            return
+        }
+        // This will only make the event occur in the host
+        // Modify to send the enum `EventType` through the network
+        // Converting to actual event should be done through listener
+        switch event {
+        case .appreciationEvent:
+            let event = AppreciationEvent()
+            event.occur()
+        }
     }
 
     /// Player who invokes this method becomes the host and joins the game.

@@ -70,7 +70,7 @@
 		62D0EBCD242CBE4600FDAFAF /* GameHostControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */; };
 		62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */; };
 		62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */; };
-		62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD2242DDE7100FDAFAF /* Bulb.swift */; };
+		62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD2242DDE7100FDAFAF /* Robot.swift */; };
 		62D0EBD5242DFB6900FDAFAF /* GameParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */; };
 		62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */; };
 		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
@@ -207,7 +207,7 @@
 		62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostControllerManager.swift; sourceTree = "<group>"; };
 		62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmicItem.swift; sourceTree = "<group>"; };
 		62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmState.swift; sourceTree = "<group>"; };
-		62D0EBD2242DDE7100FDAFAF /* Bulb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bulb.swift; sourceTree = "<group>"; };
+		62D0EBD2242DDE7100FDAFAF /* Robot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Robot.swift; sourceTree = "<group>"; };
 		62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameters.swift; sourceTree = "<group>"; };
 		62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBar.swift; sourceTree = "<group>"; };
 		62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocator.swift; sourceTree = "<group>"; };
@@ -466,7 +466,7 @@
 				F3BF7F03242503E200A50EE3 /* Player.swift */,
 				62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */,
 				62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */,
-				62D0EBD2242DDE7100FDAFAF /* Bulb.swift */,
+				62D0EBD2242DDE7100FDAFAF /* Robot.swift */,
 				F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */,
 			);
 			path = Model;
@@ -661,7 +661,7 @@
 				5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */,
 				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */,
-				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,   
+				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
 				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
 				F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,
@@ -860,7 +860,7 @@
 				6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
 				F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
 				0B09CA6424357A6700F29648 /* Shape.swift in Sources */,
-				62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */,
+				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				62D0EBD5242DFB6900FDAFAF /* GameParameters.swift in Sources */,

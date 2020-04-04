@@ -171,6 +171,9 @@ class PackingViewController: UIViewController {
         }
     }
 
+    @IBAction private func touchAssembleButton(_ sender: Any) {
+    }
+
     @IBAction private func touchCategoryButton(_ sender: UIView) {
         if let viewController = self.storyboard?.instantiateViewController(identifier: categoryIdentifier)
             as? CategoryViewController {

@@ -381,11 +381,20 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Lq-4O-j3z">
+                                        <rect key="frame" x="30" y="224" width="67" height="30"/>
+                                        <state key="normal" title="Assemble"/>
+                                        <connections>
+                                            <action selector="touchAssembleButton:" destination="pIj-eO-AQF" eventType="touchUpInside" id="rEu-P3-2tI"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="V7d-y2-kSg" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="5" id="1cr-0h-aks"/>
                                     <constraint firstAttribute="bottom" secondItem="KvK-6d-e86" secondAttribute="bottom" id="2wv-dT-Tbo"/>
+                                    <constraint firstItem="2Lq-4O-j3z" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="30" id="50f-wC-EDs"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Lq-4O-j3z" secondAttribute="bottom" constant="30" id="5OG-ol-c2h"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="9Jq-ZD-WWY"/>
                                     <constraint firstAttribute="bottom" secondItem="ste-ol-ed4" secondAttribute="bottom" id="Bc8-Oe-tbS"/>
                                     <constraint firstItem="V7d-y2-kSg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="20" symbolic="YES" id="EIc-uh-z6g"/>
@@ -396,6 +405,7 @@
                                     <constraint firstAttribute="trailing" secondItem="ste-ol-ed4" secondAttribute="trailing" id="MJ8-Aa-PL0"/>
                                     <constraint firstItem="veC-Sv-bk6" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="70" id="Pe5-2m-CfU"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="Q7N-DT-cOj"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Lq-4O-j3z" secondAttribute="trailing" constant="8" symbolic="YES" id="Vge-2P-aQ0"/>
                                     <constraint firstAttribute="bottom" secondItem="veC-Sv-bk6" secondAttribute="bottom" constant="40" id="dVE-c6-yDX"/>
                                     <constraint firstItem="wK9-uV-fvy" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="5" id="hTy-iJ-oak"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wK9-uV-fvy" secondAttribute="trailing" constant="8" symbolic="YES" id="iFH-Aq-Eff"/>
@@ -851,7 +861,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="kgo-W4-g8k"/>
+        <segue reference="FQq-Pt-F3v"/>
         <segue reference="gkd-Mi-ecb"/>
         <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>

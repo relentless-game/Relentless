@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 class NetworkManager: Network {
-    
+
     let maxNumberOfPlayers = 6
 
     private var ref: DatabaseReference!
@@ -178,13 +178,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float) {
+    func terminateRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
-        ref.child("games/\(gameId)/satisfactionLevel").setValue(satisfactionLevel)
     }
     
     func sendItems(gameId: Int, items: [Item], to destination: Player) {
@@ -308,12 +307,21 @@ class NetworkManager: Network {
         // reset pause countdown
         updatePauseCountDown(gameId: gameId, countDown: 30)
     }
+    
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float) {
+        ref.child("games/\(gameId)/satisfactionLevel/\(userId)").setValue(satisfactionLevel)
+    }
 
-    func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
+    func resetSatisfactionLevels(gameId: Int) {
+        ref.child("games/\(gameId)/satisfactionLevel").setValue(nil)
+    }
+    
+    func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
         ref.child(path).observeSingleEvent(of: .value) { snapshot in
-            let satisfactionLevel = snapshot.value as? Int ?? 0
-            action(satisfactionLevel)
+            let snapDict = snapshot.value as? [String: Float] ?? [:]
+            let satisfactionLevels = Array(snapDict.values)
+            action(satisfactionLevels)
         }
     }
     

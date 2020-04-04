@@ -323,8 +323,9 @@ class NetworkManager: Network {
     
     func attachOutOfOrdersListener(gameId: Int, action: @escaping (Int) -> Void) {
         let path = "games/\(gameId)/playersOutOfOrders"
-        ref.child(path).observe(.childAdded) { snapshot in
+        ref.child(path).observe(.value) { snapshot in
             if let snapDict = snapshot.value as? [String: Bool] {
+                print("number of players out of order is \(snapDict.values.count)")
                 let playersOutOfOrders = snapDict.values
                 action(playersOutOfOrders.count)
             }

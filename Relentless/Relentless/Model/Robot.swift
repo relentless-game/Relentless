@@ -1,5 +1,5 @@
 //
-//  Bulb.swift
+//  Robot.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 27/3/20.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class Bulb: RhythmicItem {
-    static let category = Category.bulb
-    static let bulbHeader = "Bulb: "
+class Robot: RhythmicItem {
+    static let category = Category.robot
+    static let robotHeader = "Robot: "
 
     init(unitDuration: Int, stateSequence: [RhythmState]) {
-        super.init(unitDuration: unitDuration, stateSequence: stateSequence, category: Bulb.category)
+        super.init(unitDuration: unitDuration, stateSequence: stateSequence, category: Robot.category)
     }
 
     required init(from decoder: Decoder) throws {
@@ -25,7 +25,7 @@ class Bulb: RhythmicItem {
     }
 
     override func equals(other: Item) -> Bool {
-        guard let otherBulb = other as? Bulb else {
+        guard let otherBulb = other as? Robot else {
             return false
         }
         return otherBulb.unitDuration == self.unitDuration
@@ -33,6 +33,10 @@ class Bulb: RhythmicItem {
     }
 
     override func toString() -> String {
-        Bulb.bulbHeader + String(unitDuration) + stateSequence.description
+        "Robot.bulbHeader + String(unitDuration) + stateSequence.description"
+    }
+
+    override func toDisplayString() -> String {
+        ""
     }
 }

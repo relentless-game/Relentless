@@ -12,7 +12,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
 
     static var teamCodeCharacterLimit = 4
     @IBOutlet private var teamCodeTextField: UITextField!
-    @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var joinButton: UIButton!
     var gameController: GameController?
     var userId: String?
@@ -105,10 +104,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction private func tryJoinGame(_ sender: Any) {
-        if let text = teamCodeTextField.text, let gameId = Int(text),
-            let username = usernameTextField.text {
+        if let text = teamCodeTextField.text, let gameId = Int(text){
             self.gameId = gameId
-            _ = gameController?.joinGame(gameId: gameId, userName: username)
+            _ = gameController?.joinGame(gameId: gameId, userName: "")
         }
     }
 

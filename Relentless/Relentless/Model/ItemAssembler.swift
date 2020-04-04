@@ -51,7 +51,7 @@ class ItemAssembler {
         for part in requiredPartsAndFrequencies {
             let partType = part.0
             let requiredNumber = part.1
-            let partsWithPartType = parts.compactMap { $0.partType == partType }
+            let partsWithPartType = parts.filter { $0.partType == partType }
             let frequency = partsWithPartType.count
             if frequency != requiredNumber {
                 return false

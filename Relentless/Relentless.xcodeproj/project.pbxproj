@@ -22,6 +22,12 @@
 		0B09CA602432E9A900F29648 /* ItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA5D2432E9A800F29648 /* ItemFactory.swift */; };
 		0B09CA622435793F00F29648 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA612435793E00F29648 /* Label.swift */; };
 		0B09CA6424357A6700F29648 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6324357A6700F29648 /* Shape.swift */; };
+		0B09CA6724374EED00F29648 /* ScoreBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6624374EED00F29648 /* ScoreBoard.swift */; };
+		0B09CA692437502200F29648 /* ScoreRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA682437502200F29648 /* ScoreRecord.swift */; };
+		0B09CA6B2437544100F29648 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6A2437544100F29648 /* LocalStorage.swift */; };
+		0B09CA6D2437595400F29648 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6C2437595400F29648 /* LocalStorageManager.swift */; };
+		0B09CA6F2437596B00F29648 /* JsonScoreBoardStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA6E2437596B00F29648 /* JsonScoreBoardStorage.swift */; };
+		0B09CA7124375E9100F29648 /* GameLocalStorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B09CA7024375E9100F29648 /* GameLocalStorageController.swift */; };
 		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
 		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
 		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
@@ -141,6 +147,12 @@
 		0B09CA5D2432E9A800F29648 /* ItemFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemFactory.swift; sourceTree = "<group>"; };
 		0B09CA612435793E00F29648 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		0B09CA6324357A6700F29648 /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		0B09CA6624374EED00F29648 /* ScoreBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBoard.swift; sourceTree = "<group>"; };
+		0B09CA682437502200F29648 /* ScoreRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRecord.swift; sourceTree = "<group>"; };
+		0B09CA6A2437544100F29648 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		0B09CA6C2437595400F29648 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		0B09CA6E2437596B00F29648 /* JsonScoreBoardStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonScoreBoardStorage.swift; sourceTree = "<group>"; };
+		0B09CA7024375E9100F29648 /* GameLocalStorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocalStorageController.swift; sourceTree = "<group>"; };
 		0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
 		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
 		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
@@ -277,6 +289,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B09CA6524374ED800F29648 /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				0B09CA6624374EED00F29648 /* ScoreBoard.swift */,
+				0B09CA6E2437596B00F29648 /* JsonScoreBoardStorage.swift */,
+				0B09CA682437502200F29648 /* ScoreRecord.swift */,
+				0B09CA6A2437544100F29648 /* LocalStorage.swift */,
+				0B09CA6C2437595400F29648 /* LocalStorageManager.swift */,
+			);
+			path = LocalStorage;
+			sourceTree = "<group>";
+		};
 		0B781574242CC2E9006CF4C2 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +414,7 @@
 				6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */,
 				6249B500241C8BB0002F8A1B /* GameModelController.swift */,
 				62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */,
+				0B09CA7024375E9100F29648 /* GameLocalStorageController.swift */,
 				6249B502241C8D9F002F8A1B /* GameController.swift */,
 				6249B510241CA76D002F8A1B /* GameControllerManager.swift */,
 				62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */,
@@ -488,6 +513,7 @@
 			children = (
 				5DE91778241FBAEC00569453 /* UI */,
 				6249B4FD241C89A7002F8A1B /* Game Logic */,
+				0B09CA6524374ED800F29648 /* LocalStorage */,
 				F319B32D241B7AEB005E3129 /* Model */,
 				F319B325241B79DC005E3129 /* Network */,
 				F3C37BF924189F5200D7109B /* AppDelegate.swift */,
@@ -797,6 +823,7 @@
 			files = (
 				0B09CA5A2432E99A00F29648 /* TitledItem.swift in Sources */,
 				0B78157E242CC699006CF4C2 /* PartType.swift in Sources */,
+				0B09CA7124375E9100F29648 /* GameLocalStorageController.swift in Sources */,
 				0B09CA5F2432E9A900F29648 /* Item.swift in Sources */,
 				0B09CA592432E99A00F29648 /* Magazine.swift in Sources */,
 				0B78157B242CC3DB006CF4C2 /* Part.swift in Sources */,
@@ -842,8 +869,10 @@
 				F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */,
 				6249B505241C952F002F8A1B /* GameItemsAllocator.swift in Sources */,
 				F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */,
+				0B09CA6D2437595400F29648 /* LocalStorageManager.swift in Sources */,
 				0B09CA6424357A6700F29648 /* Shape.swift in Sources */,
 				62D0EBD3242DDE7100FDAFAF /* Bulb.swift in Sources */,
+				0B09CA692437502200F29648 /* ScoreRecord.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				62D0EBD5242DFB6900FDAFAF /* GameParameters.swift in Sources */,
@@ -852,13 +881,16 @@
 				F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */,
 				F319B33E241DDF5D005E3129 /* GameStatus.swift in Sources */,
 				F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */,
+				0B09CA6F2437596B00F29648 /* JsonScoreBoardStorage.swift in Sources */,
 				5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
+				0B09CA6724374EED00F29648 /* ScoreBoard.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
 				62CEC6FF241CBEA900936CB6 /* CategoryGenerator.swift in Sources */,
 				62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */,
 				F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,
 				62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */,
 				0B09CA582432E99A00F29648 /* Book.swift in Sources */,
+				0B09CA6B2437544100F29648 /* LocalStorage.swift in Sources */,
 				6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */,
 				F3BF7F0E242503E200A50EE3 /* Player.swift in Sources */,
 				0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */,

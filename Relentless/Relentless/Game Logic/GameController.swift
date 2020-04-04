@@ -9,7 +9,7 @@
 import Foundation
 
 /// Handles game logic
-protocol GameController: GameNetworkController, GameModelController {
+protocol GameController: GameNetworkController, GameModelController, GameLocalStorageController {
 
     var gameCategories: [Category] { get }
     var satisfactionBar: SatisfactionBar { get set }
@@ -20,8 +20,6 @@ protocol GameController: GameNetworkController, GameModelController {
     var gameStatus: GameStatus? { get set } // for pausing
     var pauseCountDown: Int { get set } // for pausing
     
-    func endGame()
-
     func pauseRound()
 
     func resumeRound()

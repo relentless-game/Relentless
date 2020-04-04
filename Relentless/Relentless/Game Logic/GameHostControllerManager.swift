@@ -68,7 +68,22 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         
         // checks the lose condition and ends the game if fulfilled
         if money < 0 {
-            endGame()
+            endGame(score: game?.currentRoundNumber)
+        }
+    }
+
+    private func endGame(score: Int?) {
+        guard let gameId = gameId, let finalScore = score, let players = game?.allPlayers else {
+            return
+        }
+        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
+
+        let userNamesOfPlayers = players.map { $0.userName }
+        do {
+            try localStorage.updateScoreBoard(with: ScoreRecord(score: finalScore,
+                                                                userNamesOfPlayers: userNamesOfPlayers))
+        } catch {
+            return
         }
     }
 

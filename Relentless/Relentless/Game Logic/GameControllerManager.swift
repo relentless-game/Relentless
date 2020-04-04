@@ -67,6 +67,9 @@ class GameControllerManager: GameController {
     // for pausing the game
     var pauseTimer: Timer?
     var pauseCountDown: Int = 30
+
+    // properties for local storage
+    var localStorage: LocalStorage = LocalStorageManager()
     
     init(userId: String, gameParameters: GameParameters) {
         self.userId = userId
@@ -74,14 +77,6 @@ class GameControllerManager: GameController {
         // game?.player.userId = userId
         self.isHost = false
         addObservers()
-    }
-
-    @objc
-    func endGame() {
-        guard let gameId = gameId else {
-            return
-        }
-        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
     }
 
     func pauseRound() {
@@ -131,6 +126,10 @@ class GameControllerManager: GameController {
         } else {
             network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
         }
+    }
+
+    func getExistingScores() throws -> [ScoreRecord] {
+        try localStorage.getExistingScores()
     }
 
     @objc

@@ -17,6 +17,7 @@ class DeliveryViewController: UIViewController {
     let playersIdentifier = "PlayerIconCell"
     @IBOutlet private var playersCollectionView: UICollectionView!
     @IBOutlet private var housesCollectionView: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionViews()

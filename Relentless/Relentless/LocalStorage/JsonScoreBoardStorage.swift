@@ -34,8 +34,7 @@ class JsonScoreBoardStorage: ScoreBoard {
         }
     }
 
-
-    func updateScoreBoard(with newScore: ScoreRecord) throws {
+    func updateScoreBoard(with newScore: ScoreRecord) {
         do {
             var updatedScores = try getExistingScores()
             if updatedScores.isEmpty {
@@ -48,7 +47,7 @@ class JsonScoreBoardStorage: ScoreBoard {
             let url = try getDocumentsURL().appendingPathComponent(jsonFile)
             try scores.write(to: url, options: [])
         } catch {
-            throw ScoreBoardError.updateError
+            print("In JsonScoreBoardStorage: could not update...")
         }
     }
 

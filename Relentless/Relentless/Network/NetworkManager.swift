@@ -318,7 +318,7 @@ class NetworkManager: Network {
     
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
-        ref.child(path).observeSingleEvent(of: .value) { snapshot in
+        ref.child(path).observe(.value) { snapshot in
             let snapDict = snapshot.value as? [String: Float] ?? [:]
             let satisfactionLevels = Array(snapDict.values)
             action(satisfactionLevels)
@@ -333,7 +333,6 @@ class NetworkManager: Network {
         let path = "games/\(gameId)/playersOutOfOrders"
         ref.child(path).observe(.value) { snapshot in
             if let snapDict = snapshot.value as? [String: Bool] {
-                print("number of players out of order is \(snapDict.values.count)")
                 let playersOutOfOrders = snapDict.values
                 action(playersOutOfOrders.count)
             }

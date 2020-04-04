@@ -36,4 +36,6 @@ protocol GameModelController {
     func retrieveItemsFromOpenPackage() -> [Item]
 
     func retrieveOpenPackage() -> Package?
+
+    func constructAssembledItem(parts: [Part]) throws
 }

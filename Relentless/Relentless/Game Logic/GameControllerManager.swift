@@ -558,6 +558,10 @@ extension GameControllerManager {
         game?.removeOrder(order: order)
     }
 
+    func constructAssembledItem(parts: [Part]) throws {
+        try game?.constructAssembledItem(parts: parts)
+    }
+
     private func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
         satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
     }

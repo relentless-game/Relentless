@@ -13,6 +13,19 @@ class ItemCell: UICollectionViewCell {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var background: UIImageView!
 
+    var state: ItemCellState = .opaque {
+        didSet {
+            switch (state) {
+            case .transparent:
+                background.alpha = 0.2
+            case .translucent:
+                background.alpha = 0.6
+            case .opaque:
+                background.alpha = 1
+            }
+        }
+    }
+
     static let bookImage = UIImage(named: "book.png")
     static let magazineImage = UIImage(named: "magazine.png")
     static let unlitRobotImage = UIImage(named: "robot_lit.png")
@@ -105,19 +118,9 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setToyCarWholeBackgroundFor(car: ToyCar) {
-        let parts = car.parts
-        if let body = parts[0] as? ToyCarBody {
-//            getToyCarBodyString(body: body)
-        }
+        let imageString = car.toImageString()
+        background.image = UIImage(named: imageString)
     }
-
-//    func getToyCarBodyString(body: ToyCarBody) -> String {
-//        switch body.colour {
-//        case .red:
-//        case .green:
-//        case .blue:
-//        }
-//    }
 
     func setToyCarBatteryBackgroundFor(battery: ToyCarBattery) {
         switch battery.label {

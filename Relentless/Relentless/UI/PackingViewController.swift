@@ -32,6 +32,9 @@ class PackingViewController: UIViewController {
     private let packageIdentifier = "PackageCell"
     private let addPackageIdentifier = "AddPackageButton"
 
+    var assemblyMode = false
+    var selectedParts = Set<Part>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initialiseCollectionViews()
@@ -172,6 +175,24 @@ class PackingViewController: UIViewController {
     }
 
     @IBAction private func touchAssembleButton(_ sender: Any) {
+        if assemblyMode {
+            assembleParts()
+            selectedParts.removeAll()
+            assemblyMode = false
+        } else {
+            assemblyMode = true
+        }
+    }
+
+    func assembleParts() {
+        do {
+            let parts = Array(selectedParts)
+            try gameController?.constructAssembledItem(parts: parts)
+        } catch ItemAssembledError.assembledItemConstructionError {
+            // Currently, do nothing. Invalid selection of parts by player.
+        } catch {
+            assert(false, "Unexpected error.")
+        }
     }
 
     @IBAction private func touchCategoryButton(_ sender: UIView) {
@@ -331,6 +352,17 @@ extension PackingViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
             if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
                 itemCell.setItem(item: item)
+                if assemblyMode {
+                    if let part = currentPackageItems?[indexPath.row] as? Part {
+                        if selectedParts.contains(part) {
+                            itemCell.state = .opaque
+                        } else {
+                            itemCell.state = .translucent
+                        }
+                    } else {
+                        itemCell.state = .transparent
+                    }
+                }
             }
             return cell
         } else {
@@ -362,7 +394,19 @@ extension PackingViewController: UICollectionViewDelegate {
             guard let currentPackageItems = currentPackageItems else {
                 return
             }
-            gameController?.removeItem(item: currentPackageItems[indexPath.item])
+            if assemblyMode {
+                guard let part = currentPackageItems[indexPath.item] as? Part else {
+                    return
+                }
+                if selectedParts.contains(part) {
+                    selectedParts.remove(part)
+                } else {
+                    selectedParts.insert(part)
+                }
+                print(selectedParts)
+            } else {
+                gameController?.removeItem(item: currentPackageItems[indexPath.item])
+            }
         } else {
             if let currentCategory = currentCategory,
                 let item = items?[currentCategory]?[indexPath.item] {

@@ -71,8 +71,12 @@ class GameManager: Game {
         currentlyOpenPackage?.removeItem(item: item)
     }
 
-    func constructAssembledItem(parts: [Part]) throws -> AssembledItem {
-        try ItemAssembler.assembleItem(parts: parts)
+    func constructAssembledItem(parts: [Part]) throws {
+        let assembledItem = try ItemAssembler.assembleItem(parts: parts)
+        currentlyOpenPackage?.addItem(item: assembledItem)
+        for part in parts {
+            currentlyOpenPackage?.removeItem(item: part)
+        }
     }
 
     func checkPackage(package: Package, for house: House) -> Bool {

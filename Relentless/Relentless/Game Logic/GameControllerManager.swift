@@ -210,6 +210,7 @@ class GameControllerManager: GameController {
     @objc
     func handleOrderTimeLeftChange(notification: Notification) {
         satisfactionBar.decrementWithTime()
+        NotificationCenter.default.post(name: .didChangeOrders, object: nil)
     }
 
     private func addObservers() {

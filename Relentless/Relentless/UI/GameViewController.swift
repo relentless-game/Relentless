@@ -46,6 +46,7 @@ class GameViewController: UIViewController {
     @IBAction private func proceed(_ sender: Any) {
         if gameHasEnded {
             gameHasEnded = false
+            proceedButton.isHidden = !(gameController?.isHost ?? false)
             performSegue(withIdentifier: "endGame", sender: self)
         } else {
             (gameController as? GameHostController)?.startRound()
@@ -57,6 +58,7 @@ class GameViewController: UIViewController {
     }
 
     @objc func handleGameEnded() {
+        proceedButton.isHidden = false
         gameHasEnded = true
     }
 

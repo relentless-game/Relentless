@@ -58,7 +58,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
-        network.startGame(gameId: gameId, gameParameters: gameParameters, completion: { error in
+        let difficultyLevel = gameParameters.difficultyLevel
+        network.startGame(gameId: gameId, difficultyLevel: difficultyLevel, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulStart(error: error)
             }
@@ -112,7 +113,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             let sum = satisfactionLevels.reduce(0) { result, number in
                 result + number
             }
-            updateSatisfaction(satisfactionLevel: Int(sum))
+            updateMoney(satisfactionLevel: Int(sum))
         }
         
         // checks the lose condition and ends the game if fulfilled

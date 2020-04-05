@@ -202,6 +202,7 @@ class GameControllerManager: GameController {
     @objc
     func handleItemLimitReached(notification: Notification) {
         NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
+    }
 
     @objc
     func handleChangeOfOpenPackage(notification: Notification) {
@@ -340,6 +341,10 @@ extension GameControllerManager {
     @objc
     internal func attachNetworkListeners(userId: String, gameId: Int) {
         attachNonHostListeners(userId: userId, gameId: gameId)
+        // The host should not have this listener
+        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
+            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
+        })
     }
 
     internal func attachNonHostListeners(userId: String, gameId: Int) {
@@ -359,9 +364,6 @@ extension GameControllerManager {
         self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
         self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
             self.game?.packageItemsLimit = limit
-        })
-        self.network.attachGameParametersListener(gameId: gameId, action: { gameParameters in
-            self.gameParameters = gameParameters
         })
     }
     
@@ -444,7 +446,7 @@ extension GameControllerManager {
             let sum = satisfactionLevels.reduce(0) { result, number in
                 result + number
             }
-            updateSatisfaction(satisfactionLevel: Int(sum))
+            updateMoney(satisfactionLevel: Int(sum))
         }
     }
 
@@ -502,7 +504,7 @@ extension GameControllerManager {
             return
         }
         game?.resetForNewRound()
-        gameParameters.incrementDifficulty()
+        parameters.incrementDifficulty()
         
         guard let gameId = gameId, let userId = userId else {
             return

@@ -32,6 +32,10 @@ class DeliveryViewController: UIViewController {
                                                name: .didEndRound, object: nil)
     }
 
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+    }
+
     func initCollectionViews() {
         let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
@@ -46,6 +50,7 @@ class DeliveryViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeObservers()
         removeAllPreviousViewControllers()
         if segue.identifier == "cancelDelivery" {
             let viewController = segue.destination as? PackingViewController

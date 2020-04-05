@@ -233,7 +233,6 @@ class PackingViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
-        removeObservers()
         if segue.identifier == "toHouses" {
             let viewController = segue.destination as? HousesViewController
             viewController?.gameController = gameController

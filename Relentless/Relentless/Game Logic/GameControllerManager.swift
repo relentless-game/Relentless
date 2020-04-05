@@ -11,11 +11,7 @@ import Foundation
 class GameControllerManager: GameController {
 
     // properties for game logic
-    private var roundTimeLeft: Int = 0 //{
-//        didSet {
-//            satisfactionBar.decrementWithTime()
-//        }
-//    }
+    private var roundTimeLeft: Int = 0
     private var roundTimer = Timer()
     private var orderStartTimer = Timer()
 

@@ -58,7 +58,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
-        network.startGame(gameId: gameId, gameParameters: gameParameters, completion: { error in
+        let difficultyLevel = gameParameters.difficultyLevel
+        network.startGame(gameId: gameId, difficultyLevel: difficultyLevel, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulStart(error: error)
             }

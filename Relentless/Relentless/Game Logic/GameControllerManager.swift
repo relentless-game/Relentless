@@ -361,8 +361,8 @@ extension GameControllerManager {
         self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
             self.game?.packageItemsLimit = limit
         })
-        self.network.attachGameParametersListener(gameId: gameId, action: { gameParameters in
-            self.gameParameters = gameParameters
+        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
+            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
         })
     }
     

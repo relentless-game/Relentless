@@ -163,7 +163,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
 
         let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
-
         // allocate items according to chosen categories
         let allocatedItems = allocateItems(numberOfPlayers: numberOfPlayers,
                                            parameters: parameters, categories: categories)

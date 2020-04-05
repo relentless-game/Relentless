@@ -101,6 +101,10 @@ class Order: Hashable, Codable {
         stopTimer()
     }
 
+    func containsAssembledItem() -> Bool {
+        !(items.compactMap { $0 as? AssembledItem }.isEmpty)
+    }
+
 }
 
 extension Order {

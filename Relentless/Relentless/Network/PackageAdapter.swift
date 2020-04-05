@@ -26,7 +26,6 @@ class PackageAdapter {
 //            let encodedData = try encoder.encode(packageStringsArray)
             let encodedData = try encoder.encode(package)
             let encodedString = String(data: encodedData, encoding: .utf8)
-            
             return encodedString
         } catch {
             return nil
@@ -49,9 +48,7 @@ class PackageAdapter {
 //            let items = itemsWrapper.items
 //
 //            let decodedPackage = Package(creator: creator, packageNumber: packageNumber, items: items)
-
             let decodedPackage = try decoder.decode(Package.self, from: data)
-            
             return decodedPackage
         } catch {
             return nil

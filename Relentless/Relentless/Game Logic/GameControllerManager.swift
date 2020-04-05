@@ -341,6 +341,10 @@ extension GameControllerManager {
     @objc
     internal func attachNetworkListeners(userId: String, gameId: Int) {
         attachNonHostListeners(userId: userId, gameId: gameId)
+        // The host should not have this listener
+        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
+            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
+        })
     }
 
     internal func attachNonHostListeners(userId: String, gameId: Int) {
@@ -360,9 +364,6 @@ extension GameControllerManager {
         self.network.attachPauseCountDownListener(gameId: gameId, action: self.onPauseCountDownDidChange)
         self.network.attachPackageItemsLimitListener(gameId: gameId, action: { limit in
             self.game?.packageItemsLimit = limit
-        })
-        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
-            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
         })
     }
     

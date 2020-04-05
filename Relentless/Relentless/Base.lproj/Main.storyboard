@@ -1143,4 +1143,11 @@
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="fdU-OW-AMW"/>
+        <segue reference="NHt-Cf-6dI"/>
+        <segue reference="q2U-Sj-S2g"/>
+        <segue reference="gkd-Mi-ecb"/>
+        <segue reference="Bzf-a8-1jP"/>
+    </inferredMetricsTieBreakers>
 </document>

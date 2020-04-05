@@ -88,8 +88,6 @@ class GameControllerManager: GameController {
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
-
-        //pauseAllTimers()
         
         newGameStatus.numberOfPlayersPaused += 1
         newGameStatus.isResumed = false
@@ -131,7 +129,6 @@ class GameControllerManager: GameController {
         // only resume if all players are back
         let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
         if areAllPlayersBack {
-            //pauseTimer?.invalidate()
             network.resumeRound(gameId: gameId, currentRound: roundNumber)
         } else {
             network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
@@ -235,7 +232,7 @@ class GameControllerManager: GameController {
                                                name: .didChangeOpenPackageInModel, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleOrderTimeLeftChange(notification:)),
-                                               name: .didTimeUpdateInOrder, object: nil)
+                                               name: .didOrderTimeUpdateInModel, object: nil)
     }
 
     private func getActiveOrders() -> [Order] {

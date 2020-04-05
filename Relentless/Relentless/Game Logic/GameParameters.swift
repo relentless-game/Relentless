@@ -34,8 +34,7 @@ class GameParameters {
     }
 
     static var satisfactionUnitDecrease: Float {
-        //(Float(maxSatisfaction) / Float(roundTime)).rounded(.up)
-        10
+        (Float(maxSatisfaction) / Float(roundTime)).rounded(.up)
     }
 
     init(difficultyLevel: Float) {

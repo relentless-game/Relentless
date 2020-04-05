@@ -198,8 +198,8 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
-        removeObservers()
         if segue.identifier == "startGame" {
+            removeObservers()
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
         } else if segue.identifier == "toSettings" {

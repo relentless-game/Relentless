@@ -23,15 +23,13 @@ class Order: Hashable, Codable {
             NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
         }
     }
-    var hasStarted: Bool = false {
-        didSet {
-            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
-        }
-    }
+
     // Float from 0 to 1
     var timeRatio: Float {
         Float(timeLeft) / Float(timeLimit)
     }
+    
+    var hasStarted: Bool = false
 
     init(items: [Item], timeLimitInSeconds: Int) {
         self.items = items.sorted()
@@ -68,8 +66,8 @@ class Order: Hashable, Codable {
     }
 
     func resumeTimer() {
-        self.timer = Timer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
-                           userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
+                                          userInfo: nil, repeats: true)
     }
 
     /// Returns true if package matches items in order

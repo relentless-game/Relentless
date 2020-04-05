@@ -68,7 +68,8 @@ class PackingViewController: UIViewController {
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.willResignActiveNotification, object: nil)
+                                               //name: UIApplication.willResignActiveNotification, object: nil)
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -165,7 +166,6 @@ class PackingViewController: UIViewController {
 
     @objc
     func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
-        print("long press called")
         if longPressGR.state == .ended {
             return
         }
@@ -181,7 +181,6 @@ class PackingViewController: UIViewController {
             let cell = self.packagesView.cellForItem(at: indexPath)
             if let packageCell = cell as? PackageCell {
                 packageForDelivery = packageCell.package
-                print("gonna perform segue to delivery VC")
                 performSegue(withIdentifier: "deliverPackage", sender: self)
             }
         }
@@ -237,7 +236,6 @@ class PackingViewController: UIViewController {
             viewController?.gameController = gameController
         }
         if segue.identifier == "deliverPackage" {
-            print("gonna segue to delivery VC")
             let viewController = segue.destination as? DeliveryViewController
             viewController?.gameController = gameController
             viewController?.packageForDelivery = packageForDelivery
@@ -427,7 +425,6 @@ extension PackingViewController: UICollectionViewDelegate {
                 } else {
                     selectedParts.insert(part)
                 }
-                print(selectedParts)
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

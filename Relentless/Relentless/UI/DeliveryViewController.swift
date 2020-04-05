@@ -19,7 +19,6 @@ class DeliveryViewController: UIViewController {
     @IBOutlet private var housesCollectionView: UICollectionView!
     
     override func viewDidLoad() {
-        print("delivery VC loaded")
         super.viewDidLoad()
         initCollectionViews()
         houses = gameController?.houses

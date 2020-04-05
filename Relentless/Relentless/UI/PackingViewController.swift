@@ -60,6 +60,9 @@ class PackingViewController: UIViewController {
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameEnded),
+                                               name: .didEndGame, object: nil)
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleItemLimitReached),
                                                name: .didItemLimitReached, object: nil)
         NotificationCenter.default.addObserver(self,
@@ -88,6 +91,7 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .didChangeItems, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didChangeSatisfactionBar, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
@@ -150,7 +154,12 @@ class PackingViewController: UIViewController {
     }
     
     @objc func handleRoundEnded() {
+        removeObservers()
         performSegue(withIdentifier: "endRound", sender: self)
+    }
+    
+    @objc func handleGameEnded() {
+        performSegue(withIdentifier: "endGameFromPacking", sender: self)
     }
 
     @objc func handleItemLimitReached() {

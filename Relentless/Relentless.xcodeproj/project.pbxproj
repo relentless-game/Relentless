@@ -974,6 +974,7 @@
 				0B09CA6424357A6700F29648 /* Shape.swift in Sources */,
 				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				0B09CA692437502200F29648 /* ScoreRecord.swift in Sources */,
+				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				0BC465FF2439786A00D20B93 /* ScoreCell.swift in Sources */,
@@ -1194,8 +1195,9 @@
 			baseConfigurationReference = 85ED228C9FDA1C9363B1DEAF /* Pods-Relentless.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
 				INFOPLIST_FILE = Relentless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1204,6 +1206,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1214,8 +1217,9 @@
 			baseConfigurationReference = E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = RVZD4FPJG5;
 				INFOPLIST_FILE = Relentless/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1224,6 +1228,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ournameis.Relentless;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

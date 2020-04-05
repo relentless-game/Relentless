@@ -89,10 +89,9 @@ enum PlayerAvatar: String, Codable, CaseIterable {
     }
 
     func toString() -> String {
-        return self.rawValue
+        self.rawValue
     }
 }
-
 
 enum PlayerAvatarKeys: CodingKey {
     case playerAvatar

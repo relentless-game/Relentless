@@ -123,7 +123,6 @@
 		F3C37BFC24189F5200D7109B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37BFB24189F5200D7109B /* SceneDelegate.swift */; };
 		F3C37C0124189F5200D7109B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37BFF24189F5200D7109B /* Main.storyboard */; };
 		F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0224189F5500D7109B /* Assets.xcassets */; };
-		F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C0424189F5500D7109B /* LaunchScreen.storyboard */; };
 		F3C37C1124189F5500D7109B /* RelentlessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1024189F5500D7109B /* RelentlessTests.swift */; };
 		F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */; };
 		F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
@@ -758,9 +757,7 @@
 			files = (
 				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
 				5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */,
-				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */,
-				F3C37C0624189F5500D7109B /* LaunchScreen.storyboard in Resources */,
 				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
 				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
 				F3C37C0324189F5500D7109B /* Assets.xcassets in Resources */,

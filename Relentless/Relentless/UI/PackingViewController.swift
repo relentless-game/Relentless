@@ -91,7 +91,8 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
         NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification,
+                                                  object: nil)
         NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
     }
@@ -368,6 +369,7 @@ extension PackingViewController: UICollectionViewDataSource {
         }
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.packagesView {

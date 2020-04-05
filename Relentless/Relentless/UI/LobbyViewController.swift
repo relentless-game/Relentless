@@ -106,7 +106,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         settingsButton.isHidden = !(gameController?.isHost ?? false)
     }
 
-    @IBAction func navigateToSettings(_ sender: UIButton) {
+    @IBAction private func navigateToSettings(_ sender: UIButton) {
         performSegue(withIdentifier: "toSettings", sender: self)
     }
 

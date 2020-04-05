@@ -103,7 +103,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let players = game?.allPlayers else {
             return false
         }
-        let avatars = players.map { $0.profileImage ?? .red }
+        let avatars = players.map { $0.profileImage }
         return Set(avatars).count == game?.allPlayers.count
     }
     

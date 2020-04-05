@@ -26,6 +26,9 @@ class ItemCell: UICollectionViewCell {
         }
     }
 
+    // swiftlint:disable unused_setter_value
+    // unused settervalue in order to override normal cell behaviour
+    // causes problems in selection of robot - animation will stop
     override var isSelected: Bool {
         set {
         }
@@ -41,6 +44,7 @@ class ItemCell: UICollectionViewCell {
              super.isHighlighted
         }
     }
+    // swiftlint:enable unused_setter_value
 
     static let bookImage = UIImage(named: "book.png")
     static let magazineImage = UIImage(named: "magazine.png")

@@ -509,7 +509,8 @@ extension GameControllerManager {
             return
         }
         let userNamesOfPlayers = players.map { $0.userName }
-        localStorage.updateScoreBoard(with: ScoreRecord(score: score, userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
+        localStorage.updateScoreBoard(with: ScoreRecord(score: score,
+                                                        userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
     }
 
     private func resetAllAttributes() {

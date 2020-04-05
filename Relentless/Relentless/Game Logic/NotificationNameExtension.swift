@@ -43,6 +43,8 @@ extension Notification.Name {
     static let gameAlreadyPlaying = Notification.Name("gameAlreadyPlaying")
     static let gameRoomFull = Notification.Name("gameRoomFull")
     static let insufficientPlayers = Notification.Name("insufficientPlayers")
+    static let nonUniqueUsernames = Notification.Name("nonUniqueUsernames")
+    static let nonUniqueAvatars = Notification.Name("nonUniqueAvatars")
     static let didChangeItems = Notification.Name("didChangeItems")
     static let didChangePackages = Notification.Name("didChangePackages")
     static let didChangeOrders = Notification.Name("didChangeOrders") // order is removed or timer is updated

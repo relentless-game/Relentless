@@ -53,12 +53,21 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleInsufficientPlayers),
                                                name: .insufficientPlayers, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNonUniqueUsernames),
+                                               name: .nonUniqueUsernames, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleNonUniqueAvatars),
+                                               name: .nonUniqueAvatars, object: nil)
     }
     
     func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .newPlayerDidJoin, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didStartGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .insufficientPlayers, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .nonUniqueUsernames, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .nonUniqueAvatars, object: nil)
     }
 
     @objc func refreshPlayers() {
@@ -99,6 +108,20 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         let alert = createAlert(title: "Sorry.",
                                 message: "You need at least " + String(minNumOfPlayers) + " players to play."
                                     + " Get your friends to join the game!",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func handleNonUniqueUsernames() {
+        let alert = createAlert(title: "Sorry.",
+                                message: "All of your names need to be unique. Please change some of your names.",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func handleNonUniqueAvatars() {
+        let alert = createAlert(title: "Sorry.",
+                                message: "All of your avatars need to be unique. Please change some of your avatars.",
                                 action: "Ok.")
         self.present(alert, animated: true, completion: nil)
     }

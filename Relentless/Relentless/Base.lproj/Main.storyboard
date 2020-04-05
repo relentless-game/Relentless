@@ -25,17 +25,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="408" y="30" width="330" height="178"/>
+                                <rect key="frame" x="573" y="29.999999999999993" width="165" height="89.333333333333314"/>
                                 <state key="normal" image="button_more"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dws-fj-lBf">
-                                <rect key="frame" x="-394" y="30" width="1600" height="294"/>
+                                <rect key="frame" x="6" y="30" width="800" height="294"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="2Uv-ly-Vd9">
-                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="74"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="800" height="74"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="104" width="800" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="createRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
@@ -49,7 +49,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="214" width="800" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
@@ -131,7 +131,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74" y="30" width="330" height="116"/>
+                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
                                 <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <state key="normal" image="button_back"/>
                                 <connections>
@@ -618,7 +618,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="BFQ-Gv-6yV">
                                                 <rect key="frame" x="0.0" y="0.0" width="351" height="55"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-3a-vM3">
                                                 <rect key="frame" x="371" y="0.0" width="98" height="55"/>
@@ -748,14 +748,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="gYz-K5-BEo" customClass="ScoreCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="692" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="692" height="43.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYz-K5-BEo" id="Kub-PB-roK">
-                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDN-4v-toN">
-                                                    <rect key="frame" x="23" y="11.000000000000002" width="646" height="21.666666666666671"/>
+                                                    <rect key="frame" x="23" y="10.999999999999998" width="646" height="21.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -939,8 +939,8 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o3k-me-lbf">
                                 <rect key="frame" x="74" y="100" width="664" height="224"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wBJ-VK-lV5">
-                                    <size key="itemSize" width="50" height="50"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="20" id="wBJ-VK-lV5">
+                                    <size key="itemSize" width="50" height="90"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -951,12 +951,23 @@
                                     <outlet property="delegate" destination="7Wf-ZL-3wu" id="B7O-lP-fGc"/>
                                 </connections>
                             </collectionView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="Za6-Zz-buZ">
+                                <rect key="frame" x="74" y="294" width="664" height="30"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AYc-TD-rTd"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="8v0-GL-bLx" firstAttribute="trailing" secondItem="o3k-me-lbf" secondAttribute="trailing" constant="30" id="0Ip-ix-5il"/>
                             <constraint firstItem="o3k-me-lbf" firstAttribute="leading" secondItem="8v0-GL-bLx" secondAttribute="leading" constant="30" id="D4B-rL-7X9"/>
                             <constraint firstItem="8v0-GL-bLx" firstAttribute="bottom" secondItem="o3k-me-lbf" secondAttribute="bottom" constant="30" id="HNy-ud-R2h"/>
+                            <constraint firstItem="Za6-Zz-buZ" firstAttribute="centerX" secondItem="MjB-xY-kNL" secondAttribute="centerX" id="Nu3-WM-eJt"/>
+                            <constraint firstItem="Za6-Zz-buZ" firstAttribute="leading" secondItem="8v0-GL-bLx" secondAttribute="leading" constant="30" id="Thu-5E-fng"/>
+                            <constraint firstItem="8v0-GL-bLx" firstAttribute="bottom" secondItem="Za6-Zz-buZ" secondAttribute="bottom" constant="30" id="Wv7-fe-KNY"/>
                             <constraint firstItem="o3k-me-lbf" firstAttribute="top" secondItem="8v0-GL-bLx" secondAttribute="top" constant="100" id="YHT-jV-fnQ"/>
                             <constraint firstAttribute="trailing" secondItem="p1c-Oa-Zz4" secondAttribute="trailing" constant="30" id="b9Z-6g-Ywo"/>
                             <constraint firstItem="p1c-Oa-Zz4" firstAttribute="top" secondItem="8v0-GL-bLx" secondAttribute="top" constant="30" id="h5C-cG-xEl"/>
@@ -1137,7 +1148,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="q2U-Sj-S2g"/>
+        <segue reference="biH-vW-GUr"/>
         <segue reference="gkd-Mi-ecb"/>
         <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>

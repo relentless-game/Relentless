@@ -28,6 +28,10 @@ class Order: Hashable, Codable {
             NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
         }
     }
+    // Float from 0 to 1
+    var timeRatio: Float {
+        return Float(timeLeft) / Float(timeLimit)
+    }
 
     init(items: [Item], timeLimitInSeconds: Int) {
         self.items = items.sorted()

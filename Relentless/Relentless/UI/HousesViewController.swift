@@ -32,12 +32,19 @@ class HousesViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleOrdersChanged),
+//                                               name: .didChangeOrders, object: nil)
     }
 
     func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
     }
-    
+
+//    @objc func handleOrdersChanged() {
+//        housesCollectionView.reloadData()
+//    }
+
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
     }
@@ -55,7 +62,7 @@ class HousesViewController: UIViewController {
         if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
             as? OrderViewController {
             let width = view.frame.width - 60
-            let height = view.frame.width / 2
+            let height = view.frame.height / 2
             viewController.preferredContentSize = CGSize(width: width, height: height)
             viewController.modalPresentationStyle = .popover
             viewController.orders = orders
@@ -65,6 +72,7 @@ class HousesViewController: UIViewController {
             if let pop = viewController.popoverPresentationController {
                 pop.sourceView = sender
                 pop.sourceRect = sender.bounds
+                pop.permittedArrowDirections = .up
             }
             self.present(viewController, animated: true)
         }

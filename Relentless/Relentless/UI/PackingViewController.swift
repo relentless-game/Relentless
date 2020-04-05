@@ -181,7 +181,7 @@ class PackingViewController: UIViewController {
 
     @objc
     func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
-        if longPressGR.state == .ended {
+        if longPressGR.state != .began {
             return
         }
 

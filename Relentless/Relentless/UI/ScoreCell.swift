@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ScoreCell: UITableViewCell {
-    static let fontSize:CGFloat = 20
+    static let fontSize: CGFloat = 20
     static let regularFontName = "AppleSDGothicNeo-Regular"
     static let boldedFontName = "AppleSDGothicNeo-Bold"
     @IBOutlet private var score: UILabel!

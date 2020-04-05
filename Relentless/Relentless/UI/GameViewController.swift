@@ -33,6 +33,12 @@ class GameViewController: UIViewController {
                                                name: .didChangeMoney, object: nil)
     }
 
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeMoney, object: nil)
+    }
+
     func initProceedButton() {
         proceedButton.isHidden = !(gameController?.isHost ?? false)
     }
@@ -63,6 +69,8 @@ class GameViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeAllPreviousViewControllers()
+        removeObservers()
         if segue.identifier == "startRound" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController

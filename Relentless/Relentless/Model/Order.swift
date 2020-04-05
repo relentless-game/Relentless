@@ -78,7 +78,8 @@ class Order: Hashable, Codable {
         var orderItems = items
         var packageItems = package.items
         for item in items where packageItems.contains(item) {
-            guard let packageItemIndex = packageItems.firstIndex(of: item), let orderItemIndex = orderItems.firstIndex(of: item) else {
+            guard let packageItemIndex = packageItems.firstIndex(of: item),
+                let orderItemIndex = orderItems.firstIndex(of: item) else {
                 continue
             }
             packageItems.remove(at: packageItemIndex)

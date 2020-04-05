@@ -35,15 +35,11 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     func startRound() {
-        guard let game = game else {
-            return
-        }
         // items and orders are generated and allocated by the host only
         let items = initialiseItems()
         initialiseOrders(items: items)
         // network is notified to start round by the host only
-        if let gameId = gameId {
-            let roundNumber = game.currentRoundNumber
+        if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
             // clear satisfaction levels stored in the cloud
             network.resetSatisfactionLevels(gameId: gameId)

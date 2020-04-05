@@ -25,6 +25,7 @@ class GameOverViewController: UIViewController {
     }
 
     @IBAction private func backToMainMenu(_ sender: UIButton) {
+        removeAllPreviousViewControllers()
         performSegue(withIdentifier: "backToMainMenu", sender: self)
     }
 }
@@ -35,7 +36,8 @@ extension GameOverViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: scoreIdentifier, for: indexPath) as? ScoreCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: scoreIdentifier, for: indexPath)
+            as? ScoreCell else {
             return tableView.dequeueReusableCell(withIdentifier: scoreIdentifier, for: indexPath)
         }
         guard let score = scores?[indexPath.row] else {

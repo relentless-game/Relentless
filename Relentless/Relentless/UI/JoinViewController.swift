@@ -111,7 +111,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleJoinSuccess() {
-        removeObservers()
         performSegue(withIdentifier: "joinGame", sender: self)
     }
 
@@ -137,6 +136,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeObservers()
+        removeAllPreviousViewControllers()
         if segue.identifier == "joinGame" {
             if let viewController = segue.destination as? LobbyViewController {
                 viewController.gameController = self.gameController

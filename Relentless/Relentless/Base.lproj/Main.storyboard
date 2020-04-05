@@ -16,7 +16,7 @@
         <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="StartViewController" title="Title" id="BYZ-38-t0r" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StartViewController" title="Title" id="BYZ-38-t0r" customClass="TitleViewController" customModule="Relentless" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
                                             <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="OPb-V7-r8L" kind="show" identifier="createGame" id="Ed9-Qd-LTp"/>
+                                            <action selector="createRoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o13-4R-Lag"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
@@ -56,7 +56,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="GSL-Qu-8tE" kind="show" id="vKT-ZM-cVP"/>
+                                            <action selector="joinRoom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EZm-6W-0hn"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -78,10 +78,14 @@
                         <viewLayoutGuide key="safeArea" id="AiJ-P2-MDo"/>
                     </view>
                     <navigationItem key="navigationItem" id="2cK-Dy-A3F"/>
+                    <connections>
+                        <segue destination="GSL-Qu-8tE" kind="show" identifier="joinRoom" id="JYq-kd-7Dr"/>
+                        <segue destination="OPb-V7-r8L" kind="show" identifier="createRoom" id="qOx-gU-PEw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.52709359605913" y="92"/>
+            <point key="canvasLocation" x="112" y="-2"/>
         </scene>
         <!--Join-->
         <scene sceneID="a65-NT-APB">
@@ -965,9 +969,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
-        <segue reference="Ed9-Qd-LTp"/>
+        <segue reference="qOx-gU-PEw"/>
         <segue reference="q2U-Sj-S2g"/>
         <segue reference="gkd-Mi-ecb"/>
-        <segue reference="jjZ-ez-pdX"/>
+        <segue reference="Bzf-a8-1jP"/>
     </inferredMetricsTieBreakers>
 </document>

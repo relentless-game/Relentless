@@ -68,7 +68,8 @@ class PackingViewController: UIViewController {
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.willResignActiveNotification, object: nil)
+                                               //name: UIApplication.willResignActiveNotification, object: nil)
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -79,6 +80,20 @@ class PackingViewController: UIViewController {
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
 
+    }
+
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangePackages, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeItems, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeSatisfactionBar, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
+        // The following observers are for the pausing feature
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -424,7 +439,6 @@ extension PackingViewController: UICollectionViewDelegate {
                 } else {
                     selectedParts.insert(part)
                 }
-                print(selectedParts)
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

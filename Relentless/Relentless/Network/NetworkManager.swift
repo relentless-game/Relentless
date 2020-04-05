@@ -163,12 +163,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int, gameParameters: GameParameters, completion: @escaping (StartGameError?) -> Void) {
+    func startGame(gameId: Int, difficultyLevel: Float, completion: @escaping (StartGameError?) -> Void) {
         // enough players -> start game
-        checkEnoughPlayers(gameId: gameId, gameParameters: gameParameters, completion: completion)
+        checkEnoughPlayers(gameId: gameId, difficultyLevel: difficultyLevel, completion: completion)
     }
 
-    private func checkEnoughPlayers(gameId: Int, gameParameters: GameParameters,
+    private func checkEnoughPlayers(gameId: Int, difficultyLevel: Float,
                                     completion: @escaping (StartGameError?) -> Void) {
         ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
             var numberOfPlayers = 0
@@ -177,7 +177,7 @@ class NetworkManager: Network {
             }
             let minNumOfPlayers = self.numOfPlayersRange.lowerBound
             if numberOfPlayers >= minNumOfPlayers {
-                self.startGameInDatabase(gameId: gameId, gameParameters: gameParameters)
+                self.startGameInDatabase(gameId: gameId, difficultyLevel: difficultyLevel)
                 completion(nil) // nil indicates successful result
             } else {
                 completion(StartGameError.insufficientPlayers)
@@ -185,14 +185,14 @@ class NetworkManager: Network {
         }
     }
 
-    private func startGameInDatabase(gameId: Int, gameParameters: GameParameters) {
+    private func startGameInDatabase(gameId: Int, difficultyLevel: Float) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
                                           isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
-        ref.child("games/\(gameId)/gameParameters").setValue(gameParameters)
+        ref.child("games/\(gameId)/difficultyLevel").setValue(difficultyLevel)
     }
 
     func startRound(gameId: Int, roundNumber: Int) {
@@ -398,12 +398,11 @@ class NetworkManager: Network {
         })
     }
 
-    func attachGameParametersListener(gameId: Int, action: @escaping (GameParameters) -> Void) {
-        let path = "games/\(gameId)/gameParameters"
+    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void) {
+        let path = "games/\(gameId)/difficultyLevel"
         _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
-            if let gameParameters = snapshot.value as? GameParameters {
-                action(gameParameters)
-            }
+            let difficultyLevel = snapshot.value as? Float ?? 1.0
+            action(difficultyLevel)
         })
     }
 }

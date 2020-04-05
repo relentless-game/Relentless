@@ -15,7 +15,7 @@ class ItemCell: UICollectionViewCell {
 
     var state: ItemCellState = .opaque {
         didSet {
-            switch (state) {
+            switch state {
             case .transparent:
                 background.alpha = 0.2
             case .translucent:

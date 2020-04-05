@@ -24,12 +24,12 @@ class ToyCarBatteryTests: XCTestCase {
     }
 
     func testComparison() {
-//        let batteryWithSmallerName = ToyCarBattery(label: String(label.dropFirst()))
-//        let batteryWithBiggerName = ToyCarBattery(label: label + "A")
-//        let magazine = Magazine(name: String(label.dropFirst()))
-//        XCTAssertTrue(batteryWithSmallerName < battery)
-//        XCTAssertTrue(battery < batteryWithBiggerName)
-//        XCTAssertTrue(magazine < battery) // battery has category toy car > magazine
+        let batteryWithSmallerLabel = ToyCarBattery(label: Label.d)
+        let batteryWithBiggerLabel = ToyCarBattery(label: Label.pp3)
+        let magazine = Magazine(name: String(label.toString().dropFirst()))
+        XCTAssertTrue(batteryWithSmallerLabel < battery)
+        XCTAssertTrue(battery < batteryWithBiggerLabel)
+        XCTAssertTrue(magazine < battery) // battery has category toy car > magazine
     }
 
     func testEquals() {

@@ -17,6 +17,7 @@ class HouseTests: XCTestCase {
     let timeLimitForOrderOne = 2
     let timeLimitForOrderTwo = 1
     let satisfactionFactor: Float = 0.1
+    let itemsLimit = 5
 
     var orderOne: Order!
     var orderTwo: Order!
@@ -39,19 +40,21 @@ class HouseTests: XCTestCase {
     }
 
     func testCheckPackage_correctPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: itemsForFirstOrder)
+        let package = Package(creator: creator, packageNumber: packageNumber,
+                              items: itemsForFirstOrder, itemsLimit: itemsLimit)
         XCTAssertTrue(house.checkPackage(package: package))
     }
 
     func testCheckPackage_incorrectPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: [Item]())
+        let package = Package(creator: creator, packageNumber: packageNumber, items: [Item](), itemsLimit: itemsLimit)
         XCTAssertFalse(house.checkPackage(package: package))
     }
 
     func testGetClosestOrder_varyingDifferences() {
         var itemsForFirstOrderMissingFirstOne = itemsForFirstOrder
         itemsForFirstOrderMissingFirstOne.removeFirst()
-        let package = Package(creator: creator, packageNumber: packageNumber, items: itemsForFirstOrderMissingFirstOne)
+        let package = Package(creator: creator, packageNumber: packageNumber,
+                              items: itemsForFirstOrderMissingFirstOne, itemsLimit: itemsLimit)
         guard let order = house.getClosestOrder(for: package) else {
             XCTFail("Should not be nil")
             return
@@ -62,7 +65,8 @@ class HouseTests: XCTestCase {
     func testGetClosestOrder_sameDifferences() {
         var itemsForFirstOrderMissingLastOne = itemsForFirstOrder
         itemsForFirstOrderMissingLastOne.removeLast()
-        let package = Package(creator: creator, packageNumber: packageNumber, items: itemsForFirstOrderMissingLastOne)
+        let package = Package(creator: creator, packageNumber: packageNumber,
+                              items: itemsForFirstOrderMissingLastOne, itemsLimit: itemsLimit)
         guard let order = house.getClosestOrder(for: package) else {
             XCTFail("Should not be nil")
             return

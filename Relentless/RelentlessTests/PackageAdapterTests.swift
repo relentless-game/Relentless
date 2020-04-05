@@ -11,13 +11,15 @@ import XCTest
 
 class PackageAdapterTests: XCTestCase {
 
+    let itemsLimit = 5
+    
     func testEncodePackageThenDecodePackage_1() {
         let item1 = Book(name: "book1")
         let item2 = Book(name: "book2")
         let item3 = Book(name: "book3")
         let itemsForPackage1 = [item1, item2, item3]
         
-        let package1 = Package(creator: "creator1", packageNumber: 1, items: itemsForPackage1)
+        let package1 = Package(creator: "creator1", packageNumber: 1, items: itemsForPackage1, itemsLimit: itemsLimit)
         
         let encodeString = PackageAdapter.encodePackage(package: package1)!
         let decodedPackage = PackageAdapter.decodePackage(from: encodeString)!
@@ -32,7 +34,7 @@ class PackageAdapterTests: XCTestCase {
         let item7 = Magazine(name: "mag3")
         let itemsForPackage2 = [item4, item5, item6, item7]
         
-        let package2 = Package(creator: "creator2", packageNumber: 2, items: itemsForPackage2)
+        let package2 = Package(creator: "creator2", packageNumber: 2, items: itemsForPackage2, itemsLimit: itemsLimit)
         
         let encodeString = PackageAdapter.encodePackage(package: package2)!
         let decodedPackage = PackageAdapter.decodePackage(from: encodeString)!

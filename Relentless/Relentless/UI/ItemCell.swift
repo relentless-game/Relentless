@@ -15,7 +15,7 @@ class ItemCell: UICollectionViewCell {
 
     var state: ItemCellState = .opaque {
         didSet {
-            switch (state) {
+            switch state {
             case .transparent:
                 background.alpha = 0.2
             case .translucent:
@@ -79,7 +79,6 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBookBackgroundFor(item: Item) {
-        print("its a book now?")
         background.image = ItemCell.bookImage
     }
 

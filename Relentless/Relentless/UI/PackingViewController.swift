@@ -60,12 +60,16 @@ class PackingViewController: UIViewController {
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleItemLimitReached),
+                                               name: .didItemLimitReached, object: nil)
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(reloadCurrentPackage),
                                                name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.willResignActiveNotification, object: nil)
+                                               //name: UIApplication.willResignActiveNotification, object: nil)
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -76,6 +80,20 @@ class PackingViewController: UIViewController {
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
 
+    }
+
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangePackages, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeItems, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeSatisfactionBar, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
+        // The following observers are for the pausing feature
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -132,6 +150,14 @@ class PackingViewController: UIViewController {
     
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
+    }
+
+    @objc func handleItemLimitReached() {
+        let alert = createAlert(title: "You can't add any more items!",
+                                message: "If you still have items to add, "
+                                    + "try placing the items into the package in a different order.",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
     }
 
     func changeCurrentCategory(to category: Category) {
@@ -294,7 +320,17 @@ class PackingViewController: UIViewController {
     @objc private func handleAppMovedToBackground() {
         gameController?.pauseRound()
     }
-    
+
+    private func createAlert(title: String, message: String, action: String) -> UIAlertController {
+        let controller = UIAlertController(title: String(title),
+                                           message: String(message),
+                                           preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: String(action),
+                                          style: .default)
+        controller.addAction(defaultAction)
+        return controller
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

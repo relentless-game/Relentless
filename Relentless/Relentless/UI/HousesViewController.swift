@@ -33,6 +33,10 @@ class HousesViewController: UIViewController {
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
     }
+
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+    }
     
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
@@ -68,6 +72,7 @@ class HousesViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
+        removeObservers()
         if segue.identifier == "toPacking" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController

@@ -11,12 +11,13 @@ import Firebase
 
 class NetworkManager: Network {
 
-    let maxNumberOfPlayers = 6
+    var numOfPlayersRange: ClosedRange<Int>
 
     private var ref: DatabaseReference!
 
-    init() {
+    init(numOfPlayersRange: ClosedRange<Int>) {
         ref = Database.database().reference()
+        self.numOfPlayersRange = numOfPlayersRange
     }
     
     func createGame(completion: @escaping (Int) -> Void) {
@@ -133,8 +134,9 @@ class NetworkManager: Network {
             for _ in snapshot.children {
                 numberOfPlayers += 1
             }
-            
-            if numberOfPlayers < self.maxNumberOfPlayers {
+
+            let maxNumOfPlayers = self.numOfPlayersRange.upperBound
+            if numberOfPlayers < maxNumOfPlayers {
                 self.joinGameInDatabase(userId: userId, userName: userName, avatar: avatar, gameId: gameId)
                 completion(nil) // nil indicates successful result
             } else {
@@ -166,14 +168,38 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
+    func startGame(gameId: Int, difficultyLevel: Float, completion: @escaping (StartGameError?) -> Void) {
+        // enough players -> start game
+        checkEnoughPlayers(gameId: gameId, difficultyLevel: difficultyLevel, completion: completion)
+    }
+
+    private func checkEnoughPlayers(gameId: Int, difficultyLevel: Float,
+                                    completion: @escaping (StartGameError?) -> Void) {
+        ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
+            var numberOfPlayers = 0
+            for _ in snapshot.children {
+                numberOfPlayers += 1
+            }
+            let minNumOfPlayers = self.numOfPlayersRange.lowerBound
+            if numberOfPlayers >= minNumOfPlayers {
+                self.startGameInDatabase(gameId: gameId, difficultyLevel: difficultyLevel)
+                completion(nil) // nil indicates successful result
+            } else {
+                completion(StartGameError.insufficientPlayers)
+            }
+        }
+    }
+
+    private func startGameInDatabase(gameId: Int, difficultyLevel: Float) {
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                          isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
+        ref.child("games/\(gameId)/difficultyLevel").setValue(difficultyLevel)
     }
-    
+
     func startRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
@@ -365,5 +391,25 @@ class NetworkManager: Network {
     
     func updatePauseCountDown(gameId: Int, countDown: Int) {
         ref.child("games/\(gameId)/countdown").setValue(countDown)
+    }
+
+    func setPackageItemsLimit(gameId: Int, limit: Int) {
+        ref.child("games/\(gameId)/packageItemsLimit").setValue(limit)
+    }
+
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void) {
+        let path = "games/\(gameId)/packageItemsLimit"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let packageItemsLimit = snapshot.value as? Int
+            action(packageItemsLimit)
+        })
+    }
+
+    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void) {
+        let path = "games/\(gameId)/difficultyLevel"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let difficultyLevel = snapshot.value as? Float ?? 1.0
+            action(difficultyLevel)
+        })
     }
 }

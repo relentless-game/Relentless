@@ -37,9 +37,6 @@ class CategoryGenerator: GameCategoryGenerator {
             let index = Int.random(in: generationRange)
             categories.insert(allCategories[index])
         }
-
-        // ADDED FOR TESTING
-//        return [Category.toyCar]
         
         return Array(categories)
     }

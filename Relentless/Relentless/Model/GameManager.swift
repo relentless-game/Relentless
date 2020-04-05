@@ -108,7 +108,7 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
-    
+
     func resetForNewRound() {
         houses = [House]()
         packages = [Package]()
@@ -125,6 +125,9 @@ class GameManager: Game {
                                                name: .didTimeOutInOrder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyItemLimitReached(notification:)),
                                                name: .didItemLimitReachedInPackage, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(notifyOrderTimeChange(notification:)),
+                                               name: .didTimeUpdateInOrder, object: nil)
     }
 
     @objc
@@ -145,6 +148,11 @@ class GameManager: Game {
     @objc
     func notifyItemLimitReached(notification: Notification) {
         NotificationCenter.default.post(name: .didItemLimitReachedInModel, object: nil)
+    }
+
+    @objc
+    func notifyOrderTimeChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderTimeUpdateInModel, object: nil)
     }
 
 }

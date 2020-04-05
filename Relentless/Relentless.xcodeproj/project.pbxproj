@@ -974,6 +974,7 @@
 				0B09CA6424357A6700F29648 /* Shape.swift in Sources */,
 				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				0B09CA692437502200F29648 /* ScoreRecord.swift in Sources */,
+				62D0EBD3242DDE7100FDAFAF /* Robot.swift in Sources */,
 				6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */,
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				0BC465FF2439786A00D20B93 /* ScoreCell.swift in Sources */,

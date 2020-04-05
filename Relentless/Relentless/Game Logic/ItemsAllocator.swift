@@ -94,7 +94,7 @@ class ItemsAllocator: GameItemsAllocator {
     /// Generates items for specified category
     private func generateItems(category: Category, numberToGenerate: Int) -> [Item] {
         switch category {
-        case Category.book, Category.magazine, Category.bulb:
+        case Category.book, Category.magazine, Category.robot:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
         case Category.toyCar:
             return AssembledItemsGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)

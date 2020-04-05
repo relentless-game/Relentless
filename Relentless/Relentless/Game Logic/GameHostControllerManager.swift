@@ -81,6 +81,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         // network is notified to start round by the host only
         if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
             network.startRound(gameId: gameId, roundNumber: roundNumber)
+            // clear satisfaction levels stored in the cloud
+            network.resetSatisfactionLevels(gameId: gameId)
         }
     }
 
@@ -103,9 +105,16 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         })
     }
 
-    override func onTeamSatisfactionChange(satisfactionLevel: Int) {
-        updateMoney(satisfactionLevel: satisfactionLevel)
-        
+    override func onTeamSatisfactionChange(satisfactionLevels: [Float]) {
+        let numberOfPlayers = game?.allPlayers.count
+        // only sum up the satisfaction levels if every player's is received
+        if satisfactionLevels.count == numberOfPlayers {
+            let sum = satisfactionLevels.reduce(0) { result, number in
+                result + number
+            }
+            updateMoney(satisfactionLevel: Int(sum))
+        }
+
         // checks the lose condition and ends the game if fulfilled
         if money < 0 {
             endGame()

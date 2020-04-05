@@ -66,4 +66,8 @@ class ToyCarWheel: Part {
             return false
         }
     }
+
+    override func toDisplayString() -> String {
+        ""
+    }
 }

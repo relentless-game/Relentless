@@ -44,7 +44,7 @@ protocol Network {
     func startRound(gameId: Int, roundNumber: Int)
     
     /// This is called by the host player to terminate the current round.
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float)
+    func terminateRound(gameId: Int, roundNumber: Int)
 
     /// This is called to pause the current round.
     func pauseRound(gameId: Int, currentRound: Int)
@@ -74,9 +74,15 @@ protocol Network {
     /// `action` is called upon any change in game status.
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void)
 
+    /// Clears every player's satisfaction level stored in the cloud before a new round starts.
+    func resetSatisfactionLevels(gameId: Int)
+    
+    /// Updates the network about this player's individual satiafaction level so that other players can get notified.
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float)
+    
     /// Notifies the player when there is a change in the team satisfaction level.
-    /// `action` is called upon a change in the satisfaction level
-    func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void)
+    /// `action` is called upon a change in the satisfaction level.
+    func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void)
 
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.

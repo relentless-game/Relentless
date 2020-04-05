@@ -25,12 +25,16 @@ class HomeScreenTests: XCTestCase {
 
     func testCreateGameButtonExists() throws {
         app.launch()
-        XCTAssertTrue(app.buttons["Create Game"].exists)
+        let result = app.buttons.element(matching: .button,
+                                         identifier: "createRoomButton").exists
+        XCTAssertTrue(result)
     }
     
     func testJoinGameButtonExists() throws {
         app.launch()
-        XCTAssertTrue(app.buttons["Join Game"].exists)
+        let result = app.buttons.element(matching: .button,
+                                         identifier: "joinRoomButton").exists
+        XCTAssertTrue(result)
     }
 
 }

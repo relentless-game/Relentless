@@ -40,12 +40,18 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         }
         refreshPlayers()
         addObservers()
-        updateViews()
+        initialiseViews()
+    }
+
+    func initialiseViews() {
+        if let player = gameController?.player {
+            usernameTextField.text = player.userName
+            avatarImage.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
+        }
     }
 
     func updateViews() {
         if let player = gameController?.player {
-            usernameTextField.text = player.userName
             avatarImage.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
         }
     }
@@ -82,6 +88,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     @objc func refreshPlayers() {
         players = gameController?.players
+        players?.sort(by: <)
         playersView.reloadData()
         updateViews()
     }

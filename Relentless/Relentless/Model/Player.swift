@@ -21,6 +21,7 @@ class Player {
         self.userName = userName
         self.profileImage = profileImage
     }
+
 }
 
 extension Player: Equatable {
@@ -30,5 +31,11 @@ extension Player: Equatable {
             lhs.profileImage == rhs.profileImage &&
             lhs.items == rhs.items &&
             lhs.orders == rhs.orders
+    }
+}
+
+extension Player: Comparable {
+    static func < (lhs: Player, rhs: Player) -> Bool {
+        lhs.userId < rhs.userId
     }
 }

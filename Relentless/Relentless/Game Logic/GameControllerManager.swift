@@ -202,6 +202,7 @@ class GameControllerManager: GameController {
     @objc
     func handleItemLimitReached(notification: Notification) {
         NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
+    }
 
     @objc
     func handleChangeOfOpenPackage(notification: Notification) {
@@ -502,7 +503,7 @@ extension GameControllerManager {
             return
         }
         game?.resetForNewRound()
-        gameParameters.incrementDifficulty()
+        gameParameters?.incrementDifficulty()
         
         guard let gameId = gameId, let userId = userId else {
             return

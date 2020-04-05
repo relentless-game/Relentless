@@ -228,7 +228,7 @@ class GameControllerManager: GameController {
                                                name: .didChangeOpenPackageInModel, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleOrderTimeLeftChange(notification:)),
-                                               name: .didTimeUpdateInOrder, object: nil)
+                                               name: .didOrderTimeUpdateInModel, object: nil)
     }
 
     private func getActiveOrders() -> [Order] {

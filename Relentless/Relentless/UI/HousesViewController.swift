@@ -16,7 +16,7 @@ class HousesViewController: UIViewController {
     let orderIdentifier = "OrderViewController"
     @IBOutlet private var housesCollectionView: UICollectionView!
     @IBOutlet private var satisfactionBar: UIProgressView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()

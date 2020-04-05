@@ -49,7 +49,13 @@ class DeliveryViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    @IBAction private func handleDeletePackage(_ sender: Any) {
+        if let package = packageForDelivery {
+            gameController?.removePackage(package: package)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        removeObservers()
 //        removeAllPreviousViewControllers()
 //        if segue.identifier == "cancelDelivery" {
@@ -115,9 +121,11 @@ class PlayerIconCell: UICollectionViewCell {
     // todo: change to UIImageView
     var player: Player!
     @IBOutlet private var textLabel: UILabel!
+    @IBOutlet private var icon: UIImageView!
 
     func setPlayer(player: Player) {
         self.player = player
         textLabel.text = player.userName
+        icon.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
     }
 }

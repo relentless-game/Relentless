@@ -88,6 +88,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
 
     @objc func refreshPlayers() {
         players = gameController?.players
+        players?.sort(by: <)
         playersView.reloadData()
         updateViews()
     }

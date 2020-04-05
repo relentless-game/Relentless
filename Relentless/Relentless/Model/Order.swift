@@ -30,7 +30,7 @@ class Order: Hashable, Codable {
     }
     // Float from 0 to 1
     var timeRatio: Float {
-        return Float(timeLeft) / Float(timeLimit)
+        Float(timeLeft) / Float(timeLimit)
     }
 
     init(items: [Item], timeLimitInSeconds: Int) {

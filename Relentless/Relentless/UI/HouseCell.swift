@@ -16,12 +16,12 @@ class HouseCell: UICollectionViewCell {
 
     private func attachOrderListener() {
         NotificationCenter.default.addObserver(self,
-                                                selector: #selector(handleOrderChanged),
-                                                name: .didChangeOrders, object: nil)
+                                               selector: #selector(handleOrderChanged),
+                                               name: .didChangeOrders, object: nil)
     }
 
     @objc func handleOrderChanged() {
-        if let timeRatio = house.activeOrders.first?.timeRatio {
+        if let timeRatio = house.nearestActiveOrderTimeRatio {
             progressView.setProgress(timeRatio, animated: true)
         }
     }

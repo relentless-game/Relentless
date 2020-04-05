@@ -202,6 +202,7 @@ class GameControllerManager: GameController {
     @objc
     func handleItemLimitReached(notification: Notification) {
         NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
+    }
 
     @objc
     func handleChangeOfOpenPackage(notification: Notification) {

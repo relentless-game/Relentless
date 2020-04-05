@@ -24,4 +24,8 @@ class SettingsViewController: UIViewController {
         gameController?.gameParameters?.difficultyLevel = sender.value
         difficultyLevelLabel.text = String(format: "%.1f", sender.value)
     }
+
+    @IBAction func handleBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }

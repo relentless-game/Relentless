@@ -36,12 +36,11 @@ class JsonScoreBoardStorage: ScoreBoard {
 
     func updateScoreBoard(with newScore: ScoreRecord) {
         do {
-            var updatedScores = try getExistingScores()
-            if updatedScores.isEmpty {
+            let existingScores = try getExistingScores()
+            if existingScores.isEmpty {
                 scores = try jsonEncoder.encode([newScore])
             } else {
-                updatedScores.append(newScore)
-                updatedScores.sort()
+                let updatedScores = updateScores(existingScores: existingScores, newScore: newScore)
                 scores = try jsonEncoder.encode(updatedScores)
             }
             let url = try getDocumentsURL().appendingPathComponent(jsonFile)
@@ -49,6 +48,15 @@ class JsonScoreBoardStorage: ScoreBoard {
         } catch {
             print("In JsonScoreBoardStorage: could not update...")
         }
+    }
+
+    private func updateScores(existingScores: [ScoreRecord], newScore: ScoreRecord) -> [ScoreRecord] {
+        existingScores.forEach { $0.isLatestEntry = false }
+        var updatedScores = existingScores
+        updatedScores.append(newScore)
+        updatedScores.sort()
+        updatedScores.reverse()
+        return updatedScores
     }
 
     private func getDocumentsURL() throws -> URL {

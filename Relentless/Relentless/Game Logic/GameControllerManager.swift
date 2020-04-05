@@ -79,6 +79,13 @@ class GameControllerManager: GameController {
         addObservers()
     }
 
+    func endGame() {
+        guard let gameId = gameId else {
+            return
+        }
+        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
+    }
+
     func pauseRound() {
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
@@ -440,7 +447,7 @@ extension GameControllerManager {
         money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
         numOfSatisfactionLevelsReceived += 1
 
-        if numOfSatisfactionLevelsReceived == players.count - 1 {
+        if numOfSatisfactionLevelsReceived == players.count {
             money -= GameParameters.dailyExpense
             numOfSatisfactionLevelsReceived = 0 // reset
             NotificationCenter.default.post(name: .didChangeMoney, object: nil)
@@ -482,8 +489,7 @@ extension GameControllerManager {
             return
         }
         let userNamesOfPlayers = players.map { $0.userName }
-        localStorage.updateScoreBoard(with: ScoreRecord(score: score,
-                                                        userNamesOfPlayers: userNamesOfPlayers))
+        localStorage.updateScoreBoard(with: ScoreRecord(score: score, userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
     }
 
     private func resetAllAttributes() {

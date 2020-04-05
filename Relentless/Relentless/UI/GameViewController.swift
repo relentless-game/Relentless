@@ -12,15 +12,13 @@ class GameViewController: UIViewController {
     var gameController: GameController?
     @IBOutlet private var proceedButton: UIButton!
     @IBOutlet private var detailsLabel: UILabel!
-    var calculatingMoneyStrings = ["Calculating money.", "Calculating money..", "Calculating money..."]
-    var calculatingMoneyStringsIndex = 0
     var timer: Timer?
+    var gameHasEnded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addObservers()
         initProceedButton()
-        showCalculatingMoneyLabel()
     }
 
     func addObservers() {
@@ -35,21 +33,17 @@ class GameViewController: UIViewController {
                                                name: .didChangeMoney, object: nil)
     }
 
-    func showCalculatingMoneyLabel() {
-        timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(changeLabel), userInfo: nil, repeats: true)
-    }
-
-    @objc func changeLabel() {
-        detailsLabel.text = calculatingMoneyStrings[calculatingMoneyStringsIndex]
-        calculatingMoneyStringsIndex = (calculatingMoneyStringsIndex + 1) % calculatingMoneyStrings.count
-    }
-
     func initProceedButton() {
         proceedButton.isHidden = !(gameController?.isHost ?? false)
     }
 
     @IBAction private func proceed(_ sender: Any) {
-        (gameController as? GameHostController)?.startRound()
+        if gameHasEnded {
+            gameHasEnded = false
+            performSegue(withIdentifier: "endGame", sender: self)
+        } else {
+            (gameController as? GameHostController)?.startRound()
+        }
     }
 
     @objc func handleRoundStarted() {
@@ -57,7 +51,7 @@ class GameViewController: UIViewController {
     }
 
     @objc func handleGameEnded() {
-        performSegue(withIdentifier: "endGame", sender: self)
+        gameHasEnded = true
     }
 
     @objc func updateMoneyLabel(notification: Notification) {
@@ -89,7 +83,7 @@ class GameViewController: UIViewController {
         } else if money == 0 {
             detailsLabel.text = "You currently have no money"
         } else {
-            detailsLabel.text = "You are in debt! You owe $" + String(money)
+            detailsLabel.text = "You are in debt! You owe $" + String(abs(money))
         }
     }
 }

@@ -85,21 +85,13 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
     }
 
-    private func endGame() {
-        guard let gameId = gameId else {
-            return
-        }
-        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
-    }
-
     private func initialiseItems() -> [Item] {
         guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId,
             let parameters = hostParameters else {
             return []
         }
 
-        //let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
-        let categories = [Category.book]
+        let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
         // allocate items according to chosen categories
         let allocatedItems = allocateItems(numberOfPlayers: numberOfPlayers,
                                            parameters: parameters, categories: categories)

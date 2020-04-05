@@ -19,7 +19,9 @@ protocol GameController: GameNetworkController, GameModelController, GameLocalSt
     
     var gameStatus: GameStatus? { get set } // for pausing
     var pauseCountDown: Int { get set } // for pausing
-    
+
+    func endGame()
+
     func pauseRound()
 
     func resumeRound()

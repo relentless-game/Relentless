@@ -61,7 +61,6 @@ class GameControllerManager: GameController {
         game?.gameId
     }
     var gameStatus: GameStatus? // added this for the background pause feature
-    private var numOfSatisfactionLevelsReceived = 0
 
     // for pausing the game
     var pauseTimer: Timer?
@@ -89,8 +88,6 @@ class GameControllerManager: GameController {
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
-
-        pauseAllTimers()
         
         newGameStatus.numberOfPlayersPaused += 1
         newGameStatus.isResumed = false
@@ -127,8 +124,7 @@ class GameControllerManager: GameController {
         // only resume if all players are back
         let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
         if areAllPlayersBack {
-            resumeAllTimers()
-            pauseTimer?.invalidate()
+//            pauseTimer?.invalidate()
             network.resumeRound(gameId: gameId, currentRound: roundNumber)
         } else {
             network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
@@ -232,7 +228,7 @@ class GameControllerManager: GameController {
                                                name: .didChangeOpenPackageInModel, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleOrderTimeLeftChange(notification:)),
-                                               name: .didTimeUpdateInOrder, object: nil)
+                                               name: .didOrderTimeUpdateInModel, object: nil)
     }
 
     private func getActiveOrders() -> [Order] {
@@ -420,9 +416,11 @@ extension GameControllerManager {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
         } else if didPauseRound {
+            pauseAllTimers()
             NotificationCenter.default.post(name: .didPauseRound, object: nil)
         } else if didResumeRound {
             pauseTimer?.invalidate()
+            resumeAllTimers()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)
         }
     }
@@ -465,13 +463,8 @@ extension GameControllerManager {
 
     internal func updateMoney(satisfactionLevel: Int) {
         money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
-        numOfSatisfactionLevelsReceived += 1
-
-        if numOfSatisfactionLevelsReceived == players.count {
-            money -= GameParameters.dailyExpense
-            numOfSatisfactionLevelsReceived = 0 // reset
-            NotificationCenter.default.post(name: .didChangeMoney, object: nil)
-        }
+        money -= GameParameters.dailyExpense
+        NotificationCenter.default.post(name: .didChangeMoney, object: nil)
     }
 
     /// Assigns orders to houses and sets the houses in Game to this new list of houses

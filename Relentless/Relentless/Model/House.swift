@@ -27,8 +27,6 @@ class House {
         assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders
         self.satisfactionFactor = satisfactionFactor
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
-                                               name: .didTimeUpdateInOrder, object: nil)
     }
 
     /// Returns true if the package correctly matches any of the active orders
@@ -73,10 +71,5 @@ class House {
         ordersAsArray.remove(at: indexOfOrder)
         order.stopTimer()
         orders = Set(ordersAsArray)
-    }
-
-    @objc
-    func notifyOrderUpdate(notification: Notification) {
-        NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
     }
 }

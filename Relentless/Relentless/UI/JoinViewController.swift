@@ -103,9 +103,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction private func tryJoinGame(_ sender: Any) {
-        if let text = teamCodeTextField.text, let gameId = Int(text){
+        if let text = teamCodeTextField.text, let gameId = Int(text) {
             self.gameId = gameId
-            _ = gameController?.joinGame(gameId: gameId, userName: "")
+            // TODO: how do we decide default avatar?
+            _ = gameController?.joinGame(gameId: gameId, userName: "", avatar: .red)
         }
     }
 

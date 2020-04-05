@@ -47,9 +47,9 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     /// Player who invokes this method becomes the host and joins the game.
-    func createGame(username: String) {
+    func createGame(username: String, avatar: PlayerAvatar) {
         network.createGame(completion: { gameId in
-            self.joinGame(gameId: gameId, userName: username)
+            self.joinGame(gameId: gameId, userName: username, avatar: avatar)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
@@ -103,7 +103,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let players = game?.allPlayers else {
             return false
         }
-        let avatars = players.map { $0.profileImage ?? .red }
+        let avatars = players.map { $0.profileImage }
         return Set(avatars).count == game?.allPlayers.count
     }
     

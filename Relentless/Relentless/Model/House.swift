@@ -23,6 +23,12 @@ class House {
         orders.filter { $0.hasStarted }
     }
 
+    var nearestActiveOrderTimeRatio: Float? {
+        var unsortedOrders = activeOrders
+        unsortedOrders.sort(by: { $0.timeLeft < $1.timeLeft })
+        return unsortedOrders.first?.timeRatio
+    }
+
     init(orders: Set<Order>, satisfactionFactor: Float) {
         assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders

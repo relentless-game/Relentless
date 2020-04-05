@@ -15,7 +15,8 @@ class HousesViewController: UIViewController {
     let housesIdentifier = "HouseCell"
     let orderIdentifier = "OrderViewController"
     @IBOutlet private var housesCollectionView: UICollectionView!
-
+    @IBOutlet private var satisfactionBar: UIProgressView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
@@ -32,6 +33,9 @@ class HousesViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSatisfactionBar),
+                                               name: .didChangeSatisfactionBar, object: nil)
 //        NotificationCenter.default.addObserver(self,
 //                                               selector: #selector(handleOrdersChanged),
 //                                               name: .didChangeOrders, object: nil)
@@ -39,6 +43,12 @@ class HousesViewController: UIViewController {
 
     func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+    }
+
+    @objc func updateSatisfactionBar() {
+        if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
+            satisfactionBar.setProgress(value, animated: true)
+        }
     }
 
 //    @objc func handleOrdersChanged() {

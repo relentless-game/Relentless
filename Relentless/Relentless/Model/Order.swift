@@ -65,7 +65,7 @@ class Order: Hashable, Codable {
 
     func resumeTimer() {
         self.timer = Timer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
-                           userInfo: nil, repeats: false)
+                           userInfo: nil, repeats: true)
     }
 
     /// Returns true if package matches items in order

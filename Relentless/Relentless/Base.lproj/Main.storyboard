@@ -35,7 +35,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="800" height="74"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="104" width="800" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="createRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
@@ -49,7 +49,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="1600" height="80"/>
+                                        <rect key="frame" x="0.0" y="214" width="800" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
@@ -120,8 +120,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
-                                        <rect key="frame" x="0.0" y="146" width="200" height="148"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
+                                        <rect key="frame" x="0.0" y="110" width="200" height="184"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinButton"/>
                                         <state key="normal" image="button_joinroom"/>
                                         <connections>
@@ -131,7 +131,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74" y="30" width="330" height="116"/>
+                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
                                 <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <state key="normal" image="button_back"/>
                                 <connections>
@@ -480,11 +480,12 @@
                         <segue destination="aeQ-0T-Zjb" kind="show" identifier="deliverPackage" id="GPw-Oj-Gmi"/>
                         <segue destination="MLN-lP-Xqv" kind="show" identifier="endRound" id="FQq-Pt-F3v"/>
                         <segue destination="LAb-r6-gEN" kind="show" identifier="pauseGame" id="LQV-Rq-bIx"/>
+                        <segue destination="OJt-R7-ueM" kind="show" identifier="endGameFromPacking" id="fRd-0e-NOR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kW-UE-fnx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134" y="2641"/>
+            <point key="canvasLocation" x="132" y="2641"/>
         </scene>
         <!--Game-->
         <scene sceneID="NOF-ap-cp3">
@@ -748,14 +749,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="gYz-K5-BEo" customClass="ScoreCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="692" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="692" height="42.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYz-K5-BEo" id="Kub-PB-roK">
-                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="692" height="42.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDN-4v-toN">
-                                                    <rect key="frame" x="23" y="11.000000000000002" width="646" height="21.666666666666671"/>
+                                                    <rect key="frame" x="23" y="11.000000000000002" width="646" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1116,14 +1117,15 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="fdU-OW-AMW"/>
+        <segue reference="fRd-0e-NOR"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="q2U-Sj-S2g"/>
+        <segue reference="FQq-Pt-F3v"/>
         <segue reference="gkd-Mi-ecb"/>
         <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="1.circle" catalog="system" width="64" height="60"/>
-        <image name="10.circle" catalog="system" width="64" height="60"/>
+        <image name="1.circle" catalog="system" width="128" height="121"/>
+        <image name="10.circle" catalog="system" width="128" height="121"/>
         <image name="add_blue" width="250" height="250"/>
         <image name="avatar_blue" width="250" height="162.33332824707031"/>
         <image name="avatar_red" width="250" height="162.33332824707031"/>
@@ -1136,16 +1138,9 @@
         <image name="button_more" width="165" height="89.333335876464844"/>
         <image name="button_right" width="52" height="82.333335876464844"/>
         <image name="button_start" width="165" height="58"/>
-        <image name="gear" catalog="system" width="64" height="58"/>
+        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="package_blue" width="250" height="162.33332824707031"/>
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="fdU-OW-AMW"/>
-        <segue reference="NHt-Cf-6dI"/>
-        <segue reference="q2U-Sj-S2g"/>
-        <segue reference="gkd-Mi-ecb"/>
-        <segue reference="Bzf-a8-1jP"/>
-    </inferredMetricsTieBreakers>
 </document>

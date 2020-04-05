@@ -38,14 +38,13 @@ class PackingViewControllerTests: XCTestCase {
         // swiftlint:disable:next line_length
 //        app/*@START_MENU_TOKEN@*/.staticTexts["To Packing"]/*[[".buttons[\"To Packing\"].staticTexts[\"To Packing\"]",".staticTexts[\"To Packing\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
 //        app.collectionViews.cells.otherElements.containing(.image, identifier:"add_blue").element.tap()
-        // swiftlint:disable:next line_length
         let result = app.collectionViews.containing(.image, identifier: "package_site").element.exists
         XCTAssertTrue(result)
     }
     
     func textAddPackageButton() throws {
         let result = app.collectionViews.cells
-            .otherElements.containing(.image, identifier:"add_blue").element.exists
+            .otherElements.containing(.image, identifier: "add_blue").element.exists
         XCTAssertTrue(result)
     }
     

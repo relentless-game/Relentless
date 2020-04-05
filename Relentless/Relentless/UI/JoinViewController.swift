@@ -103,14 +103,14 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction private func tryJoinGame(_ sender: Any) {
-        if let text = teamCodeTextField.text, let gameId = Int(text){
+        if let text = teamCodeTextField.text, let gameId = Int(text) {
             self.gameId = gameId
-            _ = gameController?.joinGame(gameId: gameId, userName: "")
+            // TODO: how do we decide default avatar?
+            _ = gameController?.joinGame(gameId: gameId, userName: "", avatar: .red)
         }
     }
 
     @objc func handleJoinSuccess() {
-        removeObservers()
         performSegue(withIdentifier: "joinGame", sender: self)
     }
 
@@ -138,6 +138,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeObservers()
+        removeAllPreviousViewControllers()
         if segue.identifier == "joinGame" {
             if let viewController = segue.destination as? LobbyViewController {
                 viewController.gameController = self.gameController

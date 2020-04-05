@@ -15,7 +15,7 @@ class ItemCell: UICollectionViewCell {
 
     var state: ItemCellState = .opaque {
         didSet {
-            switch (state) {
+            switch state {
             case .transparent:
                 background.alpha = 0.2
             case .translucent:
@@ -25,6 +25,26 @@ class ItemCell: UICollectionViewCell {
             }
         }
     }
+
+    // swiftlint:disable unused_setter_value
+    // unused settervalue in order to override normal cell behaviour
+    // causes problems in selection of robot - animation will stop
+    override var isSelected: Bool {
+        set {
+        }
+        get {
+            super.isSelected
+        }
+    }
+
+    override var isHighlighted: Bool {
+        set {
+        }
+        get {
+             super.isHighlighted
+        }
+    }
+    // swiftlint:enable unused_setter_value
 
     static let bookImage = UIImage(named: "book.png")
     static let magazineImage = UIImage(named: "magazine.png")

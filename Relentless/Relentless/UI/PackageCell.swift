@@ -21,6 +21,7 @@ class PackageCell: UICollectionViewCell {
 
     func setPackage(package: Package) {
         textLabel.text = package.toString()
+        packageImage.image = PlayerImageHelper.getPackageImage(for: package.creatorAvatar)
         self.package = package
     }
 }

@@ -15,7 +15,7 @@ protocol GameNetworkController {
     var userId: String? { get }
     var gameId: Int? { get }
 
-    func joinGame(gameId: Int, userName: String)
+    func joinGame(gameId: Int, userName: String, avatar: PlayerAvatar)
     
     /// Enables the player to edit their username and profile image before the game starts
     func editUserInfo(username: String, profile: PlayerAvatar)

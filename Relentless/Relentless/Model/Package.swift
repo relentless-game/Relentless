@@ -10,6 +10,7 @@ import Foundation
 
 class Package: Codable {
     let creator: String /// user name of the player that created this package
+    let creatorAvatar: PlayerAvatar /// avatar of creator
     let packageNumber: Int
     private var unsortedItems = [Item]() {
         didSet {
@@ -23,8 +24,9 @@ class Package: Codable {
     var itemsLimit: Int?
 
     /// packages are sorted when created
-    init(creator: String, packageNumber: Int, items: [Item], itemsLimit: Int?) {
+    init(creator: String, creatorAvatar: PlayerAvatar, packageNumber: Int, items: [Item], itemsLimit: Int?) {
         self.creator = creator
+        self.creatorAvatar = creatorAvatar
         self.packageNumber = packageNumber
         self.unsortedItems = items.sorted()
         self.itemsLimit = itemsLimit
@@ -33,6 +35,7 @@ class Package: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PackageKeys.self)
         self.creator = try container.decode(String.self, forKey: .creator)
+        self.creatorAvatar = try container.decode(PlayerAvatar.self, forKey: .creatorAvatar)
         self.packageNumber = try container.decode(Int.self, forKey: .packageNumber)
         self.itemsLimit = try container.decode(Int?.self, forKey: .itemsLimit)
         let itemsObject = try container.decode(ItemFactory.self, forKey: .items)
@@ -42,6 +45,7 @@ class Package: Codable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: PackageKeys.self)
         try container.encode(creator, forKey: .creator)
+        try container.encode(creatorAvatar, forKey: .creatorAvatar)
         try container.encode(packageNumber, forKey: .packageNumber)
         let itemFactoryWrapper = ItemFactory(items: unsortedItems)
         try container.encode(itemFactoryWrapper, forKey: .items)
@@ -66,7 +70,8 @@ class Package: Codable {
     }
 
     func sort() -> Package {
-        Package(creator: creator, packageNumber: packageNumber, items: unsortedItems.sorted(), itemsLimit: itemsLimit)
+        Package(creator: creator, creatorAvatar: creatorAvatar,
+                packageNumber: packageNumber, items: unsortedItems.sorted(), itemsLimit: itemsLimit)
     }
 
     func toString() -> String {
@@ -99,6 +104,7 @@ extension Package: Equatable {
 
 enum PackageKeys: CodingKey {
     case creator
+    case creatorAvatar
     case packageNumber
     case items
     case itemsLimit

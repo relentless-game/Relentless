@@ -47,8 +47,9 @@ class GameManager: Game {
 
     /// Adds a new package and sets this package as the currenlty open package
     func addNewPackage() {
-        let emptyPackage = Package(creator: player.userName, packageNumber: cumulativePackageNumber,
-                                   items: [Item](), itemsLimit: packageItemsLimit)
+        let emptyPackage = Package(creator: player.userName, creatorAvatar: player.profileImage,
+                                   packageNumber: cumulativePackageNumber, items: [Item](),
+                                   itemsLimit: packageItemsLimit)
         packages.append(emptyPackage)
         currentlyOpenPackage = emptyPackage
         cumulativePackageNumber += 1
@@ -107,7 +108,7 @@ class GameManager: Game {
     func incrementRoundNumber() {
         currentRoundNumber += 1
     }
-    
+
     func resetForNewRound() {
         houses = [House]()
         packages = [Package]()
@@ -124,6 +125,9 @@ class GameManager: Game {
                                                name: .didTimeOutInOrder, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notifyItemLimitReached(notification:)),
                                                name: .didItemLimitReachedInPackage, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(notifyOrderTimeChange(notification:)),
+                                               name: .didTimeUpdateInOrder, object: nil)
     }
 
     @objc
@@ -144,6 +148,11 @@ class GameManager: Game {
     @objc
     func notifyItemLimitReached(notification: Notification) {
         NotificationCenter.default.post(name: .didItemLimitReachedInModel, object: nil)
+    }
+
+    @objc
+    func notifyOrderTimeChange(notification: Notification) {
+        NotificationCenter.default.post(name: .didOrderTimeUpdateInModel, object: nil)
     }
 
 }

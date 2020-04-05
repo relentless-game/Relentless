@@ -27,11 +27,14 @@ class GameControllerManager: GameController {
     var houses: [House] {
         game?.houses ?? []
     }
+    var player: Player? {
+        game?.player
+    }
     var players: [Player] {
         game?.allPlayers ?? []
     }
     var otherPlayers: [Player] {
-        game?.allPlayers.filter { $0 != game?.player } ?? []
+        game?.allPlayers.filter { $0.userId != game?.player.userId } ?? []
     }
     var playerPackages: [Package] {
         game?.packages ?? []
@@ -58,7 +61,6 @@ class GameControllerManager: GameController {
         game?.gameId
     }
     var gameStatus: GameStatus? // added this for the background pause feature
-    private var numOfSatisfactionLevelsReceived = 0
 
     // for pausing the game
     var pauseTimer: Timer?
@@ -86,8 +88,6 @@ class GameControllerManager: GameController {
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
-
-        pauseAllTimers()
         
         newGameStatus.numberOfPlayersPaused += 1
         newGameStatus.isResumed = false
@@ -124,8 +124,7 @@ class GameControllerManager: GameController {
         // only resume if all players are back
         let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
         if areAllPlayersBack {
-            resumeAllTimers()
-            pauseTimer?.invalidate()
+//            pauseTimer?.invalidate()
             network.resumeRound(gameId: gameId, currentRound: roundNumber)
         } else {
             network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
@@ -282,16 +281,17 @@ class GameControllerManager: GameController {
 extension GameControllerManager {
 
     /// Player joins the game and with user defined username
-    internal func joinGame(gameId: Int, userName: String) {
+    internal func joinGame(gameId: Int, userName: String, avatar: PlayerAvatar) {
         guard let userId = self.userId else {
             return
         }
+        
+        network.joinGame(userId: userId, userName: userName, avatar: avatar, gameId: gameId, completion: { error in
 
-        network.joinGame(userId: userId, userName: userName, gameId: gameId, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulJoin(error: error)
             } else { // successfully joined the game
-                self.handleSuccessfulJoin(userName: userName, userId: userId, gameId: gameId)
+                self.handleSuccessfulJoin(userName: userName, userId: userId, avatar: avatar, gameId: gameId)
             }
         })
     }
@@ -334,8 +334,8 @@ extension GameControllerManager {
         }
     }
 
-    private func handleSuccessfulJoin(userName: String, userId: String, gameId: Int) {
-        let player = Player(userId: userId, userName: userName, profileImage: nil)
+    private func handleSuccessfulJoin(userName: String, userId: String, avatar: PlayerAvatar, gameId: Int) {
+        let player = Player(userId: userId, userName: userName, profileImage: avatar)
         self.game = GameManager(gameId: gameId, player: player)
         attachNetworkListeners(userId: userId, gameId: gameId)
         NotificationCenter.default.post(name: .didJoinGame, object: nil)
@@ -377,6 +377,11 @@ extension GameControllerManager {
 
     private func onNewPlayerDidJoin(players: [Player]) {
         game?.allPlayers = players
+        // change the player itself
+        for player in players where player.userId == self.userId {
+            game?.player.userName = player.userName
+            game?.player.profileImage = player.profileImage
+        }
         NotificationCenter.default.post(name: .newPlayerDidJoin, object: nil)
     }
 
@@ -411,9 +416,11 @@ extension GameControllerManager {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
         } else if didPauseRound {
+            pauseAllTimers()
             NotificationCenter.default.post(name: .didPauseRound, object: nil)
         } else if didResumeRound {
             pauseTimer?.invalidate()
+            resumeAllTimers()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)
         }
     }
@@ -456,13 +463,8 @@ extension GameControllerManager {
 
     internal func updateMoney(satisfactionLevel: Int) {
         money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
-        numOfSatisfactionLevelsReceived += 1
-
-        if numOfSatisfactionLevelsReceived == players.count {
-            money -= GameParameters.dailyExpense
-            numOfSatisfactionLevelsReceived = 0 // reset
-            NotificationCenter.default.post(name: .didChangeMoney, object: nil)
-        }
+        money -= GameParameters.dailyExpense
+        NotificationCenter.default.post(name: .didChangeMoney, object: nil)
     }
 
     /// Assigns orders to houses and sets the houses in Game to this new list of houses
@@ -500,7 +502,8 @@ extension GameControllerManager {
             return
         }
         let userNamesOfPlayers = players.map { $0.userName }
-        localStorage.updateScoreBoard(with: ScoreRecord(score: score, userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
+        localStorage.updateScoreBoard(with: ScoreRecord(score: score,
+                                                        userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
     }
 
     private func resetAllAttributes() {

@@ -13,6 +13,7 @@ protocol GameModelController {
 
     var game: Game? { get set }
     var houses: [House] { get }
+    var player: Player? { get }
     var players: [Player] { get }
     var otherPlayers: [Player] { get }
     var playerPackages: [Package] { get }

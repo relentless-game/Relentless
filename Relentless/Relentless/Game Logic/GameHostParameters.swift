@@ -11,7 +11,7 @@ import Foundation
 /// Represents the parameters for the game that is only used by the host in item and order generation and allocation.
 class GameHostParameters: GameParameters {
 
-    static var timeForEachItem: Int = 40
+    static var timeForEachItem: Int = 70
 
     /// For item generation
     var numOfCategories: Int {

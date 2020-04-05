@@ -19,7 +19,8 @@ class PackageItemsLimitGenerator {
         self.probabilityOfHavingLimit = probabilityOfHavingLimit
     }
 
-    /// Generates a limit on the number of items in a package based on the orders and the probability of imposing a limit
+    /// Generates a limit on the number of items in a package
+    /// based on the orders and the probability of imposing a limit
     func generateItemsLimit() -> Int? {
         let randomNumber = Float.random(in: 0...1)
         guard randomNumber <= probabilityOfHavingLimit else {

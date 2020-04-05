@@ -10,7 +10,7 @@ import Foundation
 
 class OrdersAllocator: GameOrdersAllocator {
 
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Float
 
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int
@@ -24,22 +24,52 @@ class OrdersAllocator: GameOrdersAllocator {
         self.probabilityOfSelectingOwnItem = probabilityOfSelectingOwnItem
     }
 
-    func allocateOrders(players: [Player]) {
+    func allocateOrders(players: [Player], items: [Item]) {
         for player in players {
             while player.orders.count < numOfOrdersPerPlayer {
-                let order = generateOrder(maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player, allPlayers: players)
+                let order = generateOrder(maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player,
+                                          allPlayers: players, allItems: items)
                 player.orders.insert(order)
             }
         }
     }
 
-    private func generateOrder(maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player]) -> Order {
+    private func generateOrder(maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player],
+                               allItems: [Item]) -> Order {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
         let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
                                         allPlayers: allPlayers)
-        let timeAllocated = numberOfItems * GameHostParameters.timeForEachItem
-        let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
+
+        let selectedParts = selectedItems.compactMap { $0 as? Part }
+        let selectedAssembledItems = convertToAssembledItem(parts: selectedParts,
+                                                            items: allItems,
+                                                            numberOfPlayers: allPlayers.count)
+        let selectedNonAssembledItems = selectedItems.filter { $0 as? Part == nil }
+
+        var itemsForOrder = [Item]()
+        itemsForOrder.append(contentsOf: selectedAssembledItems)
+        itemsForOrder.append(contentsOf: selectedNonAssembledItems)
+        let timeAllocated = itemsForOrder.count * GameHostParameters.timeForEachItem
+        let order = Order(items: itemsForOrder, timeLimitInSeconds: timeAllocated)
         return order
+    }
+
+    private func convertToAssembledItem(parts: [Part], items: [Item], numberOfPlayers: Int) -> [AssembledItem] {
+        let assembledItems = items.compactMap { $0 as? AssembledItem }
+        var selectedAssembledItems = Set<AssembledItem>()
+        for part in parts {
+            let randomNumber = Float.random(in: 0...1)
+            if randomNumber <= GameHostParameters.probabilityOfSelectingAssembledItem(numberOfPlayers:
+                numberOfPlayers) {
+                for assembledItem in assembledItems where assembledItem.parts.contains(part) {
+                    selectedAssembledItems.insert(assembledItem)
+                }
+            }
+            for assembledItem in assembledItems where assembledItem.parts.contains(part) {
+                selectedAssembledItems.insert(assembledItem)
+            }
+        }
+        return Array(selectedAssembledItems)
     }
 
     private func selectItems(numberOfItems: Int, currPlayer: Player, allPlayers: [Player]) -> [Item] {

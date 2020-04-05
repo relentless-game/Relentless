@@ -12,6 +12,7 @@ enum PartType: Int, Codable, CaseIterable {
     case toyCarWheel
     case toyCarBattery
     case toyCarBody
+    case partContainer // represents an assembled item
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: PartTypeKeys.self)
@@ -23,6 +24,8 @@ enum PartType: Int, Codable, CaseIterable {
             self = .toyCarBattery
         case PartType.toyCarBody.rawValue:
             self = .toyCarBody
+        case PartType.partContainer.rawValue:
+            self = .partContainer
         default:
             throw PartTypeError.unknownValue
         }
@@ -37,6 +40,8 @@ enum PartType: Int, Codable, CaseIterable {
             try container.encode(PartType.toyCarBattery.rawValue, forKey: .partType)
         case .toyCarBody:
             try container.encode(PartType.toyCarBody.rawValue, forKey: .partType)
+        case .partContainer:
+            try container.encode(PartType.partContainer.rawValue, forKey: .partType)
         }
     }
 
@@ -48,6 +53,8 @@ enum PartType: Int, Codable, CaseIterable {
             return "Toy Car Battery"
         case .toyCarBody:
             return "Toy Car Body"
+        case .partContainer:
+            return "Item Container"
         }
     }
 }

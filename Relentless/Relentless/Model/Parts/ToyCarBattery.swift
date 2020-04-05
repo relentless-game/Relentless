@@ -21,26 +21,19 @@ class ToyCarBattery: Part {
 
     enum ToyCarBatteryKeys: CodingKey {
         case label
-        case partType
-        case category
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ToyCarBatteryKeys.self)
         self.label = try container.decode(Label.self, forKey: .label)
 
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ToyCarBatteryKeys.self)
         try container.encode(label, forKey: .label)
-        try container.encode(partType, forKey: .partType)
-        try container.encode(category, forKey: .category)
-        
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func equals(other: Item) -> Bool {
@@ -72,5 +65,9 @@ class ToyCarBattery: Part {
             let otherLowerCasedLabel = otherBattery.label.toString().lowercased()
             return lowerCasedLabel.lexicographicallyPrecedes(otherLowerCasedLabel)
         }
+    }
+
+    override func toDisplayString() -> String {
+        ""
     }
 }

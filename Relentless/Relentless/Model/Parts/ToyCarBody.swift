@@ -22,26 +22,19 @@ class ToyCarBody: Part {
 
     enum ToyCarBodyKeys: CodingKey {
         case colour
-        case partType
-        case category
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: ToyCarBodyKeys.self)
         self.colour = try container.decode(Colour.self, forKey: .colour)
-
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: ToyCarBodyKeys.self)
         try container.encode(colour, forKey: .colour)
-        try container.encode(partType, forKey: .partType)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func equals(other: Item) -> Bool {
@@ -71,5 +64,9 @@ class ToyCarBody: Part {
         } else {
             return self.colour.rawValue.lexicographicallyPrecedes(otherToyCarBody.colour.rawValue)
         }
+    }
+
+    override func toDisplayString() -> String {
+        ""
     }
 }

@@ -19,13 +19,14 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet private var gameIdLabel: UILabel!
     @IBOutlet private var startButton: UIButton!
     @IBOutlet private var playersView: UICollectionView!
+    @IBOutlet private var settingsButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initUserId()
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
-            // Difficulty level for `GameParameter` should be determined by settings page
+            // Initialise parameters with lowest difficulty level. Player can adjust this in the settings.
             let gameHostParameters = GameHostParameters(difficultyLevel: 1.0)
             gameController = GameHostControllerManager(userId: userId,
                                                        gameHostParameters: gameHostParameters)
@@ -49,6 +50,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleGameStarted),
                                                name: .didStartGame, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleInsufficientPlayers),
+                                               name: .insufficientPlayers, object: nil)
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .newPlayerDidJoin, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didStartGame, object: nil)
     }
 
     @objc func refreshPlayers() {
@@ -65,14 +75,32 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     func initAll() {
         initGameIdLabel()
         initStartButton()
+        initSettingsButton()
     }
 
     func initStartButton() {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
 
+    func initSettingsButton() {
+        settingsButton.isHidden = !(gameController?.isHost ?? false)
+    }
+
+    @IBAction func navigateToSettings(_ sender: UIButton) {
+        performSegue(withIdentifier: "toSettings", sender: self)
+    }
+
     @objc func handleGameStarted() {
         performSegue(withIdentifier: "startGame", sender: self)
+    }
+
+    @objc func handleInsufficientPlayers() {
+        let minNumOfPlayers = GameParameters.numOfPlayersRange.lowerBound
+        let alert = createAlert(title: "Sorry.",
+                                message: "You need at least " + String(minNumOfPlayers) + " players to play."
+                                    + " Get your friends to join the game!",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
     }
 
     @objc func gameJoined() {
@@ -94,12 +122,33 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     func createGame(username: String) {
         (gameController as? GameHostController)?.createGame(username: username)
     }
+    
+    @IBAction private func handleBackButtonPressed(_ sender: Any) {
+        if gameController?.isHost == true {
+            gameController?.endGame()
+        }
+        removeObservers()
+        //dismiss(animated: true, completion: nil)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "startGame" {
             let viewController = segue.destination as? GameViewController
             viewController?.gameController = gameController
+        } else if segue.identifier == "toSettings" {
+            let viewController = segue.destination as? SettingsViewController
+            viewController?.gameController = gameController
         }
+    }
+
+    func createAlert(title: String, message: String, action: String) -> UIAlertController {
+        let controller = UIAlertController(title: String(title),
+                                           message: String(message),
+                                           preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: String(action),
+                                          style: .default)
+        controller.addAction(defaultAction)
+        return controller
     }
 }
 

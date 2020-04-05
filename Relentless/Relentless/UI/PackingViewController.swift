@@ -18,17 +18,22 @@ class PackingViewController: UIViewController {
     @IBOutlet private var currentPackageLabel: UILabel!
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
+    @IBOutlet private var openBoxImageView: UIImageView!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
     var packages: [Package]?
     var currentCategory: Category?
+    var currentPackage: Package?
     var currentPackageItems: [Item]?
     var packageForDelivery: Package?
     private let categoryIdentifier = "CategoryViewController"
     private let itemIdentifier = "ItemCell"
     private let packageIdentifier = "PackageCell"
     private let addPackageIdentifier = "AddPackageButton"
+
+    var assemblyMode = false
+    var selectedParts = Set<Part>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +59,12 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleItemLimitReached),
+                                               name: .didItemLimitReached, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadCurrentPackage),
+                                               name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
@@ -67,6 +78,7 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
+
     }
 
     func initialiseCollectionViews() {
@@ -85,8 +97,15 @@ class PackingViewController: UIViewController {
     }
     
     @objc func reloadPackages() {
+        currentPackage = gameController?.retrieveOpenPackage()
+        currentPackageLabel.text = gameController?.openedPackage?.toString()
+        reloadOpenBoxView()
         packages = gameController?.playerPackages
         packagesView.reloadData()
+    }
+
+    func reloadOpenBoxView() {
+        openBoxImageView.isHidden = currentPackage == nil
     }
 
     func reloadItems() {
@@ -100,9 +119,12 @@ class PackingViewController: UIViewController {
     }
 
     @objc func reloadCurrentPackage() {
+        currentPackage = gameController?.retrieveOpenPackage()
+        reloadOpenBoxView()
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
         currentPackageView.reloadData()
         currentPackageLabel.text = gameController?.openedPackage?.toString()
+        packagesView.reloadData()
     }
 
     @objc func updateSatisfactionBar() {
@@ -113,6 +135,14 @@ class PackingViewController: UIViewController {
     
     @objc func handleRoundEnded() {
         performSegue(withIdentifier: "endRound", sender: self)
+    }
+
+    @objc func handleItemLimitReached() {
+        let alert = createAlert(title: "You can't add any more items!",
+                                message: "If you still have items to add, "
+                                    + "try placing the items into the package in a different order.",
+                                action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
     }
 
     func changeCurrentCategory(to category: Category) {
@@ -135,7 +165,7 @@ class PackingViewController: UIViewController {
 
     @objc
     func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
-        if longPressGR.state != .ended {
+        if longPressGR.state == .ended {
             return
         }
 
@@ -155,6 +185,27 @@ class PackingViewController: UIViewController {
         }
     }
 
+    @IBAction private func touchAssembleButton(_ sender: Any) {
+        if assemblyMode {
+            assembleParts()
+            selectedParts.removeAll()
+            assemblyMode = false
+        } else {
+            assemblyMode = true
+        }
+    }
+
+    func assembleParts() {
+        do {
+            let parts = Array(selectedParts)
+            try gameController?.constructAssembledItem(parts: parts)
+        } catch ItemAssembledError.assembledItemConstructionError {
+            // Currently, do nothing. Invalid selection of parts by player.
+        } catch {
+            assert(false, "Unexpected error.")
+        }
+    }
+
     @IBAction private func touchCategoryButton(_ sender: UIView) {
         if let viewController = self.storyboard?.instantiateViewController(identifier: categoryIdentifier)
             as? CategoryViewController {
@@ -165,7 +216,6 @@ class PackingViewController: UIViewController {
             if let categoriesAsKeys = items?.keys {
                 viewController.categories = Array(categoriesAsKeys)
             }
-            viewController.categories = Category.allCases
             viewController.categoryChangeDelegate = self
             if let pres = viewController.presentationController {
                 pres.delegate = self
@@ -253,7 +303,17 @@ class PackingViewController: UIViewController {
     @objc private func handleAppMovedToBackground() {
         gameController?.pauseRound()
     }
-    
+
+    private func createAlert(title: String, message: String, action: String) -> UIAlertController {
+        let controller = UIAlertController(title: String(title),
+                                           message: String(message),
+                                           preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: String(action),
+                                          style: .default)
+        controller.addAction(defaultAction)
+        return controller
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -303,12 +363,27 @@ extension PackingViewController: UICollectionViewDataSource {
 
             if let packageCell = cell as? PackageCell, let package = packages?[indexPath.row] {
                 packageCell.setPackage(package: package)
+                packageCell.active = false
+                if package == currentPackage {
+                    packageCell.active = true
+                }
             }
             return cell
         } else if collectionView == self.currentPackageView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
             if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
                 itemCell.setItem(item: item)
+                if assemblyMode {
+                    if let part = currentPackageItems?[indexPath.row] as? Part {
+                        if selectedParts.contains(part) {
+                            itemCell.state = .opaque
+                        } else {
+                            itemCell.state = .translucent
+                        }
+                    } else {
+                        itemCell.state = .transparent
+                    }
+                }
             }
             return cell
         } else {
@@ -340,7 +415,19 @@ extension PackingViewController: UICollectionViewDelegate {
             guard let currentPackageItems = currentPackageItems else {
                 return
             }
-            gameController?.removeItem(item: currentPackageItems[indexPath.item])
+            if assemblyMode {
+                guard let part = currentPackageItems[indexPath.item] as? Part else {
+                    return
+                }
+                if selectedParts.contains(part) {
+                    selectedParts.remove(part)
+                } else {
+                    selectedParts.insert(part)
+                }
+                print(selectedParts)
+            } else {
+                gameController?.removeItem(item: currentPackageItems[indexPath.item])
+            }
         } else {
             if let currentCategory = currentCategory,
                 let item = items?[currentCategory]?[indexPath.item] {
@@ -356,12 +443,18 @@ extension PackingViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.packagesView {
-            let width = collectionView.frame.width / 6
-            let height = collectionView.frame.height
+            if indexPath.item == packages?.count {
+                //addButton
+                let width = collectionView.frame.height - 5
+                let height = collectionView.frame.height - 5
+                return CGSize(width: width, height: height)
+            }
+            let width = collectionView.frame.width / 6 - 5
+            let height = collectionView.frame.height - 5
             return CGSize(width: width, height: height)
         } else {
-            let width = collectionView.frame.width / 3 - 20
-            let height = collectionView.frame.height / 2 - 20
+            let width = collectionView.frame.width / 3.1
+            let height = collectionView.frame.height / 2.1
             return CGSize(width: width, height: height)
         }
     }

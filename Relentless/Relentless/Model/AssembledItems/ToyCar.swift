@@ -20,19 +20,11 @@ class ToyCar: AssembledItem {
     }
 
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: AssembledItemKeys.self)
-
-        let superDecoder = try container.superDecoder()
-        try super.init(from: superDecoder)
+        try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: AssembledItemKeys.self)
-        try container.encode(unsortedParts, forKey: .parts)
-        try container.encode(category, forKey: .category)
-
-        let superEncoder = container.superEncoder()
-        try super.encode(to: superEncoder)
+        try super.encode(to: encoder)
     }
 
     override func equals(other: Item) -> Bool {
@@ -45,8 +37,36 @@ class ToyCar: AssembledItem {
     override func toString() -> String {
         var string = ToyCar.toyCarHeader
         for part in unsortedParts {
-            string += "\n" + part.toString()
+            string += " " + part.toString()
         }
         return string
+    }
+
+    func toImageString() -> String {
+        var colour: Colour?
+        var label: Label?
+        var shape: Shape?
+        for part in unsortedParts {
+            switch part.partType {
+            case .toyCarBattery:
+                label = (part as? ToyCarBattery)?.label
+            case .toyCarBody:
+                colour = (part as? ToyCarBody)?.colour
+            case .toyCarWheel:
+                shape = (part as? ToyCarWheel)?.shape
+            case .partContainer:
+                assert(false)
+            }
+        }
+        guard colour != nil, label != nil, shape != nil else {
+            return ""
+        }
+        // Force as all are not nil
+        let string = "toycar_whole_\(colour!.toString())_\(shape!.toString())_\(label!.toString())"
+        return string
+    }
+
+    override func toDisplayString() -> String {
+        ""
     }
 }

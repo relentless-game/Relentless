@@ -35,13 +35,16 @@ protocol Network {
     func quitGame(userId: String, gameId: Int)
     
     /// This is called by the host player to start the game.
-    func startGame(gameId: Int)
+    /// - parameters:
+    ///     - completion: a closure that is called to propagate possible errors
+    ///     that occur when starting a game. `nil` is passed into it to indicate success
+    func startGame(gameId: Int, gameParameters: GameParameters, completion: @escaping (StartGameError?) -> Void)
     
     /// This is called by the host player to start a new round with the specified round number.
     func startRound(gameId: Int, roundNumber: Int)
     
     /// This is called by the host player to terminate the current round.
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float)
+    func terminateRound(gameId: Int, roundNumber: Int)
 
     /// This is called to pause the current round.
     func pauseRound(gameId: Int, currentRound: Int)
@@ -71,9 +74,15 @@ protocol Network {
     /// `action` is called upon any change in game status.
     func attachGameStatusListener(gameId: Int, action: @escaping (GameStatus) -> Void)
 
+    /// Clears every player's satisfaction level stored in the cloud before a new round starts.
+    func resetSatisfactionLevels(gameId: Int)
+    
+    /// Updates the network about this player's individual satiafaction level so that other players can get notified.
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float)
+    
     /// Notifies the player when there is a change in the team satisfaction level.
-    /// `action` is called upon a change in the satisfaction level
-    func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void)
+    /// `action` is called upon a change in the satisfaction level.
+    func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void)
 
     /// Deletes all the packages under a player stored in the cloud.
     /// This is called after the player has received the packages from the cloud.
@@ -112,4 +121,13 @@ protocol Network {
     
     /// Notifies the network count down to termination of game during the pausing state
     func updatePauseCountDown(gameId: Int, countDown: Int)
+
+    /// This method is called by the host to inform all players of the limit for the number of items in packages
+    func setPackageItemsLimit(gameId: Int, limit: Int)
+
+    /// Notifies the player of the limit for the number of items in packages
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
+
+    /// Notifies the player of the game parameters for the game
+    func attachGameParametersListener(gameId: Int, action: @escaping (GameParameters) -> Void)
 }

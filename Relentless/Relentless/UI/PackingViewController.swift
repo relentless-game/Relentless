@@ -68,7 +68,8 @@ class PackingViewController: UIViewController {
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.willResignActiveNotification, object: nil)
+                                               //name: UIApplication.willResignActiveNotification, object: nil)
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -438,7 +439,6 @@ extension PackingViewController: UICollectionViewDelegate {
                 } else {
                     selectedParts.insert(part)
                 }
-                print(selectedParts)
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

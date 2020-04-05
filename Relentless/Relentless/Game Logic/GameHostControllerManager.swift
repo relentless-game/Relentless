@@ -58,6 +58,20 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
+        
+        // If usernames are not unique, do not start the game
+        guard areUsernamesUnique() else {
+            handleUnsuccessfulStart(error: .nonUniqueUsernames)
+            return
+        }
+        
+        // If player avatars are not unique, do not start the game
+        guard areAvatarsUnique() else {
+            handleUnsuccessfulStart(error: .nonUniqueAvatars)
+            return
+        }
+        
+        // Attempts to start game
         let difficultyLevel = gameParameters.difficultyLevel
         network.startGame(gameId: gameId, difficultyLevel: difficultyLevel, completion: { error in
             if let error = error {
@@ -70,9 +84,29 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         switch error {
         case .insufficientPlayers:
             NotificationCenter.default.post(name: .insufficientPlayers, object: nil)
+        case .nonUniqueUsernames:
+            NotificationCenter.default.post(name: .nonUniqueUsernames, object: nil)
+        case .nonUniqueAvatars:
+            NotificationCenter.default.post(name: .nonUniqueAvatars, object: nil)
         }
     }
-
+    
+    private func areUsernamesUnique() -> Bool {
+        guard let players = game?.allPlayers else {
+            return false
+        }
+        let usernames = players.map { $0.userName }
+        return Set(usernames).count == game?.allPlayers.count
+    }
+    
+    private func areAvatarsUnique() -> Bool {
+        guard let players = game?.allPlayers else {
+            return false
+        }
+        let avatars = players.map { $0.profileImage ?? .red }
+        return Set(avatars).count == game?.allPlayers.count
+    }
+    
     func startRound() {
         // items and orders are generated and allocated by the host only
         let items = initialiseItems()

@@ -127,7 +127,9 @@
 		F3C37C2C2418A83100D7109B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3C37C292418A83100D7109B /* GoogleService-Info.plist */; };
 		F3D29A4D24383E050041C333 /* HomeScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A4C24383E050041C333 /* HomeScreenTests.swift */; };
 		F3D29A4F24383F590041C333 /* LobbyViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */; };
-		F3D29A51243842C60041C333 /* JoinViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */; };
+		F3D29A562438A5580041C333 /* GameViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A552438A5580041C333 /* GameViewControllerTests.swift */; };
+		F3D29A582438A7450041C333 /* JoinViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A572438A7450041C333 /* JoinViewControllerTests.swift */; };
+		F3D29A5A2438C6350041C333 /* PackingViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D29A592438C6350041C333 /* PackingViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -293,7 +295,9 @@
 		F3C37C292418A83100D7109B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F3D29A4C24383E050041C333 /* HomeScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenTests.swift; sourceTree = "<group>"; };
 		F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewControllerTests.swift; sourceTree = "<group>"; };
-		F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewControllerTests.swift; sourceTree = "<group>"; };
+		F3D29A552438A5580041C333 /* GameViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameViewControllerTests.swift; path = RelentlessTests/GameViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		F3D29A572438A7450041C333 /* JoinViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JoinViewControllerTests.swift; path = RelentlessTests/JoinViewControllerTests.swift; sourceTree = SOURCE_ROOT; };
+		F3D29A592438C6350041C333 /* PackingViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -555,7 +559,6 @@
 		F3C37BED24189F5200D7109B = {
 			isa = PBXGroup;
 			children = (
-				F3D29A50243842C60041C333 /* JoinViewControllerTests.swift */,
 				F3C37C292418A83100D7109B /* GoogleService-Info.plist */,
 				F3C37BF824189F5200D7109B /* Relentless */,
 				F3C37C0F24189F5500D7109B /* RelentlessTests */,
@@ -601,8 +604,6 @@
 		F3C37C0F24189F5500D7109B /* RelentlessTests */ = {
 			isa = PBXGroup;
 			children = (
-				F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */,
-				F3D29A4C24383E050041C333 /* HomeScreenTests.swift */,
 				F3BF7F1E24275EF900A50EE3 /* ItemsAdapterTests.swift */,
 				F3BF7F1C24275EF900A50EE3 /* OrdersAdapterTests.swift */,
 				F3BF7F1D24275EF900A50EE3 /* PackageAdapterTests.swift */,
@@ -625,8 +626,13 @@
 		F3C37C1A24189F5500D7109B /* RelentlessUITests */ = {
 			isa = PBXGroup;
 			children = (
+				F3D29A4C24383E050041C333 /* HomeScreenTests.swift */,
+				F3D29A4E24383F590041C333 /* LobbyViewControllerTests.swift */,
+				F3D29A572438A7450041C333 /* JoinViewControllerTests.swift */,
+				F3D29A552438A5580041C333 /* GameViewControllerTests.swift */,
 				F3C37C1B24189F5500D7109B /* RelentlessUITests.swift */,
 				F3C37C1D24189F5500D7109B /* Info.plist */,
+				F3D29A592438C6350041C333 /* PackingViewControllerTests.swift */,
 			);
 			path = RelentlessUITests;
 			sourceTree = "<group>";
@@ -1016,10 +1022,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3D29A562438A5580041C333 /* GameViewControllerTests.swift in Sources */,
 				F3D29A4D24383E050041C333 /* HomeScreenTests.swift in Sources */,
+				F3D29A5A2438C6350041C333 /* PackingViewControllerTests.swift in Sources */,
 				F3C37C1C24189F5500D7109B /* RelentlessUITests.swift in Sources */,
-				F3D29A51243842C60041C333 /* JoinViewControllerTests.swift in Sources */,
 				F3D29A4F24383F590041C333 /* LobbyViewControllerTests.swift in Sources */,
+				F3D29A582438A7450041C333 /* JoinViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

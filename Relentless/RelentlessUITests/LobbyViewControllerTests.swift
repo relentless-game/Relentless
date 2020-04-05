@@ -25,14 +25,14 @@ class LobbyViewControllerTests: XCTestCase {
 
     func testBackButtonExists() throws {
         app.launch()
-        app.buttons["Create Game"].tap()
-        XCTAssertTrue(app.buttons["Back"].exists)
+        app.buttons["createRoomButton"].tap()
+        XCTAssertTrue(app.buttons["backButton"].exists)
     }
 
     func testStartButtonExists() throws {
         app.launch()
-        app.buttons["Create Game"].tap()
-        XCTAssertTrue(app.buttons["Start"].exists)
+        app.buttons["createRoomButton"].tap()
+        XCTAssertTrue(app.buttons["startButton"].exists)
     }
     
 }

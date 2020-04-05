@@ -10,4 +10,6 @@ import Foundation
 
 enum StartGameError: Error {
     case insufficientPlayers
+    case nonUniqueUsernames
+    case nonUniqueAvatars
 }

@@ -18,6 +18,8 @@ class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        difficultyLevelSlider.value = gameController?.gameParameters?.difficultyLevel ?? 1.0
+        difficultyLevelLabel.text = String(format: "%.1f", difficultyLevelSlider.value)
     }
 
     @IBAction private func sliderValueChanged(_ sender: UISlider) {

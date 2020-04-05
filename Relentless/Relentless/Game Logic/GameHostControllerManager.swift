@@ -115,7 +115,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             }
             updateMoney(satisfactionLevel: Int(sum))
         }
-
+        
         // checks the lose condition and ends the game if fulfilled
         if money < 0 {
             endGame()

@@ -13,15 +13,16 @@ class PackageTests: XCTestCase {
     let creator = "creator"
     let packageNumber = 1
     let items = [Item]()
+    let itemsLimit = 5
     var package: Package!
 
     override func setUp() {
         super.setUp()
-        package = Package(creator: creator, packageNumber: packageNumber, items: items)
+        package = Package(creator: creator, packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
     }
 
     func testInit() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: items)
+        let package = Package(creator: creator, packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
         XCTAssertEqual(package.creator, creator)
         XCTAssertEqual(package.packageNumber, packageNumber)
         XCTAssertEqual(package.items, items)
@@ -42,10 +43,10 @@ class PackageTests: XCTestCase {
     }
 
     func testEquivalence() {
-        let packageCopy = Package(creator: creator, packageNumber: packageNumber, items: items)
+        let packageCopy = Package(creator: creator, packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
         XCTAssertTrue(packageCopy == package)
         let packageCopyWithDifferentSequence = Package(creator: creator, packageNumber: packageNumber,
-                                                       items: items.reversed())
+                                                       items: items.reversed(), itemsLimit: itemsLimit)
         XCTAssertTrue(packageCopyWithDifferentSequence == package)
     }
 }

@@ -50,8 +50,7 @@ class GameParameters {
     }
 
     func reset() {
-        // todo: difficulty level should revert to initially set value
-        difficultyLevel = 0
+        difficultyLevel = GameParameters.difficultyRange.lowerBound
     }
 
 }

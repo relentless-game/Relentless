@@ -14,13 +14,16 @@ class HousesViewController: UIViewController {
     var activeHouse: House?
     let housesIdentifier = "HouseCell"
     let orderIdentifier = "OrderViewController"
+    var didEndRound = false
     @IBOutlet private var housesCollectionView: UICollectionView!
+    @IBOutlet private var satisfactionBar: UIProgressView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initCollectionView()
         addObservers()
         houses = gameController?.houses
+        updateSatisfactionBar()
     }
 
     func initCollectionView() {
@@ -32,14 +35,39 @@ class HousesViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSatisfactionBar),
+                                               name: .didChangeSatisfactionBar, object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleOrdersChanged),
+//                                               name: .didChangeOrders, object: nil)
     }
-    
+
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+    }
+
+    @objc func updateSatisfactionBar() {
+        if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
+            satisfactionBar.setProgress(value, animated: false)
+        }
+    }
+
+//    @objc func handleOrdersChanged() {
+//        housesCollectionView.reloadData()
+//    }
+
     @objc func handleRoundEnded() {
-        performSegue(withIdentifier: "endRound", sender: self)
+        didEndRound = true
+//        performSegue(withIdentifier: "endRound", sender: self)
     }
 
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        if !didEndRound {
+            dismiss(animated: true, completion: nil)
+        } else {
+            didEndRound = false
+        }
     }
     
     func openOrders(_ sender: UIView) {
@@ -51,7 +79,7 @@ class HousesViewController: UIViewController {
         if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
             as? OrderViewController {
             let width = view.frame.width - 60
-            let height = view.frame.width / 2
+            let height = view.frame.height / 2
             viewController.preferredContentSize = CGSize(width: width, height: height)
             viewController.modalPresentationStyle = .popover
             viewController.orders = orders
@@ -61,6 +89,7 @@ class HousesViewController: UIViewController {
             if let pop = viewController.popoverPresentationController {
                 pop.sourceView = sender
                 pop.sourceRect = sender.bounds
+                pop.permittedArrowDirections = .up
             }
             self.present(viewController, animated: true)
         }
@@ -68,6 +97,7 @@ class HousesViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         removeAllPreviousViewControllers()
+        removeObservers()
         if segue.identifier == "toPacking" {
             let viewController = segue.destination as? PackingViewController
             viewController?.gameController = gameController

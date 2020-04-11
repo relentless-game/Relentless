@@ -83,13 +83,14 @@ class NetworkManager: Network {
         }
     }
         
-    func joinGame(userId: String, userName: String, gameId: Int, completion: @escaping (JoinGameError?) -> Void) {
+    func joinGame(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
+                  completion: @escaping (JoinGameError?) -> Void) {
         // series of chained checks
         // game ID validity -> game already playing -> game room full
-        checkGameIdValidity(userId: userId, userName: userName, gameId: gameId, completion: completion)
+        checkGameIdValidity(userId: userId, userName: userName, avatar: avatar, gameId: gameId, completion: completion)
     }
     
-    private func checkGameIdValidity(userId: String, userName: String, gameId: Int,
+    private func checkGameIdValidity(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                      completion: @escaping (JoinGameError?) -> Void) {
         ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
             var gameIdsTaken = [Int]()
@@ -101,14 +102,15 @@ class NetworkManager: Network {
             let isGameIdValid = gameIdsTaken.contains(gameId)
             if isGameIdValid {
                 // next check
-                self.checkGameAlreadyPlaying(userId: userId, userName: userName, gameId: gameId, completion: completion)
+                self.checkGameAlreadyPlaying(userId: userId, userName: userName, avatar: avatar,
+                                             gameId: gameId, completion: completion)
             } else {
                 completion(JoinGameError.invalidGameId)
             }
         }
     }
     
-    private func checkGameAlreadyPlaying(userId: String, userName: String, gameId: Int,
+    private func checkGameAlreadyPlaying(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                          completion: @escaping (JoinGameError?) -> Void) {
         ref.child("games/\(gameId)/status").observeSingleEvent(of: .value) { snapshot in
             let statusString = snapshot.value as? String ?? ""
@@ -118,22 +120,24 @@ class NetworkManager: Network {
                     completion(JoinGameError.gameAlreadyPlaying)
                 } else {
                     // next check
-                    self.checkGameRoomFull(userId: userId, userName: userName, gameId: gameId, completion: completion)
+                    self.checkGameRoomFull(userId: userId, userName: userName, avatar: avatar,
+                                           gameId: gameId, completion: completion)
                 }
             }
         }
     }
     
-    private func checkGameRoomFull(userId: String, userName: String, gameId: Int,
+    private func checkGameRoomFull(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                    completion: @escaping (JoinGameError?) -> Void) {
         ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
             var numberOfPlayers = 0
             for _ in snapshot.children {
                 numberOfPlayers += 1
             }
+
             let maxNumOfPlayers = self.numOfPlayersRange.upperBound
             if numberOfPlayers < maxNumOfPlayers {
-                self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
+                self.joinGameInDatabase(userId: userId, userName: userName, avatar: avatar, gameId: gameId)
                 completion(nil) // nil indicates successful result
             } else {
                 completion(JoinGameError.gameRoomFull)
@@ -141,11 +145,12 @@ class NetworkManager: Network {
         }
     }
     
-    private func joinGameInDatabase(userId: String, userName: String, gameId: Int) {
+    private func joinGameInDatabase(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int) {
         // add this user to the game
         let userProfile = [
             "userId": userId,
-            "userName": userName
+            "userName": userName,
+            "profile": avatar.rawValue
         ]
         ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
@@ -293,7 +298,9 @@ class NetworkManager: Network {
                     let userId = playerInfo["userId"] as? String ?? ""
                     let userName = playerInfo["userName"] as? String ?? ""
                     let userProfileString = playerInfo["profile"] as? String ?? ""
-                    let userProfileAvatar = PlayerAvatar(rawValue: userProfileString)
+                    guard let userProfileAvatar = PlayerAvatar(rawValue: userProfileString) else {
+                        return
+                    }
                     let player = Player(userId: userId, userName: userName, profileImage: userProfileAvatar)
                     players.append(player)
                 }

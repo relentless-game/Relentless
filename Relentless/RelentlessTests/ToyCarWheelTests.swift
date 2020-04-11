@@ -10,7 +10,7 @@ import XCTest
 @testable import Relentless
 
 class ToyCarWheelTests: XCTestCase {
-    let shape = Shape.circle
+    let shape = Shape.triangle
     var wheel: ToyCarWheel!
 
     override func setUp() {
@@ -24,12 +24,12 @@ class ToyCarWheelTests: XCTestCase {
     }
 
     func testComparison() {
-//        let wheelWithSmallerRadius = ToyCarWheel(radius: radius - 1)
-//        let wheelWithBiggerRadius = ToyCarWheel(radius: radius + 1)
-//        let magazine = Magazine(name: "")
-//        XCTAssertTrue(wheelWithSmallerRadius < wheel)
-//        XCTAssertTrue(wheel < wheelWithBiggerRadius)
-//        XCTAssertTrue(magazine < wheel)
+        let wheelWithSmallerShape = ToyCarWheel(shape: Shape.circle)
+        let wheelWithBiggerShape = ToyCarWheel(shape: Shape.square)
+        let magazine = Magazine(name: "")
+        XCTAssertTrue(wheelWithSmallerShape < wheel)
+        XCTAssertTrue(wheel < wheelWithBiggerShape)
+        XCTAssertTrue(magazine < wheel)
     }
 
     func testEquals() {

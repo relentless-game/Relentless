@@ -13,19 +13,21 @@ class SettingsViewController: UIViewController {
 
     var gameController: GameController?
 
-    @IBOutlet weak var difficultyLevelSlider: UISlider!
-    @IBOutlet weak var difficultyLevelLabel: UILabel!
+    @IBOutlet private var difficultyLevelSlider: UISlider!
+    @IBOutlet private var difficultyLevelLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        difficultyLevelSlider.value = gameController?.gameParameters?.difficultyLevel ?? 1.0
+        difficultyLevelLabel.text = String(format: "%.1f", difficultyLevelSlider.value)
     }
 
-    @IBAction func sliderValueChanged(_ sender: UISlider) {
+    @IBAction private func sliderValueChanged(_ sender: UISlider) {
         gameController?.gameParameters?.difficultyLevel = sender.value
         difficultyLevelLabel.text = String(format: "%.1f", sender.value)
     }
 
-    @IBAction func handleBackButtonPressed(_ sender: Any) {
+    @IBAction private func handleBackButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
 }

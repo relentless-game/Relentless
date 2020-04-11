@@ -60,6 +60,9 @@ class PackingViewController: UIViewController {
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleGameEnded),
+                                               name: .didEndGame, object: nil)
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleItemLimitReached),
                                                name: .didItemLimitReached, object: nil)
         NotificationCenter.default.addObserver(self,
@@ -68,7 +71,8 @@ class PackingViewController: UIViewController {
         // The following observers are for the pausing feature
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.willResignActiveNotification, object: nil)
+                                               //name: UIApplication.willResignActiveNotification, object: nil)
+                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -81,11 +85,39 @@ class PackingViewController: UIViewController {
 
     }
 
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangePackages, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeItems, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeSatisfactionBar, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
+        // The following observers are for the pausing feature
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
+    }
+
     func initialiseCollectionViews() {
         attachLongPressToPackages()
         let itemNib = UINib(nibName: itemIdentifier, bundle: nil)
         currentPackageView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
         itemsView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
+    }
+
+    @IBAction private func toHouses(_ sender: UIButton) {
+        guard let gameStatus = gameController?.gameStatus else {
+            return
+        }
+        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+        if !didEndRound {
+            performSegue(withIdentifier: "toHouses", sender: self)
+        } else {
+            performSegue(withIdentifier: "endRound", sender: self)
+        }
     }
 
     @objc func reloadAllViews() {
@@ -129,12 +161,18 @@ class PackingViewController: UIViewController {
 
     @objc func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            satisfactionBar.setProgress(value, animated: true)
+            satisfactionBar.setProgress(value, animated: false)
         }
     }
     
     @objc func handleRoundEnded() {
+        print("handle round ended")
+        removeObservers()
         performSegue(withIdentifier: "endRound", sender: self)
+    }
+    
+    @objc func handleGameEnded() {
+        performSegue(withIdentifier: "endGameFromPacking", sender: self)
     }
 
     @objc func handleItemLimitReached() {
@@ -165,7 +203,7 @@ class PackingViewController: UIViewController {
 
     @objc
     func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
-        if longPressGR.state == .ended {
+        if longPressGR.state != .began {
             return
         }
 
@@ -190,8 +228,10 @@ class PackingViewController: UIViewController {
             assembleParts()
             selectedParts.removeAll()
             assemblyMode = false
+            currentPackageView.reloadData()
         } else {
             assemblyMode = true
+            currentPackageView.reloadData()
         }
     }
 
@@ -351,12 +391,16 @@ extension PackingViewController: UICollectionViewDataSource {
         }
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.packagesView {
             if indexPath.item == packages?.count {
                 // Add Button at the end.
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addPackageIdentifier, for: indexPath)
+                if let addPackageButton = cell as? AddPackageButton, let avatar = gameController?.player?.profileImage {
+                    addPackageButton.setAvatar(to: avatar)
+                }
                 return cell
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: packageIdentifier, for: indexPath)
@@ -373,6 +417,7 @@ extension PackingViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
             if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
                 itemCell.setItem(item: item)
+                itemCell.state = .opaque
                 if assemblyMode {
                     if let part = currentPackageItems?[indexPath.row] as? Part {
                         if selectedParts.contains(part) {
@@ -424,7 +469,6 @@ extension PackingViewController: UICollectionViewDelegate {
                 } else {
                     selectedParts.insert(part)
                 }
-                print(selectedParts)
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

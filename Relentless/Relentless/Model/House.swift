@@ -23,12 +23,16 @@ class House {
         orders.filter { $0.hasStarted }
     }
 
+    var nearestActiveOrderTimeRatio: Float? {
+        var unsortedOrders = activeOrders
+        unsortedOrders.sort(by: { $0.timeLeft < $1.timeLeft })
+        return unsortedOrders.first?.timeRatio
+    }
+
     init(orders: Set<Order>, satisfactionFactor: Float) {
         assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders
         self.satisfactionFactor = satisfactionFactor
-        NotificationCenter.default.addObserver(self, selector: #selector(notifyOrderUpdate(notification:)),
-                                               name: .didTimeUpdateInOrder, object: nil)
     }
 
     /// Returns true if the package correctly matches any of the active orders
@@ -66,8 +70,13 @@ class House {
     }
 
     func removeOrder(order: Order) {
-        orders.remove(order)
+        var ordersAsArray = Array(orders)
+        guard let indexOfOrder = ordersAsArray.firstIndex(of: order) else {
+            return
+        }
+        ordersAsArray.remove(at: indexOfOrder)
         order.stopTimer()
+        orders = Set(ordersAsArray)
     }
 
     @objc

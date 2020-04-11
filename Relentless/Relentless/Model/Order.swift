@@ -23,11 +23,13 @@ class Order: Hashable, Codable {
             NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
         }
     }
-    var hasStarted: Bool = false {
-        didSet {
-            NotificationCenter.default.post(name: .didTimeUpdateInOrder, object: nil)
-        }
+
+    // Float from 0 to 1
+    var timeRatio: Float {
+        Float(timeLeft) / Float(timeLimit)
     }
+    
+    var hasStarted: Bool = false
 
     init(items: [Item], timeLimitInSeconds: Int) {
         self.items = items.sorted()
@@ -64,8 +66,8 @@ class Order: Hashable, Codable {
     }
 
     func resumeTimer() {
-        self.timer = Timer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
-                           userInfo: nil, repeats: false)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimeLeft),
+                                          userInfo: nil, repeats: true)
     }
 
     /// Returns true if package matches items in order
@@ -75,7 +77,17 @@ class Order: Hashable, Codable {
 
     /// Returns number of differences between the items in the package and the items in the order
     func getNumberOfDifferences(with package: Package) -> Int {
-        items.count - zip(items, package.items).filter { $0.0 == $0.1 }.count
+        var orderItems = items
+        var packageItems = package.items
+        for item in items where packageItems.contains(item) {
+            guard let packageItemIndex = packageItems.firstIndex(of: item),
+                let orderItemIndex = orderItems.firstIndex(of: item) else {
+                continue
+            }
+            packageItems.remove(at: packageItemIndex)
+            orderItems.remove(at: orderItemIndex)
+        }
+        return orderItems.count + packageItems.count
     }
 
     @objc

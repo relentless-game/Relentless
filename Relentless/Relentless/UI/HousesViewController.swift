@@ -14,6 +14,7 @@ class HousesViewController: UIViewController {
     var activeHouse: House?
     let housesIdentifier = "HouseCell"
     let orderIdentifier = "OrderViewController"
+    var didEndRound = false
     @IBOutlet private var housesCollectionView: UICollectionView!
     @IBOutlet private var satisfactionBar: UIProgressView!
 
@@ -22,6 +23,7 @@ class HousesViewController: UIViewController {
         initCollectionView()
         addObservers()
         houses = gameController?.houses
+        updateSatisfactionBar()
     }
 
     func initCollectionView() {
@@ -47,7 +49,7 @@ class HousesViewController: UIViewController {
 
     @objc func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            satisfactionBar.setProgress(value, animated: true)
+            satisfactionBar.setProgress(value, animated: false)
         }
     }
 
@@ -56,11 +58,16 @@ class HousesViewController: UIViewController {
 //    }
 
     @objc func handleRoundEnded() {
-        performSegue(withIdentifier: "endRound", sender: self)
+        didEndRound = true
+//        performSegue(withIdentifier: "endRound", sender: self)
     }
 
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        if !didEndRound {
+            dismiss(animated: true, completion: nil)
+        } else {
+            didEndRound = false
+        }
     }
     
     func openOrders(_ sender: UIView) {

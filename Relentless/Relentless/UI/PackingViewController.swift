@@ -108,6 +108,18 @@ class PackingViewController: UIViewController {
         itemsView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
     }
 
+    @IBAction private func toHouses(_ sender: UIButton) {
+        guard let gameStatus = gameController?.gameStatus else {
+            return
+        }
+        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+        if !didEndRound {
+            performSegue(withIdentifier: "toHouses", sender: self)
+        } else {
+            performSegue(withIdentifier: "endRound", sender: self)
+        }
+    }
+
     @objc func reloadAllViews() {
         reloadPackages()
         reloadItems()
@@ -149,11 +161,12 @@ class PackingViewController: UIViewController {
 
     @objc func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            satisfactionBar.setProgress(value, animated: true)
+            satisfactionBar.setProgress(value, animated: false)
         }
     }
     
     @objc func handleRoundEnded() {
+        print("handle round ended")
         removeObservers()
         performSegue(withIdentifier: "endRound", sender: self)
     }

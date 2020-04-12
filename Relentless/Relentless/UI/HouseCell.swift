@@ -22,7 +22,7 @@ class HouseCell: UICollectionViewCell {
 
     @objc func handleOrderChanged() {
         if let timeRatio = house.nearestActiveOrderTimeRatio {
-            progressView.setProgress(timeRatio, animated: true)
+            progressView.setProgress(timeRatio, animated: false)
         }
     }
 

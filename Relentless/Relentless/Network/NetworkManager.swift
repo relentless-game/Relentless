@@ -412,4 +412,12 @@ class NetworkManager: Network {
             action(difficultyLevel)
         })
     }
+
+    func attachItemSpecificationsListener(userId: String, gameId: Int, action: @escaping (ItemSpecifications) -> Void) {
+        // do something
+    }
+
+    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: ItemSpecifications) {
+        // do something
+    }
 }

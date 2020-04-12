@@ -33,7 +33,7 @@ class PackingViewController: UIViewController {
     private let addPackageIdentifier = "AddPackageButton"
 
     var assemblyMode = false
-    var selectedParts = Set<Part>()
+    var selectedParts = Set<Item>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -406,15 +406,22 @@ extension PackingViewController: UICollectionViewDataSource {
                 itemCell.setItem(item: item)
                 itemCell.state = .opaque
                 if assemblyMode {
-                    if let part = currentPackageItems?[indexPath.row] as? Part {
-                        if selectedParts.contains(part) {
+                    if let item = currentPackageItems?[indexPath.row] {
+                        if selectedParts.contains(item) {
                             itemCell.state = .opaque
                         } else {
                             itemCell.state = .translucent
                         }
-                    } else {
-                        itemCell.state = .transparent
                     }
+//                    if let part = currentPackageItems?[indexPath.row] as? Part {
+//                        if selectedParts.contains(part) {
+//                            itemCell.state = .opaque
+//                        } else {
+//                            itemCell.state = .translucent
+//                        }
+//                    } else {
+//                        itemCell.state = .transparent
+//                    }
                 }
             }
             return cell
@@ -448,14 +455,20 @@ extension PackingViewController: UICollectionViewDelegate {
                 return
             }
             if assemblyMode {
-                guard let part = currentPackageItems[indexPath.item] as? Part else {
-                    return
-                }
-                if selectedParts.contains(part) {
-                    selectedParts.remove(part)
+                let item = currentPackageItems[indexPath.item]
+                if selectedParts.contains(item) {
+                    selectedParts.remove(item)
                 } else {
-                    selectedParts.insert(part)
+                    selectedParts.insert(item)
                 }
+//                guard let part = currentPackageItems[indexPath.item] as? Part else {
+//                    return
+//                }
+//                if selectedParts.contains(part) {
+//                    selectedParts.remove(part)
+//                } else {
+//                    selectedParts.insert(part)
+//                }
             } else {
                 gameController?.removeItem(item: currentPackageItems[indexPath.item])
             }

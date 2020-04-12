@@ -8,9 +8,7 @@
 
 import Foundation
 
-/// Assembled items cannot be added to the inventory
 class AssembledItem: Item {
-    static let isInventoryItem = false
     internal var unsortedParts: [Item] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
@@ -21,10 +19,19 @@ class AssembledItem: Item {
         unsortedParts.sorted()
     }
 
-    init(parts: [Item], category: Category, isOrderItem: Bool) {
+    init(parts: [Item], category: Category, isInventoryItem: Bool,
+         isOrderItem: Bool, imageString: String) {
         self.unsortedParts = parts.sorted()
-        super.init(category: category, isInventoryItem: AssembledItem.isInventoryItem,
-                   isOrderItem: isOrderItem)
+        super.init(category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageString: imageString)
+    }
+
+    // To be called by ItemAssembler
+    init(parts: [Item], category: Category, imageString: String) {
+        self.unsortedParts = parts
+        // Set to false as item is assembled by user
+        super.init(category: category, isInventoryItem: false,
+                   isOrderItem: false, imageString: imageString)
     }
 
     required init(from decoder: Decoder) throws {
@@ -76,7 +83,6 @@ class AssembledItem: Item {
 //        let string = "toycar_whole_\(colour!.toString())_\(shape!.toString())_\(label!.toString())"
 //        return string
 //    }
-//
 
     /// Other item should be of type AssembledItem and should have the same category as this object
     override func isLessThan(other: Item) -> Bool {
@@ -115,18 +121,20 @@ class AssembledItem: Item {
         hasher.combine(unsortedParts)
     }
 
-//    override func toString() -> String {
-//        var string = "AssembledItem:"
-//        for part in parts {
-//            string.append(" " + part.toString())
-//        }
-//        return string
-//    }
+    override func toString() -> String {
+        ""
+    }
+
+    override func equals(other: Item) -> Bool {
+        guard let otherItem = other as? AssembledItem else {
+            return false
+        }
+        return self.category == otherItem.category &&
+            self.parts == otherItem.parts
+    }
 
 }
 
 enum AssembledItemKeys: CodingKey {
     case parts
-    case category
-    case partType
 }

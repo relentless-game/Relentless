@@ -18,8 +18,8 @@ class GameManager: Game {
     }
 
     /// game information
-    let defaultNumberOfHouses = 5 // todo: should be changeable
     var gameId: Int
+    var roundItemSpecifications: ItemSpecifications?
     var packages = [Package]() {
         didSet {
             NotificationCenter.default.post(name: .didChangePackagesInModel, object: nil)
@@ -74,8 +74,13 @@ class GameManager: Game {
         currentlyOpenPackage?.removeItem(item: item)
     }
 
-    func constructAssembledItem(parts: [Part]) throws {
-        let assembledItem = try ItemAssembler.assembleItem(parts: parts)
+    func constructAssembledItem(parts: [Item]) throws {
+        guard let roundItemSpecifications = self.roundItemSpecifications else {
+            return
+        }
+        let assembledItem = try ItemAssembler.assembleItem(parts: parts,
+                                                           partsToAssembledItemCategoryMapping: roundItemSpecifications
+                                                            .partsToAssembledItemCategoryMapping)
         currentlyOpenPackage?.addItem(item: assembledItem)
         for part in parts {
             currentlyOpenPackage?.removeItem(item: part)
@@ -114,6 +119,7 @@ class GameManager: Game {
         packages = [Package]()
         cumulativePackageNumber = 0
         currentlyOpenPackage = nil
+        assert(roundItemSpecifications != nil)
     }
 
     private func addObservers() {

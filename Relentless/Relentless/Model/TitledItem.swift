@@ -11,9 +11,11 @@ import Foundation
 class TitledItem: Item {
     var name: String
 
-    init(name: String, category: Category, isInventoryItem: Bool, isOrderItem: Bool) {
+    init(name: String, category: Category, isInventoryItem: Bool,
+         isOrderItem: Bool, imageString: String) {
         self.name = name
-        super.init(category: category, isInventoryItem: isInventoryItem, isOrderItem: isOrderItem)
+        super.init(category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageString: imageString)
     }
 
     required init(from decoder: Decoder) throws {
@@ -45,9 +47,9 @@ class TitledItem: Item {
         hasher.combine(name)
     }
     
-//    override func toString() -> String {
-//        name
-//    }
+    override func toString() -> String {
+        name
+    }
 
     override func equals(other: Item) -> Bool {
         guard let otherItem = other as? TitledItem else {
@@ -60,5 +62,4 @@ class TitledItem: Item {
 
 enum TitledItemKeys: CodingKey {
     case name
-    case category
 }

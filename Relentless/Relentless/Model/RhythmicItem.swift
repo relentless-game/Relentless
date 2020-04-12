@@ -16,10 +16,12 @@ class RhythmicItem: Item {
     // represents the sequence of states that make up the rhythm
     var stateSequence: [RhythmState]
 
-    init(unitDuration: Int, stateSequence: [RhythmState], category: Category) {
+    init(unitDuration: Int, stateSequence: [RhythmState], category: Category,
+         isInventoryItem: Bool, isOrderItem: Bool, imageString: String) {
         self.unitDuration = unitDuration
         self.stateSequence = stateSequence
-        super.init(category: category)
+        super.init(category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageString: imageString)
     }
 
     required init(from decoder: Decoder) throws {
@@ -40,18 +42,14 @@ class RhythmicItem: Item {
 
     override func isLessThan(other: Item) -> Bool {
         guard let otherItem = other as? RhythmicItem else {
+            assertionFailure("other item should be of type RhythmicItem")
             return false
         }
-        if self.category.rawValue < otherItem.category.rawValue {
+        assert(otherItem.category == self.category)
+        if unitDuration < otherItem.unitDuration {
             return true
-        } else if self.category.rawValue > otherItem.category.rawValue {
-            return false
         } else {
-            if unitDuration < otherItem.unitDuration {
-                return true
-            } else {
-                return checkStatesAreLessThan(otherItem: otherItem)
-            }
+            return checkStatesAreLessThan(otherItem: otherItem)
         }
     }
 
@@ -78,12 +76,22 @@ class RhythmicItem: Item {
     }
 
     override func hash(into hasher: inout Hasher) {
+        hasher.combine(category)
         hasher.combine(unitDuration)
         hasher.combine(stateSequence)
     }
 
     override func toString() -> String {
-        "RhythmicItem"
+        ""
+    }
+
+    override func equals(other: Item) -> Bool {
+        guard let otherItem = other as? RhythmicItem else {
+            return false
+        }
+        return self.category == otherItem.category &&
+            self.unitDuration == otherItem.unitDuration &&
+            self.stateSequence == otherItem.stateSequence
     }
 }
 

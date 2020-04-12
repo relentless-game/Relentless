@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol GameEntityGenerator {
+protocol GameItemGenerator {
 
-    /// Generates the items and returns an array of inventory items and an array of orders
-    func generate(categories: [Category]) -> ([Item], [Order])
+    /// Generates the items and returns an array of inventory items and an array of order items
+    func generate(categories: [Category]) -> ([Item], [Item])
 
 }

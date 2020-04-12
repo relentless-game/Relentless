@@ -12,7 +12,6 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
 
     static var teamCodeCharacterLimit = 4
     @IBOutlet private var teamCodeTextField: UITextField!
-    @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var joinButton: UIButton!
     var gameController: GameController?
     var userId: String?
@@ -25,13 +24,12 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         teamCodeTextField.delegate = self
         initUserId()
         if let userId = self.userId {
-            // Difficulty level for `GameParameter` should be determined by settings page
-            let gameParameters = GameParameters(difficultyLevel: 1.0)
-            gameController = GameControllerManager(userId: userId, gameParameters: gameParameters)
+            // Game parameters should be taken from the game host
+            gameController = GameControllerManager(userId: userId, gameParameters: nil)
         }
         addObservers()
     }
-
+    
     func initUserId() {
         if let delegate = delegate {
             userId = delegate.userId
@@ -51,6 +49,13 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleGameAlreadyPlaying),
                                                name: .gameAlreadyPlaying, object: nil)
+    }
+    
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .invalidGameId, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .gameRoomFull, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .gameAlreadyPlaying, object: nil)
     }
 
     // Code obtained and modified from:
@@ -98,10 +103,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @IBAction private func tryJoinGame(_ sender: Any) {
-        if let text = teamCodeTextField.text, let gameId = Int(text),
-            let username = usernameTextField.text {
+        if let text = teamCodeTextField.text, let gameId = Int(text) {
             self.gameId = gameId
-            _ = gameController?.joinGame(gameId: gameId, userName: username)
+            // TODO: how do we decide default avatar?
+            _ = gameController?.joinGame(gameId: gameId, userName: "", avatar: .red)
         }
     }
 
@@ -110,8 +115,10 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleGameRoomFull() {
+        let maxNumOfPlayers = GameParameters.numOfPlayersRange.upperBound
         let alert = createAlert(title: "Sorry.",
-                                message: "The team is already full. There is a maximum of 6 players.",
+                                message: "The team is already full. There is a maximum of "
+                                    + String(maxNumOfPlayers) + " players.",
                                 action: "Ok.")
         self.present(alert, animated: true, completion: nil)
     }
@@ -131,6 +138,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        removeObservers()
+        removeAllPreviousViewControllers()
         if segue.identifier == "joinGame" {
             if let viewController = segue.destination as? LobbyViewController {
                 viewController.gameController = self.gameController
@@ -147,5 +156,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                                           style: .default)
         controller.addAction(defaultAction)
         return controller
+    }
+    
+    @IBAction private func handleBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
 }

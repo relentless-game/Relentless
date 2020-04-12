@@ -35,7 +35,7 @@ class ItemsAllocator: GameItemsAllocator {
 
     private func allocateParts(items: [AssembledItem], to players: [Player]) {
         var parts = Array(Set(items.flatMap { $0.unsortedParts }))
-        let numberOfPartsForEachPlayer = parts.count / players.count
+        let numberOfPartsForEachPlayer = Int((Float(parts.count) / Float(players.count)))
         for player in players {
             let initialItemCount = player.items.count
             while player.items.count < numberOfPartsForEachPlayer + initialItemCount {
@@ -51,7 +51,7 @@ class ItemsAllocator: GameItemsAllocator {
 
     private func allocateNonAssembledItems(items: [Item], to players: [Player]) {
         var itemsToAssign = items
-        let numberOfItemsForEachPlayer = itemsToAssign.count / players.count
+        let numberOfItemsForEachPlayer = Int((Float(itemsToAssign.count) / Float(players.count)))
         for player in players {
             while player.items.count < numberOfItemsForEachPlayer {
                 let itemToAllocate = getRandomItem(from: itemsToAssign)
@@ -84,17 +84,20 @@ class ItemsAllocator: GameItemsAllocator {
 
     /// Generates items based on the specified categories
     private func generateItems(categories: [Category]) -> [Item] {
-        var items = [Item]()
-        for category in categories {
-            items.append(contentsOf: generateItems(category: category, numberToGenerate: numOfPairsPerCategory))
+        var items = Set<Item>()
+        while items.count < numberOfPlayers {
+            for category in categories {
+                let generatedItems = generateItems(category: category, numberToGenerate: numOfPairsPerCategory)
+                items = items.union(generatedItems)
+            }
         }
-        return items
+        return Array(items)
     }
 
     /// Generates items for specified category
     private func generateItems(category: Category, numberToGenerate: Int) -> [Item] {
         switch category {
-        case Category.book, Category.magazine, Category.bulb:
+        case Category.book, Category.magazine, Category.robot:
             return ListBasedGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)
         case Category.toyCar:
             return AssembledItemsGenerator.generateItems(category: category, numberToGenerate: numberToGenerate)

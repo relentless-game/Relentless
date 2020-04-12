@@ -16,7 +16,9 @@ class OrderTests: XCTestCase {
     let packageNumber = 1
     let items = [Book(name: "book"), Magazine(name: "magazine")]
     let timeLimit = 1
+    let itemsLimit = 5
     var order: Order!
+    
     override func setUp() {
         super.setUp()
         order = Order(items: items, timeLimitInSeconds: timeLimit)
@@ -29,26 +31,28 @@ class OrderTests: XCTestCase {
     }
 
     func testCheckPackage_correctPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: items)
+        let package = Package(creator: creator, packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
         XCTAssertTrue(order.checkPackage(package: package))
     }
 
     func testCheckPackage_correctPackageInDifferentOrder() {
         var itemsInReversedOrder = items
         itemsInReversedOrder.reverse()
-        let package = Package(creator: creator, packageNumber: packageNumber, items: itemsInReversedOrder)
+        let package = Package(creator: creator, packageNumber: packageNumber,
+                              items: itemsInReversedOrder, itemsLimit: itemsLimit)
         XCTAssertTrue(order.checkPackage(package: package))
     }
 
     func testCheckPackage_incorrectPackage() {
         var wrongItems = items
         wrongItems.removeFirst()
-        let package = Package(creator: creator, packageNumber: packageNumber, items: wrongItems)
+        let package = Package(creator: creator, packageNumber: packageNumber, items: wrongItems, itemsLimit: itemsLimit)
         XCTAssertFalse(order.checkPackage(package: package))
     }
 
     func testGetNumberOfDifferences() {
-        let packageWithNoItems = Package(creator: creator, packageNumber: packageNumber, items: [Item]())
+        let packageWithNoItems = Package(creator: creator, packageNumber: packageNumber,
+                                         items: [Item](), itemsLimit: itemsLimit)
         XCTAssertEqual(order.getNumberOfDifferences(with: packageWithNoItems), items.count)
     }
 

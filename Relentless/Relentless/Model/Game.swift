@@ -20,6 +20,7 @@ protocol Game {
     var currentRoundNumber: Int { get set }
     var defaultNumberOfHouses: Int { get }
     var currentlyOpenPackage: Package? { get }
+    var packageItemsLimit: Int? { get set }
 
     func addPackage(package: Package)
 
@@ -31,7 +32,7 @@ protocol Game {
 
     func removeItem(item: Item)
 
-    func constructAssembledItem(parts: [Part]) throws -> AssembledItem
+    func constructAssembledItem(parts: [Part]) throws
 
     func checkPackage(package: Package, for house: House) -> Bool
 

@@ -23,10 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let user = authResult?.user else {
                 return
             }
-            // TODO: figure out what to do with this
-            _ = user.isAnonymous  // true
-            let uid = user.uid
             
+            let uid = user.uid
             self.userId = uid
         }
 

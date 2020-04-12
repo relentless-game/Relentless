@@ -13,6 +13,8 @@ class GameParameters {
     var difficultyLevel: Float
 
     /// The following properties do not vary with the difficulty level
+    static let numOfPlayersRange = 1...6 // Minimum is set at 1 for testing purposes. Should be changed to 3
+
     static let difficultyRange: ClosedRange<Float> = 1.0...10.0
     static var difficultyChange: Float = 0.5
 
@@ -48,8 +50,7 @@ class GameParameters {
     }
 
     func reset() {
-        // todo: difficulty level should revert to initially set value
-        difficultyLevel = 0
+        difficultyLevel = GameParameters.difficultyRange.lowerBound
     }
 
 }

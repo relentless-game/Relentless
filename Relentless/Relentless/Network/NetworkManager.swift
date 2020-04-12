@@ -10,13 +10,14 @@ import Foundation
 import Firebase
 
 class NetworkManager: Network {
-    
-    let maxNumberOfPlayers = 6
+
+    var numOfPlayersRange: ClosedRange<Int>
 
     private var ref: DatabaseReference!
 
-    init() {
+    init(numOfPlayersRange: ClosedRange<Int>) {
         ref = Database.database().reference()
+        self.numOfPlayersRange = numOfPlayersRange
     }
     
     func createGame(completion: @escaping (Int) -> Void) {
@@ -82,13 +83,14 @@ class NetworkManager: Network {
         }
     }
         
-    func joinGame(userId: String, userName: String, gameId: Int, completion: @escaping (JoinGameError?) -> Void) {
+    func joinGame(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
+                  completion: @escaping (JoinGameError?) -> Void) {
         // series of chained checks
         // game ID validity -> game already playing -> game room full
-        checkGameIdValidity(userId: userId, userName: userName, gameId: gameId, completion: completion)
+        checkGameIdValidity(userId: userId, userName: userName, avatar: avatar, gameId: gameId, completion: completion)
     }
     
-    private func checkGameIdValidity(userId: String, userName: String, gameId: Int,
+    private func checkGameIdValidity(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                      completion: @escaping (JoinGameError?) -> Void) {
         ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
             var gameIdsTaken = [Int]()
@@ -100,14 +102,15 @@ class NetworkManager: Network {
             let isGameIdValid = gameIdsTaken.contains(gameId)
             if isGameIdValid {
                 // next check
-                self.checkGameAlreadyPlaying(userId: userId, userName: userName, gameId: gameId, completion: completion)
+                self.checkGameAlreadyPlaying(userId: userId, userName: userName, avatar: avatar,
+                                             gameId: gameId, completion: completion)
             } else {
                 completion(JoinGameError.invalidGameId)
             }
         }
     }
     
-    private func checkGameAlreadyPlaying(userId: String, userName: String, gameId: Int,
+    private func checkGameAlreadyPlaying(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                          completion: @escaping (JoinGameError?) -> Void) {
         ref.child("games/\(gameId)/status").observeSingleEvent(of: .value) { snapshot in
             let statusString = snapshot.value as? String ?? ""
@@ -117,22 +120,24 @@ class NetworkManager: Network {
                     completion(JoinGameError.gameAlreadyPlaying)
                 } else {
                     // next check
-                    self.checkGameRoomFull(userId: userId, userName: userName, gameId: gameId, completion: completion)
+                    self.checkGameRoomFull(userId: userId, userName: userName, avatar: avatar,
+                                           gameId: gameId, completion: completion)
                 }
             }
         }
     }
     
-    private func checkGameRoomFull(userId: String, userName: String, gameId: Int,
+    private func checkGameRoomFull(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int,
                                    completion: @escaping (JoinGameError?) -> Void) {
         ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
             var numberOfPlayers = 0
             for _ in snapshot.children {
                 numberOfPlayers += 1
             }
-            
-            if numberOfPlayers < self.maxNumberOfPlayers {
-                self.joinGameInDatabase(userId: userId, userName: userName, gameId: gameId)
+
+            let maxNumOfPlayers = self.numOfPlayersRange.upperBound
+            if numberOfPlayers < maxNumOfPlayers {
+                self.joinGameInDatabase(userId: userId, userName: userName, avatar: avatar, gameId: gameId)
                 completion(nil) // nil indicates successful result
             } else {
                 completion(JoinGameError.gameRoomFull)
@@ -140,11 +145,12 @@ class NetworkManager: Network {
         }
     }
     
-    private func joinGameInDatabase(userId: String, userName: String, gameId: Int) {
+    private func joinGameInDatabase(userId: String, userName: String, avatar: PlayerAvatar, gameId: Int) {
         // add this user to the game
         let userProfile = [
             "userId": userId,
-            "userName": userName
+            "userName": userName,
+            "profile": avatar.rawValue
         ]
         ref.child("games/\(gameId)/users/\(userId)").setValue(userProfile)
     }
@@ -162,14 +168,38 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int) {
-        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
+    func startGame(gameId: Int, difficultyLevel: Float, completion: @escaping (StartGameError?) -> Void) {
+        // enough players -> start game
+        checkEnoughPlayers(gameId: gameId, difficultyLevel: difficultyLevel, completion: completion)
+    }
+
+    private func checkEnoughPlayers(gameId: Int, difficultyLevel: Float,
+                                    completion: @escaping (StartGameError?) -> Void) {
+        ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
+            var numberOfPlayers = 0
+            for _ in snapshot.children {
+                numberOfPlayers += 1
+            }
+            let minNumOfPlayers = self.numOfPlayersRange.lowerBound
+            if numberOfPlayers >= minNumOfPlayers {
+                self.startGameInDatabase(gameId: gameId, difficultyLevel: difficultyLevel)
+                completion(nil) // nil indicates successful result
+            } else {
+                completion(StartGameError.insufficientPlayers)
+            }
+        }
+    }
+
+    private func startGameInDatabase(gameId: Int, difficultyLevel: Float) {
+        guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
+                                          isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
+        ref.child("games/\(gameId)/difficultyLevel").setValue(difficultyLevel)
     }
-    
+
     func startRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: true, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
@@ -178,13 +208,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/status").setValue(gameStatus)
     }
     
-    func terminateRound(gameId: Int, roundNumber: Int, satisfactionLevel: Float) {
+    func terminateRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
             return
         }
         ref.child("games/\(gameId)/status").setValue(gameStatus)
-        ref.child("games/\(gameId)/satisfactionLevel").setValue(satisfactionLevel)
     }
     
     func sendItems(gameId: Int, items: [Item], to destination: Player) {
@@ -269,7 +298,9 @@ class NetworkManager: Network {
                     let userId = playerInfo["userId"] as? String ?? ""
                     let userName = playerInfo["userName"] as? String ?? ""
                     let userProfileString = playerInfo["profile"] as? String ?? ""
-                    let userProfileAvatar = PlayerAvatar(rawValue: userProfileString)
+                    guard let userProfileAvatar = PlayerAvatar(rawValue: userProfileString) else {
+                        return
+                    }
                     let player = Player(userId: userId, userName: userName, profileImage: userProfileAvatar)
                     players.append(player)
                 }
@@ -308,12 +339,21 @@ class NetworkManager: Network {
         // reset pause countdown
         updatePauseCountDown(gameId: gameId, countDown: 30)
     }
+    
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float) {
+        ref.child("games/\(gameId)/satisfactionLevel/\(userId)").setValue(satisfactionLevel)
+    }
 
-    func attachTeamSatisfactionListener(gameId: Int, action: @escaping (Int) -> Void) {
+    func resetSatisfactionLevels(gameId: Int) {
+        ref.child("games/\(gameId)/satisfactionLevel").setValue(nil)
+    }
+    
+    func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
-        ref.child(path).observeSingleEvent(of: .value) { snapshot in
-            let satisfactionLevel = snapshot.value as? Int ?? 0
-            action(satisfactionLevel)
+        ref.child(path).observe(.value) { snapshot in
+            let snapDict = snapshot.value as? [String: Float] ?? [:]
+            let satisfactionLevels = Array(snapDict.values)
+            action(satisfactionLevels)
         }
     }
     
@@ -323,7 +363,7 @@ class NetworkManager: Network {
     
     func attachOutOfOrdersListener(gameId: Int, action: @escaping (Int) -> Void) {
         let path = "games/\(gameId)/playersOutOfOrders"
-        ref.child(path).observe(.childAdded) { snapshot in
+        ref.child(path).observe(.value) { snapshot in
             if let snapDict = snapshot.value as? [String: Bool] {
                 let playersOutOfOrders = snapDict.values
                 action(playersOutOfOrders.count)
@@ -351,5 +391,25 @@ class NetworkManager: Network {
     
     func updatePauseCountDown(gameId: Int, countDown: Int) {
         ref.child("games/\(gameId)/countdown").setValue(countDown)
+    }
+
+    func setPackageItemsLimit(gameId: Int, limit: Int) {
+        ref.child("games/\(gameId)/packageItemsLimit").setValue(limit)
+    }
+
+    func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void) {
+        let path = "games/\(gameId)/packageItemsLimit"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let packageItemsLimit = snapshot.value as? Int
+            action(packageItemsLimit)
+        })
+    }
+
+    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void) {
+        let path = "games/\(gameId)/difficultyLevel"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let difficultyLevel = snapshot.value as? Float ?? 1.0
+            action(difficultyLevel)
+        })
     }
 }

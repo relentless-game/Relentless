@@ -88,7 +88,7 @@ class GameControllerManager: GameController {
         guard let gameId = gameId, var newGameStatus = gameStatus else {
             return
         }
-        
+
         newGameStatus.numberOfPlayersPaused += 1
         newGameStatus.isResumed = false
         gameStatus = newGameStatus
@@ -424,6 +424,7 @@ extension GameControllerManager {
             pauseAllTimers()
             NotificationCenter.default.post(name: .didPauseRound, object: nil)
         } else if didResumeRound {
+            resumeAllTimers()
             pauseTimer?.invalidate()
             resumeAllTimers()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)

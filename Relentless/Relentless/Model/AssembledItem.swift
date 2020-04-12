@@ -8,64 +8,84 @@
 
 import Foundation
 
+/// Assembled items cannot be added to the inventory
 class AssembledItem: Item {
-    static let partType = PartType.partContainer
-    internal var unsortedParts: [Part] {
+    static let isInventoryItem = false
+    internal var unsortedParts: [Item] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
         }
     }
-
-    let partType = AssembledItem.partType
-
-    var parts: [Part] {
+    
+    var parts: [Item] {
         unsortedParts.sorted()
     }
 
-    init(parts: [Part], category: Category) {
+    init(parts: [Item], category: Category, isOrderItem: Bool) {
         self.unsortedParts = parts.sorted()
-        super.init(category: category)
+        super.init(category: category, isInventoryItem: AssembledItem.isInventoryItem,
+                   isOrderItem: isOrderItem)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AssembledItemKeys.self)
-        let partsObject = try container.decode(PartFactory.self, forKey: .parts)
-        self.unsortedParts = partsObject.parts
+        let partsObject = try container.decode(ItemFactory.self, forKey: .parts)
+        self.unsortedParts = partsObject.items
 
         try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AssembledItemKeys.self)
-        let partFactoryWrapper = PartFactory(parts: unsortedParts)
-        try container.encode(partFactoryWrapper, forKey: .parts)
-        try container.encode(partType, forKey: .partType)
-
+        let itemFactoryWrapper = ItemFactory(items: unsortedParts)
+        try container.encode(itemFactoryWrapper, forKey: .parts)
         try super.encode(to: encoder)
     }
 
-    func addPart(part: Part) {
+    func addPart(part: Item) {
         unsortedParts.append(part)
     }
 
-    func removePart(part: Part) {
+    func removePart(part: Item) {
         guard let partIndex = parts.firstIndex(of: part) else {
             return
         }
         unsortedParts.remove(at: partIndex)
     }
 
+//    func toImageString() -> String {
+//        var colour: Colour?
+//        var label: Label?
+//        var shape: Shape?
+//        for part in unsortedParts {
+//            switch part.partType {
+//            case .toyCarBattery:
+//                label = (part as? ToyCarBattery)?.label
+//            case .toyCarBody:
+//                colour = (part as? ToyCarBody)?.colour
+//            case .toyCarWheel:
+//                shape = (part as? ToyCarWheel)?.shape
+//            case .partContainer:
+//                assert(false)
+//            }
+//        }
+//        guard colour != nil, label != nil, shape != nil else {
+//            return ""
+//        }
+//        // Force as all are not nil
+//        let string = "toycar_whole_\(colour!.toString())_\(shape!.toString())_\(label!.toString())"
+//        return string
+//    }
+//
+
+    /// Other item should be of type AssembledItem and should have the same category as this object
     override func isLessThan(other: Item) -> Bool {
         guard let otherItem = other as? AssembledItem else {
+            assertionFailure("other item should be of type AssembledItem")
             return false
         }
-        if self.category.rawValue < otherItem.category.rawValue {
-            return true
-        } else if self.category.rawValue > otherItem.category.rawValue {
-            return false
-        } else {
-            return checkPartsAreLessThan(otherItem: otherItem)
-        }
+        assert(otherItem.category == self.category)
+        return checkPartsAreLessThan(otherItem: otherItem)
     }
 
     private func checkPartsAreLessThan(otherItem: AssembledItem) -> Bool {
@@ -95,9 +115,14 @@ class AssembledItem: Item {
         hasher.combine(unsortedParts)
     }
 
-    override func toString() -> String {
-        "AssembledItem"
-    }
+//    override func toString() -> String {
+//        var string = "AssembledItem:"
+//        for part in parts {
+//            string.append(" " + part.toString())
+//        }
+//        return string
+//    }
+
 }
 
 enum AssembledItemKeys: CodingKey {

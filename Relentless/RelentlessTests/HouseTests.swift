@@ -40,20 +40,22 @@ class HouseTests: XCTestCase {
     }
 
     func testCheckPackage_correctPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber,
+        let package = Package(creator: creator, creatorAvatar: .blue, packageNumber: packageNumber,
                               items: itemsForFirstOrder, itemsLimit: itemsLimit)
         XCTAssertTrue(house.checkPackage(package: package))
     }
 
     func testCheckPackage_incorrectPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: [Item](), itemsLimit: itemsLimit)
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber, items: [Item](), itemsLimit: itemsLimit)
         XCTAssertFalse(house.checkPackage(package: package))
     }
 
     func testGetClosestOrder_varyingDifferences() {
         var itemsForFirstOrderMissingFirstOne = itemsForFirstOrder
         itemsForFirstOrderMissingFirstOne.removeFirst()
-        let package = Package(creator: creator, packageNumber: packageNumber,
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber,
                               items: itemsForFirstOrderMissingFirstOne, itemsLimit: itemsLimit)
         guard let order = house.getClosestOrder(for: package) else {
             XCTFail("Should not be nil")
@@ -65,7 +67,8 @@ class HouseTests: XCTestCase {
     func testGetClosestOrder_sameDifferences() {
         var itemsForFirstOrderMissingLastOne = itemsForFirstOrder
         itemsForFirstOrderMissingLastOne.removeLast()
-        let package = Package(creator: creator, packageNumber: packageNumber,
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber,
                               items: itemsForFirstOrderMissingLastOne, itemsLimit: itemsLimit)
         guard let order = house.getClosestOrder(for: package) else {
             XCTFail("Should not be nil")

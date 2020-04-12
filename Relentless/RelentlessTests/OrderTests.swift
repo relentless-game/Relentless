@@ -31,14 +31,16 @@ class OrderTests: XCTestCase {
     }
 
     func testCheckPackage_correctPackage() {
-        let package = Package(creator: creator, packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber, items: items, itemsLimit: itemsLimit)
         XCTAssertTrue(order.checkPackage(package: package))
     }
 
     func testCheckPackage_correctPackageInDifferentOrder() {
         var itemsInReversedOrder = items
         itemsInReversedOrder.reverse()
-        let package = Package(creator: creator, packageNumber: packageNumber,
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber,
                               items: itemsInReversedOrder, itemsLimit: itemsLimit)
         XCTAssertTrue(order.checkPackage(package: package))
     }
@@ -46,12 +48,14 @@ class OrderTests: XCTestCase {
     func testCheckPackage_incorrectPackage() {
         var wrongItems = items
         wrongItems.removeFirst()
-        let package = Package(creator: creator, packageNumber: packageNumber, items: wrongItems, itemsLimit: itemsLimit)
+        let package = Package(creator: creator, creatorAvatar: .blue,
+                              packageNumber: packageNumber, items: wrongItems, itemsLimit: itemsLimit)
         XCTAssertFalse(order.checkPackage(package: package))
     }
 
     func testGetNumberOfDifferences() {
-        let packageWithNoItems = Package(creator: creator, packageNumber: packageNumber,
+        let packageWithNoItems = Package(creator: creator, creatorAvatar: .blue,
+                                         packageNumber: packageNumber,
                                          items: [Item](), itemsLimit: itemsLimit)
         XCTAssertEqual(order.getNumberOfDifferences(with: packageWithNoItems), items.count)
     }

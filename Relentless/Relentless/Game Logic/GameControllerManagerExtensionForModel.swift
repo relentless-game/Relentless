@@ -7,147 +7,104 @@
 //
 
 import Foundation
+
 extension GameControllerManager {
-    @objc
-    func updateTimeLeft() {
-        roundTimeLeft -= 1
-        if roundTimeLeft == 0 {
-            endRound()
-        }
+
+    var openedPackage: Package? {
+        game?.currentlyOpenPackage
     }
 
-    @objc
-    func endRound() {
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
+    func addNewPackage() {
+        game?.addNewPackage()
+    }
+
+    func addItem(item: Item) {
+        game?.addItem(item: item)
+    }
+
+    func removeItem(item: Item) {
+        game?.removeItem(item: item)
+    }
+
+    func removePackage(package: Package) {
+        game?.removePackage(package: package)
+    }
+
+    func deliverPackage(package: Package, to house: House) {
+        guard let isCorrect = game?.checkPackage(package: package, for: house) else {
             return
         }
-        network.terminateRound(gameId: gameId, roundNumber: roundNumber)
-        network.resetPlayersOutOfOrders(gameId: gameId)
-    }
-
-    /// Notifies view that there were changes made to some orders
-    /// (e.g. insertion or deletion, timer updates) and calls #outOfOrders if list of orders is empty
-    @objc
-    func handleOrderChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangeOrders, object: nil)
-    }
-
-    /// Updates the satisfaction bar and also removes the order that timed out and notifies view
-    @objc
-    func handleOrderTimeOut(notification: Notification) {
-        guard let houses = game?.houses else {
+        guard let order = game?.retrieveOrder(package: package, house: house) else {
             return
         }
-        let allOrders = houses.flatMap { $0.orders }
-        let timedOutOrders = allOrders.filter { $0.timeLeft <= 0 }
-        for order in timedOutOrders {
-            updateSatisfaction(order: order, package: nil, isCorrect: false)
-            removeOrder(order: order)
+        removePackage(package: package)
+        removeOrder(order: order)
+        updateSatisfaction(order: order, package: package, isCorrect: isCorrect)
+    }
+
+    func openPackage(package: Package) {
+        game?.openPackage(package: package)
+    }
+
+    func retrieveActiveOrders(for house: House) -> [Order] {
+        guard let orders = game?.retrieveOrders(for: house) else {
+            return []
         }
-        NotificationCenter.default.post(name: .didOrderTimeOut, object: nil)
+        return orders.filter { $0.hasStarted }
     }
 
-    @objc
-    func handleSatisfactionBarChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
-        if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.penalise()
-            endRound()
+    func retrieveItemsFromOpenPackage() -> [Item] {
+        game?.currentlyOpenPackage?.items ?? []
+    }
+
+    func retrieveOpenPackage() -> Package? {
+        game?.currentlyOpenPackage
+    }
+
+    func constructAssembledItem(parts: [Item]) throws {
+        try game?.constructAssembledItem(parts: parts)
+    }
+    
+    internal func removeOrder(order: Order) {
+        game?.removeOrder(order: order)
+        let hasNoMoreOrders = houses.flatMap { $0.orders }.isEmpty
+        if hasNoMoreOrders {
+            // wait for view to segue back to packing screen
+            Timer.scheduledTimer(timeInterval: 1,
+                                 target: self,
+                                 selector: #selector(outOfOrders),
+                                 userInfo: nil, repeats: false)
         }
     }
 
-    @objc
-    func handleItemChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangeItems, object: nil)
-    }
-
-    @objc
-    func handlePackageChange(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangePackages, object: nil)
-    }
-
-    @objc
-    func handleItemLimitReached(notification: Notification) {
-        NotificationCenter.default.post(name: .didItemLimitReached, object: nil)
-    }
-
-    @objc
-    func handleChangeOfOpenPackage(notification: Notification) {
-        NotificationCenter.default.post(name: .didChangeOpenPackage, object: nil)
-    }
-
-    @objc
-    func handleOrderTimeLeftChange(notification: Notification) {
-        satisfactionBar.decrementWithTime()
-        NotificationCenter.default.post(name: .didChangeOrders, object: nil)
-    }
-
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
-                                               name: .didChangeItemsInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)),
-                                               name: .didChangePackagesInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)),
-                                               name: .didOrderUpdateInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderTimeOut(notification:)),
-                                               name: .didOrderTimeOutInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleSatisfactionBarChange(notification:)),
-                                               name: .didChangeCurrentSatisfaction, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleItemLimitReached(notification:)),
-                                               name: .didItemLimitReachedInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleChangeOfOpenPackage(notification:)),
-                                               name: .didChangeOpenPackageInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleOrderTimeLeftChange(notification:)),
-                                               name: .didOrderTimeUpdateInModel, object: nil)
-    }
-
-    private func getActiveOrders() -> [Order] {
-        guard let houses = game?.houses else {
-            return [Order]()
+    /// To inform the network that this player has run out of orders
+    @objc internal func outOfOrders() {
+        guard let gameId = gameId, let userId = userId else {
+            return
         }
-        let allActiveOrders = houses.flatMap { $0.orders }.filter { $0.hasStarted }
-        return allActiveOrders
+        network.outOfOrders(userId: userId, gameId: gameId)
+
     }
 
-    /// Resumes all timers that were paused previously
-    private func resumeAllTimers() {
-        startRoundTimer()
-        startOrders()
-        resumeIndividualOrderTimers()
-    }
-
-    private func startRoundTimer() {
-        self.roundTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
-                                               selector: #selector(updateTimeLeft), userInfo: nil, repeats: true)
-    }
-
-    private func stopRoundTimer() {
-        roundTimer.invalidate()
-    }
-
-    private func resumeIndividualOrderTimers() {
-        let activeOrders = getActiveOrders()
-        activeOrders.forEach { $0.resumeTimer() }
-    }
-
-    /// Pauses all timers that are active
-    private func pauseAllTimers() {
-        stopRoundTimer()
-        stopOrders()
-        stopIndividualOrderTimers()
-    }
-
-    private func stopIndividualOrderTimers() {
-        let activeOrders = getActiveOrders()
-        activeOrders.forEach { $0.stopTimer() }
-    }
-
-    private func stopOrders() {
-        orderStartTimer.invalidate()
-    }
-
+    /// Assigns orders to houses and sets the houses in Game to this new list of houses
+    internal func initialiseHouses(with orders: [Order]) {
+        let numOfHouses = GameParameters.defaultNumberOfHouses
+       var splitOrders = [[Order]]()
+       for _ in 1...numOfHouses {
+           splitOrders.append([])
+       }
+       for i in 0..<orders.count {
+           splitOrders[i % numOfHouses].append(orders[i])
+       }
+       var houses = [House]()
+       for orders in splitOrders {
+           let satisfactionFactor = Float.random(in: GameParameters.houseSatisfactionFactorRange)
+           for order in orders {
+               let originalTimeLimit = order.timeLimit
+               order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
+           }
+           houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
+       }
+       game?.houses = houses
+   }
 }

@@ -9,21 +9,43 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
+    var gameItemSpecifications: ItemSpecifications
 
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }
 
+    var itemsGenerator: GameItemGenerator?
+    var itemsAllocator: GameItemsAllocator?
+    var ordersAllocator: GameOrdersAllocator?
+
     /// Event might occur when timer fires based on game parameters.
     var eventTimer = Timer()
 
     init(userId: String, gameHostParameters: GameHostParameters) {
+        // TODO: should get specifications from network
+        gameItemSpecifications = ItemSpecificationsParser.parse()
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
         self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
                                                target: self,
                                                selector: #selector(generateEvent), userInfo: nil,
                                                repeats: false)
+    }
+
+    func initialiseGeneratorAndAllocators() {
+        guard let parameters = hostParameters else {
+            return
+        }
+        itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
+                                       difficultyLevel: parameters.difficultyLevel,
+                                       numOfPairsPerCategory: parameters.numOfPairsPerCategory,
+                                       itemSpecifications: gameItemSpecifications)
+        itemsAllocator = ItemsAllocator()
+        ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
+                                          maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
+                                          numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
+                                          probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
     }
 
     @objc
@@ -52,6 +74,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             self.joinGame(gameId: gameId, userName: username, avatar: avatar)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
+        initialiseGeneratorAndAllocators()
     }
 
     func startGame() {
@@ -108,17 +131,30 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
     
     func startRound() {
+        guard let gameId = self.gameId, let roundNumber = game?.currentRoundNumber else {
+            return
+        }
         // items and orders are generated and allocated by the host only
-        let items = initialiseItems()
-        initialiseOrders(items: items)
-        initialisePackageItemsLimit()
+        let generatedItems = initialiseItems()
+        let inventoryItems = generatedItems.0
+        let orderItems = generatedItems.1
+
+        itemsAllocator?.allocateItems(inventoryItems: inventoryItems, to: players)
+        ordersAllocator?.allocateOrders(orderItems: orderItems, to: players)
+
+        let packageLimit = initialisePackageItemsLimit()
+
+        var allItems = Set(inventoryItems)
+        allItems = allItems.union(Set(orderItems))
+        let roundItemSpecifications = constructRoundItemSpecifications(items: Array(allItems))
+        // Update all other devices with the allocated items
+        updateOtherDevices(gameId: gameId, packageItemsLimit: packageLimit,
+                           roundItemSpecifications: roundItemSpecifications)
 
         // network is notified to start round by the host only
-        if let gameId = gameId, let roundNumber = game?.currentRoundNumber {
-            network.startRound(gameId: gameId, roundNumber: roundNumber)
-            // clear satisfaction levels stored in the cloud
-            network.resetSatisfactionLevels(gameId: gameId)
-        }
+        network.startRound(gameId: gameId, roundNumber: roundNumber)
+        // clear satisfaction levels stored in the cloud
+        network.resetSatisfactionLevels(gameId: gameId)
     }
 
     override func leaveGame(userId: String) {
@@ -156,34 +192,21 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
     }
 
-    private func initialiseItems() -> [Item] {
-        guard let numberOfPlayers = game?.numberOfPlayers, let gameId = gameId,
-            let parameters = hostParameters else {
-            return []
+    /// Returns an array of inventory items and order items
+    private func initialiseItems() -> ([Item], [Item]) {
+        guard let parameters = hostParameters, let itemsGenerator = self.itemsGenerator else {
+            return ([], [])
         }
+        let numberOfPlayers = players.count
 
         let categories = chooseCategories(numberOfPlayers: numberOfPlayers, parameters: parameters)
         // allocate items according to chosen categories
-        let allocatedItems = allocateItems(numberOfPlayers: numberOfPlayers,
-                                           parameters: parameters, categories: categories)
+
+        let generatedItems = itemsGenerator.generate(categories: categories)
 
         gameCategories = categories
 
-        // update other devices
-        network.allocateItems(gameId: gameId, players: players)
-
-        return allocatedItems
-    }
-
-    private func initialiseOrders(items: [Item]) {
-        guard let players = game?.allPlayers, let gameId = gameId, let parameters = hostParameters else {
-            return
-        }
-
-        allocateOrders(players: players, parameters: parameters, items: items)
-
-        // update other devices
-        network.allocateOrders(gameId: gameId, players: players)
+        return generatedItems
     }
 
     private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
@@ -193,39 +216,64 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         return categoryGenerator.generateCategories()
     }
 
-    private func allocateItems(numberOfPlayers: Int, parameters: GameHostParameters, categories: [Category]) -> [Item] {
-        let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers,
-                                            difficultyLevel: parameters.difficultyLevel,
-                                            numOfPairsPerCategory: parameters.numOfPairsPerCategory)
-        guard let players = game?.allPlayers else {
-            return []
-        }
-        let allocatedItems = itemsAllocator.allocateItems(categories: categories, players: players)
-        return allocatedItems
-    }
-
-    private func allocateOrders(players: [Player], parameters: GameHostParameters, items: [Item]) {
-        let ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
-                                              maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
-                                              numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                              probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
-        ordersAllocator.allocateOrders(players: players, items: items)
-    }
-
-    private func initialisePackageItemsLimit() {
-        guard let parameters = hostParameters, let gameId = gameId else {
-            return
+    private func initialisePackageItemsLimit() -> Int? {
+        guard let parameters = hostParameters else {
+            return nil
         }
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
                                                                     probabilityOfHavingLimit:
                                                                         parameters.probabilityOfHavingPackageLimit)
-        guard let packageItemsLimit = packageItemsLimitGenerator.generateItemsLimit() else {
-            return
-        }
+        return packageItemsLimitGenerator.generateItemsLimit()
+    }
 
-        // update other devices
-        network.setPackageItemsLimit(gameId: gameId, limit: packageItemsLimit)
+    /// Sends the items, orders, package limit and round item specifications to all players through the network
+    private func updateOtherDevices(gameId: Int, packageItemsLimit: Int?,
+                                    roundItemSpecifications: ItemSpecifications) {
+        network.allocateItems(gameId: gameId, players: players)
+        network.allocateOrders(gameId: gameId, players: players)
+        if let nonNilPackageItemsLimit = packageItemsLimit {
+            network.setPackageItemsLimit(gameId: gameId, limit: nonNilPackageItemsLimit)
+        }
+        network.broadcastRoundItemSpecification(gameId: gameId, roundItemSpecification: roundItemSpecifications)
+
+    }
+
+    private func constructRoundItemSpecifications(items: [Item]) -> ItemSpecifications {
+        let categoryMappings = getCategoryMappings(items: items)
+        let assembledItems = items.compactMap { $0 as? AssembledItem }
+        let assembledItemCategories = getAssembledItemCategories(assembledItems: assembledItems)
+        let specifications = ItemSpecifications(availableItems: categoryMappings,
+                                                assembledItemCategories: assembledItemCategories,
+                                                itemIdentifierMappings: gameItemSpecifications.itemIdentifierMappings)
+        return specifications
+    }
+
+    private func getCategoryMappings(items: [Item]) -> [Category: Set<Item>] {
+        var mappings = [Category: Set<Item>]()
+        for item in items {
+            let category = item.category
+            if mappings[category] == nil {
+                mappings[category] = [item]
+            } else {
+                mappings[category]?.insert(item)
+            }
+        }
+        return mappings
+    }
+
+    /// Constructs the mapping between the assembled item's category and the categories of the parts it is made up of
+    private func getAssembledItemCategories(assembledItems: [AssembledItem]) -> [Category: [Category]] {
+        var assembledItemCategories = [Category: [Category]]()
+        for assembledItem in assembledItems {
+            let category = assembledItem.category
+            if assembledItemCategories[category] != nil {
+                continue
+            }
+            let categoriesOfParts = assembledItem.parts.map { $0.category }
+            assembledItemCategories[category] = categoriesOfParts
+        }
+        return assembledItemCategories
     }
 
 }

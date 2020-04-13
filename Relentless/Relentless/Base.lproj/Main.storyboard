@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,17 +25,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="243" y="30" width="495" height="268"/>
+                                <rect key="frame" x="408" y="30" width="330" height="178"/>
                                 <state key="normal" image="button_more"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dws-fj-lBf">
-                                <rect key="frame" x="6" y="30" width="800" height="294"/>
+                                <rect key="frame" x="-394" y="30" width="1600" height="294"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="2Uv-ly-Vd9">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="74"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="74"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="800" height="80"/>
+                                        <rect key="frame" x="0.0" y="104" width="1600" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="createRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
@@ -49,7 +49,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="800" height="80"/>
+                                        <rect key="frame" x="0.0" y="214" width="1600" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
@@ -104,14 +104,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hD0-n4-H0U">
                                 <rect key="frame" x="306" y="30" width="200" height="294"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
-                                        <rect key="frame" x="0.0" y="30" width="200" height="50"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
+                                        <rect key="frame" x="0.0" y="66" width="200" height="50"/>
                                         <accessibility key="accessibilityConfiguration" identifier="teamCodeTextField"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="MQX-b5-eCd"/>
@@ -120,8 +120,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
-                                        <rect key="frame" x="0.0" y="110" width="200" height="184"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
+                                        <rect key="frame" x="0.0" y="146" width="200" height="148"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinButton"/>
                                         <state key="normal" image="button_joinroom"/>
                                         <connections>
@@ -131,7 +131,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
+                                <rect key="frame" x="74" y="30" width="330" height="116"/>
                                 <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <state key="normal" image="button_back"/>
                                 <connections>
@@ -438,10 +438,10 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="To Houses"/>
                                 <connections>
-                                    <segue destination="7Wf-ZL-3wu" kind="show" identifier="toHouses" id="fdU-OW-AMW"/>
+                                    <action selector="toHouses:" destination="pIj-eO-AQF" eventType="touchUpInside" id="wAE-ux-rwL"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5V9-Uq-jAF">
                                 <rect key="frame" x="74" y="335" width="664" height="30"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -481,6 +481,7 @@
                         <segue destination="MLN-lP-Xqv" kind="show" identifier="endRound" id="FQq-Pt-F3v"/>
                         <segue destination="LAb-r6-gEN" kind="show" identifier="pauseGame" id="LQV-Rq-bIx"/>
                         <segue destination="OJt-R7-ueM" kind="show" identifier="endGameFromPacking" id="fRd-0e-NOR"/>
+                        <segue destination="7Wf-ZL-3wu" kind="show" identifier="toHouses" id="Ekt-nt-Ijb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kW-UE-fnx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -752,14 +753,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="gYz-K5-BEo" customClass="ScoreCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="692" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="692" height="43.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYz-K5-BEo" id="Kub-PB-roK">
-                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDN-4v-toN">
-                                                    <rect key="frame" x="23" y="11" width="646" height="21"/>
+                                                    <rect key="frame" x="23" y="10.999999999999998" width="646" height="21.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -978,7 +979,7 @@
                                     <outlet property="delegate" destination="7Wf-ZL-3wu" id="B7O-lP-fGc"/>
                                 </connections>
                             </collectionView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.20000000298023224" translatesAutoresizingMaskIntoConstraints="NO" id="Za6-Zz-buZ">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Za6-Zz-buZ">
                                 <rect key="frame" x="74" y="294" width="664" height="30"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1154,17 +1155,9 @@
             <point key="canvasLocation" x="1555.4187192118227" y="908"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="fdU-OW-AMW"/>
-        <segue reference="fRd-0e-NOR"/>
-        <segue reference="NHt-Cf-6dI"/>
-        <segue reference="FQq-Pt-F3v"/>
-        <segue reference="gkd-Mi-ecb"/>
-        <segue reference="Qly-4Q-AfV"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="1.circle" catalog="system" width="128" height="121"/>
-        <image name="10.circle" catalog="system" width="128" height="121"/>
+        <image name="1.circle" catalog="system" width="64" height="60"/>
+        <image name="10.circle" catalog="system" width="64" height="60"/>
         <image name="add_blue" width="250" height="250"/>
         <image name="avatar_blue" width="250" height="162.33332824707031"/>
         <image name="avatar_red" width="250" height="162.33332824707031"/>
@@ -1177,16 +1170,19 @@
         <image name="button_more" width="165" height="89.333335876464844"/>
         <image name="button_right" width="52" height="82.333335876464844"/>
         <image name="button_start" width="165" height="58"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
         <image name="package_blue" width="250" height="162.33332824707031"/>
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fdU-OW-AMW"/>
+        <segue reference="qID-Ae-TMA"/>
         <segue reference="fRd-0e-NOR"/>
         <segue reference="NHt-Cf-6dI"/>
-        <segue reference="FQq-Pt-F3v"/>
+        <segue reference="q2U-Sj-S2g"/>
+        <segue reference="n5G-KY-I2O"/>
+        <segue reference="Bzf-a8-1jP"/>
+        <segue reference="biH-vW-GUr"/>
         <segue reference="gkd-Mi-ecb"/>
         <segue reference="Qly-4Q-AfV"/>
     </inferredMetricsTieBreakers>

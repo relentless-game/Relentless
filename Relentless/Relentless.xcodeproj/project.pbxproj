@@ -26,8 +26,7 @@
 		0B09CA74243834B500F29648 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C9771241DDE210042FB01 /* GameManagerTests.swift */; };
 		0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B68241CBCFB00FC2850 /* PackageTests.swift */; };
-		0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B6C241CC9DE00FC2850 /* BookTests.swift */; };
-		0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B80241CDCC300FC2850 /* MagazineTests.swift */; };
+		0B385B81241CDCC300FC2850 /* TitledItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B80241CDCC300FC2850 /* TitledItemTests.swift */; };
 		0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B84241CE00400FC2850 /* OrderTests.swift */; };
 		0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B385B86241CE22D00FC2850 /* HouseTests.swift */; };
 		0B3CB9EB2441A2D00035E8D3 /* StatefulItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3CB9EA2441A2D00035E8D3 /* StatefulItem.swift */; };
@@ -161,8 +160,7 @@
 		0B09CA722438325A00F29648 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		0B1C9771241DDE210042FB01 /* GameManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManagerTests.swift; sourceTree = "<group>"; };
 		0B385B68241CBCFB00FC2850 /* PackageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTests.swift; sourceTree = "<group>"; };
-		0B385B6C241CC9DE00FC2850 /* BookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTests.swift; sourceTree = "<group>"; };
-		0B385B80241CDCC300FC2850 /* MagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagazineTests.swift; sourceTree = "<group>"; };
+		0B385B80241CDCC300FC2850 /* TitledItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledItemTests.swift; sourceTree = "<group>"; };
 		0B385B84241CE00400FC2850 /* OrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTests.swift; sourceTree = "<group>"; };
 		0B385B86241CE22D00FC2850 /* HouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
 		0B3CB9EA2441A2D00035E8D3 /* StatefulItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulItem.swift; sourceTree = "<group>"; };
@@ -578,9 +576,8 @@
 				F3C37C1024189F5500D7109B /* RelentlessTests.swift */,
 				F3C37C1224189F5500D7109B /* Info.plist */,
 				0B385B68241CBCFB00FC2850 /* PackageTests.swift */,
-				0B385B6C241CC9DE00FC2850 /* BookTests.swift */,
 				0B385B84241CE00400FC2850 /* OrderTests.swift */,
-				0B385B80241CDCC300FC2850 /* MagazineTests.swift */,
+				0B385B80241CDCC300FC2850 /* TitledItemTests.swift */,
 				0B385B86241CE22D00FC2850 /* HouseTests.swift */,
 				0B1C9771241DDE210042FB01 /* GameManagerTests.swift */,
 				0B09CA47242F53C200F29648 /* ToyCarWheelTests.swift */,
@@ -964,9 +961,8 @@
 				0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
 				F3BF7F2124275EF900A50EE3 /* ItemsAdapterTests.swift in Sources */,
 				F3BF7F2024275EF900A50EE3 /* PackageAdapterTests.swift in Sources */,
-				0B385B6D241CC9DE00FC2850 /* BookTests.swift in Sources */,
 				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
-				0B385B81241CDCC300FC2850 /* MagazineTests.swift in Sources */,
+				0B385B81241CDCC300FC2850 /* TitledItemTests.swift in Sources */,
 				0B09CA48242F53C200F29648 /* ToyCarWheelTests.swift in Sources */,
 				F3BF7F1F24275EF900A50EE3 /* OrdersAdapterTests.swift in Sources */,
 				0B385B69241CBCFB00FC2850 /* PackageTests.swift in Sources */,

@@ -12,16 +12,18 @@ class ItemGenerator: GameItemGenerator {
     let numberOfPlayers: Int
     let difficultyLevel: Float
     let numOfPairsPerCategory: Int
+    let itemSpecifications: ItemSpecifications
 
     var availableGroups: [Category: Set<[Item]>] {
-        ItemSpecifications.availableGroupsOfItems
+        itemSpecifications.availableGroupsOfItems
     }
 
     init(numberOfPlayers: Int, difficultyLevel: Float,
-         numOfPairsPerCategory: Int) {
+         numOfPairsPerCategory: Int, itemSpecifications: ItemSpecifications) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
         self.numOfPairsPerCategory = numOfPairsPerCategory
+        self.itemSpecifications = itemSpecifications
     }
 
     /// Generates items based on the specified categories

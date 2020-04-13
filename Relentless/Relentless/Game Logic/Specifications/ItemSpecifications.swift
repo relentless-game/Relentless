@@ -9,7 +9,16 @@
 import Foundation
 
 class ItemSpecifications {
-    static var availableGroupsOfItems: [Category: Set<[Item]>] = [:]
-    static var itemIdentifierMappings: [Category: [Int: String]] = [:]
-    static var partsToAssembledItemCategoryMapping: [[Category]: Category] = [:]
+    var availableGroupsOfItems: [Category: Set<[Item]>]
+    var itemIdentifierMappings: [Category: [Int: String]]
+    var partsToAssembledItemCategoryMapping: [[Category]: Category]
+
+    init(availableGroupsOfItems: [Category: Set<[Item]>],
+         itemIdentifierMappings: [Category: [Int: String]],
+         partsToAssembledItemCategoryMapping: [[Category]: Category]) {
+        self.availableGroupsOfItems = availableGroupsOfItems
+        self.itemIdentifierMappings = itemIdentifierMappings
+        self.partsToAssembledItemCategoryMapping = partsToAssembledItemCategoryMapping
+    }
 }
+

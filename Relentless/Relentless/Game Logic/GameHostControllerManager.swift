@@ -9,8 +9,6 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
-    var gameItemSpecifications: ItemSpecifications
-
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }
@@ -23,8 +21,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     var eventTimer = Timer()
 
     init(userId: String, gameHostParameters: GameHostParameters) {
-        // TODO: should get specifications from network
-        gameItemSpecifications = ItemSpecificationsParser.parse()
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
         self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
@@ -39,8 +35,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
                                        difficultyLevel: parameters.difficultyLevel,
-                                       numOfPairsPerCategory: parameters.numOfPairsPerCategory,
-                                       itemSpecifications: gameItemSpecifications)
+                                       numOfPairsPerCategory: parameters.numOfPairsPerCategory)
         itemsAllocator = ItemsAllocator()
         ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                           maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
@@ -229,7 +224,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
     /// Sends the items, orders, package limit and round item specifications to all players through the network
     private func updateOtherDevices(gameId: Int, packageItemsLimit: Int?,
-                                    roundItemSpecifications: ItemSpecifications) {
+                                    roundItemSpecifications: RoundItemSpecifications) {
         network.allocateItems(gameId: gameId, players: players)
         network.allocateOrders(gameId: gameId, players: players)
         if let nonNilPackageItemsLimit = packageItemsLimit {
@@ -239,39 +234,24 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
     }
 
-    private func constructRoundItemSpecifications(items: [Item]) -> ItemSpecifications {
-        let categoryMappings = getCategoryMappings(items: items)
+    private func constructRoundItemSpecifications(items: [Item]) -> RoundItemSpecifications {
         let assembledItems = items.compactMap { $0 as? AssembledItem }
         let assembledItemCategories = getAssembledItemCategories(assembledItems: assembledItems)
-        let specifications = ItemSpecifications(availableItems: categoryMappings,
-                                                assembledItemCategories: assembledItemCategories,
-                                                itemIdentifierMappings: gameItemSpecifications.itemIdentifierMappings)
+        let specifications = RoundItemSpecifications(partsToAssembledItemCategoryMapping:
+            assembledItemCategories)
         return specifications
     }
 
-    private func getCategoryMappings(items: [Item]) -> [Category: Set<Item>] {
-        var mappings = [Category: Set<Item>]()
-        for item in items {
-            let category = item.category
-            if mappings[category] == nil {
-                mappings[category] = [item]
-            } else {
-                mappings[category]?.insert(item)
-            }
-        }
-        return mappings
-    }
-
     /// Constructs the mapping between the assembled item's category and the categories of the parts it is made up of
-    private func getAssembledItemCategories(assembledItems: [AssembledItem]) -> [Category: [Category]] {
-        var assembledItemCategories = [Category: [Category]]()
+    private func getAssembledItemCategories(assembledItems: [AssembledItem]) -> [[Category]: Category] {
+        var assembledItemCategories = [[Category]: Category]()
         for assembledItem in assembledItems {
             let category = assembledItem.category
-            if assembledItemCategories[category] != nil {
+            let categoriesOfParts = assembledItem.parts.map { $0.category }
+            if assembledItemCategories[categoriesOfParts] != nil {
                 continue
             }
-            let categoriesOfParts = assembledItem.parts.map { $0.category }
-            assembledItemCategories[category] = categoriesOfParts
+            assembledItemCategories[categoriesOfParts] = category
         }
         return assembledItemCategories
     }

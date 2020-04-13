@@ -9,14 +9,8 @@
 import Foundation
 
 class ItemSpecificationsParser {
+    // todo: implement (should be implemented like the game parameters' parser)
+    static func parse() {
 
-    // todo: implement
-    static func parse() -> ItemSpecifications {
-        let availableItems = [Category: Set<Item>]()
-        let assembledItemCategories = [Category: [Category]]()
-        let itemIdentifierMappings =  [Category: [Int: String]]()
-        return ItemSpecifications(availableItems: availableItems,
-                                  assembledItemCategories: assembledItemCategories,
-                                  itemIdentifierMappings: itemIdentifierMappings)
     }
 }

@@ -19,7 +19,7 @@ class GameManager: Game {
 
     /// game information
     var gameId: Int
-    var roundItemSpecifications: ItemSpecifications?
+    var roundItemSpecifications: RoundItemSpecifications?
     var packages = [Package]() {
         didSet {
             NotificationCenter.default.post(name: .didChangePackagesInModel, object: nil)

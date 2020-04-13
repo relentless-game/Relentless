@@ -12,18 +12,16 @@ class ItemGenerator: GameItemGenerator {
     let numberOfPlayers: Int
     let difficultyLevel: Float
     let numOfPairsPerCategory: Int
-    let itemSpecifications: ItemSpecifications
 
-    var availableItems: [Category: Set<Item>] {
-        itemSpecifications.availableItems
+    var availableGroups: [Category: Set<[Item]>] {
+        ItemSpecifications.availableGroupsOfItems
     }
 
     init(numberOfPlayers: Int, difficultyLevel: Float,
-         numOfPairsPerCategory: Int, itemSpecifications: ItemSpecifications) {
+         numOfPairsPerCategory: Int) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
         self.numOfPairsPerCategory = numOfPairsPerCategory
-        self.itemSpecifications = itemSpecifications
     }
 
     /// Generates items based on the specified categories
@@ -39,12 +37,12 @@ class ItemGenerator: GameItemGenerator {
         var uniqueInventoryItemsCount = items.count
         while uniqueInventoryItemsCount < numberOfPlayers {
             for category in categories {
-                guard let availableItemsForCategory = availableItems[category] else {
+                guard let availableItemsForCategory = availableGroups[category] else {
                     continue
                 }
                 let generatedItems = generateItems(for: category,
                                                    numberToGenerate: numOfPairsPerCategory,
-                                                   availableItems: Array(availableItemsForCategory))
+                                                   availableGroups: Array(availableItemsForCategory))
                 items = items.union(generatedItems)
             }
             uniqueInventoryItemsCount = getUniqueInventoryItems(items: items).count
@@ -53,23 +51,26 @@ class ItemGenerator: GameItemGenerator {
     }
 
     /// Generates items for specified category
-    private func generateItems(for category: Category, numberToGenerate: Int, availableItems: [Item]) -> Set<Item> {
-        var items = Set<Item>()
-        var numberOfItemsNeeded = numberToGenerate
-        if availableItems.count < numberToGenerate {
-            numberOfItemsNeeded = availableItems.count
+    private func generateItems(for category: Category, numberToGenerate: Int, availableGroups: [[Item]]) -> Set<Item> {
+        var groups = Set<[Item]>()
+        var numberOfGroupsNeeded = numberToGenerate
+        if availableGroups.count < numberToGenerate {
+            numberOfGroupsNeeded = availableGroups.count
         }
-        while items.count < numberOfItemsNeeded {
-            let selectedItem = getRandomItem(from: availableItems)
-            if !selectedItem.isOrderItem {
+        while groups.count < numberOfGroupsNeeded {
+            guard let selectedGroup = getRandom(from: availableGroups) as? [Item] else {
                 continue
             }
-            items.insert(selectedItem)
+            let hasAnyNonOrderItem = !selectedGroup.filter { !$0.isOrderItem }.isEmpty
+            if hasAnyNonOrderItem {
+                continue
+            }
+            groups.insert(selectedGroup)
         }
-        return items
+        return Set(groups.flatMap { $0.self })
     }
 
-    private func getRandomItem(from list: [Item]) -> Item {
+    private func getRandom(from list: [Any]) -> Any {
         let indexRange = 0...(list.count - 1)
         let randomIndex = Int.random(in: indexRange)
         return list[randomIndex]

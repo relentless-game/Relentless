@@ -15,7 +15,7 @@ protocol Game {
     var numberOfPlayers: Int { get }
 
     var gameId: Int { get set }
-    var roundItemSpecifications: ItemSpecifications? { get set }
+    var roundItemSpecifications: RoundItemSpecifications? { get set }
     var packages: [Package] { get set }
     var houses: [House] { get set }
     var currentRoundNumber: Int { get set }

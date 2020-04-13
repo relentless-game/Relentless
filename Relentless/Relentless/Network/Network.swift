@@ -134,9 +134,9 @@ protocol Network {
 
     /// Notifies non-host player to give them their item specifications for this round.
     /// `action` is called upon receiving the item specifications.
-    func attachItemSpecificationsListener(userId: String, gameId: Int, action: @escaping (ItemSpecifications) -> Void)
+    func attachItemSpecificationsListener(userId: String, gameId: Int, action: @escaping (RoundItemSpecifications) -> Void)
 
     /// Sends the round item specifications to all players in the game
-    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: ItemSpecifications)
+    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: RoundItemSpecifications)
 
 }

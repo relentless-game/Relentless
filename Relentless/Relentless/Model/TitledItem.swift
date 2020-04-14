@@ -11,9 +11,11 @@ import Foundation
 class TitledItem: Item {
     var name: String
 
-    init(name: String, category: Category) {
+    init(name: String, category: Category, isInventoryItem: Bool,
+         isOrderItem: Bool, imageString: String) {
         self.name = name
-        super.init(category: category)
+        super.init(category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageString: imageString)
     }
 
     required init(from decoder: Decoder) throws {
@@ -27,20 +29,17 @@ class TitledItem: Item {
         try container.encode(name, forKey: .name)
         try super.encode(to: encoder)
     }
-    
+
+    /// Other item should be of type TitledItem and should have the same category as this object
     override func isLessThan(other: Item) -> Bool {
         guard let otherItem = other as? TitledItem else {
+            assertionFailure("other item should be of type TitledItem")
             return false
         }
-        if self.category.rawValue < otherItem.category.rawValue {
-            return true
-        } else if self.category.rawValue > otherItem.category.rawValue {
-            return false
-        } else {
-            let lowerCasedName = self.name.lowercased()
-            let otherLowerCasedName = otherItem.name.lowercased()
-            return lowerCasedName.lexicographicallyPrecedes(otherLowerCasedName)
-        }
+        assert(otherItem.category == self.category)
+        let lowerCasedName = self.name.lowercased()
+        let otherLowerCasedName = otherItem.name.lowercased()
+        return lowerCasedName.lexicographicallyPrecedes(otherLowerCasedName)
     }
 
     override func hash(into hasher: inout Hasher) {
@@ -49,11 +48,18 @@ class TitledItem: Item {
     }
     
     override func toString() -> String {
-        "TitledItem"
+        name
+    }
+
+    override func equals(other: Item) -> Bool {
+        guard let otherItem = other as? TitledItem else {
+            return false
+        }
+        return self.category == otherItem.category &&
+            self.name == otherItem.name
     }
 }
 
 enum TitledItemKeys: CodingKey {
     case name
-    case category
 }

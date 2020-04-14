@@ -10,6 +10,6 @@ import Foundation
 
 protocol GameOrdersAllocator {
 
-    func allocateOrders(players: [Player], items: [Item])
+    func allocateOrders(orderItems: [Item], to players: [Player])
 
 }

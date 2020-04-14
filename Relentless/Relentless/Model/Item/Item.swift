@@ -11,13 +11,22 @@ import Foundation
 class Item: Hashable, Codable {
 
     var category: Category
+    var isInventoryItem: Bool
+    var isOrderItem: Bool
+    let imageString: String
 
-    init(category: Category) {
+    init(category: Category, isInventoryItem: Bool, isOrderItem: Bool, imageString: String) {
         self.category = category
+        self.isInventoryItem = isInventoryItem
+        self.isOrderItem = isOrderItem
+        self.imageString = imageString
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {
-        if lhs.category != rhs.category {
+        let isSameTypeOfItem = lhs.category == rhs.category &&
+            lhs.isInventoryItem == rhs.isInventoryItem &&
+            lhs.isOrderItem == rhs.isInventoryItem
+        if !isSameTypeOfItem {
             return false
         }
         return lhs.equals(other: rhs)
@@ -36,21 +45,22 @@ class Item: Hashable, Codable {
         "Item"
     }
 
-    func toDisplayString() -> String {
-        "Item"
-    }
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(category)
     }
-
 }
 
 extension Item: Comparable {
+    
+    /// Items are first sorted by category and then sorted within each category
     static func < (lhs: Item, rhs: Item) -> Bool {
-        if lhs.category != rhs.category {
-            return lhs.category.rawValue < rhs.category.rawValue
+        if lhs.category.rawValue < rhs.category.rawValue {
+            return true
+        } else if lhs.category.rawValue > rhs.category.rawValue {
+            return false
+        } else {
+            return lhs.isLessThan(other: rhs)
         }
-        return lhs.isLessThan(other: rhs)
     }
+    
 }

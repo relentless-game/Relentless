@@ -413,11 +413,22 @@ class NetworkManager: Network {
         })
     }
 
-    func attachItemSpecificationsListener(userId: String, gameId: Int, action: @escaping (RoundItemSpecifications) -> Void) {
-        // do something
+    func attachItemSpecificationsListener(userId: String, gameId: Int,
+                                          action: @escaping (RoundItemSpecifications) -> Void) {
+        let path = "games/\(gameId)/roundItemSpecifications"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let roundItemSpecsString = snapshot.value as? String ?? ""
+            if let roundItemSpecs = RoundItemSpecifications.decodeFromString(string: roundItemSpecsString) {
+                action(roundItemSpecs)
+            }
+        })
     }
 
     func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: RoundItemSpecifications) {
-        // do something
+        let path = "games/\(gameId)/roundItemSpecifications"
+        guard let roundItemSpecs = roundItemSpecification.encodeToString() else {
+            return
+        }
+        ref.child(path).setValue(roundItemSpecs)
     }
 }

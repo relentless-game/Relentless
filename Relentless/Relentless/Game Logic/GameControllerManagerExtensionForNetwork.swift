@@ -154,7 +154,8 @@ extension GameControllerManager {
         self.network.attachItemsListener(userId: userId, gameId: gameId, action: { items in
             self.game?.player.items = Set(items)
         })
-        self.network.attachItemSpecificationsListener(userId: userId, gameId: gameId, action: { roundItemSpecifications in
+        self.network.attachItemSpecificationsListener(userId: userId, gameId: gameId,
+                                                      action: { roundItemSpecifications in
             self.game?.roundItemSpecifications = roundItemSpecifications
         })
         self.network.attachOrdersListener(userId: userId, gameId: gameId, action: { orders in

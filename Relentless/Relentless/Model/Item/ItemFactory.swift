@@ -21,7 +21,7 @@ class ItemFactory: Codable {
     }
 
     enum ItemTypeKey: CodingKey {
-        case category
+        case itemType
         case partType
     }
 
@@ -37,11 +37,11 @@ class ItemFactory: Codable {
         var itemsArray = itemsArrayForType
         while !itemsArrayForType.isAtEnd {
             let item = try itemsArrayForType.nestedContainer(keyedBy: ItemTypeKey.self)
-            let type = try item.decode(Category.self, forKey: ItemTypeKey.category)
+            let type = try item.decode(ItemType.self, forKey: ItemTypeKey.itemType)
             switch type {
-            case .book, .magazine:
+            case .titledItem:
                 items.append(try itemsArray.decode(TitledItem.self))
-            case .toyCar:
+            case .assembledItem:
                 items.append(try itemsArray.decode(AssembledItem.self))
 //                let partType = try item.decode(PartType.self, forKey: ItemTypeKey.partType)
 //                let itemsArrayAndDecodedItem = try decodeAssembledItemOrPart(partType: partType,
@@ -53,9 +53,9 @@ class ItemFactory: Codable {
 //                }
 //                items.append(item)
                 //items.append(try itemsArray.decode(ToyCar.self))
-            case .wheel, .carBody, .battery:
+            case .statefulItem:
                 items.append(try itemsArray.decode(StatefulItem.self))
-            case .robot:
+            case .rhythmicItem:
                 items.append(try itemsArray.decode(RhythmicItem.self))
             }
         }

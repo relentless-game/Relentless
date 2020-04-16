@@ -16,6 +16,11 @@
 				<string>circularImage</string>
 				<string>triangularImage</string>
 			</array>
+			<key>stateIdentifiers</key>
+			<array>
+				<string>circle</string>
+				<string>triangle</string>
+			</array>
 		</dict>
 		<dict>
 			<key>category</key>
@@ -31,6 +36,13 @@
 				<string>DImage</string>
 				<string>PP3Image</string>
 			</array>
+			<key>stateIdentifiers</key>
+			<array>
+				<string>AA</string>
+				<string>AAA</string>
+				<string>D</string>
+				<string>PP3</string>
+			</array>
 		</dict>
 		<dict>
 			<key>category</key>
@@ -44,6 +56,12 @@
 				<string>redBodyImage</string>
 				<string>blueBodyImage</string>
 				<string>yellowBodyImage</string>
+			</array>
+			<key>stateIdentifiers</key>
+			<array>
+				<string>red</string>
+				<string>blue</string>
+				<string>yellow</string>
 			</array>
 		</dict>
 	</array>
@@ -101,29 +119,53 @@
 			<true/>
 			<key>isOrderItem</key>
 			<true/>
-			<key>unitDurations</key>
-			<array>
-				<string>1</string>
-				<string>2</string>
-			</array>
-			<key>stateSequences</key>
+			<key>itemGroups</key>
 			<array>
 				<array>
-					<string>lit</string>
-					<string>unlit</string>
-					<string>lit</string>
+					<dict>
+						<key>unitDuration</key>
+						<integer>1</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>0</integer>
+							<integer>1</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>unitDuration</key>
+						<integer>1</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>1</integer>
+							<integer>0</integer>
+							<string>1</string>
+						</array>
+					</dict>
 				</array>
 				<array>
-					<string>lit</string>
-					<string>unlit</string>
-					<string>unlit</string>
+					<dict>
+						<key>unitDuration</key>
+						<integer>2</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>0</integer>
+							<integer>1</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>unitDuration</key>
+						<integer>2</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>1</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
 				</array>
 			</array>
-			<key>stateImageStrings</key>
-			<array>
-				<string>litImage</string>
-				<string>unlitImage</string>
-			</array>
+			<key>imageString</key>
+			<string>placeholder</string>
 		</dict>
 	</array>
 	<key>assembledItems</key>
@@ -141,6 +183,8 @@
 			<true/>
 			<key>isOrderItem</key>
 			<true/>
+			<key>depth</key>
+			<integer>0</integer>
 		</dict>
 	</array>
 </dict>

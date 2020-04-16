@@ -14,7 +14,7 @@ class StatefulItem: Item {
     init(category: Category, stateIdentifier: Int, isInventoryItem: Bool,
          isOrderItem: Bool, imageString: String) {
         self.stateIdentifier = stateIdentifier
-        super.init(category: category, isInventoryItem: isInventoryItem,
+        super.init(itemType: .statefulItem, category: category, isInventoryItem: isInventoryItem,
                    isOrderItem: isOrderItem, imageString: imageString)
     }
 
@@ -31,9 +31,9 @@ class StatefulItem: Item {
         try super.encode(to: encoder)
     }
     override func isLessThan(other: Item) -> Bool {
-        if self.category.rawValue < other.category.rawValue {
+        if self.category.categoryName < other.category.categoryName {
             return true
-        } else if self.category.rawValue > other.category.rawValue {
+        } else if self.category.categoryName > other.category.categoryName {
             return false
         } else {
             guard let otherItem = other as? StatefulItem else {

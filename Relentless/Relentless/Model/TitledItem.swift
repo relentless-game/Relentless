@@ -14,7 +14,7 @@ class TitledItem: Item {
     init(name: String, category: Category, isInventoryItem: Bool,
          isOrderItem: Bool, imageString: String) {
         self.name = name
-        super.init(category: category, isInventoryItem: isInventoryItem,
+        super.init(itemType: .titledItem, category: category, isInventoryItem: isInventoryItem,
                    isOrderItem: isOrderItem, imageString: imageString)
     }
 

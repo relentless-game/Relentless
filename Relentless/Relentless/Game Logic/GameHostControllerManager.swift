@@ -210,7 +210,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
-                                                  numOfCategories: parameters.numOfCategories)
+                                                  numOfCategories: parameters.numOfCategories,
+                                                  allCategories: itemSpecifications.allCategories)
         return categoryGenerator.generateCategories()
     }
 

@@ -12,8 +12,25 @@ import XCTest
 class HouseTests: XCTestCase {
     let creator = "creator"
     let packageNumber = 1
-    let itemsForFirstOrder = [Book(name: "bookOne"), Book(name: "bookTwo"), Book(name: "bookThree")]
-    let itemsForSecondOrder = [Book(name: "bookOne"), Book(name: "bookTwo"), Magazine(name: "magazineOne")]
+    
+    let item1 = TitledItem(name: "1", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageString: "placeholder")
+    let item2 = TitledItem(name: "2", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageString: "placeholder")
+    let item3 = TitledItem(name: "3", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageString: "placeholder")
+    let item4 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 1,
+                             isInventoryItem: true, isOrderItem: false,
+                             imageString: "placeholder")
+    let item5 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 2,
+                             isInventoryItem: true, isOrderItem: false,
+                             imageString: "placeholder")
+    
+    var itemsForFirstOrder: [Item] = []
+    var itemsForSecondOrder: [Item] = []
     let timeLimitForOrderOne = 2
     let timeLimitForOrderTwo = 1
     let satisfactionFactor: Float = 0.1
@@ -32,6 +49,9 @@ class HouseTests: XCTestCase {
         house = House(orders: Set<Order>(orders), satisfactionFactor: satisfactionFactor)
         orderOne.startOrder()
         orderTwo.startOrder()
+        
+        itemsForFirstOrder = [item1, item2, item3]
+        itemsForSecondOrder = [item4, item5]
     }
 
     func testInit() {

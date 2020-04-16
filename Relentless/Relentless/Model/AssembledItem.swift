@@ -22,7 +22,7 @@ class AssembledItem: Item {
     init(parts: [Item], category: Category, isInventoryItem: Bool,
          isOrderItem: Bool, imageString: String) {
         self.unsortedParts = parts.sorted()
-        super.init(category: category, isInventoryItem: isInventoryItem,
+        super.init(itemType: .assembledItem, category: category, isInventoryItem: isInventoryItem,
                    isOrderItem: isOrderItem, imageString: imageString)
     }
 
@@ -30,7 +30,7 @@ class AssembledItem: Item {
     init(parts: [Item], category: Category, imageString: String) {
         self.unsortedParts = parts
         // Set to false as item is assembled by user
-        super.init(category: category, isInventoryItem: false,
+        super.init(itemType: .assembledItem, category: category, isInventoryItem: false,
                    isOrderItem: false, imageString: imageString)
     }
 

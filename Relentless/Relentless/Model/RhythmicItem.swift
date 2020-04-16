@@ -20,7 +20,7 @@ class RhythmicItem: Item {
          isInventoryItem: Bool, isOrderItem: Bool, imageString: String) {
         self.unitDuration = unitDuration
         self.stateSequence = stateSequence
-        super.init(category: category, isInventoryItem: isInventoryItem,
+        super.init(itemType: .rhythmicItem, category: category, isInventoryItem: isInventoryItem,
                    isOrderItem: isOrderItem, imageString: imageString)
     }
 

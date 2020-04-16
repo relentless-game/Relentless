@@ -70,21 +70,23 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
-        switch item.category {
-        case .book:
+        switch item.category.categoryName {
+        case "book":
             setBookBackgroundFor(item: item)
-        case .magazine:
+        case "magazine":
             setMagazineBackgroundFor(item: item)
-        case .robot:
+        case "robot":
             setRobotBackgroundFor(item: item)
-        case .toyCar:
+        case "toyCar":
             setToyCarBackgroundFor(item: item)
-        case .wheel:
+        case "wheel":
             setToyCarWheelBackgroundFor(item: item)
-        case .battery:
+        case "battery":
             setToyCarBatteryBackgroundFor(item: item)
-        case .carBody:
+        case "carBody":
             setToyCarBodyBackgroundFor(item: item)
+        default:
+            assertionFailure()
         }
     }
 
@@ -144,7 +146,7 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setToyCarWholeBackgroundFor(item: Item) {
-        if item.category != Category.toyCar {
+        if item.category.categoryName != "toyCar" {
             return
         }
         guard let car = item as? AssembledItem else {

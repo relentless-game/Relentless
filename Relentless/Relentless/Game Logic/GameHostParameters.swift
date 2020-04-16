@@ -16,8 +16,10 @@ class GameHostParameters: GameParameters {
     /// For item generation
     var numOfCategories: Int {
         let difficultyFraction = difficultyLevel / GameParameters.difficultyRange.upperBound
-        let numberOfCategories = Category.allCases.count
-        return Int((Float(numberOfCategories) * difficultyFraction).rounded(.up))
+        // TODO: replace below
+        //let numberOfCategories = Category.allCases.count
+        // return Int((Float(numberOfCategories) * difficultyFraction).rounded(.up))
+        return 0
     }
     var numOfPairsPerCategory: Int {
         Int((difficultyLevel / 2).rounded(.up))

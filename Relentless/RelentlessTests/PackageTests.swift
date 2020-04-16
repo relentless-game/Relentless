@@ -16,6 +16,10 @@ class PackageTests: XCTestCase {
     let itemsLimit = 5
     var package: Package!
 
+    let item = TitledItem(name: "1", category: Category(name: "book"),
+                          isInventoryItem: true, isOrderItem: true,
+                          imageString: "placeholder")
+    
     override func setUp() {
         super.setUp()
         package = Package(creator: creator, creatorAvatar: .blue,
@@ -31,14 +35,14 @@ class PackageTests: XCTestCase {
     }
 
     func testAddItem() {
-        let book = Book(name: "Book")
+        let book = item
         package.addItem(item: book)
         XCTAssertTrue(package.items.contains(book))
         XCTAssertEqual(package.items.count, 1)
     }
 
     func testDeleteItem() {
-        let book = Book(name: "Book")
+        let book = item
         package.addItem(item: book)
         package.removeItem(item: book)
         XCTAssertTrue(package.items.isEmpty)

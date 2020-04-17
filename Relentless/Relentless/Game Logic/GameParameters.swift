@@ -26,6 +26,7 @@ class GameParameters {
     static var defaultSatisfactionChange: Float = 25
     static var satisfactionIncreaseForCorrectItem: Float = 1
 
+    static var defaultNumberOfHouses = 5
     static var houseSatisfactionFactorRange: ClosedRange<Float> = 0.5...1.0
     static var satisfactionToMoneyTranslation: Int = 2
 

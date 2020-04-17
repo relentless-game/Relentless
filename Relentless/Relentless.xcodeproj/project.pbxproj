@@ -226,7 +226,6 @@
 		5DE9178624206E1B00569453 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		5DE9178924206E1C00569453 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		5EDEC545134B6D77EA348438 /* Pods-RelentlessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RelentlessTests.release.xcconfig"; path = "Target Support Files/Pods-RelentlessTests/Pods-RelentlessTests.release.xcconfig"; sourceTree = "<group>"; };
-		62134B0B2438359400C46DC4 /* PackageItemsLimitGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageItemsLimitGenerator.swift; sourceTree = "<group>"; };
 		621B7084244485CE000DE9DD /* DefaultList.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DefaultList.plist; sourceTree = "<group>"; };
 		6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNetworkController.swift; sourceTree = "<group>"; };
 		6249B500241C8BB0002F8A1B /* GameModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModelController.swift; sourceTree = "<group>"; };
@@ -486,7 +485,6 @@
 				62EE1A7A241CE54C009406FB /* SatisfactionBar.swift */,
 				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
 				F319B33C241DCBC5005E3129 /* GameStatus.swift */,
-				62134B0B2438359400C46DC4 /* PackageItemsLimitGenerator.swift */,
 				62697C172442B849005E21D6 /* StringExtension.swift */,
 				F33939552443092E008BE07D /* ConfigParser.swift */,
 			);

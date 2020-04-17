@@ -38,12 +38,13 @@ class OrderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        order = Order(items: items, timeLimitInSeconds: timeLimit)
         items = [item1, item2, item3, item4, item5]
+        order = Order(items: items, timeLimitInSeconds: timeLimit)
     }
 
     func testInit() {
         let order = Order(items: items, timeLimitInSeconds: timeLimit)
+        
         XCTAssertEqual(order.items, items.sorted())
         XCTAssertEqual(order.timeLimit, timeLimit)
     }

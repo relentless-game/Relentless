@@ -207,34 +207,52 @@ class ItemSpecificationsParser {
         return result
     }
     
-    // TODO: for now, only can assemble depth 0 items
     static func getAssembledItems(availableAtomicItems: [Category: Set<[Item]>]) -> [Category: Set<[AssembledItem]>] {
         guard let dict = getPlist(from: plistFileName) else {
             return [:]
         }
         
         let assembledCategories = dict.value(forKey: "assembledItems") as? [NSDictionary] ?? []
-        var allAssembledItems: [Category: Set<[AssembledItem]>] = [:]
+        var intermediateItems: [IntermediateAssembledItem] = []
         for categoryDict in assembledCategories {
             let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let category = Category(name: categoryName)
             let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
             let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
             let parts = categoryDict.value(forKey: "parts") as? [String] ?? []
-            // TODO: use depth
-            let depth = categoryDict.value(forKey: "depth") as? Int ?? 0
+            let depth = categoryDict.value(forKey: "depth") as? Int ?? -1
             
-            let items = convertCategoryToAssembledItems(categoryName: categoryName, isInventoryItem: isInventoryItem,
+            let intermediateAssembledItem = IntermediateAssembledItem(category: category,
+                                                                      isInventoryItem: isInventoryItem,
+                                                                      isOrderItem: isOrderItem,
+                                                                      parts: parts,
+                                                                      depth: depth)
+            intermediateItems.append(intermediateAssembledItem)
+        }
+        intermediateItems.sort { $0.depth < $1.depth }
+        
+        var availableItems = availableAtomicItems
+        var allAssembledItems: [Category: Set<[AssembledItem]>] = [:]
+        
+        // Assemble items according to increasing depths
+        for intermediateItem in intermediateItems {
+            let category = intermediateItem.category
+            let isInventoryItem = intermediateItem.isInventoryItem
+            let isOrderItem = intermediateItem.isOrderItem
+            let parts = intermediateItem.parts
+            
+            let items = convertCategoryToAssembledItems(category: category, isInventoryItem: isInventoryItem,
                                                         isOrderItem: isOrderItem, parts: parts,
-                                                        availableAtomicItems: availableAtomicItems)
-            let category = Category(name: categoryName)
+                                                        availableAtomicItems: availableItems)
             allAssembledItems[category] = items
+            availableItems[category] = items
         }
         
         return allAssembledItems
     }
     
     // TODO: how to represent image strings for assembled items?
-    static func convertCategoryToAssembledItems(categoryName: String, isInventoryItem: Bool,
+    static func convertCategoryToAssembledItems(category: Category, isInventoryItem: Bool,
                                                 isOrderItem: Bool, parts: [String],
                                                 availableAtomicItems: [Category: Set<[Item]>]) -> Set<[AssembledItem]> {
         
@@ -247,7 +265,6 @@ class ItemSpecificationsParser {
         }
         
         var allAssembledItems = Set<[AssembledItem]>()
-        let category = Category(name: categoryName)
         let allPermutations = permuteParts(availableParts: availableParts, currentIndex: 0)
         for permutation in allPermutations {
             let item = AssembledItem(parts: permutation, category: category,
@@ -312,5 +329,21 @@ class ItemSpecificationsParser {
         }
 
         return nil
+    }
+}
+
+struct IntermediateAssembledItem {
+    let category: Category
+    let isInventoryItem: Bool
+    let isOrderItem: Bool
+    let parts: [String]
+    let depth: Int
+    
+    init(category: Category, isInventoryItem: Bool, isOrderItem: Bool, parts: [String], depth: Int) {
+        self.category = category
+        self.isInventoryItem = isInventoryItem
+        self.isOrderItem = isOrderItem
+        self.parts = parts
+        self.depth = depth
     }
 }

@@ -43,15 +43,16 @@ class HouseTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        
+        itemsForFirstOrder = [item1, item2, item3]
+        itemsForSecondOrder = [item4, item5]
+        
         orderOne = Order(items: itemsForFirstOrder, timeLimitInSeconds: timeLimitForOrderOne)
         orderTwo = Order(items: itemsForSecondOrder, timeLimitInSeconds: timeLimitForOrderTwo)
         orders = Set<Order>([orderOne, orderTwo])
         house = House(orders: Set<Order>(orders), satisfactionFactor: satisfactionFactor)
         orderOne.startOrder()
         orderTwo.startOrder()
-        
-        itemsForFirstOrder = [item1, item2, item3]
-        itemsForSecondOrder = [item4, item5]
     }
 
     func testInit() {
@@ -94,6 +95,6 @@ class HouseTests: XCTestCase {
             XCTFail("Should not be nil")
             return
         }
-        XCTAssertEqual(order, orderTwo)
+        XCTAssertEqual(order, orderOne)
     }
 }

@@ -55,8 +55,7 @@ class TitledItem: Item {
         guard let otherItem = other as? TitledItem else {
             return false
         }
-        return self.category == otherItem.category &&
-            self.name == otherItem.name
+        return self.category == otherItem.category && self.name == otherItem.name
     }
 }
 

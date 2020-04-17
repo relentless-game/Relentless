@@ -37,13 +37,14 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
                                        difficultyLevel: parameters.difficultyLevel,
-                                       numOfPairsPerCategory: parameters.numOfPairsPerCategory,
+                                       numOfPairsPerCategory: parameters.numOfGroupsPerCategory,
                                        itemSpecifications: itemSpecifications)
         itemsAllocator = ItemsAllocator()
         ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                           maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                          probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
+                                          probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
+                                          timeForEachItem: parameters.timeForEachItem)
     }
 
     @objc
@@ -221,7 +222,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
                                                                     probabilityOfHavingLimit:
-                                                                        parameters.probabilityOfHavingPackageLimit)
+                                                                        parameters.probOfHavingPackageLimit)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 

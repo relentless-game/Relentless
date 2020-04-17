@@ -42,7 +42,7 @@ class OrdersAllocator: GameOrdersAllocator {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
         let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
                                         allPlayers: allPlayers)
-        let timeAllocated = selectedItems.count * GameHostParameters.timeForEachItem
+        let timeAllocated = selectedItems.count * timeForEachItem
         let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
         return order
     }

@@ -63,7 +63,7 @@ class ItemGenerator: GameItemGenerator {
             guard let selectedGroup = getRandom(from: availableGroups) as? [Item] else {
                 continue
             }
-            let hasAnyNonOrderItem = !selectedGroup.filter { !$0.isOrderItem }.isEmpty
+            let hasAnyNonOrderItem = selectedGroup.contains(where: { !$0.isOrderItem })
             if hasAnyNonOrderItem {
                 continue
             }

@@ -9,11 +9,10 @@
 import Foundation
 
 class GameControllerManager: GameController {
-
     // properties for game logic
-    private var roundTimeLeft: Int = 0
-    private var roundTimer = Timer()
-    private var orderStartTimer = Timer()
+    internal var roundTimeLeft: Int = 0
+    internal var roundTimer = Timer()
+    internal var orderStartTimer = Timer()
 
     var gameCategories: [Category] = []
     var satisfactionBar: SatisfactionBar
@@ -73,66 +72,98 @@ class GameControllerManager: GameController {
         addObservers()
     }
 
-    func endGame() {
-        guard let gameId = gameId else {
-            return
-        }
-        network.terminateGame(gameId: gameId, isGameEndedPrematurely: false)
+    internal func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
+                                               name: .didChangeItemsInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)),
+                                               name: .didChangePackagesInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)),
+                                               name: .didOrderUpdateInModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderTimeOut(notification:)),
+                                               name: .didOrderTimeOutInModel, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleSatisfactionBarChange(notification:)),
+                                               name: .didChangeCurrentSatisfaction, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleItemLimitReached(notification:)),
+                                               name: .didItemLimitReachedInModel, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleChangeOfOpenPackage(notification:)),
+                                               name: .didChangeOpenPackageInModel, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleOrderTimeLeftChange(notification:)),
+                                               name: .didOrderTimeUpdateInModel, object: nil)
     }
 
-    func pauseRound() {
-        guard let gameId = gameId, var newGameStatus = gameStatus else {
+    internal func updateMoney(satisfactionLevel: Int) {
+        money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
+        money -= GameParameters.dailyExpense
+        NotificationCenter.default.post(name: .didChangeMoney, object: nil)
+    }
+
+    internal func handleGameEnd() {
+        updateScore()
+        resetAllAttributes()
+        NotificationCenter.default.post(name: .didEndGame, object: nil)
+    }
+
+    internal func updateScore() {
+        guard let score = game?.currentRoundNumber else {
             return
         }
-
-        newGameStatus.numberOfPlayersPaused += 1
-        newGameStatus.isResumed = false
-        gameStatus = newGameStatus
-
-        let numberOfPlayersPaused = newGameStatus.numberOfPlayersPaused
-        if numberOfPlayersPaused == 1 {
-            let timer = Timer(timeInterval: 1.0, target: self, selector: #selector(decrementPauseTimer),
-                              userInfo: nil, repeats: true)
-            RunLoop.current.add(timer, forMode: .default)
-            pauseTimer = timer
-        }
-        
-        network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
+        let userNamesOfPlayers = players.map { $0.userName }
+        localStorage.updateScoreBoard(with: ScoreRecord(score: score,
+                                                        userNamesOfPlayers: userNamesOfPlayers, isLatestEntry: true))
     }
-    
+
+    internal func resetAllAttributes() {
+        guard let parameters = gameParameters else {
+            return
+        }
+        game = nil
+        orderStartTimer = Timer()
+        parameters.reset() // reset game parameters
+
+        gameCategories = []
+        satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
+        money = 0
+    }
+
+    internal func handleRoundEnd() {
+        guard let parameters = gameParameters else {
+            return
+        }
+        parameters.incrementDifficulty()
+
+        guard let gameId = gameId, let userId = userId else {
+            return
+        }
+        let satisfaction = satisfactionBar.currentSatisfaction
+        network.updateIndividualSatisfactionLevel(gameId: gameId, userId: userId, satisfactionLevel: satisfaction)
+    }
+
+    internal func startOrders() {
+        startRandomOrder()
+        // Start random orders at regular intervals
+        orderStartTimer = Timer.scheduledTimer(timeInterval: 15, target: self,
+                                               selector: #selector(startRandomOrder), userInfo: nil,
+                                               repeats: true)
+    }
+
     @objc
-    private func decrementPauseTimer() {
-        guard let gameId = gameId else {
+    func startRandomOrder() {
+        guard let houses = game?.houses else {
             return
         }
-        pauseCountDown -= 1
-        network.updatePauseCountDown(gameId: gameId, countDown: pauseCountDown)
-        
-        // end the game if count down reaches 0
-        if pauseCountDown == 0 {
-            endGame()
-        }
-    }
 
-    func resumeRound() {
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber, var newGameStatus = gameStatus else {
+        let allNewOrders = houses.flatMap { $0.orders }.filter { !$0.hasStarted }
+        if allNewOrders.isEmpty {
             return
         }
-        
-        newGameStatus.numberOfPlayersPaused -= 1
-        gameStatus = newGameStatus
-        
-        // only resume if all players are back
-        let areAllPlayersBack = newGameStatus.numberOfPlayersPaused == 0
-        if areAllPlayersBack {
-            network.resumeRound(gameId: gameId, currentRound: roundNumber)
-        } else {
-            network.updateGameStatus(gameId: gameId, gameStatus: newGameStatus)
-        }
-    }
-
-    func getExistingScores() throws -> [ScoreRecord] {
-        try localStorage.getExistingScores()
+        let indexRange = 0...(allNewOrders.count - 1)
+        let randomIndex = Int.random(in: indexRange)
+        let randomOrder = allNewOrders[randomIndex]
+        randomOrder.startOrder()
     }
 
     @objc
@@ -141,15 +172,6 @@ class GameControllerManager: GameController {
         if roundTimeLeft == 0 {
             endRound()
         }
-    }
-
-    @objc
-    func endRound() {
-        guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
-            return
-        }
-        network.terminateRound(gameId: gameId, roundNumber: roundNumber)
-        network.resetPlayersOutOfOrders(gameId: gameId)
     }
 
     /// Notifies view that there were changes made to some orders
@@ -215,30 +237,11 @@ class GameControllerManager: GameController {
         NotificationCenter.default.post(name: .didChangeOrders, object: nil)
     }
 
-    private func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleItemChange),
-                                               name: .didChangeItemsInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handlePackageChange(notification:)),
-                                               name: .didChangePackagesInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderChange(notification:)),
-                                               name: .didOrderUpdateInModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderTimeOut(notification:)),
-                                               name: .didOrderTimeOutInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleSatisfactionBarChange(notification:)),
-                                               name: .didChangeCurrentSatisfaction, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleItemLimitReached(notification:)),
-                                               name: .didItemLimitReachedInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleChangeOfOpenPackage(notification:)),
-                                               name: .didChangeOpenPackageInModel, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleOrderTimeLeftChange(notification:)),
-                                               name: .didOrderTimeUpdateInModel, object: nil)
+    internal func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
+        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
     }
 
-    private func getActiveOrders() -> [Order] {
+    internal func getActiveOrders() -> [Order] {
         guard let houses = game?.houses else {
             return [Order]()
         }
@@ -247,42 +250,43 @@ class GameControllerManager: GameController {
     }
 
     /// Resumes all timers that were paused previously
-    private func resumeAllTimers() {
+    internal func resumeAllTimers() {
         startRoundTimer()
         startOrders()
         resumeIndividualOrderTimers()
     }
 
-    private func startRoundTimer() {
+    internal func startRoundTimer() {
         self.roundTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
                                                selector: #selector(updateTimeLeft), userInfo: nil, repeats: true)
     }
 
-    private func stopRoundTimer() {
+    internal func stopRoundTimer() {
         roundTimer.invalidate()
     }
 
-    private func resumeIndividualOrderTimers() {
+    internal func resumeIndividualOrderTimers() {
         let activeOrders = getActiveOrders()
         activeOrders.forEach { $0.resumeTimer() }
     }
 
     /// Pauses all timers that are active
-    private func pauseAllTimers() {
+    internal func pauseAllTimers() {
         stopRoundTimer()
         stopOrders()
         stopIndividualOrderTimers()
     }
 
-    private func stopIndividualOrderTimers() {
+    internal func stopIndividualOrderTimers() {
         let activeOrders = getActiveOrders()
         activeOrders.forEach { $0.stopTimer() }
     }
 
-    private func stopOrders() {
+    internal func stopOrders() {
         orderStartTimer.invalidate()
     }
 
+<<<<<<< HEAD
 }
 
 extension GameControllerManager {
@@ -548,28 +552,20 @@ extension GameControllerManager {
         guard let parameters = gameParameters else {
             return
         }
+=======
+    internal func handleRoundStart() {
+        game?.resetForNewRound()
+>>>>>>> master
         satisfactionBar.reset()
         roundTimeLeft = parameters.roundTime
         startRoundTimer()
         startOrders()
     }
-    
-    private func generateDummyUserName() -> String {
-        let random = Int.random(in: 1...100)
-        return "Player " + String(players.count + random)
-    }
 
-    /// To inform the network that this player has run out of orders
-    @objc private func outOfOrders() {
-        guard let gameId = gameId, let userId = userId else {
-            return
-        }
-        network.outOfOrders(userId: userId, gameId: gameId)
-
-    }
 }
 
 extension GameControllerManager {
+<<<<<<< HEAD
 
     var openedPackage: Package? {
         game?.currentlyOpenPackage
@@ -649,5 +645,9 @@ extension GameControllerManager {
             expression = parameters.wrongPackageSatisfactionChangeExpression
         }
         satisfactionBar.update(order: order, package: package, isCorrect: isCorrect, expression: expression)
+=======
+    func getExistingScores() throws -> [ScoreRecord] {
+        try localStorage.getExistingScores()
+>>>>>>> master
     }
 }

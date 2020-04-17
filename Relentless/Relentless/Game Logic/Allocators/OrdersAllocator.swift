@@ -26,53 +26,44 @@ class OrdersAllocator: GameOrdersAllocator {
         self.timeForEachItem = timeForEachItem
     }
 
-    func allocateOrders(players: [Player], items: [Item]) {
+    func allocateOrders(orderItems: [Item], to players: [Player]) {
+        let orderItems = orderItems.filter { $0.isOrderItem }
         for player in players {
             while player.orders.count < numOfOrdersPerPlayer {
                 let order = generateOrder(maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player,
-                                          allPlayers: players, allItems: items)
+                                          allPlayers: players, orderItems: orderItems)
                 player.orders.insert(order)
             }
         }
     }
 
     private func generateOrder(maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player],
-                               allItems: [Item]) -> Order {
+                               orderItems: [Item]) -> Order {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
         let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
                                         allPlayers: allPlayers)
-
-        let selectedParts = selectedItems.compactMap { $0 as? Part }
-        let selectedAssembledItems = convertToAssembledItem(parts: selectedParts,
-                                                            items: allItems,
-                                                            numberOfPlayers: allPlayers.count)
-        let selectedNonAssembledItems = selectedItems.filter { $0 as? Part == nil }
-
-        var itemsForOrder = [Item]()
-        itemsForOrder.append(contentsOf: selectedAssembledItems)
-        itemsForOrder.append(contentsOf: selectedNonAssembledItems)
-        let timeAllocated = itemsForOrder.count * timeForEachItem
-        let order = Order(items: itemsForOrder, timeLimitInSeconds: timeAllocated)
+        let timeAllocated = selectedItems.count * GameHostParameters.timeForEachItem
+        let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
         return order
     }
 
-    private func convertToAssembledItem(parts: [Part], items: [Item], numberOfPlayers: Int) -> [AssembledItem] {
-        let assembledItems = items.compactMap { $0 as? AssembledItem }
-        var selectedAssembledItems = Set<AssembledItem>()
-        for part in parts {
-            let randomNumber = Float.random(in: 0...1)
-            if randomNumber <= GameHostParameters.probOfSelectingAssembledItem(numberOfPlayers:
-                numberOfPlayers) {
-                for assembledItem in assembledItems where assembledItem.parts.contains(part) {
-                    selectedAssembledItems.insert(assembledItem)
-                }
-            }
-            for assembledItem in assembledItems where assembledItem.parts.contains(part) {
-                selectedAssembledItems.insert(assembledItem)
-            }
-        }
-        return Array(selectedAssembledItems)
-    }
+//    private func convertToAssembledItem(parts: [Part], items: [Item], numberOfPlayers: Int) -> [AssembledItem] {
+//        let assembledItems = items.compactMap { $0 as? AssembledItem }
+//        var selectedAssembledItems = Set<AssembledItem>()
+//        for part in parts {
+//            let randomNumber = Float.random(in: 0...1)
+//            if randomNumber <= GameHostParameters.probabilityOfSelectingAssembledItem(numberOfPlayers:
+//                numberOfPlayers) {
+//                for assembledItem in assembledItems where assembledItem.parts.contains(part) {
+//                    selectedAssembledItems.insert(assembledItem)
+//                }
+//            }
+//            for assembledItem in assembledItems where assembledItem.parts.contains(part) {
+//                selectedAssembledItems.insert(assembledItem)
+//            }
+//        }
+//        return Array(selectedAssembledItems)
+//    }
 
     private func selectItems(numberOfItems: Int, currPlayer: Player, allPlayers: [Player]) -> [Item] {
         var selectedItems = [Item]()

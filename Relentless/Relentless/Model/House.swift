@@ -78,9 +78,4 @@ class House {
         order.stopTimer()
         orders = Set(ordersAsArray)
     }
-
-    @objc
-    func notifyOrderUpdate(notification: Notification) {
-        NotificationCenter.default.post(name: .didOrderUpdateInHouse, object: nil)
-    }
 }

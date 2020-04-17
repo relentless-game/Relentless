@@ -11,7 +11,9 @@ import Foundation
 class ConfigParser {
     let plistFileName = "GameConfig"
     
-    func parse() /*-> ItemSpecifications*/ {
+    func parse() -> ItemSpecifications {
+        
+        // 1. get available items
         let availableStatefulItems = getStatefulItems()
         let availableTitledItems = getTitledItems()
         let availableRhythmicItems = getRhythmicItems()
@@ -24,7 +26,40 @@ class ConfigParser {
         let availableAssembledItems = getAssembledItems(availableAtomicItems: availableItems)
         availableItems.merge(availableAssembledItems) { current, _ in current }
 
-        // available items
+        // 2. get stateful items identifier mappings
+        let itemIdentifierMappings = getStateIdentifierMappings()
+        
+        // 3. get partsToAssembledItemCategoryMapping
+        let partsToAssembledItemCategoryMapping = getPartsToAssembledItemCategoryMapping()
+    
+        return ItemSpecifications(availableGroupsOfItems: availableItems,
+                                  itemIdentifierMappings: itemIdentifierMappings,
+                                  partsToAssembledItemCategoryMapping: partsToAssembledItemCategoryMapping)
+    }
+    
+    func getStateIdentifierMappings() -> [Category: [Int: String]] {
+        guard let dict = getPlist(from: plistFileName) else {
+            return [:]
+        }
+        
+        let statefulCategories = dict.value(forKey: "statefulItems") as? [NSDictionary] ?? []
+        var allMappings: [Category: [Int: String]] = [:]
+        for categoryDict in statefulCategories {
+            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let category = Category(name: categoryName)
+            let stateIdentifiers = categoryDict.value(forKey: "stateIdentifiers") as? [String] ?? []
+            
+            // convert into a [Int: String] dictionary
+            var mapping: [Int: String] = [:]
+            var index = 1 // start from 1
+            for identifier in stateIdentifiers {
+                mapping[index] = identifier
+                index += 1
+            }
+            allMappings[category] = mapping
+        }
+        
+        return allMappings
     }
     
     func getStatefulItems() -> [Category: Set<[StatefulItem]>] {
@@ -202,8 +237,16 @@ class ConfigParser {
     func convertCategoryToAssembledItems(categoryName: String, isInventoryItem: Bool,
                                          isOrderItem: Bool, parts: [String],
                                          availableAtomicItems: [Category: Set<[Item]>]) -> Set<[AssembledItem]> {
-        let availableParts = Array(availableAtomicItems.values).map { set in
-            Array(set).flatMap { $0 }
+//        let availableParts = Array(availableAtomicItems.values).map { set in
+//            Array(set).flatMap { $0 }
+//        }
+        
+        var availableParts: [[Item]] = []
+        for part in parts {
+            let partCategory = Category(name: part)
+            let partItemsSet = availableAtomicItems[partCategory] ?? []
+            let partItemsArray = Array(partItemsSet).flatMap { $0 }
+            availableParts.append(partItemsArray)
         }
         
         var allAssembledItems = Set<[AssembledItem]>()
@@ -239,6 +282,26 @@ class ConfigParser {
         }
         
         return result
+    }
+    
+    private func getPartsToAssembledItemCategoryMapping() -> [[Category]: Category] {
+        guard let dict = getPlist(from: plistFileName) else {
+            return [:]
+        }
+        
+        let assembledCategories = dict.value(forKey: "assembledItems") as? [NSDictionary] ?? []
+        var mappings: [[Category]: Category] = [:]
+        for categoryDict in assembledCategories {
+            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let category = Category(name: categoryName)
+            
+            let parts = categoryDict.value(forKey: "parts") as? [String] ?? []
+            let CategoriesForParts = parts.map { Category(name: $0) }
+            
+            mappings[CategoriesForParts] = category
+        }
+        
+        return mappings
     }
     
     func getPlist(from fileName: String) -> NSDictionary? {

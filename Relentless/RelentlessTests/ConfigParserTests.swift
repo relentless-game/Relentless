@@ -43,7 +43,7 @@ class ConfigParserTests: XCTestCase {
         let availableParts = [[item1, item2, item3], [item4, item5]]
         
         let result = parser.permuteParts(availableParts: availableParts, currentIndex: 0)
-        print(result.flatMap{ $0 }.map { $0.toString() })
+        print(result.flatMap { $0 }.map { $0.toString() })
     }
 
 }

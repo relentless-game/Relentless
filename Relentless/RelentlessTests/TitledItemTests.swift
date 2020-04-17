@@ -32,9 +32,9 @@ class TitledItemTests: XCTestCase {
 
     func testComparison_betweenSameCategories_differentName() {
         let titledItemWithSmallerName = TitledItem(name: String(title.dropFirst()), category: Category.magazine,
-                                  isInventoryItem: true, isOrderItem: true, imageString: imageString)
+                                                   isInventoryItem: true, isOrderItem: true, imageString: imageString)
         let titledItemWithBiggerName = TitledItem(name: title, category: Category.book,
-                              isInventoryItem: true, isOrderItem: true, imageString: imageString)
+                                                  isInventoryItem: true, isOrderItem: true, imageString: imageString)
         XCTAssertTrue(titledItemWithSmallerName < titledItemWithBiggerName)
     }
 
@@ -52,23 +52,22 @@ class TitledItemTests: XCTestCase {
         XCTAssertFalse(titledItem.equals(other: itemWithDifferentTitle))
 
         let itemWithDifferentCategory = TitledItem(name: title, category: Category.magazine, isInventoryItem: true,
-                                                isOrderItem: true, imageString: imageString)
+                                                   isOrderItem: true, imageString: imageString)
         XCTAssertFalse(titledItem.equals(other: itemWithDifferentCategory))
 
         let itemWithDifferentImageString = TitledItem(name: title, category: Category.book, isInventoryItem: true,
-                                                isOrderItem: true, imageString: imageString + "a")
+                                                      isOrderItem: true, imageString: imageString + "a")
         XCTAssertFalse(titledItem.equals(other: itemWithDifferentImageString))
 
         let itemWithDifferentIsInventoryStatus = TitledItem(name: title, category: Category.magazine,
                                                             isInventoryItem: false, isOrderItem: true,
                                                             imageString: imageString)
-        XCTAssertTrue(titledItem.equals(other: itemWithDifferentCategory))
+        XCTAssertTrue(titledItem.equals(other: itemWithDifferentIsInventoryStatus))
 
         let itemWithDifferentIsOrderStatus = TitledItem(name: title, category: Category.magazine,
-                                                            isInventoryItem: true, isOrderItem: false,
-                                                            imageString: imageString)
+                                                        isInventoryItem: true, isOrderItem: false,
+                                                        imageString: imageString)
         XCTAssertTrue(titledItem.equals(other: itemWithDifferentIsOrderStatus))
-
 
     }
 

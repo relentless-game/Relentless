@@ -252,9 +252,10 @@ class ItemSpecificationsParser {
     }
     
     // TODO: how to represent image strings for assembled items?
-    static func convertCategoryToAssembledItems(category: Category, isInventoryItem: Bool,
-                                                isOrderItem: Bool, parts: [String],
-                                                availableAtomicItems: [Category: Set<[Item]>]) -> Set<[AssembledItem]> {
+    private static func convertCategoryToAssembledItems(category: Category, isInventoryItem: Bool,
+                                                        isOrderItem: Bool, parts: [String],
+                                                        availableAtomicItems: [Category: Set<[Item]>])
+        -> Set<[AssembledItem]> {
         
         var availableParts: [[Item]] = []
         for part in parts {

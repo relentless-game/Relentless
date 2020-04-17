@@ -14,12 +14,12 @@ class NetworkManager: Network {
     var numOfPlayersRange: ClosedRange<Int>
 
     private var ref: DatabaseReference!
-
+    
     init(numOfPlayersRange: ClosedRange<Int>) {
         ref = Database.database().reference()
         self.numOfPlayersRange = numOfPlayersRange
     }
-    
+
     func createGame(completion: @escaping (Int) -> Void) {
         ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
             var gameIdsTaken = [Int]()

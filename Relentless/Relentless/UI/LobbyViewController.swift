@@ -28,8 +28,9 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         initUserId()
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
-            // Initialise parameters with lowest difficulty level. Player can adjust this in the settings.
-            let gameHostParameters = GameHostParameters(difficultyLevel: 1.0)
+            // Fetch game parameters from remote config
+            let gameHostParameters = (ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: true)
+                as? GameHostParameters) ?? GameHostParameters()
             gameController = GameHostControllerManager(userId: userId,
                                                        gameHostParameters: gameHostParameters)
             // TODO: change how username is entered

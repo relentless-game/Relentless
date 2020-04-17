@@ -20,7 +20,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     init(userId: String, gameHostParameters: GameHostParameters) {
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
-        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
+        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(gameHostParameters.roundTime / 2),
                                                target: self,
                                                selector: #selector(generateEvent), userInfo: nil,
                                                repeats: false)
@@ -32,7 +32,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return
         }
 
-        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probabilityOfEvent)
+        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probOfEvent)
         guard let event = eventGenerator.generate() else {
             return
         }
@@ -196,7 +196,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     private func allocateItems(numberOfPlayers: Int, parameters: GameHostParameters, categories: [Category]) -> [Item] {
         let itemsAllocator = ItemsAllocator(numberOfPlayers: numberOfPlayers,
                                             difficultyLevel: parameters.difficultyLevel,
-                                            numOfPairsPerCategory: parameters.numOfPairsPerCategory)
+                                            numOfPairsPerCategory: parameters.numOfGroupsPerCategory)
         guard let players = game?.allPlayers else {
             return []
         }
@@ -208,7 +208,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                               maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                               numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                              probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
+                                              probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
+                                              timeForEachItem: parameters.timeForEachItem)
         ordersAllocator.allocateOrders(players: players, items: items)
     }
 
@@ -218,8 +219,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
-                                                                    probabilityOfHavingLimit:
-                                                                        parameters.probabilityOfHavingPackageLimit)
+                                                                    probabilityOfHavingLimit: parameters.probOfHavingPackageLimit)
         guard let packageItemsLimit = packageItemsLimitGenerator.generateItemsLimit() else {
             return
         }

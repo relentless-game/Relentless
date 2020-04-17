@@ -16,8 +16,7 @@ class GameControllerManager: GameController {
     private var orderStartTimer = Timer()
 
     var gameCategories: [Category] = []
-    var satisfactionBar = SatisfactionBar(minSatisfaction: GameParameters.minSatisfaction,
-                                          maxSatisfaction: GameParameters.maxSatisfaction)
+    var satisfactionBar: SatisfactionBar
     var money: Int = 0
     var isHost: Bool
     var gameParameters: GameParameters?
@@ -53,9 +52,6 @@ class GameControllerManager: GameController {
     }
     // properties for network
     var network: Network = NetworkManager(numOfPlayersRange: GameParameters.numOfPlayersRange)
-//    var userId: String? {
-//        game?.player.userId // unique ID given by Firebase
-//    }
     var userId: String?
     var gameId: Int? {
         game?.gameId
@@ -72,8 +68,8 @@ class GameControllerManager: GameController {
     init(userId: String, gameParameters: GameParameters?) {
         self.userId = userId
         self.gameParameters = gameParameters
-        // game?.player.userId = userId
         self.isHost = false
+        self.satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
         addObservers()
     }
 
@@ -180,9 +176,12 @@ class GameControllerManager: GameController {
 
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
+        guard let parameters = gameParameters else {
+            return
+        }
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.penalise()
+            satisfactionBar.penalise(penalty: parameters.satisfactionRunOutPenalty)
             endRound()
         }
     }
@@ -209,7 +208,10 @@ class GameControllerManager: GameController {
 
     @objc
     func handleOrderTimeLeftChange(notification: Notification) {
-        satisfactionBar.decrementWithTime()
+        guard let parameters = gameParameters else {
+            return
+        }
+        satisfactionBar.decrementWithTime(amount: parameters.satisfactionUnitDecrease)
         NotificationCenter.default.post(name: .didChangeOrders, object: nil)
     }
 
@@ -351,7 +353,7 @@ extension GameControllerManager {
         attachNonHostListeners(userId: userId, gameId: gameId)
         // The host should not have this listener
         self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
-            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
+            self.gameParameters?.difficultyLevel = difficultyLevel
         })
     }
 
@@ -468,14 +470,17 @@ extension GameControllerManager {
     }
 
     internal func updateMoney(satisfactionLevel: Int) {
-        money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
-        money -= GameParameters.dailyExpense
+        guard let parameters = gameParameters else {
+            return
+        }
+        money += satisfactionLevel * parameters.satisfactionToMoneyTranslation
+        money -= parameters.dailyExpense
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
     }
 
     /// Assigns orders to houses and sets the houses in Game to this new list of houses
     private func initialiseHouses(with orders: [Order]) {
-        guard let numOfHouses = game?.defaultNumberOfHouses else {
+        guard let numOfHouses = game?.defaultNumberOfHouses, let parameters = gameParameters else {
             return
         }
         var splitOrders = [[Order]]()
@@ -487,7 +492,7 @@ extension GameControllerManager {
         }
         var houses = [House]()
         for orders in splitOrders {
-            let satisfactionFactor = Float.random(in: GameParameters.houseSatisfactionFactorRange)
+            let satisfactionFactor = Float.random(in: parameters.houseSatisfactionFactorRange)
             for order in orders {
                 let originalTimeLimit = order.timeLimit
                 order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
@@ -521,7 +526,7 @@ extension GameControllerManager {
         parameters.reset() // reset game parameters
 
         gameCategories = []
-        satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
+        satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
         money = 0
     }
 
@@ -540,8 +545,11 @@ extension GameControllerManager {
     }
 
     private func handleRoundStart() {
+        guard let parameters = gameParameters else {
+            return
+        }
         satisfactionBar.reset()
-        roundTimeLeft = GameParameters.roundTime
+        roundTimeLeft = parameters.roundTime
         startRoundTimer()
         startOrders()
     }
@@ -631,6 +639,15 @@ extension GameControllerManager {
     }
 
     private func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
-        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
+        guard let parameters = gameParameters else {
+            return
+        }
+        let expression: (([String: Float]) -> Float?)?
+        if isCorrect && package != nil {
+            expression = parameters.correctPackageSatisfactionChangeExpression
+        } else {
+            expression = parameters.wrongPackageSatisfactionChangeExpression
+        }
+        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect, expression: expression)
     }
 }

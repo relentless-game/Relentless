@@ -15,13 +15,15 @@ class OrdersAllocator: GameOrdersAllocator {
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int
     var probabilityOfSelectingOwnItem: Float
+    var timeForEachItem: Int
 
     init(difficultyLevel: Float, maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
-         probabilityOfSelectingOwnItem: Float) {
+         probabilityOfSelectingOwnItem: Float, timeForEachItem: Int) {
         self.difficultyLevel = difficultyLevel
         self.maxNumOfItemsPerOrder = maxNumOfItemsPerOrder
         self.numOfOrdersPerPlayer = numOfOrdersPerPlayer
         self.probabilityOfSelectingOwnItem = probabilityOfSelectingOwnItem
+        self.timeForEachItem = timeForEachItem
     }
 
     func allocateOrders(players: [Player], items: [Item]) {
@@ -49,7 +51,7 @@ class OrdersAllocator: GameOrdersAllocator {
         var itemsForOrder = [Item]()
         itemsForOrder.append(contentsOf: selectedAssembledItems)
         itemsForOrder.append(contentsOf: selectedNonAssembledItems)
-        let timeAllocated = itemsForOrder.count * GameHostParameters.timeForEachItem
+        let timeAllocated = itemsForOrder.count * timeForEachItem
         let order = Order(items: itemsForOrder, timeLimitInSeconds: timeAllocated)
         return order
     }
@@ -59,7 +61,7 @@ class OrdersAllocator: GameOrdersAllocator {
         var selectedAssembledItems = Set<AssembledItem>()
         for part in parts {
             let randomNumber = Float.random(in: 0...1)
-            if randomNumber <= GameHostParameters.probabilityOfSelectingAssembledItem(numberOfPlayers:
+            if randomNumber <= GameHostParameters.probOfSelectingAssembledItem(numberOfPlayers:
                 numberOfPlayers) {
                 for assembledItem in assembledItems where assembledItem.parts.contains(part) {
                     selectedAssembledItems.insert(assembledItem)

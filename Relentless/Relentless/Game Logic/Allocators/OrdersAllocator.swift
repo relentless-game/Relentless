@@ -15,13 +15,15 @@ class OrdersAllocator: GameOrdersAllocator {
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int
     var probabilityOfSelectingOwnItem: Float
+    var timeForEachItem: Int
 
     init(difficultyLevel: Float, maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
-         probabilityOfSelectingOwnItem: Float) {
+         probabilityOfSelectingOwnItem: Float, timeForEachItem: Int) {
         self.difficultyLevel = difficultyLevel
         self.maxNumOfItemsPerOrder = maxNumOfItemsPerOrder
         self.numOfOrdersPerPlayer = numOfOrdersPerPlayer
         self.probabilityOfSelectingOwnItem = probabilityOfSelectingOwnItem
+        self.timeForEachItem = timeForEachItem
     }
 
     func allocateOrders(orderItems: [Item], to players: [Player]) {
@@ -40,7 +42,7 @@ class OrdersAllocator: GameOrdersAllocator {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
         let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
                                         allPlayers: allPlayers)
-        let timeAllocated = selectedItems.count * GameHostParameters.timeForEachItem
+        let timeAllocated = selectedItems.count * timeForEachItem
         let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
         return order
     }

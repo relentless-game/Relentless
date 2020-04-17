@@ -31,12 +31,14 @@ class TitledItemTests: XCTestCase {
     }
 
     func testComparison_betweenSameCategories_differentName() {
-        let titledItemWithSmallerName = TitledItem(name: String(title.dropFirst()), category: Category(name: "magazine"),
+        let titledItemWithSmallerName = TitledItem(name: String(title.dropFirst()),
+                                                   category: Category(name: "magazine"),
                                                    isInventoryItem: true, isOrderItem: true,
                                                    imageString: imageString)
         let titledItemWithBiggerName = TitledItem(name: title, category: Category(name: "magazine"),
                                                   isInventoryItem: true, isOrderItem: true,
                                                   imageString: imageString)
+
         XCTAssertTrue(titledItemWithSmallerName < titledItemWithBiggerName)
     }
 

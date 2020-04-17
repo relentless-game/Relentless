@@ -9,6 +9,7 @@
 import Foundation
 
 protocol Network {
+
     /// This is for the host to start a game. `completion` is called when the game is created
     /// and takes in the game ID created.
     func createGame(completion: @escaping (Int) -> Void)

@@ -15,8 +15,7 @@ class GameControllerManager: GameController {
     internal var orderStartTimer = Timer()
 
     var gameCategories: [Category] = []
-    var satisfactionBar = SatisfactionBar(minSatisfaction: GameParameters.minSatisfaction,
-                                          maxSatisfaction: GameParameters.maxSatisfaction)
+    var satisfactionBar: SatisfactionBar
     var money: Int = 0
     var isHost: Bool
     var gameParameters: GameParameters?
@@ -52,9 +51,6 @@ class GameControllerManager: GameController {
     }
     // properties for network
     var network: Network = NetworkManager(numOfPlayersRange: GameParameters.numOfPlayersRange)
-//    var userId: String? {
-//        game?.player.userId // unique ID given by Firebase
-//    }
     var userId: String?
     var gameId: Int? {
         game?.gameId
@@ -68,14 +64,14 @@ class GameControllerManager: GameController {
     // properties for local storage
     var localStorage: LocalStorage = LocalStorageManager()
     
-    let itemSpecifications: ItemSpecifications
+    var itemSpecifications: ItemSpecifications
     
     init(userId: String, gameParameters: GameParameters?) {
         self.userId = userId
         self.gameParameters = gameParameters
-        // game?.player.userId = userId
         self.isHost = false
         self.itemSpecifications = ItemSpecificationsParser.parse()
+        self.satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
         addObservers()
     }
 
@@ -103,8 +99,11 @@ class GameControllerManager: GameController {
     }
 
     internal func updateMoney(satisfactionLevel: Int) {
-        money += satisfactionLevel * GameParameters.satisfactionToMoneyTranslation
-        money -= GameParameters.dailyExpense
+        guard let parameters = gameParameters else {
+            return
+        }
+        money += satisfactionLevel * parameters.satisfactionToMoneyTranslation
+        money -= parameters.dailyExpense
         NotificationCenter.default.post(name: .didChangeMoney, object: nil)
     }
 
@@ -132,7 +131,7 @@ class GameControllerManager: GameController {
         parameters.reset() // reset game parameters
 
         gameCategories = []
-        satisfactionBar = SatisfactionBar(minSatisfaction: 0, maxSatisfaction: 100)
+        satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
         money = 0
     }
 
@@ -205,9 +204,12 @@ class GameControllerManager: GameController {
 
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
+        guard let parameters = gameParameters else {
+            return
+        }
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.penalise()
+            satisfactionBar.penalise(penalty: parameters.satisfactionRunOutPenalty)
             endRound()
         }
     }
@@ -234,12 +236,24 @@ class GameControllerManager: GameController {
 
     @objc
     func handleOrderTimeLeftChange(notification: Notification) {
-        satisfactionBar.decrementWithTime()
+        guard let parameters = gameParameters else {
+            return
+        }
+        satisfactionBar.decrementWithTime(amount: parameters.satisfactionUnitDecrease)
         NotificationCenter.default.post(name: .didChangeOrders, object: nil)
     }
 
     internal func updateSatisfaction(order: Order, package: Package?, isCorrect: Bool) {
-        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect)
+        guard let parameters = gameParameters else {
+            return
+        }
+        let expression: (([String: Float]) -> Float?)?
+        if isCorrect && package != nil {
+            expression = parameters.correctPackageSatisfactionChangeExpression
+        } else {
+            expression = parameters.wrongPackageSatisfactionChangeExpression
+        }
+        satisfactionBar.update(order: order, package: package, isCorrect: isCorrect, expression: expression)
     }
 
     internal func getActiveOrders() -> [Order] {
@@ -288,9 +302,12 @@ class GameControllerManager: GameController {
     }
 
     internal func handleRoundStart() {
+        guard let parameters = gameParameters else {
+            return
+        }
         game?.resetForNewRound()
         satisfactionBar.reset()
-        roundTimeLeft = GameParameters.roundTime
+        roundTimeLeft = parameters.roundTime
         startRoundTimer()
         startOrders()
     }
@@ -298,6 +315,7 @@ class GameControllerManager: GameController {
 }
 
 extension GameControllerManager {
+
     func getExistingScores() throws -> [ScoreRecord] {
         try localStorage.getExistingScores()
     }

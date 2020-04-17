@@ -9,7 +9,7 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
-    var itemSpecifications: ItemSpecifications
+    //var itemSpecifications: ItemSpecifications
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }
@@ -22,10 +22,10 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     var eventTimer = Timer()
 
     init(userId: String, gameHostParameters: GameHostParameters) {
-        self.itemSpecifications = ItemSpecificationsParser.parse()
+        super.itemSpecifications = ItemSpecificationsParser.parse()
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
-        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(GameParameters.roundTime / 2),
+        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(gameHostParameters.roundTime / 2),
                                                target: self,
                                                selector: #selector(generateEvent), userInfo: nil,
                                                repeats: false)
@@ -37,13 +37,14 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
                                        difficultyLevel: parameters.difficultyLevel,
-                                       numOfPairsPerCategory: parameters.numOfPairsPerCategory,
-                                       itemSpecifications: itemSpecifications)
+                                       numOfPairsPerCategory: parameters.numOfGroupsPerCategory,
+                                       itemSpecifications: super.itemSpecifications)
         itemsAllocator = ItemsAllocator()
         ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                           maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                          probabilityOfSelectingOwnItem: parameters.probabilityOfSelectingOwnItem)
+                                          probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
+                                          timeForEachItem: parameters.timeForEachItem)
     }
 
     @objc
@@ -52,7 +53,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return
         }
 
-        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probabilityOfEvent)
+        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probOfEvent)
         guard let event = eventGenerator.generate() else {
             return
         }
@@ -211,7 +212,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
                                                   numOfCategories: parameters.numOfCategories,
-                                                  allCategories: itemSpecifications.allCategories)
+                                                  allCategories: super.itemSpecifications.allCategories)
         return categoryGenerator.generateCategories()
     }
 
@@ -222,7 +223,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
                                                                     probabilityOfHavingLimit:
-                                                                        parameters.probabilityOfHavingPackageLimit)
+                                                                        parameters.probOfHavingPackageLimit)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 
@@ -235,7 +236,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             network.setPackageItemsLimit(gameId: gameId, limit: nonNilPackageItemsLimit)
         }
         network.broadcastRoundItemSpecification(gameId: gameId, roundItemSpecification: roundItemSpecifications)
-
     }
 
     private func constructRoundItemSpecifications(items: [Item]) -> RoundItemSpecifications {
@@ -259,5 +259,4 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         return assembledItemCategories
     }
-
 }

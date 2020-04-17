@@ -142,7 +142,7 @@ extension GameControllerManager {
         attachNonHostListeners(userId: userId, gameId: gameId)
         // The host should not have this listener
         self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
-            self.gameParameters = GameParameters(difficultyLevel: difficultyLevel)
+            self.gameParameters?.difficultyLevel = difficultyLevel
         })
     }
 

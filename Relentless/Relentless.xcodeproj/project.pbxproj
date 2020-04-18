@@ -103,7 +103,6 @@
 		F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B338241D38F2005E3129 /* PackageAdapter.swift */; };
 		F319B341241DE2DF005E3129 /* ItemsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B340241DE2DF005E3129 /* ItemsAdapter.swift */; };
 		F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B342241DE575005E3129 /* OrdersAdapter.swift */; };
-		F33939562443092E008BE07D /* ConfigParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33939552443092E008BE07D /* ConfigParser.swift */; };
 		F3393958244309E7008BE07D /* GameConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3393957244309E7008BE07D /* GameConfig.plist */; };
 		F339395A244319FD008BE07D /* ItemSpecificationsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3393959244319FD008BE07D /* ItemSpecificationsParserTests.swift */; };
 		F339395E24455E11008BE07D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339395D24455E11008BE07D /* ItemType.swift */; };
@@ -270,7 +269,6 @@
 		F319B33C241DCBC5005E3129 /* GameStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatus.swift; sourceTree = "<group>"; };
 		F319B340241DE2DF005E3129 /* ItemsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAdapter.swift; sourceTree = "<group>"; };
 		F319B342241DE575005E3129 /* OrdersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAdapter.swift; sourceTree = "<group>"; };
-		F33939552443092E008BE07D /* ConfigParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigParser.swift; sourceTree = "<group>"; };
 		F3393957244309E7008BE07D /* GameConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GameConfig.plist; sourceTree = "<group>"; };
 		F3393959244319FD008BE07D /* ItemSpecificationsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSpecificationsParserTests.swift; sourceTree = "<group>"; };
 		F339395B24455A7E008BE07D /* PackageItemsLimitGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageItemsLimitGenerator.swift; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 				F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */,
 				F319B33C241DCBC5005E3129 /* GameStatus.swift */,
 				62697C172442B849005E21D6 /* StringExtension.swift */,
-				F33939552443092E008BE07D /* ConfigParser.swift */,
 			);
 			path = "Game Logic";
 			sourceTree = "<group>";
@@ -948,7 +945,6 @@
 				0BD1BB7A2442BD5500FB578C /* GameControllerManagerExtensionForNetwork.swift in Sources */,
 				62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */,
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,
-				F33939562443092E008BE07D /* ConfigParser.swift in Sources */,
 				5D1B68112438E58000676890 /* AddPackageButton.swift in Sources */,
 				0BC059BF24432B2F000F0ECB /* ItemSpecifications.swift in Sources */,
 				6249B503241C8D9F002F8A1B /* GameController.swift in Sources */,

@@ -236,12 +236,12 @@ class ItemSpecificationsParser {
                                                                       partsImageStrings: partsImageStrings)
             intermediateItems.append(intermediateAssembledItem)
         }
-        intermediateItems.sort { $0.depth < $1.depth }
         
         var availableItems = availableAtomicItems
         var allAssembledItems: [Category: Set<[AssembledItem]>] = [:]
         
         // Assemble items according to increasing depths
+        intermediateItems.sort { $0.depth < $1.depth }
         for intermediateItem in intermediateItems {
             let category = intermediateItem.category
             let isInventoryItem = intermediateItem.isInventoryItem
@@ -344,6 +344,7 @@ class ItemSpecificationsParser {
     }
 }
 
+// temporary structure to hold information for an assembled item
 struct IntermediateAssembledItem {
     let category: Category
     let isInventoryItem: Bool

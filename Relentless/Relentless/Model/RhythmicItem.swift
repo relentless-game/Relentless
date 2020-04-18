@@ -93,12 +93,8 @@ class RhythmicItem: Item {
 
     override func equals(other: Item) -> Bool {
         guard let otherItem = other as? RhythmicItem else {
-            print("here")
             return false
         }
-        print("cat \(self.category == otherItem.category)")
-        print("unit duration \(self.unitDuration == otherItem.unitDuration)")
-        print("state seq \(self.stateSequence == otherItem.stateSequence)")
         return self.category == otherItem.category &&
             self.unitDuration == otherItem.unitDuration &&
             self.stateSequence == otherItem.stateSequence

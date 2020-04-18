@@ -23,7 +23,6 @@ class Item: Hashable, Codable {
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {
-        print("ITEM ==")
         let isSameTypeOfItem = lhs.category == rhs.category &&
             lhs.isInventoryItem == rhs.isInventoryItem &&
             lhs.isOrderItem == rhs.isOrderItem

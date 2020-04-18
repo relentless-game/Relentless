@@ -114,6 +114,134 @@ class ItemSpecificationsParserTests: XCTestCase {
         let actualResult = ItemSpecificationsParser.getRhythmicItems()
         
         // robots
+        let robotCategory = Category(name: "robot")
+        let actualRobots = actualResult[robotCategory]!
+        let robot1 = RhythmicItem(unitDuration: 1, stateSequence: [.unlit, .lit, .unlit],
+                                  category: robotCategory, isInventoryItem: true,
+                                  isOrderItem: true, imageStrings: ["stateZeroImage", "stateOneImage"])
+        let robot2 = RhythmicItem(unitDuration: 1, stateSequence: [.lit, .unlit, .lit],
+                                  category: robotCategory, isInventoryItem: true,
+                                  isOrderItem: true, imageStrings: ["stateZeroImage", "stateOneImage"])
+        let robot3 = RhythmicItem(unitDuration: 2, stateSequence: [.unlit, .lit],
+                                  category: robotCategory, isInventoryItem: true,
+                                  isOrderItem: true, imageStrings: ["stateZeroImage", "stateOneImage"])
+        let robot4 = RhythmicItem(unitDuration: 2, stateSequence: [.lit, .unlit],
+                                  category: robotCategory, isInventoryItem: true,
+                                  isOrderItem: true, imageStrings: ["stateZeroImage", "stateOneImage"])
+        let expectedRobots = Set<[RhythmicItem]>([[robot1, robot2], [robot3, robot4]])
+                
+        XCTAssertEqual(actualRobots, expectedRobots)
+    }
+    
+    // swiftlint:disable function_body_length
+    func testGetAssembledItems_depth0() throws {
+        let category1 = Category(name: "carBody")
+        let category2 = Category(name: "wheel")
+        let category3 = Category(name: "battery")
+                
+        let titledItem1 = TitledItem(name: "titledItem1", category: category2,
+                                     isInventoryItem: true, isOrderItem: true,
+                                     imageString: "titledItem1")
+        let titledItem2 = TitledItem(name: "titledItem2", category: category2,
+                                     isInventoryItem: true, isOrderItem: true,
+                                     imageString: "titledItem2")
+        let statefulItem1 = StatefulItem(category: category1, stateIdentifier: 1,
+                                         isInventoryItem: true, isOrderItem: false,
+                                         imageString: "statefulItem1")
+        let statefulItem2 = StatefulItem(category: category1, stateIdentifier: 2,
+                                         isInventoryItem: true, isOrderItem: false,
+                                         imageString: "statefulItem2")
+        let rhythmicItem1 = RhythmicItem(unitDuration: 1, stateSequence: [.lit],
+                                         category: category3, isInventoryItem: true,
+                                         isOrderItem: true, imageStrings: ["0", "1"])
+        let rhythmicItem2 = RhythmicItem(unitDuration: 2, stateSequence: [.unlit],
+                                         category: category3, isInventoryItem: true,
+                                         isOrderItem: true, imageStrings: ["0", "1"])
+        let rhythmicItem3 = RhythmicItem(unitDuration: 3, stateSequence: [.unlit, .lit],
+                                         category: category3, isInventoryItem: true,
+                                         isOrderItem: true, imageStrings: ["0", "1"])
+        
+        let set1 = Set<[Item]>([[titledItem1, titledItem2]])
+        let set2 = Set<[Item]>([[statefulItem1], [statefulItem2]])
+        let set3 = Set<[Item]>([[rhythmicItem1, rhythmicItem2], [rhythmicItem3]])
+
+        var availableItems: [Relentless.Category: Set<[Item]>] = [:]
+        availableItems[category1] = set1
+        availableItems[category2] = set2
+        availableItems[category3] = set3
+        
+        let actualResult = ItemSpecificationsParser.getAssembledItems(availableAtomicItems: availableItems)
+        let toyCarCategory = Category(name: "toyCar")
+        let actualAssembledItems = actualResult[toyCarCategory]!
+        
+        let partsImageStrings = [category1: "toyCarCarBodyImage",
+                                 category3: "toyCarBatteryImage",
+                                 category2: "toyCarWheelImage"]
+        let toyCar1 = AssembledItem(parts: [titledItem1, rhythmicItem1, statefulItem1],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar2 = AssembledItem(parts: [titledItem1, rhythmicItem1, statefulItem2],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar3 = AssembledItem(parts: [titledItem1, rhythmicItem2, statefulItem1],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar4 = AssembledItem(parts: [titledItem1, rhythmicItem2, statefulItem2],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar5 = AssembledItem(parts: [titledItem1, rhythmicItem3, statefulItem1],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar6 = AssembledItem(parts: [titledItem1, rhythmicItem3, statefulItem2],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar7 = AssembledItem(parts: [titledItem2, rhythmicItem1, statefulItem1],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar8 = AssembledItem(parts: [titledItem2, rhythmicItem1, statefulItem2],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar9 = AssembledItem(parts: [titledItem2, rhythmicItem2, statefulItem1],
+                                    category: toyCarCategory,
+                                    isInventoryItem: true, isOrderItem: true,
+                                    mainImageString: "toyCarImage",
+                                    partsImageStrings: partsImageStrings)
+        let toyCar10 = AssembledItem(parts: [titledItem2, rhythmicItem2, statefulItem2],
+                                     category: toyCarCategory,
+                                     isInventoryItem: true, isOrderItem: true,
+                                     mainImageString: "toyCarImage",
+                                     partsImageStrings: partsImageStrings)
+        let toyCar11 = AssembledItem(parts: [titledItem2, rhythmicItem3, statefulItem1],
+                                     category: toyCarCategory,
+                                     isInventoryItem: true, isOrderItem: true,
+                                     mainImageString: "toyCarImage",
+                                     partsImageStrings: partsImageStrings)
+        let toyCar12 = AssembledItem(parts: [titledItem2, rhythmicItem3, statefulItem2],
+                                     category: toyCarCategory,
+                                     isInventoryItem: true, isOrderItem: true,
+                                     mainImageString: "toyCarImage",
+                                     partsImageStrings: partsImageStrings)
+        let expectedAssembledItems = Set<[AssembledItem]>([[toyCar1], [toyCar2], [toyCar3], [toyCar4],
+                                                           [toyCar5], [toyCar6], [toyCar7], [toyCar8],
+                                                           [toyCar9], [toyCar10], [toyCar11], [toyCar12]])
+        
+        XCTAssertEqual(actualAssembledItems, expectedAssembledItems)
         
     }
     
@@ -145,4 +273,18 @@ class ItemSpecificationsParserTests: XCTestCase {
         XCTAssertEqual(result, expected)
     }
 
+    func testGetStateIdentifierMappings() throws {
+        let actualMappings = ItemSpecificationsParser.getStateIdentifierMappings()
+        
+        let wheelCategory = Category(name: "wheel")
+        let batterCategory = Category(name: "battery")
+        let carBodyCategory = Category(name: "carBody")
+        
+        let expectedMappings = [wheelCategory: [1: "circle", 2: "triangle"],
+                                batterCategory: [1: "AA", 2: "AAA", 3: "D", 4: "PP3"],
+                                carBodyCategory: [1: "red", 2: "blue", 3: "yellow"]]
+        
+        XCTAssertEqual(actualMappings, expectedMappings)
+    }
+    
 }

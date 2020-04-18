@@ -157,13 +157,12 @@ class ItemSpecificationsParser {
             let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
             let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
             let itemGroups = categoryDict.value(forKey: "itemGroups") as? [[NSDictionary]] ?? []
-            // TODO: clarify how to specify image assets for rhythmic items
-            let imageString = categoryDict.value(forKey: "imageString") as? String ?? ""
+            let stateImageStrings = categoryDict.value(forKey: "stateImageStrings") as? [String] ?? []
             
             let items = convertCategoryToRhythmicItems(categoryName: categoryName, isInventoryItem: isInventoryItem,
                                                        isOrderItem: isOrderItem,
                                                        itemGroups: itemGroups,
-                                                       imageString: imageString)
+                                                       stateImageStrings: stateImageStrings)
             let category = Category(name: categoryName)
             allRhythmicItems[category] = items
         }
@@ -174,7 +173,7 @@ class ItemSpecificationsParser {
     private static func convertCategoryToRhythmicItems(categoryName: String, isInventoryItem: Bool,
                                                        isOrderItem: Bool,
                                                        itemGroups: [[NSDictionary]],
-                                                       imageString: String) -> Set<[RhythmicItem]> {
+                                                       stateImageStrings: [String]) -> Set<[RhythmicItem]> {
         let category = Category(name: categoryName)
         var result = Set<[RhythmicItem]>()
         for itemGroup in itemGroups {
@@ -186,7 +185,7 @@ class ItemSpecificationsParser {
                 
                 let item = RhythmicItem(unitDuration: unitDuration, stateSequence: stateSequence,
                                         category: category, isInventoryItem: isInventoryItem,
-                                        isOrderItem: isOrderItem, imageString: imageString)
+                                        isOrderItem: isOrderItem, imageStrings: stateImageStrings)
                 itemGroupArray.append(item)
             }
             result.insert(itemGroupArray)
@@ -221,12 +220,20 @@ class ItemSpecificationsParser {
             let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
             let parts = categoryDict.value(forKey: "parts") as? [String] ?? []
             let depth = categoryDict.value(forKey: "depth") as? Int ?? -1
+            let mainImageString = categoryDict.value(forKey: "mainImageString") as? String ?? ""
+            let rawPartsImageStrings = categoryDict.value(forKey: "partsImageStrings") as? [String: String] ?? [:]
+            var partsImageStrings: [Category: String] = [:]
+            for (key, value) in rawPartsImageStrings {
+                partsImageStrings[Category(name: key)] = value
+            }
             
             let intermediateAssembledItem = IntermediateAssembledItem(category: category,
                                                                       isInventoryItem: isInventoryItem,
                                                                       isOrderItem: isOrderItem,
                                                                       parts: parts,
-                                                                      depth: depth)
+                                                                      depth: depth,
+                                                                      mainImageString: mainImageString,
+                                                                      partsImageStrings: partsImageStrings)
             intermediateItems.append(intermediateAssembledItem)
         }
         intermediateItems.sort { $0.depth < $1.depth }
@@ -240,10 +247,14 @@ class ItemSpecificationsParser {
             let isInventoryItem = intermediateItem.isInventoryItem
             let isOrderItem = intermediateItem.isOrderItem
             let parts = intermediateItem.parts
+            let mainImageString = intermediateItem.mainImageString
+            let partsImageStrings = intermediateItem.partsImageStrings
             
             let items = convertCategoryToAssembledItems(category: category, isInventoryItem: isInventoryItem,
                                                         isOrderItem: isOrderItem, parts: parts,
-                                                        availableAtomicItems: availableItems)
+                                                        availableAtomicItems: availableItems,
+                                                        mainImageString: mainImageString,
+                                                        partsImageStrings: partsImageStrings)
             allAssembledItems[category] = items
             availableItems[category] = items
         }
@@ -251,11 +262,11 @@ class ItemSpecificationsParser {
         return allAssembledItems
     }
     
-    // TODO: how to represent image strings for assembled items?
     private static func convertCategoryToAssembledItems(category: Category, isInventoryItem: Bool,
                                                         isOrderItem: Bool, parts: [String],
-                                                        availableAtomicItems: [Category: Set<[Item]>])
-        -> Set<[AssembledItem]> {
+                                                        availableAtomicItems: [Category: Set<[Item]>],
+                                                        mainImageString: String,
+                                                        partsImageStrings: [Category: String]) -> Set<[AssembledItem]> {
         
         var availableParts: [[Item]] = []
         for part in parts {
@@ -270,7 +281,7 @@ class ItemSpecificationsParser {
         for permutation in allPermutations {
             let item = AssembledItem(parts: permutation, category: category,
                                      isInventoryItem: isInventoryItem, isOrderItem: isOrderItem,
-                                     imageString: "placeholder")
+                                     mainImageString: mainImageString, partsImageStrings: partsImageStrings)
             allAssembledItems.insert([item])
         }
         
@@ -339,12 +350,17 @@ struct IntermediateAssembledItem {
     let isOrderItem: Bool
     let parts: [String]
     let depth: Int
+    let mainImageString: String
+    let partsImageStrings: [Category: String]
     
-    init(category: Category, isInventoryItem: Bool, isOrderItem: Bool, parts: [String], depth: Int) {
+    init(category: Category, isInventoryItem: Bool, isOrderItem: Bool,
+         parts: [String], depth: Int, mainImageString: String, partsImageStrings: [Category: String]) {
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem
         self.parts = parts
         self.depth = depth
+        self.mainImageString = mainImageString
+        self.partsImageStrings = partsImageStrings
     }
 }

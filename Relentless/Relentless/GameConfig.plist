@@ -164,8 +164,11 @@
 					</dict>
 				</array>
 			</array>
-			<key>imageString</key>
-			<string>placeholder</string>
+			<key>stateImageStrings</key>
+			<array>
+				<string>stateZeroImage</string>
+				<string>stateOneImage</string>
+			</array>
 		</dict>
 	</array>
 	<key>assembledItems</key>
@@ -185,6 +188,17 @@
 			<true/>
 			<key>depth</key>
 			<integer>0</integer>
+			<key>mainImageString</key>
+			<string>toyCarImage</string>
+			<key>partsImageStrings</key>
+			<dict>
+				<key>carBody</key>
+				<string>toyCarCarBodyImage</string>
+				<key>batter</key>
+				<string>toyCarBatteryImage</string>
+				<key>wheel</key>
+				<string>toyCarWheelImage</string>
+			</dict>
 		</dict>
 	</array>
 </dict>

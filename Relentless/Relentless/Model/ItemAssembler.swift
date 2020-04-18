@@ -22,8 +22,9 @@ class ItemAssembler {
     private static func createItem(parts: [Item], assembledItemCategory: Category) throws ->
         AssembledItem {
         assert(!parts.isEmpty)
+            // TODO: get main image string and parts image strings
             return AssembledItem(parts: parts, category: assembledItemCategory,
-                                 imageString: ItemAssembler.imageString)
+                                 mainImageString: ItemAssembler.imageString, partsImageStrings: [:])
     }
 
 //    private static func checkIfHasCorrectNumberOfParts(parts: [Item],

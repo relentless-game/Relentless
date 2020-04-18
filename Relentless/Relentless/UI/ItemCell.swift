@@ -152,7 +152,7 @@ class ItemCell: UICollectionViewCell {
         guard let car = item as? AssembledItem else {
             return
         }
-        let imageString = car.imageString
+        let imageString = car.mainImageString
         background.image = UIImage(named: imageString)
     }
 

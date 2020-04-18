@@ -105,7 +105,7 @@
 		F319B343241DE575005E3129 /* OrdersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B342241DE575005E3129 /* OrdersAdapter.swift */; };
 		F33939562443092E008BE07D /* ConfigParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33939552443092E008BE07D /* ConfigParser.swift */; };
 		F3393958244309E7008BE07D /* GameConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F3393957244309E7008BE07D /* GameConfig.plist */; };
-		F339395A244319FD008BE07D /* ConfigParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3393959244319FD008BE07D /* ConfigParserTests.swift */; };
+		F339395A244319FD008BE07D /* ItemSpecificationsParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3393959244319FD008BE07D /* ItemSpecificationsParserTests.swift */; };
 		F339395E24455E11008BE07D /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F339395D24455E11008BE07D /* ItemType.swift */; };
 		F3BF7EE32421CF6300A50EE3 /* JoinGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */; };
 		F3BF7EE52422699200A50EE3 /* NotificationNameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BF7EE42422699200A50EE3 /* NotificationNameExtension.swift */; };
@@ -272,7 +272,7 @@
 		F319B342241DE575005E3129 /* OrdersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAdapter.swift; sourceTree = "<group>"; };
 		F33939552443092E008BE07D /* ConfigParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigParser.swift; sourceTree = "<group>"; };
 		F3393957244309E7008BE07D /* GameConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GameConfig.plist; sourceTree = "<group>"; };
-		F3393959244319FD008BE07D /* ConfigParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigParserTests.swift; sourceTree = "<group>"; };
+		F3393959244319FD008BE07D /* ItemSpecificationsParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSpecificationsParserTests.swift; sourceTree = "<group>"; };
 		F339395B24455A7E008BE07D /* PackageItemsLimitGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageItemsLimitGenerator.swift; sourceTree = "<group>"; };
 		F339395D24455E11008BE07D /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 		F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameError.swift; sourceTree = "<group>"; };
@@ -614,7 +614,7 @@
 		F3C37C0F24189F5500D7109B /* RelentlessTests */ = {
 			isa = PBXGroup;
 			children = (
-				F3393959244319FD008BE07D /* ConfigParserTests.swift */,
+				F3393959244319FD008BE07D /* ItemSpecificationsParserTests.swift */,
 				F3BF7F1E24275EF900A50EE3 /* ItemsAdapterTests.swift */,
 				F3BF7F1C24275EF900A50EE3 /* OrdersAdapterTests.swift */,
 				F3BF7F1D24275EF900A50EE3 /* PackageAdapterTests.swift */,
@@ -1019,7 +1019,7 @@
 				0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
 				F3BF7F2124275EF900A50EE3 /* ItemsAdapterTests.swift in Sources */,
 				F3BF7F2024275EF900A50EE3 /* PackageAdapterTests.swift in Sources */,
-				F339395A244319FD008BE07D /* ConfigParserTests.swift in Sources */,
+				F339395A244319FD008BE07D /* ItemSpecificationsParserTests.swift in Sources */,
 				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
 				0B385B81241CDCC300FC2850 /* TitledItemTests.swift in Sources */,
 				0B09CA48242F53C200F29648 /* ToyCarWheelTests.swift in Sources */,

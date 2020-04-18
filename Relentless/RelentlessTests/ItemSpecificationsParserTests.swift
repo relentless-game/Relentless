@@ -70,6 +70,53 @@ class ItemSpecificationsParserTests: XCTestCase {
         
     }
     
+    func testGetTitledItems() throws {
+        let actualResult = ItemSpecificationsParser.getTitledItems()
+        
+        // books
+        let bookCategory = Category(name: "book")
+        let actualBooks = actualResult[bookCategory]!
+        let book1 = TitledItem(name: "The title of the book is", category: bookCategory,
+                               isInventoryItem: true, isOrderItem: true,
+                               imageString: "bookImage")
+        let book2 = TitledItem(name: "The book title is title is", category: bookCategory,
+                               isInventoryItem: true, isOrderItem: true,
+                               imageString: "bookImage")
+        let book3 = TitledItem(name: "The book title", category: bookCategory,
+                               isInventoryItem: true, isOrderItem: true,
+                               imageString: "bookImage")
+        let book4 = TitledItem(name: "Is the book title", category: bookCategory,
+                               isInventoryItem: true, isOrderItem: true,
+                               imageString: "bookImage")
+        let expectedBooks = Set<[TitledItem]>([[book1, book2], [book3, book4]])
+        XCTAssertEqual(actualBooks, expectedBooks)
+        
+        // magazines
+        let magazineCategory = Category(name: "magazine")
+        let actualMagazines = actualResult[magazineCategory]!
+        let magazine1 = TitledItem(name: "By", category: magazineCategory,
+                                   isInventoryItem: true, isOrderItem: true,
+                                   imageString: "magazineImage")
+        let magazine2 = TitledItem(name: "Buy", category: magazineCategory,
+                                   isInventoryItem: true, isOrderItem: true,
+                                   imageString: "magazineImage")
+        let magazine3 = TitledItem(name: "Be", category: magazineCategory,
+                                   isInventoryItem: true, isOrderItem: true,
+                                   imageString: "magazineImage")
+        let magazine4 = TitledItem(name: "Bee", category: magazineCategory,
+                                   isInventoryItem: true, isOrderItem: true,
+                                   imageString: "magazineImage")
+        let expectedMagazines = Set<[TitledItem]>([[magazine1, magazine2], [magazine3, magazine4]])
+        XCTAssertEqual(actualMagazines, expectedMagazines)
+    }
+    
+    func testGetRhythmicItems() throws {
+        let actualResult = ItemSpecificationsParser.getRhythmicItems()
+        
+        // robots
+        
+    }
+    
     func testPermuteParts() throws {
         let category1 = Category(name: "book")
         let category2 = Category(name: "wheel")

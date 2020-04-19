@@ -88,23 +88,26 @@ extension GameControllerManager {
 
     /// Assigns orders to houses and sets the houses in Game to this new list of houses
     internal func initialiseHouses(with orders: [Order]) {
-        let numOfHouses = GameParameters.defaultNumberOfHouses
-       var splitOrders = [[Order]]()
-       for _ in 1...numOfHouses {
+        guard let parameters = gameParameters else {
+            return
+        }
+        let numOfHouses = parameters.numOfHouses
+        var splitOrders = [[Order]]()
+        for _ in 1...numOfHouses {
            splitOrders.append([])
-       }
-       for i in 0..<orders.count {
+        }
+        for i in 0..<orders.count {
            splitOrders[i % numOfHouses].append(orders[i])
-       }
-       var houses = [House]()
-       for orders in splitOrders {
-           let satisfactionFactor = Float.random(in: GameParameters.houseSatisfactionFactorRange)
+        }
+        var houses = [House]()
+        for orders in splitOrders {
+           let satisfactionFactor = Float.random(in: parameters.houseSatisfactionFactorRange)
            for order in orders {
                let originalTimeLimit = order.timeLimit
                order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
            }
            houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
-       }
-       game?.houses = houses
+        }
+        game?.houses = houses
    }
 }

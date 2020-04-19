@@ -36,7 +36,7 @@ extension CategoryViewController: UICollectionViewDataSource {
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoryCellIdentifier, for: indexPath)
         if let categoryCell = cell as? CategoryCell,
-            let name = categories?[indexPath.row].toString() {
+            let name = categories?[indexPath.row].categoryName {
             categoryCell.setText(to: name)
         }
         return cell

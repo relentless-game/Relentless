@@ -14,13 +14,17 @@ class CategoryGenerator: GameCategoryGenerator {
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
     var numOfCategories: Int
-    let allCategories: [Category]
+    let categoryToGroupsMapping: [Category: Set<[Item]>]
+    var allCategories: [Category] {
+        Array(categoryToGroupsMapping.keys)
+    }
 
-    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int, allCategories: [Category]) {
+    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int,
+         categoryToGroupsMapping: [Category: Set<[Item]>]) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
         self.numOfCategories = numOfCategories
-        self.allCategories = allCategories
+        self.categoryToGroupsMapping = categoryToGroupsMapping
     }
 
     func generateCategories() -> [Category] {
@@ -37,10 +41,23 @@ class CategoryGenerator: GameCategoryGenerator {
         // choose unique random categories
         while categories.count < numOfCategories {
             let index = Int.random(in: generationRange)
+            let selectedCategory = allCategories[index]
+            let hasNoOrderItems = checkHasNoOrderItems(in: selectedCategory)
+            if hasNoOrderItems {
+                continue
+            }
             categories.insert(allCategories[index])
         }
         
         return Array(categories)
+    }
+
+    private func checkHasNoOrderItems(in category: Category) -> Bool {
+        guard let groupsInCategory = categoryToGroupsMapping[category] else {
+            return true
+        }
+        let itemsInCategory = Array(groupsInCategory).flatMap { $0 }
+        return !itemsInCategory.contains(where: { $0.isOrderItem })
     }
 
 }

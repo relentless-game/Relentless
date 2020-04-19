@@ -139,6 +139,7 @@ class GameControllerManager: GameController {
         guard let parameters = gameParameters else {
             return
         }
+        game?.resetForNewRound()
         parameters.incrementDifficulty()
 
         guard let gameId = gameId, let userId = userId else {
@@ -305,7 +306,6 @@ class GameControllerManager: GameController {
         guard let parameters = gameParameters else {
             return
         }
-        game?.resetForNewRound()
         satisfactionBar.reset()
         roundTimeLeft = parameters.roundTime
         startRoundTimer()

@@ -64,10 +64,13 @@ class GameControllerManager: GameController {
     // properties for local storage
     var localStorage: LocalStorage = LocalStorageManager()
     
+    var itemSpecifications: ItemSpecifications
+    
     init(userId: String, gameParameters: GameParameters?) {
         self.userId = userId
         self.gameParameters = gameParameters
         self.isHost = false
+        self.itemSpecifications = ItemSpecificationsParser.parse()
         self.satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
         addObservers()
     }

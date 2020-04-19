@@ -33,7 +33,8 @@ class GameHostParameters: GameParameters {
     /// For item generation
     var numOfCategories: Int {
         let difficultyFraction = difficultyLevel / GameParameters.difficultyRange.upperBound
-        let numberOfCategories = Category.allCases.count
+        // TODO: fix this. put 5 here as a place holder for now
+        let numberOfCategories = 5 //Category.allCases.count
         let defaultValue = Int((Float(numberOfCategories) * difficultyFraction).rounded(.up))
         return numOfCategoriesExpression?(varDict) ?? defaultValue
     }

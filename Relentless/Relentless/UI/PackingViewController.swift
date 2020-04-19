@@ -190,7 +190,7 @@ class PackingViewController: UIViewController {
     }
 
     func reloadCategoryButton() {
-        categoryButton.setTitle(currentCategory?.toString(), for: .normal)
+        categoryButton.setTitle(currentCategory?.categoryName, for: .normal)
     }
 
     func attachLongPressToPackages() {

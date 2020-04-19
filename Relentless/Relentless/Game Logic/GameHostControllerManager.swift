@@ -9,7 +9,7 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
-    var itemSpecifications: ItemSpecifications
+    //var itemSpecifications: ItemSpecifications
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }
@@ -22,7 +22,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     var eventTimer = Timer()
 
     init(userId: String, gameHostParameters: GameHostParameters) {
-        self.itemSpecifications = ItemSpecificationsParser.parse()
         super.init(userId: userId, gameParameters: gameHostParameters)
         isHost = true
         self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(gameHostParameters.roundTime / 2),
@@ -38,7 +37,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
                                        difficultyLevel: parameters.difficultyLevel,
                                        numOfPairsPerCategory: parameters.numOfGroupsPerCategory,
-                                       itemSpecifications: itemSpecifications)
+                                       itemSpecifications: super.itemSpecifications)
         itemsAllocator = ItemsAllocator()
         ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
                                           maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
@@ -211,7 +210,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
-                                                  numOfCategories: parameters.numOfCategories)
+                                                  numOfCategories: parameters.numOfCategories,
+                                                  allCategories: super.itemSpecifications.allCategories)
         return categoryGenerator.generateCategories()
     }
 

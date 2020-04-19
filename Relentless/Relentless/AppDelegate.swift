@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        _ = ConfigNetworkManager.sharedInstance
         // for anonymous authentication
         Auth.auth().signInAnonymously { authResult, _ in
             guard let user = authResult?.user else {

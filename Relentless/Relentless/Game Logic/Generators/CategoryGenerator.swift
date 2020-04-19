@@ -14,15 +14,17 @@ class CategoryGenerator: GameCategoryGenerator {
     var numberOfPlayers: Int
     var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
     var numOfCategories: Int
+    let allCategories: [Category]
 
-    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int) {
+    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int, allCategories: [Category]) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
         self.numOfCategories = numOfCategories
+        self.allCategories = allCategories
     }
 
     func generateCategories() -> [Category] {
-        let allCategories = Category.allCases
+        //let allCategories = Category.allCases
 
         // if number of categories is less than required, just return all available categories
         if allCategories.count < numOfCategories {

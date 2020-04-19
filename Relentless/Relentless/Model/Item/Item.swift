@@ -10,22 +10,22 @@ import Foundation
 
 class Item: Hashable, Codable {
 
+    var itemType: ItemType
     var category: Category
     var isInventoryItem: Bool
     var isOrderItem: Bool
-    let imageString: String
 
-    init(category: Category, isInventoryItem: Bool, isOrderItem: Bool, imageString: String) {
+    init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool) {
+        self.itemType = itemType
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem
-        self.imageString = imageString
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {
         let isSameTypeOfItem = lhs.category == rhs.category &&
             lhs.isInventoryItem == rhs.isInventoryItem &&
-            lhs.isOrderItem == rhs.isInventoryItem
+            lhs.isOrderItem == rhs.isOrderItem
         if !isSameTypeOfItem {
             return false
         }
@@ -54,13 +54,12 @@ extension Item: Comparable {
     
     /// Items are first sorted by category and then sorted within each category
     static func < (lhs: Item, rhs: Item) -> Bool {
-        if lhs.category.rawValue < rhs.category.rawValue {
+        if lhs.category.categoryName < rhs.category.categoryName {
             return true
-        } else if lhs.category.rawValue > rhs.category.rawValue {
+        } else if lhs.category.categoryName > rhs.category.categoryName {
             return false
         } else {
             return lhs.isLessThan(other: rhs)
         }
     }
-    
 }

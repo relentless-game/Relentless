@@ -9,6 +9,9 @@
 import Foundation
 
 class AssembledItem: Item {
+    let mainImageString: String
+    let partsImageStrings: [Category: String]
+    
     internal var unsortedParts: [Item] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
@@ -20,25 +23,30 @@ class AssembledItem: Item {
     }
 
     init(parts: [Item], category: Category, isInventoryItem: Bool,
-         isOrderItem: Bool, imageString: String) {
+         isOrderItem: Bool, mainImageString: String, partsImageStrings: [Category: String]) {
         self.unsortedParts = parts.sorted()
-        super.init(category: category, isInventoryItem: isInventoryItem,
-                   isOrderItem: isOrderItem, imageString: imageString)
+        self.mainImageString = mainImageString
+        self.partsImageStrings = partsImageStrings
+        super.init(itemType: .assembledItem, category: category,
+                   isInventoryItem: isInventoryItem, isOrderItem: isOrderItem)
     }
 
     // To be called by ItemAssembler
-    init(parts: [Item], category: Category, imageString: String) {
+    init(parts: [Item], category: Category, mainImageString: String, partsImageStrings: [Category: String]) {
         self.unsortedParts = parts
+        self.mainImageString = mainImageString
+        self.partsImageStrings = partsImageStrings
         // Set to false as item is assembled by user
-        super.init(category: category, isInventoryItem: false,
-                   isOrderItem: false, imageString: imageString)
+        super.init(itemType: .assembledItem, category: category,
+                   isInventoryItem: false, isOrderItem: false)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AssembledItemKeys.self)
         let partsObject = try container.decode(ItemFactory.self, forKey: .parts)
         self.unsortedParts = partsObject.items
-
+        self.mainImageString = try container.decode(String.self, forKey: .mainImageString)
+        self.partsImageStrings = try container.decode([Category: String].self, forKey: .partsImageStrings)
         try super.init(from: decoder)
     }
 
@@ -46,6 +54,8 @@ class AssembledItem: Item {
         var container = encoder.container(keyedBy: AssembledItemKeys.self)
         let itemFactoryWrapper = ItemFactory(items: unsortedParts)
         try container.encode(itemFactoryWrapper, forKey: .parts)
+        try container.encode(mainImageString, forKey: .mainImageString)
+        try container.encode(partsImageStrings, forKey: .partsImageStrings)
         try super.encode(to: encoder)
     }
 
@@ -59,30 +69,6 @@ class AssembledItem: Item {
         }
         unsortedParts.remove(at: partIndex)
     }
-
-//    func toImageString() -> String {
-//        var colour: Colour?
-//        var label: Label?
-//        var shape: Shape?
-//        for part in unsortedParts {
-//            switch part.partType {
-//            case .toyCarBattery:
-//                label = (part as? ToyCarBattery)?.label
-//            case .toyCarBody:
-//                colour = (part as? ToyCarBody)?.colour
-//            case .toyCarWheel:
-//                shape = (part as? ToyCarWheel)?.shape
-//            case .partContainer:
-//                assert(false)
-//            }
-//        }
-//        guard colour != nil, label != nil, shape != nil else {
-//            return ""
-//        }
-//        // Force as all are not nil
-//        let string = "toycar_whole_\(colour!.toString())_\(shape!.toString())_\(label!.toString())"
-//        return string
-//    }
 
     /// Other item should be of type AssembledItem and should have the same category as this object
     override func isLessThan(other: Item) -> Bool {
@@ -132,9 +118,10 @@ class AssembledItem: Item {
         return self.category == otherItem.category &&
             self.parts == otherItem.parts
     }
-
 }
 
 enum AssembledItemKeys: CodingKey {
     case parts
+    case mainImageString
+    case partsImageStrings
 }

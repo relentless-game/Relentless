@@ -9,7 +9,6 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
-    //var itemSpecifications: ItemSpecifications
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }
@@ -72,14 +71,13 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             self.joinGame(gameId: gameId, userName: username, avatar: avatar)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
-        initialiseGeneratorAndAllocators()
     }
 
     func startGame() {
         guard let gameId = gameId, let gameParameters = gameParameters else {
             return
         }
-        
+
         // If usernames are not unique, do not start the game
         guard areUsernamesUnique() else {
             handleUnsuccessfulStart(error: .nonUniqueUsernames)
@@ -98,6 +96,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             if let error = error {
                 self.handleUnsuccessfulStart(error: error)
             }
+            self.initialiseGeneratorAndAllocators()
         })
     }
 
@@ -211,7 +210,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
                                                   numOfCategories: parameters.numOfCategories,
-                                                  allCategories: super.itemSpecifications.allCategories)
+                                                  categoryToGroupsMapping: super.itemSpecifications.availableGroupsOfItems)
         return categoryGenerator.generateCategories()
     }
 
@@ -221,8 +220,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
-                                                                    probabilityOfHavingLimit:
-                                                                        parameters.probOfHavingPackageLimit)
+                                                                    probabilityOfHavingLimit: parameters.probOfHavingPackageLimit)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 

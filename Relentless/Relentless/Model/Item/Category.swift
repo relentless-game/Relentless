@@ -22,11 +22,3 @@ extension Category: Comparable {
         lhs.categoryName.lexicographicallyPrecedes(rhs.categoryName)
     }
 }
-
-enum CategoryKeys: CodingKey {
-    case category
-}
-
-enum CategoryError: Error {
-    case unknownValue
-}

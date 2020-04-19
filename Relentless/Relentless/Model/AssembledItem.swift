@@ -9,7 +9,6 @@
 import Foundation
 
 class AssembledItem: Item {
-    
     let mainImageString: String
     let partsImageStrings: [Category: String]
     
@@ -48,7 +47,6 @@ class AssembledItem: Item {
         self.unsortedParts = partsObject.items
         self.mainImageString = try container.decode(String.self, forKey: .mainImageString)
         self.partsImageStrings = try container.decode([Category: String].self, forKey: .partsImageStrings)
-        
         try super.init(from: decoder)
     }
 
@@ -58,7 +56,6 @@ class AssembledItem: Item {
         try container.encode(itemFactoryWrapper, forKey: .parts)
         try container.encode(mainImageString, forKey: .mainImageString)
         try container.encode(partsImageStrings, forKey: .partsImageStrings)
-        
         try super.encode(to: encoder)
     }
 
@@ -121,7 +118,6 @@ class AssembledItem: Item {
         return self.category == otherItem.category &&
             self.parts == otherItem.parts
     }
-
 }
 
 enum AssembledItemKeys: CodingKey {

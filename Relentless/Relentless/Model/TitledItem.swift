@@ -9,10 +9,10 @@
 import Foundation
 
 class TitledItem: Item {
-    
+
     var name: String
     let imageString: String
-    
+
     init(name: String, category: Category, isInventoryItem: Bool,
          isOrderItem: Bool, imageString: String) {
         self.name = name
@@ -51,7 +51,7 @@ class TitledItem: Item {
         hasher.combine(category)
         hasher.combine(name)
     }
-    
+
     override func toString() -> String {
         name
     }

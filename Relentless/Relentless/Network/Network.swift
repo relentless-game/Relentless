@@ -9,6 +9,7 @@
 import Foundation
 
 protocol Network {
+
     /// This is for the host to start a game. `completion` is called when the game is created
     /// and takes in the game ID created.
     func createGame(completion: @escaping (Int) -> Void)
@@ -131,4 +132,13 @@ protocol Network {
 
     /// Notifies the player of the game parameters for the game
     func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void)
+
+    /// Notifies non-host player to give them their item specifications for this round.
+    /// `action` is called upon receiving the item specifications.
+    func attachItemSpecificationsListener(userId: String, gameId: Int,
+                                          action: @escaping (RoundItemSpecifications) -> Void)
+
+    /// Sends the round item specifications to all players in the game
+    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: RoundItemSpecifications)
+
 }

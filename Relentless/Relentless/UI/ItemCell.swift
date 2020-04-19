@@ -66,19 +66,27 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setTextFor(item: Item) {
-        textLabel.text = item.toDisplayString()
+        textLabel.text = item.toString()
     }
 
     func setBackgroundFor(item: Item) {
-        switch item.category {
-        case .book:
+        switch item.category.categoryName {
+        case "book":
             setBookBackgroundFor(item: item)
-        case .magazine:
+        case "magazine":
             setMagazineBackgroundFor(item: item)
-        case .robot:
+        case "robot":
             setRobotBackgroundFor(item: item)
-        case .toyCar:
+        case "toyCar":
             setToyCarBackgroundFor(item: item)
+        case "wheel":
+            setToyCarWheelBackgroundFor(item: item)
+        case "battery":
+            setToyCarBatteryBackgroundFor(item: item)
+        case "carBody":
+            setToyCarBodyBackgroundFor(item: item)
+        default:
+            assertionFailure()
         }
     }
 
@@ -95,7 +103,7 @@ class ItemCell: UICollectionViewCell {
             let unlitRobotImage = ItemCell.unlitRobotImage else {
                 return
         }
-        if let robot = item as? Robot {
+        if let robot = item as? RhythmicItem {
             background.animationDuration = TimeInterval(robot.unitDuration)
             var images = [UIImage]()
             for state in robot.stateSequence {
@@ -111,65 +119,73 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setToyCarBackgroundFor(item: Item) {
-        if let car = item as? Part {
-            switch car.partType {
-            case .toyCarBattery:
-                if let battery = car as? ToyCarBattery {
-                    setToyCarBatteryBackgroundFor(battery: battery)
-                }
-
-            case .toyCarBody:
-                if let body = car as? ToyCarBody {
-                    setToyCarBodyBackgroundFor(body: body)
-                }
-
-            case .toyCarWheel:
-                if let wheel = car as? ToyCarWheel {
-                    setToyCarWheelBackgroundFor(wheel: wheel)
-                }
-
-            case .partContainer:
-                assert(false)
-            }
-        }
-        if let car = item as? ToyCar {
-            setToyCarWholeBackgroundFor(car: car)
-        }
+//        if let car = item as? Part {
+//            switch car.partType {
+//            case .toyCarBattery:
+//                if let battery = car as? ToyCarBattery {
+//                    setToyCarBatteryBackgroundFor(battery: battery)
+//                }
+//
+//            case .toyCarBody:
+//                if let body = car as? ToyCarBody {
+//                    setToyCarBodyBackgroundFor(body: body)
+//                }
+//
+//            case .toyCarWheel:
+//                if let wheel = car as? ToyCarWheel {
+//                    setToyCarWheelBackgroundFor(wheel: wheel)
+//                }
+//
+//            case .partContainer:
+//                assert(false)
+//            }
+//        }
+//        if let car = item as? ToyCar {
+            setToyCarWholeBackgroundFor(item: item)
+//        }
     }
 
-    func setToyCarWholeBackgroundFor(car: ToyCar) {
-        let imageString = car.toImageString()
+    func setToyCarWholeBackgroundFor(item: Item) {
+        if item.category.categoryName != "toyCar" {
+            return
+        }
+        guard let car = item as? AssembledItem else {
+            return
+        }
+        let imageString = car.mainImageString
         background.image = UIImage(named: imageString)
     }
 
-    func setToyCarBatteryBackgroundFor(battery: ToyCarBattery) {
-        switch battery.label {
-        case .aa:
-            background.image = ItemCell.carBatteryAAImage
-        case .d:
-            background.image = ItemCell.carBatteryDImage
-        case .pp3:
+    func setToyCarBatteryBackgroundFor(item: Item) {
+//        switch battery.label {
+//        case .aa:
+//            background.image = ItemCell.carBatteryAAImage
+//        case .d:
+//            background.image = ItemCell.carBatteryDImage
+//        case .pp3:
             background.image = ItemCell.carBatteryPP3Image
-        }
+//        }
     }
-    func setToyCarBodyBackgroundFor(body: ToyCarBody) {
-        switch body.colour {
-        case .red:
-            background.image = ItemCell.carBodyRedImage
-        case .green:
-            background.image = ItemCell.carBodyGreenImage
-        case .blue:
+
+    func setToyCarBodyBackgroundFor(item: Item) {
+//        switch body.colour {
+//        case .red:
+//            background.image = ItemCell.carBodyRedImage
+//        case .green:
+//            background.image = ItemCell.carBodyGreenImage
+//        case .blue:
             background.image = ItemCell.carBodyBlueImage
-        }
+//        }
     }
-    func setToyCarWheelBackgroundFor(wheel: ToyCarWheel) {
-        switch wheel.shape {
-        case .circle:
-            background.image = ItemCell.carWheelCircleImage
-        case .square:
-            background.image = ItemCell.carWheelSquareImage
-        case .triangle:
+    
+    func setToyCarWheelBackgroundFor(item: Item) {
+//        switch wheel.shape {
+//        case .circle:
+//            background.image = ItemCell.carWheelCircleImage
+//        case .square:
+//            background.image = ItemCell.carWheelSquareImage
+//        case .triangle:
             background.image = ItemCell.carWheelTriangleImage
-        }
+//        }
     }
 }

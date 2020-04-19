@@ -10,6 +10,7 @@ import Foundation
 
 protocol GameItemGenerator {
 
-    func generate() -> [Item]
+    /// Generates the items and returns an array of inventory items and an array of order items
+    func generate(categories: [Category]) -> ([Item], [Item])
 
 }

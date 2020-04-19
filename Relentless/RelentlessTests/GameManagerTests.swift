@@ -14,8 +14,8 @@ class GameManagerTests: XCTestCase {
     let userId = "userId"
     let userName = "username"
     let profileImage = PlayerAvatar.red
-    let package1 = Package(creator: "user", packageNumber: 1, items: [], itemsLimit: 5)
-    let package2 = Package(creator: "creator", packageNumber: 2, items: [], itemsLimit: 5)
+    let package1 = Package(creator: "user", creatorAvatar: .blue, packageNumber: 1, items: [], itemsLimit: 5)
+    let package2 = Package(creator: "creator", creatorAvatar: .blue, packageNumber: 2, items: [], itemsLimit: 5)
     var gameManager: GameManager!
 
     override func setUp() {
@@ -60,7 +60,8 @@ class GameManagerTests: XCTestCase {
 
     func testRemovePackage_packageDoesNotExist() {
         gameManager.addPackage(package: package1)
-        let package = Package(creator: "creator", packageNumber: 2, items: [Item](), itemsLimit: 5)
+        let package = Package(creator: "creator", creatorAvatar: .blue,
+                              packageNumber: 2, items: [Item](), itemsLimit: 5)
         gameManager.removePackage(package: package)
         XCTAssertEqual(gameManager.packages.count, 1)
     }

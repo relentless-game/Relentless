@@ -14,12 +14,12 @@ class NetworkManager: Network {
     var numOfPlayersRange: ClosedRange<Int>
 
     private var ref: DatabaseReference!
-
+    
     init(numOfPlayersRange: ClosedRange<Int>) {
         ref = Database.database().reference()
         self.numOfPlayersRange = numOfPlayersRange
     }
-    
+
     func createGame(completion: @escaping (Int) -> Void) {
         ref.child("gameIdsTaken").observeSingleEvent(of: .value) { snapshot in
             var gameIdsTaken = [Int]()
@@ -411,5 +411,24 @@ class NetworkManager: Network {
             let difficultyLevel = snapshot.value as? Float ?? 1.0
             action(difficultyLevel)
         })
+    }
+
+    func attachItemSpecificationsListener(userId: String, gameId: Int,
+                                          action: @escaping (RoundItemSpecifications) -> Void) {
+        let path = "games/\(gameId)/roundItemSpecifications"
+        _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
+            let roundItemSpecsString = snapshot.value as? String ?? ""
+            if let roundItemSpecs = RoundItemSpecifications.decodeFromString(string: roundItemSpecsString) {
+                action(roundItemSpecs)
+            }
+        })
+    }
+
+    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: RoundItemSpecifications) {
+        let path = "games/\(gameId)/roundItemSpecifications"
+        guard let roundItemSpecs = roundItemSpecification.encodeToString() else {
+            return
+        }
+        ref.child(path).setValue(roundItemSpecs)
     }
 }

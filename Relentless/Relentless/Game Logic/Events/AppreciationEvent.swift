@@ -23,12 +23,12 @@ class AppreciationEvent: Event {
     }
 
     func increaseSatisfactionChange() {
-        GameParameters.defaultSatisfactionChange += satisfactionIncrease
+        // GameParameters.defaultSatisfactionChange += satisfactionIncrease
     }
 
     @objc
     func resetSatisfactionChange() {
-        GameParameters.defaultSatisfactionChange -= satisfactionIncrease
+        // GameParameters.defaultSatisfactionChange -= satisfactionIncrease
     }
 
 }

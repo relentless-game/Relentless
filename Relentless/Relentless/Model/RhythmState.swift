@@ -12,7 +12,7 @@ enum RhythmState: String, Codable, Comparable {
 
     case lit
     case unlit
-
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: RhythmStateKeys.self)
         let rawValue = try container.decode(String.self, forKey: .rhythmState)

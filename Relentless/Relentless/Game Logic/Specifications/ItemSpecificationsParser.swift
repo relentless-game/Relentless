@@ -11,43 +11,66 @@ import Foundation
 class ItemSpecificationsParser {
     static let plistFileName = "GameConfig"
     
+    // String key constants
+    static let statefulItemsKey = "statefulItems"
+    static let titledItemsKey = "titledItems"
+    static let rhythmicItemsKey = "rhythmicItems"
+    static let assembledItemsKey = "assembledItems"
+    static let categoryKey = "category"
+    static let isInventoryItemKey = "isInventoryItem"
+    static let isOrderItemKey = "isOrderItem"
+    static let stateIdentifiersKey = "stateIdentifiers"
+    static let stateImageStringsKey = "stateImageStrings"
+    static let titlesKey = "titles"
+    static let imageStringKey = "imageString"
+    static let itemGroupsKey = "itemGroups"
+    static let unitDurationKey = "unitDuration"
+    static let stateSequenceKey = "stateSequence"
+    static let partsKey = "parts"
+    static let depthKey = "depth"
+    static let mainImageStringKey = "mainImageString"
+    static let partsImageStringsKey = "partsImageStrings"
+    
     static func parse() -> ItemSpecifications {
+        let itemsDict: NSDictionary!
+        do {
+            itemsDict = try getPlist(from: plistFileName)
+        } catch {
+            itemsDict = [:]
+            assertionFailure("Loading Plist failed.")
+        }
         
         // 1. get available items
-        let availableStatefulItems = getStatefulItems()
-        let availableTitledItems = getTitledItems()
-        let availableRhythmicItems = getRhythmicItems()
+        let availableStatefulItems = getStatefulItems(dict: itemsDict)
+        let availableTitledItems = getTitledItems(dict: itemsDict)
+        let availableRhythmicItems = getRhythmicItems(dict: itemsDict)
         
         var availableItems: [Category: Set<[Item]>] = [:]
         availableItems.merge(availableStatefulItems) { current, _ in current } // keeps current during merging
         availableItems.merge(availableTitledItems) { current, _ in current }
         availableItems.merge(availableRhythmicItems) { current, _ in current }
         
-        let availableAssembledItems = getAssembledItems(availableAtomicItems: availableItems)
+        let availableAssembledItems = getAssembledItems(dict: itemsDict, availableAtomicItems: availableItems)
         availableItems.merge(availableAssembledItems) { current, _ in current }
 
         // 2. get stateful items identifier mappings
-        let itemIdentifierMappings = getStateIdentifierMappings()
+        let itemIdentifierMappings = getStateIdentifierMappings(dict: itemsDict)
         
         // 3. get partsToAssembledItemCategoryMapping
-        let partsToAssembledItemCategoryMapping = getPartsToAssembledItemCategoryMapping()
+        let partsToAssembledItemCategoryMapping = getPartsToAssembledItemCategoryMapping(dict: itemsDict)
     
         return ItemSpecifications(availableGroupsOfItems: availableItems,
                                   itemIdentifierMappings: itemIdentifierMappings,
                                   partsToAssembledItemCategoryMapping: partsToAssembledItemCategoryMapping)
     }
     
-    static func getStateIdentifierMappings() -> [Category: [Int: String]] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let statefulCategories = dict.value(forKey: "statefulItems") as? [NSDictionary] ?? []
+    static func getStateIdentifierMappings(dict: NSDictionary) -> [Category: [Int: String]] {
+        let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
         var allMappings: [Category: [Int: String]] = [:]
         for categoryDict in statefulCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
             let category = Category(name: categoryName)
-            let stateIdentifiers = categoryDict.value(forKey: "stateIdentifiers") as? [String] ?? []
+            let stateIdentifiers = categoryDict.value(forKey: stateIdentifiersKey) as? [String] ?? []
             
             // convert into a [Int: String] dictionary
             var mapping: [Int: String] = [:]
@@ -62,18 +85,14 @@ class ItemSpecificationsParser {
         return allMappings
     }
     
-    static func getStatefulItems() -> [Category: Set<[StatefulItem]>] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let statefulCategories = dict.value(forKey: "statefulItems") as? [NSDictionary] ?? []
+    static func getStatefulItems(dict: NSDictionary) -> [Category: Set<[StatefulItem]>] {
+        let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
         var allStatefulItems: [Category: Set<[StatefulItem]>] = [:]
         for categoryDict in statefulCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
-            let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
-            let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
-            let stateImageStrings = categoryDict.value(forKey: "stateImageStrings") as? [String] ?? []
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+            let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
+            let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
+            let stateImageStrings = categoryDict.value(forKey: stateImageStringsKey) as? [String] ?? []
             
             let items = convertCategoryToStatefulItems(categoryName: categoryName, isInventoryItem: isInventoryItem,
                                                        isOrderItem: isOrderItem, stateImageStrings: stateImageStrings)
@@ -101,19 +120,15 @@ class ItemSpecificationsParser {
         return statefulItems
     }
     
-    static func getTitledItems() -> [Category: Set<[TitledItem]>] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let titledCategories = dict.value(forKey: "titledItems") as? [NSDictionary] ?? []
+    static func getTitledItems(dict: NSDictionary) -> [Category: Set<[TitledItem]>] {
+        let titledCategories = dict.value(forKey: titledItemsKey) as? [NSDictionary] ?? []
         var allTitledItems: [Category: Set<[TitledItem]>] = [:]
         for categoryDict in titledCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
-            let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
-            let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
-            let titlePairs = categoryDict.value(forKey: "titles") as? [[String]] ?? []
-            let imageString = categoryDict.value(forKey: "imageString") as? String ?? ""
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+            let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
+            let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
+            let titlePairs = categoryDict.value(forKey: titlesKey) as? [[String]] ?? []
+            let imageString = categoryDict.value(forKey: imageStringKey) as? String ?? ""
             
             let items = convertCategoryToTitledItems(categoryName: categoryName, isInventoryItem: isInventoryItem,
                                                      isOrderItem: isOrderItem, titleGroups: titlePairs,
@@ -145,19 +160,15 @@ class ItemSpecificationsParser {
         return result
     }
 
-    static func getRhythmicItems() -> [Category: Set<[RhythmicItem]>] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let rhythmicCategories = dict.value(forKey: "rhythmicItems") as? [NSDictionary] ?? []
+    static func getRhythmicItems(dict: NSDictionary) -> [Category: Set<[RhythmicItem]>] {
+        let rhythmicCategories = dict.value(forKey: rhythmicItemsKey) as? [NSDictionary] ?? []
         var allRhythmicItems: [Category: Set<[RhythmicItem]>] = [:]
         for categoryDict in rhythmicCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
-            let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
-            let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
-            let itemGroups = categoryDict.value(forKey: "itemGroups") as? [[NSDictionary]] ?? []
-            let stateImageStrings = categoryDict.value(forKey: "stateImageStrings") as? [String] ?? []
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+            let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
+            let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
+            let itemGroups = categoryDict.value(forKey: itemGroupsKey) as? [[NSDictionary]] ?? []
+            let stateImageStrings = categoryDict.value(forKey: stateImageStringsKey) as? [String] ?? []
             
             let items = convertCategoryToRhythmicItems(categoryName: categoryName, isInventoryItem: isInventoryItem,
                                                        isOrderItem: isOrderItem,
@@ -179,8 +190,8 @@ class ItemSpecificationsParser {
         for itemGroup in itemGroups {
             var itemGroupArray: [RhythmicItem] = []
             for rawItemDict in itemGroup {
-                let unitDuration = rawItemDict.value(forKey: "unitDuration") as? Int ?? 0
-                let rawStateSequence = rawItemDict.value(forKey: "stateSequence") as? [Int] ?? []
+                let unitDuration = rawItemDict.value(forKey: unitDurationKey) as? Int ?? 0
+                let rawStateSequence = rawItemDict.value(forKey: stateSequenceKey) as? [Int] ?? []
                 let stateSequence = convertIntArrayToRhythmStateArray(intArray: rawStateSequence)
                 
                 let item = RhythmicItem(unitDuration: unitDuration, stateSequence: stateSequence,
@@ -206,22 +217,19 @@ class ItemSpecificationsParser {
         return result
     }
     
-    static func getAssembledItems(availableAtomicItems: [Category: Set<[Item]>]) -> [Category: Set<[AssembledItem]>] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let assembledCategories = dict.value(forKey: "assembledItems") as? [NSDictionary] ?? []
+    static func getAssembledItems(dict: NSDictionary,
+                                  availableAtomicItems: [Category: Set<[Item]>]) -> [Category: Set<[AssembledItem]>] {
+        let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
         var intermediateItems: [IntermediateAssembledItem] = []
         for categoryDict in assembledCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
             let category = Category(name: categoryName)
-            let isInventoryItem = categoryDict.value(forKey: "isInventoryItem") as? Bool ?? false
-            let isOrderItem = categoryDict.value(forKey: "isOrderItem") as? Bool ?? false
-            let parts = categoryDict.value(forKey: "parts") as? [String] ?? []
-            let depth = categoryDict.value(forKey: "depth") as? Int ?? -1
-            let mainImageString = categoryDict.value(forKey: "mainImageString") as? String ?? ""
-            let rawPartsImageStrings = categoryDict.value(forKey: "partsImageStrings") as? [String: String] ?? [:]
+            let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
+            let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
+            let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
+            let depth = categoryDict.value(forKey: depthKey) as? Int ?? -1
+            let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
+            let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: String] ?? [:]
             var partsImageStrings: [Category: String] = [:]
             for (key, value) in rawPartsImageStrings {
                 partsImageStrings[Category(name: key)] = value
@@ -310,18 +318,14 @@ class ItemSpecificationsParser {
         return result
     }
     
-    private static func getPartsToAssembledItemCategoryMapping() -> [[Category]: Category] {
-        guard let dict = getPlist(from: plistFileName) else {
-            return [:]
-        }
-        
-        let assembledCategories = dict.value(forKey: "assembledItems") as? [NSDictionary] ?? []
+    private static func getPartsToAssembledItemCategoryMapping(dict: NSDictionary) -> [[Category]: Category] {
+        let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
         var mappings: [[Category]: Category] = [:]
         for categoryDict in assembledCategories {
-            let categoryName = categoryDict.value(forKey: "category") as? String ?? ""
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
             let category = Category(name: categoryName)
             
-            let parts = categoryDict.value(forKey: "parts") as? [String] ?? []
+            let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
             let CategoriesForParts = parts.map { Category(name: $0) }
             
             mappings[CategoriesForParts] = category
@@ -330,17 +334,18 @@ class ItemSpecificationsParser {
         return mappings
     }
     
-    static func getPlist(from fileName: String) -> NSDictionary? {
+    static func getPlist(from fileName: String) throws -> NSDictionary {
         if let path = Bundle.main.path(forResource: fileName, ofType: "plist"),
             let xml = FileManager.default.contents(atPath: path) {
-            let contents = (try? PropertyListSerialization.propertyList(from: xml,
-                                                                        options: .mutableContainersAndLeaves,
-                                                                        format: nil)) as? NSDictionary
-            
-            return contents
+            if let contents = (try? PropertyListSerialization.propertyList(from: xml,
+                                                                           options: .mutableContainersAndLeaves,
+                                                                           format: nil)) as? NSDictionary {
+                return contents
+            } else {
+                throw ItemSpecsParserError.plistLoadingError
+            }
         }
-
-        return nil
+        throw ItemSpecsParserError.plistLoadingError
     }
 }
 
@@ -364,4 +369,8 @@ struct IntermediateAssembledItem {
         self.mainImageString = mainImageString
         self.partsImageStrings = partsImageStrings
     }
+}
+
+enum ItemSpecsParserError: Error {
+    case plistLoadingError
 }

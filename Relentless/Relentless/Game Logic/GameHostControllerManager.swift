@@ -23,7 +23,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
     init(userId: String, gameHostParameters: GameHostParameters) {
         super.init(userId: userId, gameParameters: gameHostParameters)
-        super.itemSpecifications = ItemSpecificationsParser.parse()
         isHost = true
         self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(gameHostParameters.roundTime / 2),
                                                target: self,

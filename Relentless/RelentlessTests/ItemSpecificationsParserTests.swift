@@ -12,16 +12,17 @@ import XCTest
 class ItemSpecificationsParserTests: XCTestCase {
         
     func testGetPlist() throws {
-        let dict = ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let dict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
 
-        let dictKeys = dict?.allKeys as? [String] ?? []
+        let dictKeys = dict.allKeys as? [String] ?? []
         let expected = ["statefulItems", "titledItems", "rhythmicItems", "assembledItems"]
         
         XCTAssertEqual(dictKeys.sorted(), expected.sorted())
     }
     
     func testGetStatefulItems() throws {
-        let actualResult = ItemSpecificationsParser.getStatefulItems()
+        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let actualResult = ItemSpecificationsParser.getStatefulItems(dict: itemsDict)
         
         // wheels
         let wheelCategory = Category(name: "wheel")
@@ -71,7 +72,8 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
     
     func testGetTitledItems() throws {
-        let actualResult = ItemSpecificationsParser.getTitledItems()
+        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let actualResult = ItemSpecificationsParser.getTitledItems(dict: itemsDict)
         
         // books
         let bookCategory = Category(name: "book")
@@ -111,7 +113,8 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
     
     func testGetRhythmicItems() throws {
-        let actualResult = ItemSpecificationsParser.getRhythmicItems()
+        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let actualResult = ItemSpecificationsParser.getRhythmicItems(dict: itemsDict)
         
         // robots
         let robotCategory = Category(name: "robot")
@@ -170,7 +173,8 @@ class ItemSpecificationsParserTests: XCTestCase {
         availableItems[category2] = set2
         availableItems[category3] = set3
         
-        let actualResult = ItemSpecificationsParser.getAssembledItems(availableAtomicItems: availableItems)
+        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let actualResult = ItemSpecificationsParser.getAssembledItems(dict: itemsDict, availableAtomicItems: availableItems)
         let toyCarCategory = Category(name: "toyCar")
         let actualAssembledItems = actualResult[toyCarCategory]!
         
@@ -274,7 +278,8 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
 
     func testGetStateIdentifierMappings() throws {
-        let actualMappings = ItemSpecificationsParser.getStateIdentifierMappings()
+        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let actualMappings = ItemSpecificationsParser.getStateIdentifierMappings(dict: itemsDict)
         
         let wheelCategory = Category(name: "wheel")
         let batterCategory = Category(name: "battery")

@@ -10,10 +10,10 @@ import Foundation
 import Firebase
 
 class GameParametersParser {
-    typealias I = ([String: Float]) -> Int?
-    typealias F = ([String: Float]) -> Float?
+    typealias I = ([String: Double]) -> Int?
+    typealias D = ([String: Double]) -> Double?
     typealias IR = ClosedRange<Int>
-    typealias FR = ClosedRange<Float>
+    typealias DR = ClosedRange<Double>
 
     let remoteConfig: RemoteConfig
 
@@ -59,9 +59,9 @@ class GameParametersParser {
     internal func parseNumbers() -> Bool {
         guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: minNumOfPlayersConfigKey,
                                                               maxKey: maxNumOfPlayersConfigKey),
-            let difficultyRange: FR = parseNumbersToRange(minKey: minDifficultyLevelConfigKey,
+            let difficultyRange: DR = parseNumbersToRange(minKey: minDifficultyLevelConfigKey,
                                                           maxKey: maxDifficultyLevelConfigKey),
-            let satisfactionRange: FR = parseNumbersToRange(minKey: minSatisfactionConfigKey,
+            let satisfactionRange: DR = parseNumbersToRange(minKey: minSatisfactionConfigKey,
                                                             maxKey: maxSatisfactionConfigKey)
             else {
                 return false
@@ -74,17 +74,17 @@ class GameParametersParser {
 
     internal func parseStrings(gameParameters: GameParameters) -> Bool {
         guard let numOfHouses: I = parseStringExpression(key: numOfHousesConfigKey),
-            let difficultyChange: F = parseStringExpression(key: difficultyChangeConfigKey),
+            let difficultyChange: D = parseStringExpression(key: difficultyChangeConfigKey),
             let roundTime: I = parseStringExpression(key: roundTimeConfigKey),
             let dailyExpense: I = parseStringExpression(key: dailyExpenseConfigKey),
-            let correctPackageSatisfactionChange: F = parseStringExpression(key:
+            let correctPackageSatisfactionChange: D = parseStringExpression(key:
                 correctPackageSatisfactionChangeConfigKey),
-            let wrongPackageSatisfactionChange: F = parseStringExpression(key: wrongPackageSatisfactionChangeConfigKey),
-            let minHouseSatisfactionFactor: F = parseStringExpression(key: minHouseSatisfactionFactorConfigKey),
-            let maxHouseSatisfactionFactor: F = parseStringExpression(key: maxHouseSatisfactionFactorConfigKey),
+            let wrongPackageSatisfactionChange: D = parseStringExpression(key: wrongPackageSatisfactionChangeConfigKey),
+            let minHouseSatisfactionFactor: D = parseStringExpression(key: minHouseSatisfactionFactorConfigKey),
+            let maxHouseSatisfactionFactor: D = parseStringExpression(key: maxHouseSatisfactionFactorConfigKey),
             let satisfactionToMoneyTranslation: I = parseStringExpression(key: satisfactionToMoneyTranslationConfigKey),
-            let satisfactionRunOutPenalty: F = parseStringExpression(key: satisfactionRunOutPenaltyConfigKey),
-            let satisfactionUnitDecrease: F = parseStringExpression(key: satisfactionUnitDecreaseConfigKey)
+            let satisfactionRunOutPenalty: D = parseStringExpression(key: satisfactionRunOutPenaltyConfigKey),
+            let satisfactionUnitDecrease: D = parseStringExpression(key: satisfactionUnitDecreaseConfigKey)
             else {
                 return false
         }
@@ -112,12 +112,12 @@ class GameParametersParser {
         return minValue...maxValue
     }
 
-    internal func parseStringExpression<T>(key: String) -> (([String: Float]) -> T?)? {
+    internal func parseStringExpression<T>(key: String) -> (([String: Double]) -> T?)? {
         guard let raw = remoteConfig[key].stringValue else {
             return nil
         }
         let expression = raw.expression
-        let closure = { (varDict: [String: Float]) -> T? in
+        let closure = { (varDict: [String: Double]) -> T? in
             guard let expressionValue = expression.expressionValue(with: varDict, context: nil) as? T else {
                 return nil
             }

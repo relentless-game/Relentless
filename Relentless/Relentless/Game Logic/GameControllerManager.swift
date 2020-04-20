@@ -248,7 +248,7 @@ class GameControllerManager: GameController {
         guard let parameters = gameParameters else {
             return
         }
-        let expression: (([String: Float]) -> Float?)?
+        let expression: (([String: Double]) -> Double?)?
         if isCorrect && package != nil {
             expression = parameters.correctPackageSatisfactionChangeExpression
         } else {

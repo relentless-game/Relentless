@@ -45,11 +45,11 @@ class GameHostParametersParser: GameParametersParser {
             let numOfGroupsPerCategoryExpression: I = parseStringExpression(key: numOfGroupsPerCategoryConfigKey),
             let maxNumOfItemsPerOrderExpression: I = parseStringExpression(key: maxNumOfItemsPerOrderConfigKey),
             let numOfOrdersPerPlayerExpression: I = parseStringExpression(key: numOfOrdersPerPlayerConfigKey),
-            let probOfSelectingOwnItemExpression: F = parseStringExpression(key: probOfSelectingOwnItemConfigKey),
-            let probOfHavingPackageLimitExpression: F = parseStringExpression(key: probOfHavingPackageLimitConfigKey),
-            let probOfSelectingAssembledItemExpression: F = parseStringExpression(key:
+            let probOfSelectingOwnItemExpression: D = parseStringExpression(key: probOfSelectingOwnItemConfigKey),
+            let probOfHavingPackageLimitExpression: D = parseStringExpression(key: probOfHavingPackageLimitConfigKey),
+            let probOfSelectingAssembledItemExpression: D = parseStringExpression(key:
                 probOfSelectingAssembledItemConfigKey),
-            let probOfEventExpression: F = parseStringExpression(key: probOfEventConfigKey) else {
+            let probOfEventExpression: D = parseStringExpression(key: probOfEventConfigKey) else {
                 return false
         }
 

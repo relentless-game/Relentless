@@ -18,6 +18,28 @@ struct GameStatus: Codable {
     var isResumed: Bool
     var currentRound: Int
     var numberOfPlayersPaused: Int = 0
+
+    var didStartGame: Bool {
+        isGamePlaying && !isRoundPlaying && currentRound == 0 && numberOfPlayersPaused == 0
+    }
+    var didEndGame: Bool {
+        !isGamePlaying && !isRoundPlaying && currentRound != 0
+    }
+    var didStartRound: Bool {
+        isGamePlaying && isRoundPlaying && numberOfPlayersPaused == 0 && !isResumed
+    }
+    var didEndRound: Bool {
+        isGamePlaying && !isRoundPlaying && currentRound != 0
+    }
+    var didEndGamePrematurely: Bool {
+        isGameEndedPrematurely
+    }
+    var didPauseRound: Bool {
+        isRoundPlaying && numberOfPlayersPaused != 0
+    }
+    var didResumeRound: Bool {
+        isResumed && isRoundPlaying
+    }
     
     init(isGamePlaying: Bool, isRoundPlaying: Bool, isGameEndedPrematurely: Bool,
          isPaused: Bool, currentRound: Int, isResumed: Bool = false) {

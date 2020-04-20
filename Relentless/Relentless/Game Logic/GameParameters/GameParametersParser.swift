@@ -95,7 +95,9 @@ class GameParametersParser {
         guard let raw = configValues.getString(for: key) else {
             return nil
         }
-        let expression = raw.expression
+        guard let expression = raw.expression else {
+            return nil
+        }
         let closure = { (varDict: [String: Double]) -> T? in
             guard let expressionValue = expression.expressionValue(with: varDict, context: nil) as? T else {
                 return nil

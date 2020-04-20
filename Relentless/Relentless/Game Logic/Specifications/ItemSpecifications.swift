@@ -12,9 +12,6 @@ class ItemSpecifications {
     var availableGroupsOfItems: [Category: Set<[Item]>]
     var itemIdentifierMappings: [Category: [Int: String]]
     var partsToAssembledItemCategoryMapping: [[Category]: Category]
-    var allCategories: [Category] {
-        Array(availableGroupsOfItems.keys)
-    }
     
     init(availableGroupsOfItems: [Category: Set<[Item]>],
          itemIdentifierMappings: [Category: [Int: String]],

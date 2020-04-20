@@ -13,8 +13,8 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>circularImage</string>
-				<string>triangularImage</string>
+				<string>wheel_circle.png</string>
+				<string>wheel_triangle.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -31,10 +31,10 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>AAImage</string>
+				<string>battery_AA.png</string>
 				<string>AAAImage</string>
-				<string>DImage</string>
-				<string>PP3Image</string>
+				<string>battery_D.png</string>
+				<string>battery_PP3.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -53,9 +53,9 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>redBodyImage</string>
-				<string>blueBodyImage</string>
-				<string>yellowBodyImage</string>
+				<string>body_red.png</string>
+				<string>body_blue.png</string>
+				<string>body_green.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -86,7 +86,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>bookImage</string>
+			<string>book.png</string>
 		</dict>
 		<dict>
 			<key>category</key>
@@ -107,7 +107,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>magazineImage</string>
+			<string>magazine.png</string>
 		</dict>
 	</array>
 	<key>rhythmicItems</key>
@@ -166,8 +166,8 @@
 			</array>
 			<key>stateImageStrings</key>
 			<array>
-				<string>stateZeroImage</string>
-				<string>stateOneImage</string>
+				<string>robot_lit.png</string>
+				<string>robot_unlit.png</string>
 			</array>
 		</dict>
 	</array>

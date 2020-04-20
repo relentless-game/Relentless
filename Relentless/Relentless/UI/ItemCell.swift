@@ -70,24 +70,75 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
-        switch item.category.categoryName {
-        case "book":
-            setBookBackgroundFor(item: item)
-        case "magazine":
-            setMagazineBackgroundFor(item: item)
-        case "robot":
-            setRobotBackgroundFor(item: item)
-        case "toyCar":
-            setToyCarBackgroundFor(item: item)
-        case "wheel":
-            setToyCarWheelBackgroundFor(item: item)
-        case "battery":
-            setToyCarBatteryBackgroundFor(item: item)
-        case "carBody":
-            setToyCarBodyBackgroundFor(item: item)
-        default:
-            assertionFailure()
+        switch item.itemType {
+        case .titledItem:
+            if let titledItem = item as? TitledItem {
+                setTitledItemBackgroundFor(item: titledItem)
+                print(titledItem.imageString)
+            }
+        case .statefulItem:
+            if let statefulItem = item as? StatefulItem {
+                setStatefulItemBackgroundFor(item: statefulItem)
+                print(statefulItem.imageString)
+            }
+        case .rhythmicItem:
+            if let rhythmicItem = item as? RhythmicItem {
+                setRhythmicItemBackgroundFor(item: rhythmicItem)
+                print(rhythmicItem.imageStrings)
+            }
+        case .assembledItem:
+            let assembledItem = item as? AssembledItem
+            print(assembledItem?.mainImageString)
         }
+//        switch item.category.categoryName {
+//        case "book":
+//            setBookBackgroundFor(item: item)
+//        case "magazine":
+//            setMagazineBackgroundFor(item: item)
+//        case "robot":
+//            setRobotBackgroundFor(item: item)
+//        case "toyCar":
+//            setToyCarBackgroundFor(item: item)
+//        case "wheel":
+//            setToyCarWheelBackgroundFor(item: item)
+//        case "battery":
+//            setToyCarBatteryBackgroundFor(item: item)
+//        case "carBody":
+//            setToyCarBodyBackgroundFor(item: item)
+//        default:
+//            assertionFailure()
+//        }
+    }
+
+    func setTitledItemBackgroundFor(item: TitledItem) {
+        background.image = UIImage(named: item.imageString)
+    }
+
+    func setStatefulItemBackgroundFor(item: StatefulItem) {
+        background.image = UIImage(named: item.imageString)
+    }
+
+    func setRhythmicItemBackgroundFor(item: RhythmicItem) {
+        background.animationDuration = TimeInterval(item.unitDuration)
+        var images = [UIImage]()
+        for state in item.stateSequence {
+            if state == .lit {
+//                images.append(UIImage(named: item.imageStrings[0]))
+                images.append(ItemCell.litRobotImage!)
+            } else if state == .unlit {
+//                images.append(UIImage(named: item.imageStrings[1]))
+                images.append(ItemCell.unlitRobotImage!)
+            }
+        }
+//        for state in robot.stateSequence {
+//            if state == .lit {
+//                images.append(litRobotImage)
+//            } else if state == .unlit {
+//                images.append(unlitRobotImage)
+//            }
+//        }
+        background.animationImages = images
+        background.startAnimating()
     }
 
     func setBookBackgroundFor(item: Item) {

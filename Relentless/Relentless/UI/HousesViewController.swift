@@ -79,7 +79,7 @@ class HousesViewController: UIViewController {
         if let viewController = self.storyboard?.instantiateViewController(identifier: orderIdentifier)
             as? OrderViewController {
             let width = view.frame.width - 60
-            let height = view.frame.height / 2
+            let height = view.frame.height - 60
             viewController.preferredContentSize = CGSize(width: width, height: height)
             viewController.modalPresentationStyle = .popover
             viewController.orders = orders
@@ -87,9 +87,12 @@ class HousesViewController: UIViewController {
                 pres.delegate = self
             }
             if let pop = viewController.popoverPresentationController {
-                pop.sourceView = sender
-                pop.sourceRect = sender.bounds
-                pop.permittedArrowDirections = .up
+                pop.sourceView = self.view
+                pop.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+                pop.permittedArrowDirections = []
+//                pop.sourceView = sender
+//                pop.sourceRect = sender.bounds
+//                pop.permittedArrowDirections = .up
             }
             self.present(viewController, animated: true)
         }

@@ -110,63 +110,27 @@ class ItemCell: UICollectionViewCell {
 //        }
     }
 
+    func setBackgroundTo(named: String) {
+        background.image = UIImage(named: named)
+    }
+
     func setTitledItemBackgroundFor(item: TitledItem) {
-        background.image = UIImage(named: item.imageString)
+        setBackgroundTo(named: item.imageString)
     }
 
     func setStatefulItemBackgroundFor(item: StatefulItem) {
-        background.image = UIImage(named: item.imageString)
+        setBackgroundTo(named: item.imageString)
     }
 
     func setRhythmicItemBackgroundFor(item: RhythmicItem) {
         background.animationDuration = TimeInterval(item.unitDuration)
         var images = [UIImage]()
         for state in item.stateSequence {
-            if state == .lit {
-//                images.append(UIImage(named: item.imageStrings[0]))
-                images.append(ItemCell.litRobotImage!)
-            } else if state == .unlit {
-//                images.append(UIImage(named: item.imageStrings[1]))
-                images.append(ItemCell.unlitRobotImage!)
-            }
+            let index = state.stateIndex
+            setBackgroundTo(named: item.imageStrings[index])
         }
-//        for state in robot.stateSequence {
-//            if state == .lit {
-//                images.append(litRobotImage)
-//            } else if state == .unlit {
-//                images.append(unlitRobotImage)
-//            }
-//        }
         background.animationImages = images
         background.startAnimating()
-    }
-
-    func setBookBackgroundFor(item: Item) {
-        background.image = ItemCell.bookImage
-    }
-
-    func setMagazineBackgroundFor(item: Item) {
-        background.image = ItemCell.magazineImage
-    }
-
-    func setRobotBackgroundFor(item: Item) {
-        guard let litRobotImage = ItemCell.litRobotImage,
-            let unlitRobotImage = ItemCell.unlitRobotImage else {
-                return
-        }
-        if let robot = item as? RhythmicItem {
-            background.animationDuration = TimeInterval(robot.unitDuration)
-            var images = [UIImage]()
-            for state in robot.stateSequence {
-                if state == RhythmState(index: 1) {
-                    images.append(litRobotImage)
-                } else if state == RhythmState(index: 0) {
-                    images.append(unlitRobotImage)
-                }
-            }
-            background.animationImages = images
-            background.startAnimating()
-        }
     }
 
     func setToyCarBackgroundFor(item: Item) {

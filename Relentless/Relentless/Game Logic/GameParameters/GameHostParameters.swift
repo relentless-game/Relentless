@@ -32,7 +32,7 @@ class GameHostParameters: GameParameters {
 
     /// For item generation
     var numOfCategories: Int {
-        let difficultyFraction = difficultyLevel / GameParameters.difficultyRange.upperBound
+        let difficultyFraction = difficultyLevel / difficultyRange.upperBound
         // TODO: fix this. put 5 here as a place holder for now
         let numberOfCategories = 5 //Category.allCases.count
         let defaultValue = Int((Double(numberOfCategories) * difficultyFraction).rounded(.up))
@@ -74,13 +74,6 @@ class GameHostParameters: GameParameters {
     var probOfEvent: Double {
         let defaultValue = difficultyLevel / 50
         return probOfEventExpression?(varDict) ?? defaultValue
-    }
-
-    // this method will not be used with new implementation
-    static func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Double {
-        //let defaultValue = 1 / Float(numberOfPlayers)
-        //return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
-        return 0
     }
 
 }

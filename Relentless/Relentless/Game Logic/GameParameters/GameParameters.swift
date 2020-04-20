@@ -15,13 +15,13 @@ class GameParameters {
     var difficultyLevel: Double = 1.0
 
     var varDict: [String: Double] {
-        [VariableNames.difficultyLevelVarName: difficultyLevel]
+        [VariableNames.difficultyLevel: difficultyLevel]
     }
 
     /// The following properties do not vary with the difficulty level
-    static var numOfPlayersRange = 3...6
-    static var satisfactionRange: ClosedRange<Double> = 0...100
-    static var difficultyRange: ClosedRange<Double> = 1.0...10.0
+    var numOfPlayersRange = 3...6
+    var satisfactionRange: ClosedRange<Double> = 0...100
+    var difficultyRange: ClosedRange<Double> = 1.0...10.0
 
     /// The following are closures that take in parameters (currently only difficulty level)
     /// They are used to compute the actual variable values
@@ -70,23 +70,23 @@ class GameParameters {
         return satisfactionToMoneyTranslationExpression?(varDict) ?? defaultValue
     }
     var satisfactionRunOutPenalty: Double {
-        let defaultValue: Double = 0.2 * GameParameters.satisfactionRange.upperBound
+        let defaultValue: Double = 0.2 * satisfactionRange.upperBound
         return satisfactionRunOutPenaltyExpression?(varDict) ?? defaultValue
     }
     var satisfactionUnitDecrease: Double {
-        let defaultValue: Double = (GameParameters.satisfactionRange.upperBound / Double(roundTime)).rounded(.up)
+        let defaultValue: Double = (satisfactionRange.upperBound / Double(roundTime)).rounded(.up)
         return satisfactionUnitDecreaseExpression?(varDict) ?? defaultValue
     }
 
     func incrementDifficulty() {
         difficultyLevel += difficultyChange
-        if difficultyLevel > GameParameters.difficultyRange.upperBound {
-            difficultyLevel = GameParameters.difficultyRange.upperBound
+        if difficultyLevel > difficultyRange.upperBound {
+            difficultyLevel = difficultyRange.upperBound
         }
     }
 
     func reset() {
-        difficultyLevel = GameParameters.difficultyRange.lowerBound
+        difficultyLevel = difficultyRange.lowerBound
     }
 
 }

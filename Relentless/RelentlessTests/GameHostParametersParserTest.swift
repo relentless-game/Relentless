@@ -7,27 +7,69 @@
 //
 
 import XCTest
+@testable import Relentless
 
 class GameHostParametersParserTest: XCTestCase {
+    var gameHostParameters: GameHostParameters!
+    let configValues: ConfigValues = TestConfigValues()
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        let parser = GameHostParametersParser(configValues: configValues)
+
+        gameHostParameters = parser.parse()
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testParse_nonHostParameterValues() {
+        let nonHostParser = GameParametersParser(configValues: configValues)
+        let nonHostParameters = nonHostParser.parse()
+
+        XCTAssertEqual(gameHostParameters.numOfHouses, nonHostParameters?.numOfHouses)
+        XCTAssertEqual(gameHostParameters.difficultyChange, nonHostParameters?.difficultyChange)
+        XCTAssertEqual(gameHostParameters.houseSatisfactionFactorRange, nonHostParameters?.houseSatisfactionFactorRange)
+        XCTAssertEqual(gameHostParameters.numOfPlayersRange, nonHostParameters?.numOfPlayersRange)
+        XCTAssertEqual(gameHostParameters.difficultyRange, nonHostParameters?.difficultyRange)
+        XCTAssertEqual(gameHostParameters.satisfactionRange, nonHostParameters?.satisfactionRange)
+        XCTAssertEqual(gameHostParameters.roundTime, nonHostParameters?.roundTime)
+        XCTAssertEqual(gameHostParameters.dailyExpense, nonHostParameters?.dailyExpense)
+        XCTAssertEqual(gameHostParameters.satisfactionToMoneyTranslation,
+                       nonHostParameters?.satisfactionToMoneyTranslation)
+        XCTAssertEqual(gameHostParameters.satisfactionRunOutPenalty, nonHostParameters?.satisfactionRunOutPenalty)
+        XCTAssertEqual(gameHostParameters.satisfactionUnitDecrease, nonHostParameters?.satisfactionUnitDecrease)
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testParse_parameterExpression_packageSatisfactionChange() {
+        let varDict = [VariableNames.numOfCorrectItems: 2,
+                       VariableNames.timeLeft: 5.0,
+                       VariableNames.totalTime: 10.0]
+        let correctPackageExpression = gameHostParameters.correctPackageSatisfactionChangeExpression
+        let expectedCorrectPackageValue = 14.5
+        XCTAssertEqual(correctPackageExpression?(varDict), expectedCorrectPackageValue)
+
+        let wrongPackageExpression = gameHostParameters.wrongPackageSatisfactionChangeExpression
+        let expectedWrongPackageValue = -10.5
+        XCTAssertEqual(wrongPackageExpression?(varDict), expectedWrongPackageValue)
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    func testParse_hostValues() {
+        gameHostParameters.difficultyLevel = 3.0
 
+        let expectedTimeForEachItem = 70
+        let expectedNumOfCategories = 2
+        let expectedNumOfGroupsPerCategory = 2
+        let expectedMaxNumOfItemsPerOrder = 2
+        let expectedNumOfOrdersPerPlayer = 2
+        let expectedProbOfSelectingOwnItem = 0.25
+        let expectedProbOfHavingPackageLimit = 0.06
+        let expectedProbOfEvent = 0.25
+
+        XCTAssertEqual(gameHostParameters.timeForEachItem, expectedTimeForEachItem)
+        XCTAssertEqual(gameHostParameters.numOfCategories, expectedNumOfCategories)
+        XCTAssertEqual(gameHostParameters.numOfGroupsPerCategory, expectedNumOfGroupsPerCategory)
+        XCTAssertEqual(gameHostParameters.maxNumOfItemsPerOrder, expectedMaxNumOfItemsPerOrder)
+        XCTAssertEqual(gameHostParameters.numOfOrdersPerPlayer, expectedNumOfOrdersPerPlayer)
+        XCTAssertEqual(gameHostParameters.probOfSelectingOwnItem, expectedProbOfSelectingOwnItem)
+        XCTAssertEqual(gameHostParameters.probOfHavingPackageLimit, expectedProbOfHavingPackageLimit)
+        XCTAssertEqual(gameHostParameters.probOfEvent, expectedProbOfEvent)
+    }
 }

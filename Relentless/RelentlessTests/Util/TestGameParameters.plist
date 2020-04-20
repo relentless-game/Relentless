@@ -9,21 +9,21 @@
 	<key>minHouseSatisfactionFactor</key>
 	<string>0.5</string>
 	<key>minNumOfPlayers</key>
-	<integer>1</integer>
+	<integer>3</integer>
 	<key>maxHouseSatisfactionFactor</key>
 	<string>1.0</string>
 	<key>maxNumOfPlayers</key>
 	<integer>6</integer>
 	<key>minDifficultyLevel</key>
-	<real>1</real>
+	<integer>1</integer>
 	<key>maxDifficultyLevel</key>
 	<integer>10</integer>
 	<key>minSatisfaction</key>
 	<integer>0</integer>
 	<key>roundTime</key>
-	<integer>240</integer>
+	<string>240</string>
 	<key>dailyExpense</key>
-	<integer>50</integer>
+	<string>50</string>
 	<key>correctPackageSatisfactionChange</key>
 	<string>25 * (timeLeft/totalTime) + numOfCorrectItems</string>
 	<key>wrongPackageSatisfactionChange</key>
@@ -49,8 +49,6 @@
 	<key>probOfSelectingOwnItem</key>
 	<string>1.0 / (diffLevel + 1.0)</string>
 	<key>probOfHavingPackageLimit</key>
-	<string>diffLevel / 50.0</string>
-	<key>probOfSelectingAssembledItem</key>
 	<string>diffLevel / 50.0</string>
 	<key>probOfEvent</key>
 	<string>1.0 / 4.0</string>

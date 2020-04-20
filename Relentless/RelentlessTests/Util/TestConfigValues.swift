@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import Relentless
+@testable import Relentless
 /// Util class that gets values from local plist meant for testing purposes instead of from remote config
 class TestConfigValues: ConfigValues {
 
@@ -23,11 +23,11 @@ class TestConfigValues: ConfigValues {
     }
 
     func getString(for key: String) -> String? {
-        valuesDict.value(forKey: key) as? String
+        valuesDict?.value(forKey: key) as? String
     }
 
     func getNumber(for key: String) -> NSNumber? {
-        valuesDict.value(forKey: key) as? NSNumber
+        valuesDict?.value(forKey: key) as? NSNumber
     }
 
     private func getPlist(from fileName: String) throws -> NSDictionary {

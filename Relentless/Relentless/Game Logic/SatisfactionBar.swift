@@ -81,11 +81,10 @@ class SatisfactionBar {
         guard let expression = expression else {
             return nil
         }
-        let varDict = [VariableNames.totalTimeVarName: Double(order.timeLimit),
-                       VariableNames.timeLeftVarName: Double(order.timeLeft),
-                       VariableNames.numOfCorrectItemsVarName: Double(getNumberOfCorrectItems(package: package,
+        let varDict = [VariableNames.totalTime: Double(order.timeLimit),
+                       VariableNames.timeLeft: Double(order.timeLeft),
+                       VariableNames.numOfCorrectItems: Double(getNumberOfCorrectItems(package: package,
                                                                                               order: order))]
-        let value = expression(varDict)
         return expression(varDict)
     }
 

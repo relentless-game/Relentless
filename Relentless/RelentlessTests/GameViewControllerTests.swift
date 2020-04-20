@@ -12,14 +12,14 @@ class GameViewControllerTests: XCTestCase {
 
     var app: XCUIApplication!
 
-    override func setUpWithError() throws {
+    func setUpWithError() throws {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
         XCUIApplication().launch()
     }
 
-    override func tearDownWithError() throws {
+    func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 

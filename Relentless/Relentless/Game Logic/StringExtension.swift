@@ -11,7 +11,6 @@ import Foundation
 extension String {
 
     var expression: NSExpression {
-        // let string = "2 + 3"
         // HAVE TO CATCH NSEXCEPTION HERE AND USE (format: self)
         return NSExpression(format: self)
     }

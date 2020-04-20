@@ -11,20 +11,10 @@ import Firebase
 
 class GameHostParametersParser: GameParametersParser {
 
-    let timeForEachItemConfigKey = "timeForEachItem"
-    let numOfCategoriesConfigKey = "numOfCategories"
-    let numOfGroupsPerCategoryConfigKey = "numOfGroupsPerCategory"
-    let maxNumOfItemsPerOrderConfigKey = "maxNumOfItemsPerOrder"
-    let numOfOrdersPerPlayerConfigKey = "numOfOrdersPerPlayer"
-    let probOfSelectingOwnItemConfigKey = "probOfSelectingOwnItem"
-    let probOfHavingPackageLimitConfigKey = "probOfHavingPackageLimit"
-    let probOfSelectingAssembledItemConfigKey = "probOfSelectingAssembledItem"
-    let probOfEventConfigKey = "probOfEvent"
-
     override func parse() -> GameHostParameters? {
         let gameHostParameters = GameHostParameters()
 
-        guard parseNumbers() else {
+        guard parseNumbers(gameParameters: gameHostParameters) else {
             return nil
         }
 
@@ -40,16 +30,14 @@ class GameHostParametersParser: GameParametersParser {
             return false
         }
 
-        guard let timeForEachItemExpression: I = parseStringExpression(key: timeForEachItemConfigKey),
-            let numOfCategoriesExpression: I = parseStringExpression(key: numOfCategoriesConfigKey),
-            let numOfGroupsPerCategoryExpression: I = parseStringExpression(key: numOfGroupsPerCategoryConfigKey),
-            let maxNumOfItemsPerOrderExpression: I = parseStringExpression(key: maxNumOfItemsPerOrderConfigKey),
-            let numOfOrdersPerPlayerExpression: I = parseStringExpression(key: numOfOrdersPerPlayerConfigKey),
-            let probOfSelectingOwnItemExpression: D = parseStringExpression(key: probOfSelectingOwnItemConfigKey),
-            let probOfHavingPackageLimitExpression: D = parseStringExpression(key: probOfHavingPackageLimitConfigKey),
-            let probOfSelectingAssembledItemExpression: D = parseStringExpression(key:
-                probOfSelectingAssembledItemConfigKey),
-            let probOfEventExpression: D = parseStringExpression(key: probOfEventConfigKey) else {
+        guard let timeForEachItemExpression: I = parseStringExpression(key: ConfigKeys.timeForEachItem),
+            let numOfCategoriesExpression: I = parseStringExpression(key: ConfigKeys.numOfCategories),
+            let numOfGroupsPerCategoryExpression: I = parseStringExpression(key: ConfigKeys.numOfGroupsPerCategory),
+            let maxNumOfItemsPerOrderExpression: I = parseStringExpression(key: ConfigKeys.maxNumOfItemsPerOrder),
+            let numOfOrdersPerPlayerExpression: I = parseStringExpression(key: ConfigKeys.numOfOrdersPerPlayer),
+            let probOfSelectingOwnItemExpression: D = parseStringExpression(key: ConfigKeys.probOfSelectingOwnItem),
+            let probOfHavingPackageLimitExpression: D = parseStringExpression(key: ConfigKeys.probOfHavingPackageLimit),
+            let probOfEventExpression: D = parseStringExpression(key: ConfigKeys.probOfEvent) else {
                 return false
         }
 
@@ -60,7 +48,6 @@ class GameHostParametersParser: GameParametersParser {
         gameHostParameters.numOfOrdersPerPlayerExpression = numOfOrdersPerPlayerExpression
         gameHostParameters.probOfSelectingOwnItemExpression = probOfSelectingOwnItemExpression
         gameHostParameters.probOfHavingPackageLimitExpression = probOfHavingPackageLimitExpression
-        gameHostParameters.probOfSelectingAssembledItemExpression = probOfSelectingAssembledItemExpression
         gameHostParameters.probOfEventExpression = probOfEventExpression
         return true
     }

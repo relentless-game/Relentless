@@ -49,8 +49,12 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
+    var numOfPlayersRange: ClosedRange<Int>? {
+        gameParameters?.numOfPlayersRange
+    }
+
     // properties for network
-    var network: Network = NetworkManager(numOfPlayersRange: GameParameters.numOfPlayersRange)
+    var network: Network
     var userId: String?
     var gameId: Int? {
         game?.gameId
@@ -71,7 +75,8 @@ class GameControllerManager: GameController {
         self.gameParameters = gameParameters
         self.isHost = false
         self.itemSpecifications = ItemSpecificationsParser.parse()
-        self.satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
+        self.satisfactionBar = SatisfactionBar(range: gameParameters?.satisfactionRange ?? 0...100)
+        self.network = NetworkManager(numOfPlayersRange: gameParameters?.numOfPlayersRange ?? 3...6)
         addObservers()
     }
 
@@ -131,7 +136,7 @@ class GameControllerManager: GameController {
         parameters.reset() // reset game parameters
 
         gameCategories = []
-        satisfactionBar = SatisfactionBar(range: GameParameters.satisfactionRange)
+        satisfactionBar = SatisfactionBar(range: parameters.satisfactionRange)
         money = 0
     }
 

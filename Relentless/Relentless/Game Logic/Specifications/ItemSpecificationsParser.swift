@@ -74,7 +74,7 @@ class ItemSpecificationsParser {
             
             // convert into a [Int: String] dictionary
             var mapping: [Int: String] = [:]
-            var index = 1 // start from 1
+            var index = 0
             for identifier in stateIdentifiers {
                 mapping[index] = identifier
                 index += 1
@@ -106,7 +106,7 @@ class ItemSpecificationsParser {
     private static func convertCategoryToStatefulItems(categoryName: String, isInventoryItem: Bool,
                                                        isOrderItem: Bool,
                                                        stateImageStrings: [String]) -> Set<[StatefulItem]> {
-        var stateIndex = 1 // starts from one
+        var stateIndex = 0
         var statefulItems = Set<[StatefulItem]>()
         for string in stateImageStrings {
             let category = Category(name: categoryName)

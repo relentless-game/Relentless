@@ -10,7 +10,8 @@ import XCTest
 @testable import Relentless
 
 class ItemSpecificationsParserTests: XCTestCase {
-        
+    let testGameConfigFileName = "TestGameConfig"
+    
     func testGetPlist() throws {
         let dict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
 
@@ -21,16 +22,16 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
     
     func testGetStatefulItems() throws {
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualResult = ItemSpecificationsParser.getStatefulItems(dict: itemsDict)
         
         // wheels
         let wheelCategory = Category(name: "wheel")
         let actualWheels = actualResult[wheelCategory]!
-        let wheel1 = StatefulItem(category: wheelCategory, stateIdentifier: 1,
+        let wheel1 = StatefulItem(category: wheelCategory, stateIdentifier: 0,
                                   isInventoryItem: true, isOrderItem: false,
                                   imageString: "circularImage")
-        let wheel2 = StatefulItem(category: wheelCategory, stateIdentifier: 2,
+        let wheel2 = StatefulItem(category: wheelCategory, stateIdentifier: 1,
                                   isInventoryItem: true, isOrderItem: false,
                                   imageString: "triangularImage")
         let expectedWheels = Set<[StatefulItem]>([[wheel1], [wheel2]])
@@ -39,16 +40,16 @@ class ItemSpecificationsParserTests: XCTestCase {
         // battery
         let batteryCategory = Category(name: "battery")
         let actualBatteries = actualResult[batteryCategory]!
-        let battery1 = StatefulItem(category: batteryCategory, stateIdentifier: 1,
+        let battery1 = StatefulItem(category: batteryCategory, stateIdentifier: 0,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "AAImage")
-        let battery2 = StatefulItem(category: batteryCategory, stateIdentifier: 2,
+        let battery2 = StatefulItem(category: batteryCategory, stateIdentifier: 1,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "AAAImage")
-        let battery3 = StatefulItem(category: batteryCategory, stateIdentifier: 3,
+        let battery3 = StatefulItem(category: batteryCategory, stateIdentifier: 2,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "DImage")
-        let battery4 = StatefulItem(category: batteryCategory, stateIdentifier: 4,
+        let battery4 = StatefulItem(category: batteryCategory, stateIdentifier: 3,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "PP3Image")
         let expectedBatteries = Set<[StatefulItem]>([[battery1], [battery2], [battery3], [battery4]])
@@ -57,13 +58,13 @@ class ItemSpecificationsParserTests: XCTestCase {
         // carBody
         let carBodyCategory = Category(name: "carBody")
         let actualCarBodies = actualResult[carBodyCategory]!
-        let carBody1 = StatefulItem(category: carBodyCategory, stateIdentifier: 1,
+        let carBody1 = StatefulItem(category: carBodyCategory, stateIdentifier: 0,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "redImage")
-        let carBody2 = StatefulItem(category: carBodyCategory, stateIdentifier: 2,
+        let carBody2 = StatefulItem(category: carBodyCategory, stateIdentifier: 1,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "blueImage")
-        let carBody3 = StatefulItem(category: carBodyCategory, stateIdentifier: 3,
+        let carBody3 = StatefulItem(category: carBodyCategory, stateIdentifier: 2,
                                     isInventoryItem: true, isOrderItem: false,
                                     imageString: "yellowImage")
         let expectedCarBodies = Set<[StatefulItem]>([[carBody1], [carBody2], [carBody3]])
@@ -72,7 +73,7 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
     
     func testGetTitledItems() throws {
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualResult = ItemSpecificationsParser.getTitledItems(dict: itemsDict)
         
         // books
@@ -113,7 +114,7 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
     
     func testGetRhythmicItems() throws {
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualResult = ItemSpecificationsParser.getRhythmicItems(dict: itemsDict)
         
         // robots
@@ -152,10 +153,10 @@ class ItemSpecificationsParserTests: XCTestCase {
         let titledItem2 = TitledItem(name: "titledItem2", category: category2,
                                      isInventoryItem: true, isOrderItem: true,
                                      imageString: "titledItem2")
-        let statefulItem1 = StatefulItem(category: category1, stateIdentifier: 1,
+        let statefulItem1 = StatefulItem(category: category1, stateIdentifier: 0,
                                          isInventoryItem: true, isOrderItem: false,
                                          imageString: "statefulItem1")
-        let statefulItem2 = StatefulItem(category: category1, stateIdentifier: 2,
+        let statefulItem2 = StatefulItem(category: category1, stateIdentifier: 1,
                                          isInventoryItem: true, isOrderItem: false,
                                          imageString: "statefulItem2")
         let rhythmicItem1 = RhythmicItem(unitDuration: 1, stateSequence: [lit],
@@ -177,7 +178,7 @@ class ItemSpecificationsParserTests: XCTestCase {
         availableItems[category2] = set2
         availableItems[category3] = set3
         
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualResult = ItemSpecificationsParser.getAssembledItems(dict: itemsDict,
                                                                       availableAtomicItems: availableItems)
         let toyCarCategory = Category(name: "toyCar")
@@ -266,7 +267,7 @@ class ItemSpecificationsParserTests: XCTestCase {
         let titledItem = TitledItem(name: "titledItem1", category: category2,
                                     isInventoryItem: true, isOrderItem: true,
                                     imageString: "titledItem1")
-        let statefulItem = StatefulItem(category: category1, stateIdentifier: 1,
+        let statefulItem = StatefulItem(category: category1, stateIdentifier: 0,
                                         isInventoryItem: true, isOrderItem: false,
                                         imageString: "statefulItem1")
         let rhythmicItem1 = RhythmicItem(unitDuration: 1, stateSequence: [lit],
@@ -293,7 +294,7 @@ class ItemSpecificationsParserTests: XCTestCase {
         availableItems[category3] = set3
         availableItems[category4] = set4
         
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualResult = ItemSpecificationsParser.getAssembledItems(dict: itemsDict,
                                                                       availableAtomicItems: availableItems)
         let toyCarCategory = Category(name: "toyCar")
@@ -304,6 +305,7 @@ class ItemSpecificationsParserTests: XCTestCase {
         let partsImageStringsForToyCar = [category1: ["toyCarCarBodyImage"],
                                           category3: ["toyCarBatteryImage"],
                                           category2: ["toyCarWheelImage"]]
+
         let toyCar1 = AssembledItem(parts: [titledItem, rhythmicItem1, statefulItem],
                                     category: toyCarCategory,
                                     isInventoryItem: true, isOrderItem: true,
@@ -352,10 +354,10 @@ class ItemSpecificationsParserTests: XCTestCase {
         let item3 = TitledItem(name: "3", category: category1,
                                isInventoryItem: true, isOrderItem: true,
                                imageString: "placeholder")
-        let item4 = StatefulItem(category: category2, stateIdentifier: 1,
+        let item4 = StatefulItem(category: category2, stateIdentifier: 0,
                                  isInventoryItem: true, isOrderItem: false,
                                  imageString: "placeholder")
-        let item5 = StatefulItem(category: category2, stateIdentifier: 2,
+        let item5 = StatefulItem(category: category2, stateIdentifier: 1,
                                  isInventoryItem: true, isOrderItem: false,
                                  imageString: "placeholder")
         
@@ -368,16 +370,16 @@ class ItemSpecificationsParserTests: XCTestCase {
     }
 
     func testGetStateIdentifierMappings() throws {
-        let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
+        let itemsDict = try TestItemSpecificationsParser.getPlist(from: testGameConfigFileName)
         let actualMappings = ItemSpecificationsParser.getStateIdentifierMappings(dict: itemsDict)
         
         let wheelCategory = Category(name: "wheel")
         let batterCategory = Category(name: "battery")
         let carBodyCategory = Category(name: "carBody")
         
-        let expectedMappings = [wheelCategory: [1: "circle", 2: "triangle"],
-                                batterCategory: [1: "AA", 2: "AAA", 3: "D", 4: "PP3"],
-                                carBodyCategory: [1: "red", 2: "blue", 3: "yellow"]]
+        let expectedMappings = [wheelCategory: [0: "circle", 1: "triangle"],
+                                batterCategory: [0: "AA", 1: "AAA", 2: "D", 3: "PP3"],
+                                carBodyCategory: [0: "red", 1: "blue", 2: "yellow"]]
         
         XCTAssertEqual(actualMappings, expectedMappings)
     }

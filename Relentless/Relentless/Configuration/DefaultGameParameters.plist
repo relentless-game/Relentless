@@ -11,7 +11,7 @@
 	<key>minNumOfPlayers</key>
 	<integer>1</integer>
 	<key>maxHouseSatisfactionFactor</key>
-	<string>1</string>
+	<string>1.0</string>
 	<key>maxNumOfPlayers</key>
 	<integer>6</integer>
 	<key>minDifficultyLevel</key>
@@ -21,19 +21,19 @@
 	<key>minSatisfaction</key>
 	<integer>0</integer>
 	<key>roundTime</key>
-	<integer>240</integer>
+	<string>240</string>
 	<key>dailyExpense</key>
-	<integer>50</integer>
+	<string>50</string>
 	<key>correctPackageSatisfactionChange</key>
-	<string>25 * timeLeft + numOfCorrectItems</string>
+	<string>25 * (timeLeft/totalTime) + numOfCorrectItems</string>
 	<key>wrongPackageSatisfactionChange</key>
-	<string>-25 * (totalTime - timeLeft) + numOfCorrectItems</string>
+	<string>-25 * ((totalTime - timeLeft) / totalTime) + numOfCorrectItems</string>
 	<key>satisfactionToMoneyTranslation</key>
 	<string>2</string>
 	<key>satisfactionRunOutPenalty</key>
-	<string>0.2 * 100</string>
+	<string>0.2 * 100.0</string>
 	<key>satisfactionUnitDecrease</key>
-	<string>100 / 240</string>
+	<string>100.0 / 240.0</string>
 	<key>timeForEachItem</key>
 	<string>70</string>
 	<key>maxSatisfaction</key>
@@ -50,9 +50,7 @@
 	<string>1.0 / (diffLevel + 1.0)</string>
 	<key>probOfHavingPackageLimit</key>
 	<string>diffLevel / 50.0</string>
-	<key>probOfSelectingAssembledItem</key>
-	<string>diffLevel / 50.0</string>
 	<key>probOfEvent</key>
-	<string>1 / 4</string>
+	<string>1.0 / 4.0</string>
 </dict>
 </plist>

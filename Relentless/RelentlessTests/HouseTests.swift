@@ -33,7 +33,7 @@ class HouseTests: XCTestCase {
     var itemsForSecondOrder: [Item] = []
     let timeLimitForOrderOne = 2
     let timeLimitForOrderTwo = 1
-    let satisfactionFactor: Float = 0.1
+    let satisfactionFactor: Double = 0.1
     let itemsLimit = 5
 
     var orderOne: Order!

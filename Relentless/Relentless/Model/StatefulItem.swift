@@ -59,8 +59,7 @@ class StatefulItem: Item {
         guard let otherItem = other as? StatefulItem else {
             return false
         }
-        return self.category == otherItem.category &&
-            self.stateIdentifier == otherItem.stateIdentifier
+        return self.category == otherItem.category && self.stateIdentifier == otherItem.stateIdentifier
     }
 }
 

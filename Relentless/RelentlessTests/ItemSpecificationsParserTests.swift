@@ -183,9 +183,9 @@ class ItemSpecificationsParserTests: XCTestCase {
         let toyCarCategory = Category(name: "toyCar")
         let actualAssembledItems = actualResult[toyCarCategory]!
         
-        let partsImageStrings = [category1: "toyCarCarBodyImage",
-                                 category3: "toyCarBatteryImage",
-                                 category2: "toyCarWheelImage"]
+        let partsImageStrings = [category1: ["toyCarCarBodyImage"],
+                                 category3: ["toyCarBatteryImage"],
+                                 category2: ["toyCarWheelImage"]]
         let toyCar1 = AssembledItem(parts: [titledItem1, rhythmicItem1, statefulItem1],
                                     category: toyCarCategory,
                                     isInventoryItem: true, isOrderItem: true,
@@ -301,9 +301,9 @@ class ItemSpecificationsParserTests: XCTestCase {
         let actualAssembledItems = actualResult[toyCarGiftCategory]!
         
         // expected results
-        let partsImageStringsForToyCar = [category1: "toyCarCarBodyImage",
-                                          category3: "toyCarBatteryImage",
-                                          category2: "toyCarWheelImage"]
+        let partsImageStringsForToyCar = [category1: ["toyCarCarBodyImage"],
+                                          category3: ["toyCarBatteryImage"],
+                                          category2: ["toyCarWheelImage"]]
         let toyCar1 = AssembledItem(parts: [titledItem, rhythmicItem1, statefulItem],
                                     category: toyCarCategory,
                                     isInventoryItem: true, isOrderItem: true,
@@ -315,8 +315,8 @@ class ItemSpecificationsParserTests: XCTestCase {
                                     mainImageString: "toyCarImage",
                                     partsImageStrings: partsImageStringsForToyCar)
         
-        let partsImageStringsForToyCarGift = [toyCarCategory: "toyCarImage",
-                                              category4: "bookImage"]
+        let partsImageStringsForToyCarGift = [toyCarCategory: ["toyCarImage"],
+                                              category4: ["bookImage"]]
         let toyCarGift1 = AssembledItem(parts: [toyCar1, book1], category: toyCarGiftCategory,
                                         isInventoryItem: false, isOrderItem: true,
                                         mainImageString: "toyCarGiftImage",

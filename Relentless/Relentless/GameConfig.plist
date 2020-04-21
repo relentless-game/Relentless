@@ -193,11 +193,23 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>carBody</key>
-				<string>toyCarCarBodyImage</string>
+				<array>
+					<string>redCarBodyImage</string>
+					<string>blueCarBodyImage</string>
+					<string>yellowCarBodyImage</string>
+				</array>
 				<key>batter</key>
-				<string>toyCarBatteryImage</string>
+				<array>
+					<string>AAImage</string>
+					<string>AAAImage</string>
+					<string>DImage</string>
+					<string>PP3Image</string>
+				</array>
 				<key>wheel</key>
-				<string>toyCarWheelImage</string>
+				<array>
+					<string>circleWheelImage</string>
+					<string>triangleWheelImage</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -219,9 +231,13 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>toyCar</key>
-				<string>toyCarImage</string>
+				<array>
+					<string>toyCarImage</string>
+				</array>
 				<key>book</key>
-				<string>bookImage</string>
+				<array>
+					<string>bookImage</string>
+				</array>
 			</dict>
 		</dict>
 	</array>

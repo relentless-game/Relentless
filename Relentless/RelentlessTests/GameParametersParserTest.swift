@@ -64,4 +64,21 @@ class GameParametersParserTest: XCTestCase {
         let expectedWrongPackageValue = -10.5
         XCTAssertEqual(wrongPackageExpression?(varDict), expectedWrongPackageValue)
     }
+
+    func testParse_emptyConfigKeys_returnNil() {
+        let emptyConfigValues: ConfigValues = TestConfigValues(empty: true)
+        let parser = GameParametersParser(configValues: emptyConfigValues)
+
+        gameParameters = parser.parse()
+        XCTAssertNil(gameParameters)
+    }
+
+    func testParse_missingValues_returnNil() {
+        let incompleteConfigValues: ConfigValues = TestConfigValues(without: ConfigKeys.numOfHouses)
+        let parser = GameParametersParser(configValues: incompleteConfigValues)
+
+        gameParameters = parser.parse()
+        XCTAssertNil(gameParameters)
+    }
+
 }

@@ -72,4 +72,20 @@ class GameHostParametersParserTest: XCTestCase {
         XCTAssertEqual(gameHostParameters.probOfHavingPackageLimit, expectedProbOfHavingPackageLimit)
         XCTAssertEqual(gameHostParameters.probOfEvent, expectedProbOfEvent)
     }
+
+    func testParse_emptyConfigKeys_returnNil() {
+        let emptyConfigValues: ConfigValues = TestConfigValues(empty: true)
+        let parser = GameHostParametersParser(configValues: emptyConfigValues)
+
+        gameHostParameters = parser.parse()
+        XCTAssertNil(gameHostParameters)
+    }
+
+    func testParse_missingValues_returnNil() {
+        let incompleteConfigValues: ConfigValues = TestConfigValues(without: ConfigKeys.numOfOrdersPerPlayer)
+        let parser = GameHostParametersParser(configValues: incompleteConfigValues)
+
+        gameHostParameters = parser.parse()
+        XCTAssertNil(gameHostParameters)
+    }
 }

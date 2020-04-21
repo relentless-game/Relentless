@@ -15,7 +15,7 @@ extension String {
         var expression: NSExpression?
         SwiftTryCatch.try({
             expression = NSExpression(format: self)
-        }, catch: { (error) in
+        }, catch: { error in
             print("\(error?.description ?? "No error description available")")
             expression = nil
         }, finally: {

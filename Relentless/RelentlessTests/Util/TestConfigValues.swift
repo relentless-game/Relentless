@@ -11,7 +11,7 @@ import Foundation
 /// Util class that gets values from local plist meant for testing purposes instead of from remote config
 class TestConfigValues: ConfigValues {
 
-    var valuesDict: NSDictionary?
+    var valuesDict: NSMutableDictionary?
 
     init() {
         do {
@@ -22,6 +22,18 @@ class TestConfigValues: ConfigValues {
         }
     }
 
+    convenience init(empty: Bool) {
+        self.init()
+        if empty {
+            valuesDict = NSMutableDictionary()
+        } 
+    }
+
+    convenience init(without key: String) {
+        self.init()
+        removeValue(key: key)
+    }
+
     func getString(for key: String) -> String? {
         valuesDict?.value(forKey: key) as? String
     }
@@ -30,13 +42,17 @@ class TestConfigValues: ConfigValues {
         valuesDict?.value(forKey: key) as? NSNumber
     }
 
-    private func getPlist(from fileName: String) throws -> NSDictionary {
+    private func removeValue(key: String) {
+        valuesDict?.removeObject(forKey: key)
+    }
+
+    private func getPlist(from fileName: String) throws -> NSMutableDictionary {
         if let path = Bundle.main.path(forResource: fileName, ofType: "plist"),
             let xml = FileManager.default.contents(atPath: path) {
             if let contents = (try? PropertyListSerialization.propertyList(from: xml,
                                                                            options: .mutableContainersAndLeaves,
                                                                            format: nil)) as? NSDictionary {
-                return contents
+                return NSMutableDictionary(dictionary: contents)
             } else {
                 throw TestConfigValuesError.plistLoadingError
             }

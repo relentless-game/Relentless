@@ -12,8 +12,8 @@ class AppreciationEvent: Event {
 
     var duration = 30
 
-    let satisfactionIncrease: Float = 10
-
+    let satisfactionIncrease: Double = 10
+    
     /// For 30 seconds, the default satisfaction change will increase
     func occur() {
         increaseSatisfactionChange()
@@ -23,12 +23,12 @@ class AppreciationEvent: Event {
     }
 
     func increaseSatisfactionChange() {
-        // GameParameters.defaultSatisfactionChange += satisfactionIncrease
+        //gameParameters.satisfactionUnitDecrease -= satisfactionIncrease
     }
 
     @objc
     func resetSatisfactionChange() {
-        // GameParameters.defaultSatisfactionChange -= satisfactionIncrease
+        //gameParameters.defaultSatisfactionChange += satisfactionIncrease
     }
 
 }

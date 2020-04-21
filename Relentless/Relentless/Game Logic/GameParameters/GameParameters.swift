@@ -9,35 +9,35 @@
 import Foundation
 
 class GameParameters {
-    typealias I = (([String: Float]) -> Int?)
-    typealias F = (([String: Float]) -> Float?)
+    typealias I = (([String: Double]) -> Int?)
+    typealias D = (([String: Double]) -> Double?)
 
-    var difficultyLevel: Float = 1.0
+    var difficultyLevel: Double = 1.0
 
-    var varDict: [String: Float] {
-        [VariableNames.difficultyLevelVarName: difficultyLevel]
+    var varDict: [String: Double] {
+        [VariableNames.difficultyLevel: difficultyLevel]
     }
 
     /// The following properties do not vary with the difficulty level
-    static var numOfPlayersRange = 3...6
-    static var satisfactionRange: ClosedRange<Float> = 0...100
-    static var difficultyRange: ClosedRange<Float> = 1.0...10.0
+    var numOfPlayersRange = 3...6
+    var satisfactionRange: ClosedRange<Double> = 0...100
+    var difficultyRange: ClosedRange<Double> = 1.0...10.0
 
     /// The following are closures that take in parameters (currently only difficulty level)
     /// They are used to compute the actual variable values
     internal var numOfHousesExpression: I?
-    internal var difficultyChangeExpression: F?
+    internal var difficultyChangeExpression: D?
     internal var roundTimeExpression: I?
     internal var dailyExpenseExpression: I?
-    internal var minHouseSatisfactionFactorExpression: F?
-    internal var maxHouseSatisfactionFactorExpression: F?
+    internal var minHouseSatisfactionFactorExpression: D?
+    internal var maxHouseSatisfactionFactorExpression: D?
     internal var satisfactionToMoneyTranslationExpression: I?
-    internal var satisfactionRunOutPenaltyExpression: F?
-    internal var satisfactionUnitDecreaseExpression: F?
+    internal var satisfactionRunOutPenaltyExpression: D?
+    internal var satisfactionUnitDecreaseExpression: D?
 
     /// The following are closures that will be used in calculating satisfaction changes in `SatisfactionBar`
-    internal var correctPackageSatisfactionChangeExpression: F?
-    internal var wrongPackageSatisfactionChangeExpression: F?
+    internal var correctPackageSatisfactionChangeExpression: D?
+    internal var wrongPackageSatisfactionChangeExpression: D?
 
     /// The following properties are computed based on the closures above and take in a dictionary
     /// that specifies the variable values in the closure expressions
@@ -45,8 +45,8 @@ class GameParameters {
         let defaultValue: Int = 5
         return numOfHousesExpression?(varDict) ?? defaultValue
     }
-    var difficultyChange: Float {
-        let defaultValue: Float = 0.5
+    var difficultyChange: Double {
+        let defaultValue: Double = 0.5
         return difficultyChangeExpression?(varDict) ?? defaultValue
     }
     var roundTime: Int {
@@ -57,11 +57,11 @@ class GameParameters {
         let defaultValue: Int = 50
         return dailyExpenseExpression?(varDict) ?? defaultValue
     }
-    var houseSatisfactionFactorRange: ClosedRange<Float> {
-        let defaultMinValue: Float = 0.5
+    var houseSatisfactionFactorRange: ClosedRange<Double> {
+        let defaultMinValue: Double = 0.5
         let minHouseSatisfactionFactor = minHouseSatisfactionFactorExpression?(varDict) ?? defaultMinValue
 
-        let defaultMaxValue: Float = 1.0
+        let defaultMaxValue: Double = 1.0
         let maxHouseSatisfactionFactor = maxHouseSatisfactionFactorExpression?(varDict) ?? defaultMaxValue
         return minHouseSatisfactionFactor...maxHouseSatisfactionFactor
     }
@@ -69,24 +69,24 @@ class GameParameters {
         let defaultValue: Int = 2
         return satisfactionToMoneyTranslationExpression?(varDict) ?? defaultValue
     }
-    var satisfactionRunOutPenalty: Float {
-        let defaultValue = 0.2 * GameParameters.satisfactionRange.upperBound
+    var satisfactionRunOutPenalty: Double {
+        let defaultValue: Double = 0.2 * satisfactionRange.upperBound
         return satisfactionRunOutPenaltyExpression?(varDict) ?? defaultValue
     }
-    var satisfactionUnitDecrease: Float {
-        let defaultValue = (GameParameters.satisfactionRange.upperBound / Float(roundTime)).rounded(.up)
+    var satisfactionUnitDecrease: Double {
+        let defaultValue: Double = (satisfactionRange.upperBound / Double(roundTime)).rounded(.up)
         return satisfactionUnitDecreaseExpression?(varDict) ?? defaultValue
     }
 
     func incrementDifficulty() {
         difficultyLevel += difficultyChange
-        if difficultyLevel > GameParameters.difficultyRange.upperBound {
-            difficultyLevel = GameParameters.difficultyRange.upperBound
+        if difficultyLevel > difficultyRange.upperBound {
+            difficultyLevel = difficultyRange.upperBound
         }
     }
 
     func reset() {
-        difficultyLevel = GameParameters.difficultyRange.lowerBound
+        difficultyLevel = difficultyRange.lowerBound
     }
 
 }

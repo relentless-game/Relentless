@@ -10,14 +10,14 @@ import Foundation
 
 class EventGenerator {
 
-    var probabilityOfEvent: Float
+    var probabilityOfEvent: Double
 
-    init(probabilityOfEvent: Float) {
+    init(probabilityOfEvent: Double) {
         self.probabilityOfEvent = probabilityOfEvent
     }
 
     func generate() -> EventType? {
-        let randomNumber = Float.random(in: 0...1)
+        let randomNumber = Double.random(in: 0...1)
         guard randomNumber <= probabilityOfEvent else {
             return nil
         }

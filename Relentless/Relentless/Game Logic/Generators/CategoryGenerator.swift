@@ -12,14 +12,14 @@ import Foundation
 class CategoryGenerator: GameCategoryGenerator {
 
     var numberOfPlayers: Int
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Double
     var numOfCategories: Int
     let categoryToGroupsMapping: [Category: Set<[Item]>]
     var allCategories: [Category] {
         Array(categoryToGroupsMapping.keys)
     }
 
-    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int,
+    init(numberOfPlayers: Int, difficultyLevel: Double, numOfCategories: Int,
          categoryToGroupsMapping: [Category: Set<[Item]>]) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel

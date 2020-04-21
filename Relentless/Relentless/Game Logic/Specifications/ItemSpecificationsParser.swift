@@ -208,11 +208,7 @@ class ItemSpecificationsParser {
     private static func convertIntArrayToRhythmStateArray(intArray: [Int]) -> [RhythmState] {
         var result: [RhythmState] = []
         for integer in intArray {
-            if integer == 0 {
-                result.append(.unlit)
-            } else if integer == 1 {
-                result.append(.lit)
-            }
+            result.append(RhythmState(index: integer))
         }
         return result
     }

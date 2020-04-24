@@ -76,11 +76,9 @@ class GameHostParameters: GameParameters {
         return probOfEventExpression?(varDict) ?? defaultValue
     }
 
-    // this method will not be used with new implementation
-    static func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Float {
-        //let defaultValue = 1 / Float(numberOfPlayers)
-        //return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
-        return 0
+    func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Float {
+        let defaultValue = 1 / Float(numberOfPlayers)
+        return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
     }
 
 }

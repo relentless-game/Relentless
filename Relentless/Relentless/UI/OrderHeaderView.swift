@@ -9,8 +9,8 @@
 import UIKit
 
 class OrderHeaderView: UICollectionReusableView {
-    @IBOutlet private var label: UILabel!
+//    @IBOutlet private var label: UILabel!
     func setLabel(_ text: String) {
-        label.text = text
+//        label.text = text
     }
 }

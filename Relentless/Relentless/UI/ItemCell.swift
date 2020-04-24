@@ -46,20 +46,6 @@ class ItemCell: UICollectionViewCell {
     }
     // swiftlint:enable unused_setter_value
 
-    static let bookImage = UIImage(named: "book.png")
-    static let magazineImage = UIImage(named: "magazine.png")
-    static let unlitRobotImage = UIImage(named: "robot_lit.png")
-    static let litRobotImage = UIImage(named: "robot_unlit.png")
-    static let carBatteryAAImage = UIImage(named: "toycar_battery_AA.png")
-    static let carBatteryDImage = UIImage(named: "toycar_battery_D.png")
-    static let carBatteryPP3Image = UIImage(named: "toycar_battery_PP3.png")
-    static let carBodyRedImage = UIImage(named: "toycar_body_red.png")
-    static let carBodyGreenImage = UIImage(named: "toycar_body_green.png")
-    static let carBodyBlueImage = UIImage(named: "toycar_body_blue.png")
-    static let carWheelCircleImage = UIImage(named: "toycar_wheel_circle.png")
-    static let carWheelSquareImage = UIImage(named: "toycar_wheel_square.png")
-    static let carWheelTriangleImage = UIImage(named: "toycar_wheel_triangle.png")
-
     func setItem(item: Item) {
         setTextFor(item: item)
         setBackgroundFor(item: item)
@@ -70,122 +56,107 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
-        switch item.category.categoryName {
-        case "book":
-            setBookBackgroundFor(item: item)
-        case "magazine":
-            setMagazineBackgroundFor(item: item)
-        case "robot":
-            setRobotBackgroundFor(item: item)
-        case "toyCar":
-            setToyCarBackgroundFor(item: item)
-        case "wheel":
-            setToyCarWheelBackgroundFor(item: item)
-        case "battery":
-            setToyCarBatteryBackgroundFor(item: item)
-        case "carBody":
-            setToyCarBodyBackgroundFor(item: item)
-        default:
-            assertionFailure()
-        }
-    }
-
-    func setBookBackgroundFor(item: Item) {
-        background.image = ItemCell.bookImage
-    }
-
-    func setMagazineBackgroundFor(item: Item) {
-        background.image = ItemCell.magazineImage
-    }
-
-    func setRobotBackgroundFor(item: Item) {
-        guard let litRobotImage = ItemCell.litRobotImage,
-            let unlitRobotImage = ItemCell.unlitRobotImage else {
-                return
-        }
-        if let robot = item as? RhythmicItem {
-            background.animationDuration = TimeInterval(robot.unitDuration)
-            var images = [UIImage]()
-            for state in robot.stateSequence {
-                if state == RhythmState(index: 1) {
-                    images.append(litRobotImage)
-                } else if state == RhythmState(index: 0) {
-                    images.append(unlitRobotImage)
-                }
+        switch item.itemType {
+        case .titledItem:
+            if let titledItem = item as? TitledItem {
+                setTitledItemBackgroundFor(item: titledItem)
             }
-            background.animationImages = images
-            background.startAnimating()
+        case .statefulItem:
+            if let statefulItem = item as? StatefulItem {
+                setStatefulItemBackgroundFor(item: statefulItem)
+            }
+        case .rhythmicItem:
+            if let rhythmicItem = item as? RhythmicItem {
+                setRhythmicItemBackgroundFor(item: rhythmicItem)
+            }
+        case .assembledItem:
+            if let assembledItem = item as? AssembledItem {
+                setAssembledItemBackgroundFor(item: assembledItem)
+            }
         }
     }
 
-    func setToyCarBackgroundFor(item: Item) {
-//        if let car = item as? Part {
-//            switch car.partType {
-//            case .toyCarBattery:
-//                if let battery = car as? ToyCarBattery {
-//                    setToyCarBatteryBackgroundFor(battery: battery)
-//                }
-//
-//            case .toyCarBody:
-//                if let body = car as? ToyCarBody {
-//                    setToyCarBodyBackgroundFor(body: body)
-//                }
-//
-//            case .toyCarWheel:
-//                if let wheel = car as? ToyCarWheel {
-//                    setToyCarWheelBackgroundFor(wheel: wheel)
-//                }
-//
-//            case .partContainer:
-//                assert(false)
-//            }
-//        }
-//        if let car = item as? ToyCar {
-            setToyCarWholeBackgroundFor(item: item)
-//        }
+    func setBackgroundTo(named: String) {
+        background.image = UIImage(named: named)
     }
 
-    func setToyCarWholeBackgroundFor(item: Item) {
-        if item.category.categoryName != "toyCar" {
-            return
+    func setTitledItemBackgroundFor(item: TitledItem) {
+        setBackgroundTo(named: item.imageString)
+    }
+
+    func setStatefulItemBackgroundFor(item: StatefulItem) {
+        setBackgroundTo(named: item.imageString)
+    }
+
+    func setRhythmicItemBackgroundFor(item: RhythmicItem) {
+        background.animationDuration = TimeInterval(item.unitDuration)
+        var images = [UIImage]()
+        for state in item.stateSequence {
+            let index = state.stateIndex
+            if let frame = UIImage(named: item.imageStrings[index]) {
+                images.append(frame)
+            }
         }
-        guard let car = item as? AssembledItem else {
-            return
+        background.animationImages = images
+        background.startAnimating()
+    }
+
+    func setAssembledItemBackgroundFor(item: AssembledItem) {
+        for view in subviews where view != background && view != textLabel {
+            view.removeFromSuperview()
         }
-        let imageString = car.mainImageString
-        background.image = UIImage(named: imageString)
+        setBackgroundTo(named: "house.png")
+        for part in item.parts {
+            let category = part.category
+            if let imageStrings = item.partsImageStrings[category] {
+                drawPartImageViewFor(part: item, imageStrings: imageStrings)
+            }
+        }
     }
 
-    func setToyCarBatteryBackgroundFor(item: Item) {
-//        switch battery.label {
-//        case .aa:
-//            background.image = ItemCell.carBatteryAAImage
-//        case .d:
-//            background.image = ItemCell.carBatteryDImage
-//        case .pp3:
-            background.image = ItemCell.carBatteryPP3Image
-//        }
+    func drawStaticPartImageViewWith(image: UIImage?) {
+        let imageView = UIImageView()
+        self.addSubview(imageView)
+        imageView.image = image
+        let square_length = min(self.frame.width, self.frame.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
     }
 
-    func setToyCarBodyBackgroundFor(item: Item) {
-//        switch body.colour {
-//        case .red:
-//            background.image = ItemCell.carBodyRedImage
-//        case .green:
-//            background.image = ItemCell.carBodyGreenImage
-//        case .blue:
-            background.image = ItemCell.carBodyBlueImage
-//        }
+    func drawAnimatedPartImageViewWith(images: [UIImage], duration: Int) {
+        let imageView = UIImageView()
+        self.addSubview(imageView)
+        imageView.animationDuration = TimeInterval(duration)
+        imageView.animationImages = images
+        imageView.startAnimating()
+        let square_length = min(self.frame.width, self.frame.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
     }
-    
-    func setToyCarWheelBackgroundFor(item: Item) {
-//        switch wheel.shape {
-//        case .circle:
-//            background.image = ItemCell.carWheelCircleImage
-//        case .square:
-//            background.image = ItemCell.carWheelSquareImage
-//        case .triangle:
-            background.image = ItemCell.carWheelTriangleImage
-//        }
+
+
+    func drawPartImageViewFor(part: Item, imageStrings: [String]) {
+        switch part.itemType {
+        case .titledItem:
+            let imageString = imageStrings[0]
+            drawStaticPartImageViewWith(image: UIImage(named: imageString))
+        case .statefulItem:
+            if let statefulItem = part as? StatefulItem {
+                let imageString = imageStrings[statefulItem.stateIdentifier]
+                drawStaticPartImageViewWith(image: UIImage(named: imageString))
+            }
+        case .rhythmicItem:
+            if let rhythmicItem = part as? RhythmicItem {
+                var images = [UIImage]()
+                for state in rhythmicItem.stateSequence {
+                    let index = state.stateIndex
+                    if let frame = UIImage(named: imageStrings[index]) {
+                        images.append(frame)
+                    }
+                }
+                drawAnimatedPartImageViewWith(images: images, duration: rhythmicItem.unitDuration)
+            }
+        case .assembledItem:
+            let imageString = imageStrings[0]
+            drawStaticPartImageViewWith(image: UIImage(named: imageString))
+        }
     }
 }

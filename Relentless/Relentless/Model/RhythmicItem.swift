@@ -60,25 +60,17 @@ class RhythmicItem: Item {
     }
 
     private func checkStatesAreLessThan(otherItem: RhythmicItem) -> Bool {
-        if self.stateSequence.count < otherItem.stateSequence.count {
-            return true
-        } else if self.stateSequence.count > otherItem.stateSequence.count {
-            return false
-        } else {
-            var numberOfStatesThatAreLessThanOther = 0
-            var numberOfStatesThatAreMoreThanOther = 0
-            let numberOfStates = self.stateSequence.count
-            for counter in 0..<numberOfStates {
-                let ownPart = self.stateSequence[counter]
-                let otherPart = self.stateSequence[counter]
-                if ownPart < otherPart {
-                    numberOfStatesThatAreLessThanOther += 1
-                } else {
-                    numberOfStatesThatAreMoreThanOther += 1
-                }
-            }
-            return numberOfStatesThatAreLessThanOther < numberOfStatesThatAreMoreThanOther
+        var stateSequenceConcatenated = ""
+        for stateSequence in self.stateSequence {
+            stateSequenceConcatenated += stateSequence.toString()
         }
+
+        var otherStateSequenceConcatenated = ""
+        for stateSequence in otherItem.stateSequence {
+            otherStateSequenceConcatenated += stateSequence.toString()
+        }
+
+        return stateSequenceConcatenated < otherStateSequenceConcatenated
     }
 
     override func hash(into hasher: inout Hasher) {

@@ -72,11 +72,29 @@ class OrderTests: XCTestCase {
         XCTAssertFalse(order.checkPackage(package: package))
     }
 
-    func testGetNumberOfDifferences() {
+    func testGetNumberOfDifferences_emptyPackage() {
         let packageWithNoItems = Package(creator: creator, creatorAvatar: .blue,
                                          packageNumber: packageNumber,
                                          items: [Item](), itemsLimit: itemsLimit)
         XCTAssertEqual(order.getNumberOfDifferences(with: packageWithNoItems), items.count)
+    }
+
+    func testGetNumberOfDifferences_fewerItems() {
+        let packageItems = [item1, item2, item3]
+        let packageWithFewerItems = Package(creator: creator, creatorAvatar: .blue,
+                                            packageNumber: packageNumber,
+                                            items: packageItems, itemsLimit: itemsLimit)
+        XCTAssertEqual(order.getNumberOfDifferences(with: packageWithFewerItems),
+                       items.count - packageItems.count)
+    }
+
+    func testGetNumberOfDifferences_moreItems() {
+        let packageItems = [item1, item2, item3, item4, item5, item1]
+        let packageWithMoreItems = Package(creator: creator, creatorAvatar: .blue,
+                                           packageNumber: packageNumber,
+                                           items: packageItems, itemsLimit: itemsLimit)
+        XCTAssertEqual(order.getNumberOfDifferences(with: packageWithMoreItems),
+                       packageItems.count - items.count)
     }
 
     func testEquivalence(other: Order) {

@@ -174,7 +174,8 @@ class ItemSpecificationsParserTests: XCTestCase {
         availableItems[category3] = set3
         
         let itemsDict = try ItemSpecificationsParser.getPlist(from: "GameConfig")
-        let actualResult = ItemSpecificationsParser.getAssembledItems(dict: itemsDict, availableAtomicItems: availableItems)
+        let actualResult = ItemSpecificationsParser.getAssembledItems(dict: itemsDict,
+                                                                      availableAtomicItems: availableItems)
         let toyCarCategory = Category(name: "toyCar")
         let actualAssembledItems = actualResult[toyCarCategory]!
         

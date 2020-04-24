@@ -103,6 +103,8 @@
 		62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EE1A7C241CF18B009406FB /* OrdersAllocator.swift */; };
 		6CFE1C67B5BED22E28204AD1 /* Pods_RelentlessTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB31F7DBC398D2664758AF2 /* Pods_RelentlessTests.framework */; };
 		70AA53FB533241D53F7E9C58 /* Pods_Relentless.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D590E4100879906E5F03DB47 /* Pods_Relentless.framework */; };
+		F30D4C5F244ED31300BC1F2C /* TestItemSpecificationsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30D4C5E244ED31300BC1F2C /* TestItemSpecificationsParser.swift */; };
+		F30D4C63244ED9B400BC1F2C /* TestGameConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = F30D4C62244ED9B400BC1F2C /* TestGameConfig.plist */; };
 		F30E1D2C2435B08E00AD6A7B /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */; };
 		F30E1D2E243638AB00AD6A7B /* PlayerAvatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */; };
 		F319B32B241B7A44005E3129 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = F319B32A241B7A44005E3129 /* Network.swift */; };
@@ -277,6 +279,8 @@
 		D590E4100879906E5F03DB47 /* Pods_Relentless.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E736D195705A4F0F166AD251 /* Pods_Relentless_RelentlessUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Relentless_RelentlessUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A5907C96A76629A05770D5 /* Pods-Relentless.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Relentless.release.xcconfig"; path = "Target Support Files/Pods-Relentless/Pods-Relentless.release.xcconfig"; sourceTree = "<group>"; };
+		F30D4C5E244ED31300BC1F2C /* TestItemSpecificationsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestItemSpecificationsParser.swift; sourceTree = "<group>"; };
+		F30D4C62244ED9B400BC1F2C /* TestGameConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TestGameConfig.plist; sourceTree = "<group>"; };
 		F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
 		F30E1D2D243638AB00AD6A7B /* PlayerAvatar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerAvatar.swift; sourceTree = "<group>"; };
 		F319B32A241B7A44005E3129 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -547,6 +551,8 @@
 			children = (
 				62E75B27244D6743001D53A4 /* TestConfigValues.swift */,
 				62E75B21244D5AF7001D53A4 /* TestGameParameters.plist */,
+				F30D4C62244ED9B400BC1F2C /* TestGameConfig.plist */,
+				F30D4C5E244ED31300BC1F2C /* TestItemSpecificationsParser.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -796,6 +802,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F30D4C63244ED9B400BC1F2C /* TestGameConfig.plist in Resources */,
 				5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */,
 				5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */,
 				625BDA60244D86D30094621D /* TestGameParameters.plist in Resources */,
@@ -1066,6 +1073,7 @@
 				F3BF7F2124275EF900A50EE3 /* ItemsAdapterTests.swift in Sources */,
 				F3BF7F2024275EF900A50EE3 /* PackageAdapterTests.swift in Sources */,
 				F339395A244319FD008BE07D /* ItemSpecificationsParserTests.swift in Sources */,
+				F30D4C5F244ED31300BC1F2C /* TestItemSpecificationsParser.swift in Sources */,
 				0B385B87241CE22D00FC2850 /* HouseTests.swift in Sources */,
 				0B385B81241CDCC300FC2850 /* TitledItemTests.swift in Sources */,
 				0B09CA48242F53C200F29648 /* ToyCarWheelTests.swift in Sources */,
@@ -1413,6 +1421,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-    };
-    rootObject = F3C37BEE24189F5200D7109B /* Project object */;
+	};
+	rootObject = F3C37BEE24189F5200D7109B /* Project object */;
 }

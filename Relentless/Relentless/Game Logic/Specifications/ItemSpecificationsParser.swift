@@ -74,7 +74,7 @@ class ItemSpecificationsParser {
             
             // convert into a [Int: String] dictionary
             var mapping: [Int: String] = [:]
-            var index = 1 // start from 1
+            var index = 0
             for identifier in stateIdentifiers {
                 mapping[index] = identifier
                 index += 1
@@ -106,7 +106,7 @@ class ItemSpecificationsParser {
     private static func convertCategoryToStatefulItems(categoryName: String, isInventoryItem: Bool,
                                                        isOrderItem: Bool,
                                                        stateImageStrings: [String]) -> Set<[StatefulItem]> {
-        var stateIndex = 1 // starts from one
+        var stateIndex = 0
         var statefulItems = Set<[StatefulItem]>()
         for string in stateImageStrings {
             let category = Category(name: categoryName)
@@ -225,8 +225,8 @@ class ItemSpecificationsParser {
             let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
             let depth = categoryDict.value(forKey: depthKey) as? Int ?? -1
             let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
-            let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: String] ?? [:]
-            var partsImageStrings: [Category: String] = [:]
+            let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
+            var partsImageStrings: [Category: [String]] = [:]
             for (key, value) in rawPartsImageStrings {
                 partsImageStrings[Category(name: key)] = value
             }
@@ -270,7 +270,7 @@ class ItemSpecificationsParser {
                                                         isOrderItem: Bool, parts: [String],
                                                         availableAtomicItems: [Category: Set<[Item]>],
                                                         mainImageString: String,
-                                                        partsImageStrings: [Category: String]) -> Set<[AssembledItem]> {
+                                                        partsImageStrings: [Category: [String]]) -> Set<[AssembledItem]> {
         
         var availableParts: [[Item]] = []
         for part in parts {
@@ -353,10 +353,10 @@ struct IntermediateAssembledItem {
     let parts: [String]
     let depth: Int
     let mainImageString: String
-    let partsImageStrings: [Category: String]
+    let partsImageStrings: [Category: [String]]
     
     init(category: Category, isInventoryItem: Bool, isOrderItem: Bool,
-         parts: [String], depth: Int, mainImageString: String, partsImageStrings: [Category: String]) {
+         parts: [String], depth: Int, mainImageString: String, partsImageStrings: [Category: [String]]) {
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem

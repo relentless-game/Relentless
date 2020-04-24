@@ -12,7 +12,7 @@ class PackingViewControllerTests: XCTestCase {
     
     var app: XCUIApplication!
 
-    func setUpWithError() throws {
+    override func setUpWithError() throws {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
@@ -29,7 +29,7 @@ class PackingViewControllerTests: XCTestCase {
         app.buttons["Proceed"].tap()
     }
 
-    func tearDownWithError() throws {
+    override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 

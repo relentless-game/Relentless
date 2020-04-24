@@ -15,11 +15,13 @@
 			<array>
 				<string>wheel_circle.png</string>
 				<string>wheel_triangle.png</string>
+				<string>wheel_square.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
 				<string>circle</string>
 				<string>triangle</string>
+				<string>square</string>
 			</array>
 		</dict>
 		<dict>
@@ -32,14 +34,12 @@
 			<key>stateImageStrings</key>
 			<array>
 				<string>battery_AA.png</string>
-				<string>AAAImage</string>
 				<string>battery_D.png</string>
 				<string>battery_PP3.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
 				<string>AA</string>
-				<string>AAA</string>
 				<string>D</string>
 				<string>PP3</string>
 			</array>
@@ -71,9 +71,9 @@
 			<key>category</key>
 			<string>book</string>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>titles</key>
 			<array>
 				<array>
@@ -92,9 +92,9 @@
 			<key>category</key>
 			<string>magazine</string>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>titles</key>
 			<array>
 				<array>
@@ -116,9 +116,9 @@
 			<key>category</key>
 			<string>robot</string>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>itemGroups</key>
 			<array>
 				<array>
@@ -194,21 +194,21 @@
 			<dict>
 				<key>carBody</key>
 				<array>
-					<string>redCarBodyImage</string>
-					<string>blueCarBodyImage</string>
-					<string>yellowCarBodyImage</string>
+					<string>toycar_body_red.png</string>
+					<string>toycar_body_blue.png</string>
+					<string>toycar_body_green.png</string>
 				</array>
-				<key>batter</key>
+				<key>battery</key>
 				<array>
-					<string>AAImage</string>
-					<string>AAAImage</string>
-					<string>DImage</string>
-					<string>PP3Image</string>
+					<string>toycar_battery_AA.png</string>
+					<string>toycar_battery_D.png</string>
+					<string>toycar_battery_PP3.png</string>
 				</array>
 				<key>wheel</key>
 				<array>
-					<string>circleWheelImage</string>
-					<string>triangleWheelImage</string>
+					<string>toycar_wheel_circle.png</string>
+					<string>toycar_wheel_triangle.png</string>
+					<string>toycar_wheel_square.png</string>
 				</array>
 			</dict>
 		</dict>
@@ -223,7 +223,7 @@
 			<key>isInventoryItem</key>
 			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>
@@ -251,7 +251,7 @@
 			<key>isInventoryItem</key>
 			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>

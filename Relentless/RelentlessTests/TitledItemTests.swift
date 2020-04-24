@@ -77,7 +77,6 @@ class TitledItemTests: XCTestCase {
                                                         isInventoryItem: true, isOrderItem: false,
                                                         imageString: imageString)
         XCTAssertTrue(titledItem.equals(other: itemWithDifferentIsOrderStatus))
-
     }
 
 }

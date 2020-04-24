@@ -10,42 +10,21 @@ import Foundation
 import Firebase
 
 class GameParametersParser {
-    typealias I = ([String: Float]) -> Int?
-    typealias F = ([String: Float]) -> Float?
+    typealias I = ([String: Double]) -> Int?
+    typealias D = ([String: Double]) -> Double?
     typealias IR = ClosedRange<Int>
-    typealias FR = ClosedRange<Float>
+    typealias DR = ClosedRange<Double>
 
-    let remoteConfig: RemoteConfig
+    let configValues: ConfigValues
 
-    // keys for number values
-    let minNumOfPlayersConfigKey = "minNumOfPlayers"
-    let maxNumOfPlayersConfigKey = "maxNumOfPlayers"
-    let minDifficultyLevelConfigKey = "minDifficultyLevel"
-    let maxDifficultyLevelConfigKey = "maxDifficultyLevel"
-    let minSatisfactionConfigKey = "minSatisfaction"
-    let maxSatisfactionConfigKey = "maxSatisfaction"
-
-    // keys for string expressions
-    let difficultyChangeConfigKey = "difficultyChange"
-    let roundTimeConfigKey = "roundTime"
-    let dailyExpenseConfigKey = "dailyExpense"
-    let correctPackageSatisfactionChangeConfigKey = "correctPackageSatisfactionChange"
-    let wrongPackageSatisfactionChangeConfigKey = "wrongPackageSatisfactionChange"
-    let numOfHousesConfigKey = "numOfHouses"
-    let minHouseSatisfactionFactorConfigKey = "minHouseSatisfactionFactor"
-    let maxHouseSatisfactionFactorConfigKey = "maxHouseSatisfactionFactor"
-    let satisfactionToMoneyTranslationConfigKey = "satisfactionToMoneyTranslation"
-    let satisfactionRunOutPenaltyConfigKey = "satisfactionRunOutPenalty"
-    let satisfactionUnitDecreaseConfigKey = "satisfactionUnitDecrease"
-
-    init(remoteConfig: RemoteConfig) {
-        self.remoteConfig = remoteConfig
+    init(configValues: ConfigValues) {
+        self.configValues = configValues
     }
 
     func parse() -> GameParameters? {
         let gameParameters = GameParameters()
 
-        guard parseNumbers() else {
+        guard parseNumbers(gameParameters: gameParameters) else {
             return nil
         }
 
@@ -56,35 +35,35 @@ class GameParametersParser {
         return gameParameters
     }
 
-    internal func parseNumbers() -> Bool {
-        guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: minNumOfPlayersConfigKey,
-                                                              maxKey: maxNumOfPlayersConfigKey),
-            let difficultyRange: FR = parseNumbersToRange(minKey: minDifficultyLevelConfigKey,
-                                                          maxKey: maxDifficultyLevelConfigKey),
-            let satisfactionRange: FR = parseNumbersToRange(minKey: minSatisfactionConfigKey,
-                                                            maxKey: maxSatisfactionConfigKey)
+    internal func parseNumbers(gameParameters: GameParameters) -> Bool {
+        guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: ConfigKeys.minNumOfPlayers,
+                                                              maxKey: ConfigKeys.maxNumOfPlayers),
+            let difficultyRange: DR = parseNumbersToRange(minKey: ConfigKeys.minDifficultyLevel,
+                                                          maxKey: ConfigKeys.maxDifficultyLevel),
+            let satisfactionRange: DR = parseNumbersToRange(minKey: ConfigKeys.minSatisfaction,
+                                                            maxKey: ConfigKeys.maxSatisfaction)
             else {
                 return false
         }
-        GameParameters.numOfPlayersRange = numOfPlayersRange
-        GameParameters.difficultyRange = difficultyRange
-        GameParameters.satisfactionRange = satisfactionRange
+        gameParameters.numOfPlayersRange = numOfPlayersRange
+        gameParameters.difficultyRange = difficultyRange
+        gameParameters.satisfactionRange = satisfactionRange
         return true
     }
 
     internal func parseStrings(gameParameters: GameParameters) -> Bool {
-        guard let numOfHouses: I = parseStringExpression(key: numOfHousesConfigKey),
-            let difficultyChange: F = parseStringExpression(key: difficultyChangeConfigKey),
-            let roundTime: I = parseStringExpression(key: roundTimeConfigKey),
-            let dailyExpense: I = parseStringExpression(key: dailyExpenseConfigKey),
-            let correctPackageSatisfactionChange: F = parseStringExpression(key:
-                correctPackageSatisfactionChangeConfigKey),
-            let wrongPackageSatisfactionChange: F = parseStringExpression(key: wrongPackageSatisfactionChangeConfigKey),
-            let minHouseSatisfactionFactor: F = parseStringExpression(key: minHouseSatisfactionFactorConfigKey),
-            let maxHouseSatisfactionFactor: F = parseStringExpression(key: maxHouseSatisfactionFactorConfigKey),
-            let satisfactionToMoneyTranslation: I = parseStringExpression(key: satisfactionToMoneyTranslationConfigKey),
-            let satisfactionRunOutPenalty: F = parseStringExpression(key: satisfactionRunOutPenaltyConfigKey),
-            let satisfactionUnitDecrease: F = parseStringExpression(key: satisfactionUnitDecreaseConfigKey)
+        guard let numOfHouses: I = parseStringExpression(key: ConfigKeys.numOfHouses),
+            let difficultyChange: D = parseStringExpression(key: ConfigKeys.difficultyChange),
+            let roundTime: I = parseStringExpression(key: ConfigKeys.roundTime),
+            let dailyExpense: I = parseStringExpression(key: ConfigKeys.dailyExpense),
+            let correctPackageSatisfactionChange: D = parseStringExpression(key:
+                ConfigKeys.correctPackageSatisfactionChange),
+            let wrongPackageSatisfactionChange: D = parseStringExpression(key: ConfigKeys.wrongPackageSatisfactionChange),
+            let minHouseSatisfactionFactor: D = parseStringExpression(key: ConfigKeys.minHouseSatisfactionFactor),
+            let maxHouseSatisfactionFactor: D = parseStringExpression(key: ConfigKeys.maxHouseSatisfactionFactor),
+            let satisfactionToMoneyTranslation: I = parseStringExpression(key: ConfigKeys.satisfactionToMoneyTranslation),
+            let satisfactionRunOutPenalty: D = parseStringExpression(key: ConfigKeys.satisfactionRunOutPenalty),
+            let satisfactionUnitDecrease: D = parseStringExpression(key: ConfigKeys.satisfactionUnitDecrease)
             else {
                 return false
         }
@@ -103,21 +82,23 @@ class GameParametersParser {
     }
 
     internal func parseNumbersToRange<T>(minKey: String, maxKey: String) -> ClosedRange<T>? {
-        guard let minValue = remoteConfig[minKey].numberValue as? T else {
+        guard let minValue = configValues.getNumber(for: minKey) as? T else {
             return nil
         }
-        guard let maxValue = remoteConfig[maxKey].numberValue as? T else {
+        guard let maxValue = configValues.getNumber(for: maxKey) as? T else {
             return nil
         }
         return minValue...maxValue
     }
 
-    internal func parseStringExpression<T>(key: String) -> (([String: Float]) -> T?)? {
-        guard let raw = remoteConfig[key].stringValue else {
+    internal func parseStringExpression<T>(key: String) -> (([String: Double]) -> T?)? {
+        guard let raw = configValues.getString(for: key) else {
             return nil
         }
-        let expression = raw.expression
-        let closure = { (varDict: [String: Float]) -> T? in
+        guard let expression = raw.expression else {
+            return nil
+        }
+        let closure = { (varDict: [String: Double]) -> T? in
             guard let expressionValue = expression.expressionValue(with: varDict, context: nil) as? T else {
                 return nil
             }

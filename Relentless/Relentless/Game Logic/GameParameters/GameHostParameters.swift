@@ -18,10 +18,10 @@ class GameHostParameters: GameParameters {
     internal var numOfGroupsPerCategoryExpression: I?
     internal var maxNumOfItemsPerOrderExpression: I?
     internal var numOfOrdersPerPlayerExpression: I?
-    internal var probOfSelectingOwnItemExpression: F?
-    internal var probOfHavingPackageLimitExpression: F?
-    internal var probOfSelectingAssembledItemExpression: F?
-    internal var probOfEventExpression: F?
+    internal var probOfSelectingOwnItemExpression: D?
+    internal var probOfHavingPackageLimitExpression: D?
+    internal var probOfSelectingAssembledItemExpression: D?
+    internal var probOfEventExpression: D?
 
     /// The following properties are computed based on the closures above and take in a dictionary
     /// that specifies the variable values in the closure expressions
@@ -32,10 +32,10 @@ class GameHostParameters: GameParameters {
 
     /// For item generation
     var numOfCategories: Int {
-        let difficultyFraction = difficultyLevel / GameParameters.difficultyRange.upperBound
+        let difficultyFraction = difficultyLevel / difficultyRange.upperBound
         // TODO: fix this. put 5 here as a place holder for now
         let numberOfCategories = 5 //Category.allCases.count
-        let defaultValue = Int((Float(numberOfCategories) * difficultyFraction).rounded(.up))
+        let defaultValue = Int((Double(numberOfCategories) * difficultyFraction).rounded(.up))
         return numOfCategoriesExpression?(varDict) ?? defaultValue
     }
     var numOfGroupsPerCategory: Int {
@@ -55,7 +55,7 @@ class GameHostParameters: GameParameters {
         return numOfOrdersPerPlayerExpression?(varDict) ?? defaultValue
     }
     // Should be between 0 and 1
-    var probOfSelectingOwnItem: Float {
+    var probOfSelectingOwnItem: Double {
         let probability = 1 / (difficultyLevel + 1)
         assert(probability >= 0 && probability <= 1)
         let defaultValue = probability
@@ -64,23 +64,16 @@ class GameHostParameters: GameParameters {
 
     /// For package items limit
     // Should be between 0 and 1
-    var probOfHavingPackageLimit: Float {
+    var probOfHavingPackageLimit: Double {
         let defaultValue = difficultyLevel / 50
         return probOfHavingPackageLimitExpression?(varDict) ?? defaultValue
     }
 
     /// For random events
     // Should be between 0 and 1
-    var probOfEvent: Float {
+    var probOfEvent: Double {
         let defaultValue = difficultyLevel / 50
         return probOfEventExpression?(varDict) ?? defaultValue
-    }
-
-    // this method will not be used with new implementation
-    static func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Float {
-        //let defaultValue = 1 / Float(numberOfPlayers)
-        //return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
-        return 0
     }
 
 }

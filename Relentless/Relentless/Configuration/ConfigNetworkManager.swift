@@ -17,17 +17,18 @@ class ConfigNetworkManager: ConfigNetwork {
 
     private init() {
         remoteConfig = RemoteConfig.remoteConfig()
-        remoteConfig.setDefaults(fromPlist: "DefaultList")
+        remoteConfig.setDefaults(fromPlist: "DefaultGameParameters")
         activateFetchedValues()
         fetchCloudValues()
     }
 
     func fetchGameParameters(isHost: Bool) -> GameParameters? {
+        let configValues = RemoteConfigValues(remoteConfig: remoteConfig)
         let parser: GameParametersParser
         if isHost {
-            parser = GameHostParametersParser(remoteConfig: remoteConfig)
+            parser = GameHostParametersParser(configValues: configValues)
         } else {
-            parser = GameParametersParser(remoteConfig: remoteConfig)
+            parser = GameParametersParser(configValues: configValues)
         }
         return parser.parse()
     }
@@ -35,8 +36,9 @@ class ConfigNetworkManager: ConfigNetwork {
     private func activateFetchedValues() {
         remoteConfig.activate(completionHandler: { error in
             if let error = error {
-                print("Fetched values not activated")
+                print("[Remote Config] Fetched values not activated")
                 print("Error: \(error.localizedDescription)")
+                return
             }
             print("Fetched values activated")
         })
@@ -45,9 +47,9 @@ class ConfigNetworkManager: ConfigNetwork {
     private func fetchCloudValues() {
         remoteConfig.fetch(completionHandler: { status, error -> Void in
           if status == .success {
-            print("Config fetched")
+            print("[Remote Config] Fetched")
           } else {
-            print("Config not fetched")
+            print("[Remote Config] Not fetched")
             print("Error: \(error?.localizedDescription ?? "No error available.")")
           }
         })

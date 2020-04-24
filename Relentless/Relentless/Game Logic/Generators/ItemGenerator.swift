@@ -10,7 +10,7 @@ import Foundation
 
 class ItemGenerator: GameItemGenerator {
     let numberOfPlayers: Int
-    let difficultyLevel: Float
+    let difficultyLevel: Double
     let numOfPairsPerCategory: Int
     let itemSpecifications: ItemSpecifications
 
@@ -18,7 +18,7 @@ class ItemGenerator: GameItemGenerator {
         itemSpecifications.availableGroupsOfItems
     }
 
-    init(numberOfPlayers: Int, difficultyLevel: Float,
+    init(numberOfPlayers: Int, difficultyLevel: Double,
          numOfPairsPerCategory: Int, itemSpecifications: ItemSpecifications) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel

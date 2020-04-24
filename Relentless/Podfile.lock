@@ -106,12 +106,14 @@ PODS:
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
+  - SwiftTryCatch (0.0.1)
 
 DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Database
   - Firebase/RemoteConfig
+  - SwiftTryCatch
 
 SPEC REPOS:
   trunk:
@@ -137,6 +139,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
+    - SwiftTryCatch
 
 SPEC CHECKSUMS:
   Firebase: d55ddb0e0bb3207166cddc028647833d8a1b5b6f
@@ -161,7 +164,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
+  SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
 
-PODFILE CHECKSUM: 846fd619c1b1ff83f07930c51cf4363fcfa49520
+PODFILE CHECKSUM: d63b05d46a76da57db9203c1782ee7204958470e
 
 COCOAPODS: 1.8.4

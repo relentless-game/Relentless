@@ -24,7 +24,6 @@ class StatefulItem: Item {
         let container = try decoder.container(keyedBy: StatefulItemKeys.self)
         self.stateIdentifier = try container.decode(Int.self, forKey: .stateIdentifier)
         self.imageString = try container.decode(String.self, forKey: .imageString)
-        
         try super.init(from: decoder)
     }
 

@@ -9,9 +9,11 @@
 import Foundation
 
 class AssembledItem: Item {
-    
     let mainImageString: String
-    let partsImageStrings: [Category: String]
+    // maps each Category to an array of strings. For StatefulItems and RhythmicItems,
+    // the array is ordered by indices of the states that the image strings correspond to.
+    // For TitledItems and AssembledItems, each array has only one string.
+    let partsImageStrings: [Category: [String]]
     
     internal var unsortedParts: [Item] {
         didSet {
@@ -24,7 +26,7 @@ class AssembledItem: Item {
     }
 
     init(parts: [Item], category: Category, isInventoryItem: Bool,
-         isOrderItem: Bool, mainImageString: String, partsImageStrings: [Category: String]) {
+         isOrderItem: Bool, mainImageString: String, partsImageStrings: [Category: [String]]) {
         self.unsortedParts = parts.sorted()
         self.mainImageString = mainImageString
         self.partsImageStrings = partsImageStrings
@@ -33,7 +35,7 @@ class AssembledItem: Item {
     }
 
     // To be called by ItemAssembler
-    init(parts: [Item], category: Category, mainImageString: String, partsImageStrings: [Category: String]) {
+    init(parts: [Item], category: Category, mainImageString: String, partsImageStrings: [Category: [String]]) {
         self.unsortedParts = parts
         self.mainImageString = mainImageString
         self.partsImageStrings = partsImageStrings
@@ -47,8 +49,7 @@ class AssembledItem: Item {
         let partsObject = try container.decode(ItemFactory.self, forKey: .parts)
         self.unsortedParts = partsObject.items
         self.mainImageString = try container.decode(String.self, forKey: .mainImageString)
-        self.partsImageStrings = try container.decode([Category: String].self, forKey: .partsImageStrings)
-        
+        self.partsImageStrings = try container.decode([Category: [String]].self, forKey: .partsImageStrings)
         try super.init(from: decoder)
     }
 
@@ -58,7 +59,6 @@ class AssembledItem: Item {
         try container.encode(itemFactoryWrapper, forKey: .parts)
         try container.encode(mainImageString, forKey: .mainImageString)
         try container.encode(partsImageStrings, forKey: .partsImageStrings)
-        
         try super.encode(to: encoder)
     }
 
@@ -121,7 +121,6 @@ class AssembledItem: Item {
         return self.category == otherItem.category &&
             self.parts == otherItem.parts
     }
-
 }
 
 enum AssembledItemKeys: CodingKey {

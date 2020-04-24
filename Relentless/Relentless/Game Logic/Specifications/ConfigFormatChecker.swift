@@ -30,12 +30,28 @@ class ConfigFormatChecker {
         guard let assembledItems = configDict.value(forKey: Parser.assembledItemsKey) as? [NSDictionary] else {
             throw GameConfigError.formatError(message: assembledItemsErrorMessage)
         }
-           
+        
+        try checkExtraSubtype(configDict: configDict)
+        
         try checkStatefulItems(items: statefulItems)
         try checkTitledItems(items: titledItems)
         try checkRhythmicItems(items: rhythmicItems)
         try checkAssembledItems(items: assembledItems)
         
+    }
+    
+    // If the plist file contains a key that is not part of the four standard subtypes, an error will be thrown.
+    private static func checkExtraSubtype(configDict: NSDictionary) throws {
+        let allKeys = configDict.allKeys as? [String] ?? []
+        let standardSubtypes = [Parser.statefulItemsKey, Parser.titledItemsKey,
+                                Parser.rhythmicItemsKey, Parser.assembledItemsKey]
+        for key in allKeys {
+            if !standardSubtypes.contains(key) {
+                let message = "The Plist config file contains a key that is not part of the four standard subtypes: " +
+                    "\(standardSubtypes)."
+                throw GameConfigError.formatError(message: message)
+            }
+        }
     }
     
     private static func checkStatefulItems(items: [NSDictionary]) throws {
@@ -88,8 +104,8 @@ class ConfigFormatChecker {
             var stateIndices = Set<Int>()
             for group in itemGroups {
                 for rhythmicItem in group {
-                    if rhythmicItem.value(forKey: Parser.unitDurationKey) as? String == nil {
-                        let message = String(format: errorMessage, arguments: [Parser.unitDurationKey, "String"])
+                    if rhythmicItem.value(forKey: Parser.unitDurationKey) as? Int == nil {
+                        let message = String(format: errorMessage, arguments: [Parser.unitDurationKey, "Int"])
                         throw GameConfigError.formatError(message: message)
                     }
                     if let stateSequence = rhythmicItem.value(forKey: Parser.stateSequenceKey) as? [Int] {
@@ -132,7 +148,8 @@ class ConfigFormatChecker {
             }
             guard let partsImageStrings = rawCategory.value(forKey: Parser.partsImageStringsKey) as? [String: [String]]
                 else {
-                let message = String(format: errorMessage, arguments: [Parser.partsImageStringsKey, "[String: [String]]"])
+                let message = String(format: errorMessage,
+                                     arguments: [Parser.partsImageStringsKey, "[String: [String]]"])
                 throw GameConfigError.formatError(message: message)
             }
             // check whether each part is assigned an array of Strings

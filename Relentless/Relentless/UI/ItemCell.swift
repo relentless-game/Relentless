@@ -134,9 +134,6 @@ class ItemCell: UICollectionViewCell {
     }
 
     func drawPartImageViewFor(part: Item, imageStrings: [String]) {
-        print(part.itemType)
-        print(part.category)
-        print(part.toString())
         switch part.itemType {
         case .titledItem:
             let imageString = imageStrings[0]

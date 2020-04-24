@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>category</key>
-			<string>wheel</string>
+			<string>Wheel</string>
 			<key>isInventoryItem</key>
 			<true/>
 			<key>isOrderItem</key>
@@ -26,7 +26,7 @@
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>battery</string>
+			<string>Battery</string>
 			<key>isInventoryItem</key>
 			<true/>
 			<key>isOrderItem</key>
@@ -46,7 +46,7 @@
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>carBody</string>
+			<string>Body</string>
 			<key>isInventoryItem</key>
 			<true/>
 			<key>isOrderItem</key>
@@ -114,11 +114,11 @@
 	<array>
 		<dict>
 			<key>category</key>
-			<string>siren</string>
+			<string>Siren</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>itemGroups</key>
 			<array>
 				<array>
@@ -134,7 +134,7 @@
 					</dict>
 					<dict>
 						<key>unitDuration</key>
-						<integer>1</integer>
+						<integer>2</integer>
 						<key>stateSequence</key>
 						<array>
 							<integer>1</integer>
@@ -146,7 +146,7 @@
 				<array>
 					<dict>
 						<key>unitDuration</key>
-						<integer>2</integer>
+						<integer>1</integer>
 						<key>stateSequence</key>
 						<array>
 							<integer>0</integer>
@@ -155,7 +155,7 @@
 					</dict>
 					<dict>
 						<key>unitDuration</key>
-						<integer>2</integer>
+						<integer>3</integer>
 						<key>stateSequence</key>
 						<array>
 							<integer>1</integer>
@@ -166,13 +166,13 @@
 			</array>
 			<key>stateImageStrings</key>
 			<array>
-				<string>robot_lit.png</string>
-				<string>robot_unlit.png</string>
+				<string>siren_purple.png</string>
+				<string>siren_yellow.png</string>
 			</array>
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>robot</string>
+			<string>Robot</string>
 			<key>isInventoryItem</key>
 			<false/>
 			<key>isOrderItem</key>
@@ -213,7 +213,7 @@
 					</dict>
 					<dict>
 						<key>unitDuration</key>
-						<integer>2</integer>
+						<integer>4</integer>
 						<key>stateSequence</key>
 						<array>
 							<integer>1</integer>
@@ -233,12 +233,12 @@
 	<array>
 		<dict>
 			<key>category</key>
-			<string>toyCar</string>
+			<string>Car</string>
 			<key>parts</key>
 			<array>
-				<string>carBody</string>
-				<string>battery</string>
-				<string>wheel</string>
+				<string>Body</string>
+				<string>Battery</string>
+				<string>Wheel</string>
 			</array>
 			<key>isInventoryItem</key>
 			<false/>
@@ -250,19 +250,19 @@
 			<string>toyCarImage</string>
 			<key>partsImageStrings</key>
 			<dict>
-				<key>carBody</key>
+				<key>Body</key>
 				<array>
 					<string>toycar_body_red.png</string>
 					<string>toycar_body_blue.png</string>
 					<string>toycar_body_green.png</string>
 				</array>
-				<key>battery</key>
+				<key>Battery</key>
 				<array>
 					<string>toycar_battery_AA.png</string>
 					<string>toycar_battery_D.png</string>
 					<string>toycar_battery_PP3.png</string>
 				</array>
-				<key>wheel</key>
+				<key>Wheel</key>
 				<array>
 					<string>toycar_wheel_circle.png</string>
 					<string>toycar_wheel_triangle.png</string>
@@ -272,11 +272,11 @@
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>toyPoliceCar</string>
+			<string>Police Car</string>
 			<key>parts</key>
 			<array>
-				<string>toyCar</string>
-				<string>siren</string>
+				<string>Car</string>
+				<string>Siren</string>
 			</array>
 			<key>isInventoryItem</key>
 			<true/>
@@ -285,15 +285,15 @@
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>
-			<string>toyCarGiftImage</string>
+			<string>policeCarImage</string>
 			<key>partsImageStrings</key>
 			<dict>
-				<key>toyCar</key>
+				<key>Car</key>
 				<array/>
-				<key>siren</key>
+				<key>Siren</key>
 				<array>
-					<string>house.png</string>
-					<string>book.png</string>
+					<string>toycar_siren_purple.png</string>
+					<string>toycar_siren_yellow.png</string>
 				</array>
 			</dict>
 		</dict>
@@ -312,7 +312,7 @@
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>
-			<string>toyCarGiftImage</string>
+			<string></string>
 			<key>partsImageStrings</key>
 			<dict>
 				<key>toyCar</key>

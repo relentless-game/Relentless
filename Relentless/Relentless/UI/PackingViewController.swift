@@ -266,6 +266,7 @@ class PackingViewController: UIViewController {
             if let pop = viewController.popoverPresentationController {
                 pop.sourceView = sender
                 pop.sourceRect = sender.bounds
+                pop.permittedArrowDirections = []
             }
             self.present(viewController, animated: true)
         }

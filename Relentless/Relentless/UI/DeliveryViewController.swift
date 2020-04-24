@@ -15,6 +15,7 @@ class DeliveryViewController: UIViewController {
     var packageForDelivery: Package?
     let housesIdentifier = "HouseCell"
     let playersIdentifier = "PlayerIconCell"
+//    var didEndRound = false
     @IBOutlet private var playersCollectionView: UICollectionView!
     @IBOutlet private var housesCollectionView: UICollectionView!
 
@@ -23,46 +24,48 @@ class DeliveryViewController: UIViewController {
         initCollectionViews()
         houses = gameController?.houses
         otherPlayers = gameController?.otherPlayers
-        addObservers()
+//        addObservers()
     }
     
-    func addObservers() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleRoundEnded),
-                                               name: .didEndRound, object: nil)
-    }
-
-    func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
-    }
+//    func addObservers() {
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(handleRoundEnded),
+//                                               name: .didEndRound, object: nil)
+//    }
+//
+//    func removeObservers() {
+//        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
+//    }
 
     func initCollectionViews() {
         let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
     }
 
-    @objc func handleRoundEnded() {
-        performSegue(withIdentifier: "endRound", sender: self)
+    func returnToPackingView() {
+        guard let gameStatus = gameController?.gameStatus else {
+            return
+        }
+        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+        if !didEndRound {
+            dismiss(animated: true, completion: nil)
+        }
     }
+
+//    @objc func handleRoundEnded() {
+//        didEndRound = true
+//    }
     
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
     
     @IBAction private func handleDeletePackage(_ sender: Any) {
         if let package = packageForDelivery {
             gameController?.removePackage(package: package)
         }
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        removeObservers()
-//        removeAllPreviousViewControllers()
-//        if segue.identifier == "cancelDelivery" {
-//            let viewController = segue.destination as? PackingViewController
-//            viewController?.gameController = gameController
-//        }
-//    }
 }
 
 extension DeliveryViewController: UICollectionViewDataSource {
@@ -112,8 +115,7 @@ extension DeliveryViewController: UICollectionViewDelegate {
             let player = otherPlayers[indexPath.item]
             _ = gameController?.sendPackage(package: packageForDelivery, to: player)
         }
-        // performSegue(withIdentifier: "cancelDelivery", sender: self)
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
 }
 

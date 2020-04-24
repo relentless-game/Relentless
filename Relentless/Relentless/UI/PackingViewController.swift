@@ -11,10 +11,13 @@ import UIKit
 class PackingViewController: UIViewController {
     var gameController: GameController?
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-    
-    @IBOutlet private var packagesView: UICollectionView!
-    @IBOutlet private var itemsView: UICollectionView!
-    @IBOutlet private var currentPackageView: UICollectionView!
+
+    // swiftlint:disable private_outlet
+    // Necessary to be accessed in extensions.
+    @IBOutlet internal var packagesView: UICollectionView!
+    @IBOutlet internal var itemsView: UICollectionView!
+    @IBOutlet internal var currentPackageView: UICollectionView!
+    // swiftlint:enable private_outlet
     @IBOutlet private var currentPackageLabel: UILabel!
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
@@ -27,10 +30,10 @@ class PackingViewController: UIViewController {
     var currentPackage: Package?
     var currentPackageItems: [Item]?
     var packageForDelivery: Package?
-    private let categoryIdentifier = "CategoryViewController"
-    private let itemIdentifier = "ItemCell"
-    private let packageIdentifier = "PackageCell"
-    private let addPackageIdentifier = "AddPackageButton"
+    let categoryIdentifier = "CategoryViewController"
+    let itemIdentifier = "ItemCell"
+    let packageIdentifier = "PackageCell"
+    let addPackageIdentifier = "AddPackageButton"
 
     var assemblyMode = false
     var selectedParts = Set<Item>()
@@ -369,150 +372,5 @@ extension PackingViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController,
                                    traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         .none
-    }
-}
-
-extension PackingViewController: UICollectionViewDataSource {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.packagesView {
-            return 1 + (packages?.count ?? 0)
-        } else if collectionView == self.currentPackageView {
-            return currentPackageItems?.count ?? 0
-        } else {
-            guard let currentCategory = currentCategory else {
-                return 0
-            }
-            return items?[currentCategory]?.count ?? 0
-        }
-    }
-
-    //swiftlint:disable cyclomatic_complexity
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.packagesView {
-            if indexPath.item == packages?.count {
-                // Add Button at the end.
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: addPackageIdentifier, for: indexPath)
-                if let addPackageButton = cell as? AddPackageButton, let avatar = gameController?.player?.profileImage {
-                    addPackageButton.setAvatar(to: avatar)
-                }
-                return cell
-            }
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: packageIdentifier, for: indexPath)
-
-            if let packageCell = cell as? PackageCell, let package = packages?[indexPath.row] {
-                packageCell.setPackage(package: package)
-                packageCell.active = false
-                if package == currentPackage {
-                    packageCell.active = true
-                }
-            }
-            return cell
-        } else if collectionView == self.currentPackageView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
-            if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
-                itemCell.setItem(item: item)
-                itemCell.state = .opaque
-                if assemblyMode {
-                    if let item = currentPackageItems?[indexPath.row] {
-                        if selectedParts.contains(item) {
-                            itemCell.state = .opaque
-                        } else {
-                            itemCell.state = .translucent
-                        }
-                    }
-//                    if let part = currentPackageItems?[indexPath.row] as? Part {
-//                        if selectedParts.contains(part) {
-//                            itemCell.state = .opaque
-//                        } else {
-//                            itemCell.state = .translucent
-//                        }
-//                    } else {
-//                        itemCell.state = .transparent
-//                    }
-                }
-            }
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
-            if let currentCategory = currentCategory,
-                let itemCell = cell as? ItemCell,
-                let item = items?[currentCategory]?[indexPath.item] {
-                itemCell.setItem(item: item)
-            }
-            return cell
-        }
-    }
-}
-
-extension PackingViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.packagesView {
-            if indexPath.item == packages?.count {
-                // Add Button at the end
-                gameController?.addNewPackage()
-                reloadPackages()
-                return
-            }
-            guard let packages = packages else {
-                return
-            }
-            gameController?.openPackage(package: packages[indexPath.item])
-        } else if collectionView == self.currentPackageView {
-            guard let currentPackageItems = currentPackageItems else {
-                return
-            }
-            if assemblyMode {
-                let item = currentPackageItems[indexPath.item]
-                if selectedParts.contains(item) {
-                    selectedParts.remove(item)
-                } else {
-                    selectedParts.insert(item)
-                }
-//                guard let part = currentPackageItems[indexPath.item] as? Part else {
-//                    return
-//                }
-//                if selectedParts.contains(part) {
-//                    selectedParts.remove(part)
-//                } else {
-//                    selectedParts.insert(part)
-//                }
-            } else {
-                gameController?.removeItem(item: currentPackageItems[indexPath.item])
-            }
-        } else {
-            if let currentCategory = currentCategory,
-                let item = items?[currentCategory]?[indexPath.item] {
-                gameController?.addItem(item: item)
-            }
-        }
-        reloadCurrentPackage()
-    }
-}
-
-extension PackingViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.packagesView {
-            if indexPath.item == packages?.count {
-                //addButton
-                let width = collectionView.frame.height - 5
-                let height = collectionView.frame.height - 5
-                return CGSize(width: width, height: height)
-            }
-            let width = collectionView.frame.width / 6 - 5
-            let height = collectionView.frame.height - 5
-            return CGSize(width: width, height: height)
-        } else {
-            let width = collectionView.frame.width / 3.1
-            let height = collectionView.frame.height / 2.1
-            return CGSize(width: width, height: height)
-        }
     }
 }

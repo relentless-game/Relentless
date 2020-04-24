@@ -17,7 +17,8 @@ class ItemGenerator: GameItemGenerator {
         itemSpecifications.availableGroupsOfItems
     }
 
-    init(numberOfPlayers: Int, numOfGroupsPerCategory: Int, itemSpecifications: ItemSpecifications) {
+    init(numberOfPlayers: Int, numOfGroupsPerCategory: Int,
+         itemSpecifications: ItemSpecifications) {
         self.numberOfPlayers = numberOfPlayers
         self.numOfGroupsPerCategory = numOfGroupsPerCategory
         self.itemSpecifications = itemSpecifications
@@ -85,5 +86,4 @@ class ItemGenerator: GameItemGenerator {
         allInventoryItems.append(contentsOf: partsThatAreInventoryItems)
         return Set(allInventoryItems)
     }
-
 }

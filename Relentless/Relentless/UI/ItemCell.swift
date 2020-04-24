@@ -107,9 +107,9 @@ class ItemCell: UICollectionViewCell {
             background.animationDuration = TimeInterval(robot.unitDuration)
             var images = [UIImage]()
             for state in robot.stateSequence {
-                if state == .lit {
+                if state == RhythmState(index: 1) {
                     images.append(litRobotImage)
-                } else if state == .unlit {
+                } else if state == RhythmState(index: 0) {
                     images.append(unlitRobotImage)
                 }
             }

@@ -190,35 +190,25 @@ extension GameControllerManager {
         // update game status
         self.gameStatus = gameStatus
 
-        let didStartGame = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound == 0
-            && gameStatus.numberOfPlayersPaused == 0
-        let didEndGame = !gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-        let didStartRound = gameStatus.isGamePlaying && gameStatus.isRoundPlaying &&
-            gameStatus.numberOfPlayersPaused == 0 && !gameStatus.isResumed
-        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
-        let didEndGamePrematurely = gameStatus.isGameEndedPrematurely
-        let didPauseRound = gameStatus.isRoundPlaying && gameStatus.numberOfPlayersPaused != 0
-        let didResumeRound = gameStatus.isResumed && gameStatus.isRoundPlaying
-
-        if didEndGamePrematurely {
+        if gameStatus.didEndGamePrematurely {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
-        } else if didStartGame {
+        } else if gameStatus.didStartGame {
             NotificationCenter.default.post(name: .didStartGame, object: nil)
-        } else if didEndGame /*|| didRunOutPauseTime*/ {
+        } else if gameStatus.didEndGame /*|| didRunOutPauseTime*/ {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGame, object: nil)
-        } else if didStartRound {
+        } else if gameStatus.didStartRound {
             handleRoundStart()
             NotificationCenter.default.post(name: .didStartRound, object: nil)
             game?.incrementRoundNumber()
-        } else if didEndRound {
+        } else if gameStatus.didEndRound {
             handleRoundEnd()
             NotificationCenter.default.post(name: .didEndRound, object: nil)
-        } else if didPauseRound {
+        } else if gameStatus.didPauseRound {
             pauseAllTimers()
             NotificationCenter.default.post(name: .didPauseRound, object: nil)
-        } else if didResumeRound {
+        } else if gameStatus.didResumeRound {
             pauseTimer?.invalidate()
             resumeAllTimers()
             NotificationCenter.default.post(name: .didResumeRound, object: nil)

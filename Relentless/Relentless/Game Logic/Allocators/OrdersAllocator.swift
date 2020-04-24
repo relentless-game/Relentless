@@ -74,7 +74,7 @@ class OrdersAllocator: GameOrdersAllocator {
 
         while selectedItems.count < numberOfItems {
             // decide whether to select own or other players' items
-            let randomNumber = Float.random(in: 0...1)
+            let randomNumber = Double.random(in: 0...1)
             var itemsToChooseFrom = Set<Item>()
             if randomNumber <= probabilityOfSelectingOwnItem {
                 itemsToChooseFrom = currPlayer.items

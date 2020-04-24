@@ -9,6 +9,7 @@
 import Foundation
 
 class GameHostControllerManager: GameControllerManager, GameHostController {
+
     var hostParameters: GameHostParameters? {
         gameParameters as? GameHostParameters
     }

@@ -11,7 +11,9 @@ import Foundation
 class ItemSpecifications {
     var availableGroupsOfItems: [Category: Set<[Item]>]
     var itemIdentifierMappings: [Category: [Int: String]]
-    var partsToAssembledItemCategoryMapping: [[Category]: Category] //categories should be sorted
+
+    //categories should be sorted
+    var partsToAssembledItemCategoryMapping: [[Category]: Category]
     
     init(availableGroupsOfItems: [Category: Set<[Item]>],
          itemIdentifierMappings: [Category: [Int: String]],

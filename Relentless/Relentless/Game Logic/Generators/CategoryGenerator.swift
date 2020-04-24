@@ -12,14 +12,14 @@ import Foundation
 class CategoryGenerator: GameCategoryGenerator {
 
     var numberOfPlayers: Int
-    var difficultyLevel: Float // ranges from 0 (easiest) to 1 (most difficult)
+    var difficultyLevel: Double
     var numOfCategories: Int
     let categoryToGroupsMapping: [Category: Set<[Item]>]
     var allCategories: [Category] {
         Array(categoryToGroupsMapping.keys)
     }
 
-    init(numberOfPlayers: Int, difficultyLevel: Float, numOfCategories: Int,
+    init(numberOfPlayers: Int, difficultyLevel: Double, numOfCategories: Int,
          categoryToGroupsMapping: [Category: Set<[Item]>]) {
         self.numberOfPlayers = numberOfPlayers
         self.difficultyLevel = difficultyLevel
@@ -51,6 +51,14 @@ class CategoryGenerator: GameCategoryGenerator {
         
         //return Array(categories)
         return [Category(name: "toyCar")]
+    }
+
+    private func checkHasNoOrderItems(in category: Category) -> Bool {
+        guard let groupsInCategory = categoryToGroupsMapping[category] else {
+            return true
+        }
+        let itemsInCategory = Array(groupsInCategory).flatMap { $0 }
+        return !itemsInCategory.contains(where: { $0.isOrderItem })
     }
 
     private func checkHasNoOrderItems(in category: Category) -> Bool {

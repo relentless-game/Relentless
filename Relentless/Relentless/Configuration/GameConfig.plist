@@ -240,30 +240,6 @@
 				</array>
 			</dict>
 		</dict>
-		<dict>
-			<key>category</key>
-			<string>toyCarGift</string>
-			<key>parts</key>
-			<array>
-				<string>toyCar</string>
-				<string>book</string>
-			</array>
-			<key>isInventoryItem</key>
-			<false/>
-			<key>isOrderItem</key>
-			<true/>
-			<key>depth</key>
-			<integer>1</integer>
-			<key>mainImageString</key>
-			<string>toyCarGiftImage</string>
-			<key>partsImageStrings</key>
-			<dict>
-				<key>toyCar</key>
-				<string>toyCarImage</string>
-				<key>book</key>
-				<string>bookImage</string>
-			</dict>
-		</dict>
 	</array>
 </dict>
 </plist>

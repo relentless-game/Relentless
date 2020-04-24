@@ -56,6 +56,10 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
+//        for view in subviews where view != background && view != textLabel {
+//            print(view)
+//            view.removeFromSuperview()
+//        }
         switch item.itemType {
         case .titledItem:
             if let titledItem = item as? TitledItem {
@@ -102,14 +106,11 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setAssembledItemBackgroundFor(item: AssembledItem) {
-        for view in subviews where view != background && view != textLabel {
-            view.removeFromSuperview()
-        }
-        setBackgroundTo(named: "house.png")
+        setBackgroundTo(named: item.mainImageString)
         for part in item.parts {
             let category = part.category
             if let imageStrings = item.partsImageStrings[category] {
-                drawPartImageViewFor(part: item, imageStrings: imageStrings)
+                drawPartImageViewFor(part: part, imageStrings: imageStrings)
             }
         }
     }
@@ -132,8 +133,10 @@ class ItemCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
     }
 
-
     func drawPartImageViewFor(part: Item, imageStrings: [String]) {
+        print(part.itemType)
+        print(part.category)
+        print(part.toString())
         switch part.itemType {
         case .titledItem:
             let imageString = imageStrings[0]
@@ -155,8 +158,11 @@ class ItemCell: UICollectionViewCell {
                 drawAnimatedPartImageViewWith(images: images, duration: rhythmicItem.unitDuration)
             }
         case .assembledItem:
-            let imageString = imageStrings[0]
-            drawStaticPartImageViewWith(image: UIImage(named: imageString))
+            if let assembledItem = part as? AssembledItem {
+//                let imageString = imageStrings[0]
+//                drawStaticPartImageViewWith(image: UIImage(named: imageString))
+                setAssembledItemBackgroundFor(item: assembledItem)
+            }
         }
     }
 }

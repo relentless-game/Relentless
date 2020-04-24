@@ -114,6 +114,64 @@
 	<array>
 		<dict>
 			<key>category</key>
+			<string>siren</string>
+			<key>isInventoryItem</key>
+			<false/>
+			<key>isOrderItem</key>
+			<false/>
+			<key>itemGroups</key>
+			<array>
+				<array>
+					<dict>
+						<key>unitDuration</key>
+						<integer>1</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>0</integer>
+							<integer>1</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>unitDuration</key>
+						<integer>1</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>1</integer>
+							<integer>0</integer>
+							<integer>1</integer>
+						</array>
+					</dict>
+				</array>
+				<array>
+					<dict>
+						<key>unitDuration</key>
+						<integer>2</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>0</integer>
+							<integer>1</integer>
+						</array>
+					</dict>
+					<dict>
+						<key>unitDuration</key>
+						<integer>2</integer>
+						<key>stateSequence</key>
+						<array>
+							<integer>1</integer>
+							<integer>0</integer>
+						</array>
+					</dict>
+				</array>
+			</array>
+			<key>stateImageStrings</key>
+			<array>
+				<string>robot_lit.png</string>
+				<string>robot_unlit.png</string>
+			</array>
+		</dict>
+		<dict>
+			<key>category</key>
 			<string>robot</string>
 			<key>isInventoryItem</key>
 			<false/>
@@ -183,9 +241,9 @@
 				<string>wheel</string>
 			</array>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
-			<true/>
+			<false/>
 			<key>depth</key>
 			<integer>0</integer>
 			<key>mainImageString</key>
@@ -214,16 +272,16 @@
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>toyCarGift</string>
+			<string>toyPoliceCar</string>
 			<key>parts</key>
 			<array>
 				<string>toyCar</string>
-				<string>book</string>
+				<string>siren</string>
 			</array>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>
@@ -231,12 +289,11 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>toyCar</key>
+				<array/>
+				<key>siren</key>
 				<array>
-					<string>toyCarImage</string>
-				</array>
-				<key>book</key>
-				<array>
-					<string>bookImage</string>
+					<string>house.png</string>
+					<string>book.png</string>
 				</array>
 			</dict>
 		</dict>

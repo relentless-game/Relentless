@@ -326,9 +326,9 @@ class ItemSpecificationsParser {
             let category = Category(name: categoryName)
             
             let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
-            let CategoriesForParts = parts.map { Category(name: $0) }
+            let categoriesForParts = parts.map { Category(name: $0) }.sorted()
             
-            mappings[CategoriesForParts] = category
+            mappings[categoriesForParts] = category
         }
         
         return mappings

@@ -215,7 +215,7 @@ class GameControllerManager: GameController {
         }
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.penalise(penalty: parameters.satisfactionRunOutPenalty)
+            satisfactionBar.decrement(amount: parameters.satisfactionRunOutPenalty)
             endRound()
         }
     }
@@ -245,7 +245,7 @@ class GameControllerManager: GameController {
         guard let parameters = gameParameters else {
             return
         }
-        satisfactionBar.decrementWithTime(amount: parameters.satisfactionUnitDecrease)
+        satisfactionBar.decrement(amount: parameters.satisfactionUnitDecrease)
         NotificationCenter.default.post(name: .didChangeOrders, object: nil)
     }
 

@@ -84,6 +84,7 @@
 		62697C1B24431322005E21D6 /* ConfigNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62697C1A24431322005E21D6 /* ConfigNetworkManager.swift */; };
 		62697C1D2443132F005E21D6 /* ConfigNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62697C1C2443132F005E21D6 /* ConfigNetwork.swift */; };
 		62697C2124445AFE005E21D6 /* VariableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62697C2024445AFE005E21D6 /* VariableNames.swift */; };
+		6280167A2452AB4E000573B8 /* SatisfactionBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628016792452AB4E000573B8 /* SatisfactionBarTests.swift */; };
 		6280CF3C24374E090032EFD5 /* StartGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CF3B24374E090032EFD5 /* StartGameError.swift */; };
 		62CC1D6F2438817200C942C7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CC1D6E2438817200C942C7 /* SettingsViewController.swift */; };
 		62D0EBCB242CBDDA00FDAFAF /* GameHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */; };
@@ -249,6 +250,7 @@
 		62697C1A24431322005E21D6 /* ConfigNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigNetworkManager.swift; sourceTree = "<group>"; };
 		62697C1C2443132F005E21D6 /* ConfigNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigNetwork.swift; sourceTree = "<group>"; };
 		62697C2024445AFE005E21D6 /* VariableNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableNames.swift; sourceTree = "<group>"; };
+		628016792452AB4E000573B8 /* SatisfactionBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBarTests.swift; sourceTree = "<group>"; };
 		6280CF3B24374E090032EFD5 /* StartGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameError.swift; sourceTree = "<group>"; };
 		62CC1D6E2438817200C942C7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostController.swift; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 				62E75B1F244D55DB001D53A4 /* GameParametersParserTest.swift */,
 				625BDA63244D9FDC0094621D /* GameHostParametersParserTest.swift */,
 				625BDA67244DBD120094621D /* StringExtensionTest.swift */,
+				628016792452AB4E000573B8 /* SatisfactionBarTests.swift */,
 			);
 			path = RelentlessTests;
 			sourceTree = "<group>";
@@ -1056,6 +1059,7 @@
 				625BDA68244DBD120094621D /* StringExtensionTest.swift in Sources */,
 				625BDA61244D872C0094621D /* TestConfigValues.swift in Sources */,
 				625BDA62244D872C0094621D /* TestGameParameters.plist in Sources */,
+				6280167A2452AB4E000573B8 /* SatisfactionBarTests.swift in Sources */,
 				625BDA64244D9FDC0094621D /* GameHostParametersParserTest.swift in Sources */,
 				0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
 				0B09CA4C242F5BFE00F29648 /* ToyCarBodyTests.swift in Sources */,
@@ -1413,6 +1417,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-    };
-    rootObject = F3C37BEE24189F5200D7109B /* Project object */;
+	};
+	rootObject = F3C37BEE24189F5200D7109B /* Project object */;
 }

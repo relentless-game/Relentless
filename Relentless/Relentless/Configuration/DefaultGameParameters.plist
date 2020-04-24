@@ -25,9 +25,9 @@
 	<key>dailyExpense</key>
 	<string>50</string>
 	<key>correctPackageSatisfactionChange</key>
-	<string>25 * (timeLeft/totalTime) + numOfCorrectItems</string>
+	<string>25 * (timeLeft/totalTime) + numOfDifferences</string>
 	<key>wrongPackageSatisfactionChange</key>
-	<string>-25 * ((totalTime - timeLeft) / totalTime) + numOfCorrectItems</string>
+	<string>-25 * ((totalTime - timeLeft) / totalTime) - numOfDifferences / numOfItems</string>
 	<key>satisfactionToMoneyTranslation</key>
 	<string>2</string>
 	<key>satisfactionRunOutPenalty</key>

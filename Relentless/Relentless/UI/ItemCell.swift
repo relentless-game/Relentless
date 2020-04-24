@@ -90,24 +90,6 @@ class ItemCell: UICollectionViewCell {
             let assembledItem = item as? AssembledItem
             print(assembledItem?.mainImageString)
         }
-//        switch item.category.categoryName {
-//        case "book":
-//            setBookBackgroundFor(item: item)
-//        case "magazine":
-//            setMagazineBackgroundFor(item: item)
-//        case "robot":
-//            setRobotBackgroundFor(item: item)
-//        case "toyCar":
-//            setToyCarBackgroundFor(item: item)
-//        case "wheel":
-//            setToyCarWheelBackgroundFor(item: item)
-//        case "battery":
-//            setToyCarBatteryBackgroundFor(item: item)
-//        case "carBody":
-//            setToyCarBodyBackgroundFor(item: item)
-//        default:
-//            assertionFailure()
-//        }
     }
 
     func setBackgroundTo(named: String) {
@@ -131,6 +113,10 @@ class ItemCell: UICollectionViewCell {
         }
         background.animationImages = images
         background.startAnimating()
+    }
+
+    func setAssembledItemBackgroundFor(item: AssembledItem) {
+        item.partsImageStrings
     }
 
     func setToyCarBackgroundFor(item: Item) {

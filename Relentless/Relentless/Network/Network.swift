@@ -40,7 +40,7 @@ protocol Network {
     /// - parameters:
     ///     - completion: a closure that is called to propagate possible errors
     ///     that occur when starting a game. `nil` is passed into it to indicate success
-    func startGame(gameId: Int, difficultyLevel: Float, completion: @escaping (StartGameError?) -> Void)
+    func startGame(gameId: Int, difficultyLevel: Double, completion: @escaping (StartGameError?) -> Void)
     
     /// This is called by the host player to start a new round with the specified round number.
     func startRound(gameId: Int, roundNumber: Int)
@@ -80,7 +80,7 @@ protocol Network {
     func resetSatisfactionLevels(gameId: Int)
     
     /// Updates the network about this player's individual satiafaction level so that other players can get notified.
-    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float)
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Double)
     
     /// Notifies the player when there is a change in the team satisfaction level.
     /// `action` is called upon a change in the satisfaction level.
@@ -131,7 +131,7 @@ protocol Network {
     func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
 
     /// Notifies the player of the game parameters for the game
-    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void)
+    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Double) -> Void)
 
     /// Notifies non-host player to give them their item specifications for this round.
     /// `action` is called upon receiving the item specifications.

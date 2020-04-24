@@ -10,11 +10,11 @@ import Foundation
 
 class VariableNames {
 
-    static let difficultyLevelVarName = "diffLevel"
+    static let difficultyLevel = "diffLevel"
 
     /// Order properties (used in `SatisfactionBar`)
-    static let totalTimeVarName = "totalTime"
-    static let remainingTimeVarName = "remainingTime"
-    static let numOfCorrectItemsVarName = "numOfCorrectItems"
+    static let totalTime = "totalTime"
+    static let timeLeft = "timeLeft"
+    static let numOfCorrectItems = "numOfCorrectItems"
 
 }

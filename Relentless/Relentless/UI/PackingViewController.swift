@@ -164,7 +164,7 @@ class PackingViewController: UIViewController {
 
     @objc func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
-            satisfactionBar.setProgress(value, animated: false)
+            satisfactionBar.setProgress(Float(value), animated: false)
         }
     }
     

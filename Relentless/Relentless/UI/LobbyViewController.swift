@@ -123,12 +123,13 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleInsufficientPlayers() {
-        let minNumOfPlayers = GameParameters.numOfPlayersRange.lowerBound
-        let alert = createAlert(title: "Sorry.",
-                                message: "You need at least " + String(minNumOfPlayers) + " players to play."
-                                    + " Get your friends to join the game!",
-                                action: "Ok.")
+        var message = "You do not have enough players. Get your friends to join the game!"
+        if let minNumOfPlayers = gameController?.numOfPlayersRange?.lowerBound {
+            message.append(contentsOf: " You need at least " + String(minNumOfPlayers) + " players to play.")
+        }
+        let alert = createAlert(title: "Sorry.", message: message, action: "Ok.")
         self.present(alert, animated: true, completion: nil)
+
     }
     
     @objc func handleNonUniqueUsernames() {

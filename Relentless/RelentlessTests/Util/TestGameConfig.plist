@@ -13,8 +13,8 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>wheel_circle.png</string>
-				<string>wheel_triangle.png</string>
+				<string>circularImage</string>
+				<string>triangularImage</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -31,10 +31,10 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>battery_AA.png</string>
+				<string>AAImage</string>
 				<string>AAAImage</string>
-				<string>battery_D.png</string>
-				<string>battery_PP3.png</string>
+				<string>DImage</string>
+				<string>PP3Image</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -53,9 +53,9 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>body_red.png</string>
-				<string>body_blue.png</string>
-				<string>body_green.png</string>
+				<string>redBodyImage</string>
+				<string>blueBodyImage</string>
+				<string>yellowBodyImage</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -86,7 +86,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>book.png</string>
+			<string>bookImage</string>
 		</dict>
 		<dict>
 			<key>category</key>
@@ -107,7 +107,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>magazine.png</string>
+			<string>magazineImage</string>
 		</dict>
 	</array>
 	<key>rhythmicItems</key>
@@ -166,8 +166,8 @@
 			</array>
 			<key>stateImageStrings</key>
 			<array>
-				<string>robot_lit.png</string>
-				<string>robot_unlit.png</string>
+				<string>stateZeroImage</string>
+				<string>stateOneImage</string>
 			</array>
 		</dict>
 	</array>
@@ -193,11 +193,51 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>carBody</key>
-				<string>toyCarCarBodyImage</string>
+				<array>
+					<string>redCarBodyImage</string>
+					<string>blueCarBodyImage</string>
+					<string>yellowCarBodyImage</string>
+				</array>
 				<key>batter</key>
-				<string>toyCarBatteryImage</string>
+				<array>
+					<string>AAImage</string>
+					<string>AAAImage</string>
+					<string>DImage</string>
+					<string>PP3Image</string>
+				</array>
 				<key>wheel</key>
-				<string>toyCarWheelImage</string>
+				<array>
+					<string>circleWheelImage</string>
+					<string>triangleWheelImage</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>category</key>
+			<string>toyCarGift</string>
+			<key>parts</key>
+			<array>
+				<string>toyCar</string>
+				<string>book</string>
+			</array>
+			<key>isInventoryItem</key>
+			<false/>
+			<key>isOrderItem</key>
+			<true/>
+			<key>depth</key>
+			<integer>1</integer>
+			<key>mainImageString</key>
+			<string>toyCarGiftImage</string>
+			<key>partsImageStrings</key>
+			<dict>
+				<key>toyCar</key>
+				<array>
+					<string>toyCarImage</string>
+				</array>
+				<key>book</key>
+				<array>
+					<string>bookImage</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>

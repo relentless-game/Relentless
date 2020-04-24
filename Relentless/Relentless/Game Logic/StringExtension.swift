@@ -7,13 +7,21 @@
 //
 
 import Foundation
+import SwiftTryCatch
 
 extension String {
 
-    var expression: NSExpression {
-        // let string = "2 + 3"
-        // HAVE TO CATCH NSEXCEPTION HERE AND USE (format: self)
-        return NSExpression(format: self)
+    var expression: NSExpression? {
+        var expression: NSExpression?
+        SwiftTryCatch.try({
+            expression = NSExpression(format: self)
+        }, catch: { error in
+            print("\(error?.description ?? "No error description available")")
+            expression = nil
+        }, finally: {
+            // do nothing
+        })
+        return expression
     }
     
 }

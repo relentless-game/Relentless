@@ -10,15 +10,15 @@ import Foundation
 
 class OrdersAllocator: GameOrdersAllocator {
 
-    var difficultyLevel: Float
+    var difficultyLevel: Double
 
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int
-    var probabilityOfSelectingOwnItem: Float
+    var probabilityOfSelectingOwnItem: Double
     var timeForEachItem: Int
 
-    init(difficultyLevel: Float, maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
-         probabilityOfSelectingOwnItem: Float, timeForEachItem: Int) {
+    init(difficultyLevel: Double, maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
+         probabilityOfSelectingOwnItem: Double, timeForEachItem: Int) {
         self.difficultyLevel = difficultyLevel
         self.maxNumOfItemsPerOrder = maxNumOfItemsPerOrder
         self.numOfOrdersPerPlayer = numOfOrdersPerPlayer
@@ -70,7 +70,7 @@ class OrdersAllocator: GameOrdersAllocator {
         let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
 
         while selectedItems.count < numberOfItems {
-            let randomNumber = Float.random(in: 0...1)
+            let randomNumber = Double.random(in: 0...1)
             if randomNumber <= probabilityOfSelectingOwnItem {
                 guard let selectedItem = selectRandomItem(from: currPlayer.items) else {
                     continue

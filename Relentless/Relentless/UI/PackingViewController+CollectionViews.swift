@@ -54,15 +54,21 @@ extension PackingViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
         if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
             itemCell.setItem(item: item)
-            itemCell.state = .opaque
+            itemCell.state = .deselected
             if assemblyMode {
-                if let item = currentPackageItems?[indexPath.row] {
-                    if selectedParts.contains(item) {
-                        itemCell.state = .opaque
-                    } else {
-                        itemCell.state = .translucent
-                    }
-                }
+                itemCell.state = selectedParts[indexPath.row]
+                    ? .selected
+                    : .deselected
+//                if selectedParts[indexPath.row] {
+//                    itemCell.state = .opaque
+//                }
+//                if let item = currentPackageItems?[indexPath.row] {
+//                    if selectedPartsSet.contains(item) {
+//                        itemCell.state = .opaque
+//                    } else {
+//                        itemCell.state = .translucent
+//                    }
+//                }
             }
         }
         return cell
@@ -103,6 +109,7 @@ extension PackingViewController: UICollectionViewDataSource {
             let itemCell = cell as? ItemCell,
             let item = items?[currentCategory]?[indexPath.item] {
             itemCell.setItem(item: item)
+            itemCell.state = .deselected
         }
         return cell
     }
@@ -121,6 +128,9 @@ extension PackingViewController: UICollectionViewDelegate {
     }
 
     func handleItemViewDidSelect(_ indexPath: IndexPath) {
+        guard !assemblyMode else {
+            return
+        }
         if let currentCategory = currentCategory,
             let item = items?[currentCategory]?[indexPath.item] {
             gameController?.addItem(item: item)
@@ -146,11 +156,14 @@ extension PackingViewController: UICollectionViewDelegate {
                     }
                     if assemblyMode {
                         let item = currentPackageItems[indexPath.item]
-                        if selectedParts.contains(item) {
-                            selectedParts.remove(item)
-                        } else {
-                            selectedParts.insert(item)
-                        }
+                        print(selectedParts[indexPath.item])
+                        selectedParts[indexPath.item].toggle()
+                        print(selectedParts[indexPath.item])
+//                        if selectedPartsSet.contains(item) {
+//                            selectedPartsSet.remove(item)
+//                        } else {
+//                            selectedPartsSet.insert(item)
+//                        }
         //                guard let part = currentPackageItems[indexPath.item] as? Part else {
         //                    return
         //                }

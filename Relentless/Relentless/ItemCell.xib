@@ -16,6 +16,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.rectangle.fill" catalog="system" id="Zvz-hv-qu5" userLabel="Selection">
+                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="oF6-lK-6zf">
                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                     </imageView>
@@ -41,6 +46,7 @@
             <size key="customSize" width="69" height="101"/>
             <connections>
                 <outlet property="background" destination="oF6-lK-6zf" id="KXg-Rq-pze"/>
+                <outlet property="selection" destination="Zvz-hv-qu5" id="QA3-JY-fgf"/>
                 <outlet property="textLabel" destination="tcb-1P-zTQ" id="j74-oy-pun"/>
             </connections>
             <point key="canvasLocation" x="144.20289855072465" y="-250.11160714285714"/>
@@ -48,5 +54,6 @@
     </objects>
     <resources>
         <image name="book" width="406.5" height="600"/>
+        <image name="checkmark.rectangle.fill" catalog="system" width="64" height="46"/>
     </resources>
 </document>

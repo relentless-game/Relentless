@@ -12,23 +12,22 @@ class ItemCell: UICollectionViewCell {
     // todo: change to UIImageView
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var background: UIImageView!
-
-    var state: ItemCellState = .opaque {
+    @IBOutlet private var selection: UIImageView!
+    
+    var state: ItemCellState = .deselected {
         didSet {
             switch state {
-            case .transparent:
-                background.alpha = 0.2
-            case .translucent:
-                background.alpha = 0.6
-            case .opaque:
-                background.alpha = 1
+            case .deselected:
+                selection.isHidden = true
+            case .selected:
+                selection.isHidden = false
             }
         }
     }
 
     // swiftlint:disable unused_setter_value
     // unused settervalue in order to override normal cell behaviour
-    // causes problems in selection of robot - animation will stop
+    // causes problems in selection of animated items - animation will stop
     override var isSelected: Bool {
         set {
         }

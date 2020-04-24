@@ -22,6 +22,7 @@ class PackingViewController: UIViewController {
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
     @IBOutlet private var openBoxImageView: UIImageView!
+    @IBOutlet private var assemblingView: UILabel!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
@@ -35,8 +36,13 @@ class PackingViewController: UIViewController {
     let packageIdentifier = "PackageCell"
     let addPackageIdentifier = "AddPackageButton"
 
-    var assemblyMode = false
-    var selectedParts = Set<Item>()
+    var assemblyMode = false {
+        didSet {
+            assemblingView.isHidden = !assemblyMode
+        }
+    }
+//    var selectedPartsSet = Set<Item>()
+    var selectedParts = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +91,6 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
-
     }
 
     func removeObservers() {
@@ -229,10 +234,14 @@ class PackingViewController: UIViewController {
     @IBAction private func touchAssembleButton(_ sender: Any) {
         if assemblyMode {
             assembleParts()
-            selectedParts.removeAll()
+//            selectedPartsSet.removeAll()
+//            selectedParts = [Bool](repeating: false, count: currentPackageItems?.count ?? 0)
+//            print(selectedParts)
+//            print(currentPackageItems?.count)
             assemblyMode = false
             currentPackageView.reloadData()
         } else {
+            selectedParts = [Bool](repeating: false, count: currentPackageItems?.count ?? 0)
             assemblyMode = true
             currentPackageView.reloadData()
         }
@@ -240,7 +249,13 @@ class PackingViewController: UIViewController {
 
     func assembleParts() {
         do {
-            let parts = Array(selectedParts)
+            var parts = [Item]()
+            for index in 0..<selectedParts.count {
+                if selectedParts[index], let items = currentPackageItems {
+                    parts.append(items[index])
+                }
+            }
+//            let parts = Array(selectedPartsSet)
             try gameController?.constructAssembledItem(parts: parts)
         } catch ItemAssembledError.assembledItemConstructionError {
             // Currently, do nothing. Invalid selection of parts by player.

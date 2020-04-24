@@ -141,3 +141,13 @@ extension HousesViewController: UICollectionViewDelegate {
         }
     }
 }
+
+extension HousesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = housesCollectionView.frame.width / 6.6
+        let height = housesCollectionView.frame.height / 2.4
+        return CGSize(width: width, height: height)
+    }
+}

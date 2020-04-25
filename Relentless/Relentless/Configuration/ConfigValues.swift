@@ -12,6 +12,6 @@ protocol ConfigValues {
 
     func getString(for key: String) -> String?
 
-    func getNumber(for key: String) -> NSNumber?
+    func getNumber<T>(for key: String) -> T?
     
 }

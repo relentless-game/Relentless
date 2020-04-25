@@ -18,11 +18,38 @@ class RemoteConfigValues: ConfigValues {
     }
 
     func getString(for key: String) -> String? {
-        remoteConfig?[key].stringValue
+        return remoteConfig?[key].stringValue
     }
 
-    func getNumber(for key: String) -> NSNumber? {
-        remoteConfig?[key].numberValue
+    func getNumber<T>(for key: String) -> T? {
+        remoteConfig?[key].numberValue as? T
     }
 
+    func convertToLocalConfig() -> LocalConfigValues? {
+        var remoteDict = [String: String?]()
+        if let remoteKeys = remoteConfig?.allKeys(from: .remote) {
+            remoteDict = extractValues(keys: remoteKeys)
+        }
+
+        var defaultDict = [String: String?]()
+        if let defaultKeys = remoteConfig?.allKeys(from: .default) {
+            defaultDict = extractValues(keys: defaultKeys)
+        }
+
+        remoteDict.merge(defaultDict) { (current, _) in current }
+
+        return LocalConfigValues(dict: remoteDict)
+    }
+
+    private func extractValues(keys: [String]) -> [String: String?] {
+        var dict = [String: String?]()
+        for key in keys {
+            if let stringValue = getString(for: key) {
+                dict[key] = stringValue
+            } else if let numberValue: Double = getNumber(for: key) {
+                dict[key] = String(format: "%f", numberValue)
+            }
+        }
+        return dict
+    }
 }

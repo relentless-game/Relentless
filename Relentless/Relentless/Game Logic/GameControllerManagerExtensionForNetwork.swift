@@ -141,8 +141,8 @@ extension GameControllerManager {
     internal func attachNetworkListeners(userId: String, gameId: Int) {
         attachNonHostListeners(userId: userId, gameId: gameId)
         // The host should not have this listener
-        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
-            self.gameParameters?.difficultyLevel = difficultyLevel
+        self.network.attachConfigValuesListener(gameId: gameId, action: { configValues in
+            self.gameParameters = GameParametersParser(configValues: configValues).parse()
         })
     }
 

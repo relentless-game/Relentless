@@ -33,6 +33,11 @@ class ConfigNetworkManager: ConfigNetwork {
         return parser.parse()
     }
 
+    func fetchLocalConfigValues() -> LocalConfigValues? {
+        let configValues = RemoteConfigValues(remoteConfig: remoteConfig)
+        return configValues.convertToLocalConfig()
+    }
+
     private func activateFetchedValues() {
         remoteConfig.activate(completionHandler: { error in
             if let error = error {

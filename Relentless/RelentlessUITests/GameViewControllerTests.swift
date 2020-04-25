@@ -12,7 +12,7 @@ class GameViewControllerTests: XCTestCase {
 
     var app: XCUIApplication!
 
-    func setUpWithError() throws {
+    override func setUpWithError() throws {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()

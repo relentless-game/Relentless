@@ -141,7 +141,6 @@ class ItemCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
     }
 
-
     func drawPartImageViewFor(part: Item, imageRepresentation: ImageRepresentation) {
         let imageStrings = imageRepresentation.imageStrings
         switch part.itemType {
@@ -166,8 +165,6 @@ class ItemCell: UICollectionViewCell {
             }
         case .assembledItem:
             if let assembledItem = part as? AssembledItem {
-//                let imageString = imageStrings[0]
-//                drawStaticPartImageViewWith(image: UIImage(named: imageString))
                 setAssembledItemBackgroundFor(item: assembledItem)
             }
         }

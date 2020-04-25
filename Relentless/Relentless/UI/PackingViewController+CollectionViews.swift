@@ -60,16 +60,6 @@ extension PackingViewController: UICollectionViewDataSource {
                 itemCell.state = selectedParts[indexPath.row]
                     ? .selected
                     : .deselected
-//                if selectedParts[indexPath.row] {
-//                    itemCell.state = .opaque
-//                }
-//                if let item = currentPackageItems?[indexPath.row] {
-//                    if selectedPartsSet.contains(item) {
-//                        itemCell.state = .opaque
-//                    } else {
-//                        itemCell.state = .translucent
-//                    }
-//                }
             }
         }
         return cell
@@ -153,29 +143,13 @@ extension PackingViewController: UICollectionViewDelegate {
 
     func handleCurrentItemsViewDidSelect(_ indexPath: IndexPath) {
         guard let currentPackageItems = currentPackageItems else {
-                        return
-                    }
-                    if assemblyMode {
-                        let item = currentPackageItems[indexPath.item]
-                        print(selectedParts[indexPath.item])
-                        selectedParts[indexPath.item].toggle()
-                        print(selectedParts[indexPath.item])
-//                        if selectedPartsSet.contains(item) {
-//                            selectedPartsSet.remove(item)
-//                        } else {
-//                            selectedPartsSet.insert(item)
-//                        }
-        //                guard let part = currentPackageItems[indexPath.item] as? Part else {
-        //                    return
-        //                }
-        //                if selectedParts.contains(part) {
-        //                    selectedParts.remove(part)
-        //                } else {
-        //                    selectedParts.insert(part)
-        //                }
-                    } else {
-                        gameController?.removeItem(item: currentPackageItems[indexPath.item])
-                    }
+            return
+        }
+        if assemblyMode {
+            selectedParts[indexPath.item].toggle()
+        } else {
+            gameController?.removeItem(item: currentPackageItems[indexPath.item])
+        }
     }
 }
 

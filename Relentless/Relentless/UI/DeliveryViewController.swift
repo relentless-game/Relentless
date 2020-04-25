@@ -15,7 +15,6 @@ class DeliveryViewController: UIViewController {
     var packageForDelivery: Package?
     let housesIdentifier = "HouseCell"
     let playersIdentifier = "PlayerIconCell"
-//    var didEndRound = false
     @IBOutlet private var playersCollectionView: UICollectionView!
     @IBOutlet private var housesCollectionView: UICollectionView!
 
@@ -24,18 +23,7 @@ class DeliveryViewController: UIViewController {
         initCollectionViews()
         houses = gameController?.houses
         otherPlayers = gameController?.otherPlayers
-//        addObservers()
     }
-    
-//    func addObservers() {
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleRoundEnded),
-//                                               name: .didEndRound, object: nil)
-//    }
-//
-//    func removeObservers() {
-//        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
-//    }
 
     func initCollectionViews() {
         let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
@@ -52,10 +40,6 @@ class DeliveryViewController: UIViewController {
         }
     }
 
-//    @objc func handleRoundEnded() {
-//        didEndRound = true
-//    }
-    
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
         returnToPackingView()
     }

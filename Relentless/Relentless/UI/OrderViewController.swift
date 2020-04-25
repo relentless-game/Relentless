@@ -59,7 +59,6 @@ extension OrderViewController: UICollectionViewDataSource {
                                                   for: indexPath) as? OrderHeaderView else {
                 return OrderHeaderView()
             }
-            headerView.setLabel("Order \(indexPath.section + 1)")
             return headerView
         default:
             return OrderHeaderView()

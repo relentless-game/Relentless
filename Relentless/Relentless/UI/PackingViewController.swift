@@ -252,10 +252,6 @@ class PackingViewController: UIViewController {
     @IBAction private func touchAssembleButton(_ sender: Any) {
         if assemblyMode {
             assembleParts()
-//            selectedPartsSet.removeAll()
-//            selectedParts = [Bool](repeating: false, count: currentPackageItems?.count ?? 0)
-//            print(selectedParts)
-//            print(currentPackageItems?.count)
             assemblyMode = false
             currentPackageView.reloadData()
         } else {
@@ -273,7 +269,6 @@ class PackingViewController: UIViewController {
                     parts.append(items[index])
                 }
             }
-//            let parts = Array(selectedPartsSet)
             try gameController?.constructAssembledItem(parts: parts)
         } catch ItemAssembledError.assembledItemConstructionError {
             // Currently, do nothing. Invalid selection of parts by player.

@@ -54,7 +54,6 @@ extension PackingViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
         if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
             itemCell.setItem(item: item)
-
             itemCell.state = .deselected
             if assemblyMode {
                 itemCell.state = selectedParts[indexPath.row]
@@ -147,6 +146,7 @@ extension PackingViewController: UICollectionViewDelegate {
         }
         if assemblyMode {
             selectedParts[indexPath.item].toggle()
+            print(selectedParts[indexPath.item])
         } else {
             gameController?.removeItem(item: currentPackageItems[indexPath.item])
         }

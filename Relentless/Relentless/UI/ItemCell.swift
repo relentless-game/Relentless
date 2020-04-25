@@ -13,9 +13,10 @@ class ItemCell: UICollectionViewCell {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var background: UIImageView!
     @IBOutlet private var selection: UIImageView!
-    
+
     var state: ItemCellState = .deselected {
         didSet {
+            print("set to: \(state)")
             switch state {
             case .deselected:
                 selection.isHidden = true
@@ -106,9 +107,9 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setAssembledItemBackgroundFor(item: AssembledItem) {
-        for view in subviews where view != background && view != textLabel {
-            view.removeFromSuperview()
-        }
+//        for view in subviews where view != background && view != textLabel {
+//            view.removeFromSuperview()
+//        }
         guard let assembledItemImageRepresentation = item.imageRepresentation as?
             AssembledItemImageRepresentation else {
             return

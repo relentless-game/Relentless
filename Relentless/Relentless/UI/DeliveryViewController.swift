@@ -103,15 +103,12 @@ extension DeliveryViewController: UICollectionViewDelegate {
     }
 }
 
-class PlayerIconCell: UICollectionViewCell {
-    // todo: change to UIImageView
-    var player: Player!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var icon: UIImageView!
-
-    func setPlayer(player: Player) {
-        self.player = player
-        textLabel.text = player.userName
-        icon.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
+extension DeliveryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = housesCollectionView.frame.width / 6.6
+        let height = housesCollectionView.frame.height / 2.4
+        return CGSize(width: width, height: height)
     }
 }

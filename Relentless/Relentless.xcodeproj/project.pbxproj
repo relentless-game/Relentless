@@ -73,6 +73,7 @@
 		5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */; };
 		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
 		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
+		5DB7A9AE24549B0E00BC3127 /* PlayerIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB7A9AD24549B0E00BC3127 /* PlayerIconCell.swift */; };
 		621B7085244485CE000DE9DD /* DefaultGameParameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 621B7084244485CE000DE9DD /* DefaultGameParameters.plist */; };
 		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
 		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
@@ -249,6 +250,7 @@
 		5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
 		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
+		5DB7A9AD24549B0E00BC3127 /* PlayerIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerIconCell.swift; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				5D8F69B224262F59003C8FCC /* CategoryViewController.swift */,
 				0BBEF05824236A41002FF3DE /* OrderViewController.swift */,
 				5D5E04112425EDA10005A134 /* DeliveryViewController.swift */,
+				5DB7A9AD24549B0E00BC3127 /* PlayerIconCell.swift */,
 				5D5E040F2425EDA00005A134 /* HouseCell.swift */,
 				5D5E04102425EDA10005A134 /* HousesViewController.swift */,
 				5D5E04122425EDA10005A134 /* OrderHeaderView.swift */,
@@ -1017,6 +1020,7 @@
 				5D1B680B2438889A00676890 /* ItemCellState.swift in Sources */,
 				F30E1D2C2435B08E00AD6A7B /* PauseViewController.swift in Sources */,
 				5D1B68152439D6BD00676890 /* GameCategoryGenerator.swift in Sources */,
+				5DB7A9AE24549B0E00BC3127 /* PlayerIconCell.swift in Sources */,
 				0BBEF06124237E15002FF3DE /* ItemCell.swift in Sources */,
 				0BBEF05B24237980002FF3DE /* GameViewController.swift in Sources */,
 				0B3CB9EB2441A2D00035E8D3 /* StatefulItem.swift in Sources */,

@@ -71,9 +71,9 @@
 			<key>category</key>
 			<string>book</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>titles</key>
 			<array>
 				<array>
@@ -100,9 +100,9 @@
 			<key>category</key>
 			<string>magazine</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>titles</key>
 			<array>
 				<array>
@@ -210,9 +210,9 @@
 			<key>category</key>
 			<string>Robot</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>itemGroups</key>
 			<array>
 				<array>
@@ -279,7 +279,7 @@
 			<key>isInventoryItem</key>
 			<false/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>depth</key>
 			<integer>0</integer>
 			<key>mainImageString</key>
@@ -315,7 +315,7 @@
 				<string>Siren</string>
 			</array>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
 			<true/>
 			<key>depth</key>

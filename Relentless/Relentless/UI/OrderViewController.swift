@@ -44,7 +44,7 @@ extension OrderViewController: UICollectionViewDataSource {
         let order = orders[indexPath.section]
         let item = order.items[indexPath.item]
         cell.setItem(item: item)
-
+        cell.state = .deselected
         return cell
     }
 

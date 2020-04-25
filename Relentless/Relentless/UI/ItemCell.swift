@@ -16,7 +16,6 @@ class ItemCell: UICollectionViewCell {
 
     var state: ItemCellState = .deselected {
         didSet {
-            print("set to: \(state)")
             switch state {
             case .deselected:
                 selection.isHidden = true
@@ -56,10 +55,9 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
-//        for view in subviews where view != background && view != textLabel {
-//            print(view)
-//            view.removeFromSuperview()
-//        }
+        for view in background.subviews {
+            view.removeFromSuperview()
+        }
         switch item.itemType {
         case .titledItem:
             if let titledItem = item as? TitledItem {
@@ -107,9 +105,6 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setAssembledItemBackgroundFor(item: AssembledItem) {
-//        for view in subviews where view != background && view != textLabel {
-//            view.removeFromSuperview()
-//        }
         guard let assembledItemImageRepresentation = item.imageRepresentation as?
             AssembledItemImageRepresentation else {
             return
@@ -126,7 +121,7 @@ class ItemCell: UICollectionViewCell {
 
     func drawStaticPartImageViewWith(image: UIImage?) {
         let imageView = UIImageView()
-        self.addSubview(imageView)
+        background.addSubview(imageView)
         imageView.image = image
         let square_length = min(self.frame.width, self.frame.height)
         imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
@@ -134,7 +129,7 @@ class ItemCell: UICollectionViewCell {
 
     func drawAnimatedPartImageViewWith(images: [UIImage], duration: Int) {
         let imageView = UIImageView()
-        self.addSubview(imageView)
+        background.addSubview(imageView)
         imageView.animationDuration = TimeInterval(duration)
         imageView.animationImages = images
         imageView.startAnimating()

@@ -146,7 +146,6 @@ extension PackingViewController: UICollectionViewDelegate {
         }
         if assemblyMode {
             selectedParts[indexPath.item].toggle()
-            print(selectedParts[indexPath.item])
         } else {
             gameController?.removeItem(item: currentPackageItems[indexPath.item])
         }

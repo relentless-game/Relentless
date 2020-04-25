@@ -69,7 +69,7 @@
 	<array>
 		<dict>
 			<key>category</key>
-			<string>book</string>
+			<string>Book</string>
 			<key>isInventoryItem</key>
 			<true/>
 			<key>isOrderItem</key>
@@ -98,7 +98,7 @@
 		</dict>
 		<dict>
 			<key>category</key>
-			<string>magazine</string>
+			<string>Magazine</string>
 			<key>isInventoryItem</key>
 			<true/>
 			<key>isOrderItem</key>

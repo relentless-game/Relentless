@@ -32,7 +32,7 @@ protocol Game {
 
     func removeItem(item: Item)
 
-    func constructAssembledItem(parts: [Item]) throws
+    func constructAssembledItem(parts: [Item], imageRepresentationMapping: [Category: ImageRepresentation]) throws
 
     func checkPackage(package: Package, for house: House) -> Bool
 

@@ -34,15 +34,19 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         guard let parameters = hostParameters else {
             return
         }
+
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
-                                       difficultyLevel: parameters.difficultyLevel,
-                                       numOfPairsPerCategory: parameters.numOfGroupsPerCategory,
+                                       numOfGroupsPerCategory: parameters.numOfGroupsPerCategory,
                                        itemSpecifications: super.itemSpecifications)
+
         itemsAllocator = ItemsAllocator()
-        ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
-                                          maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
+
+        let probOfSelectingAssembledItem =
+            parameters.probOfSelectingAssembledItem(numberOfPlayers: players.count)
+        ordersAllocator = OrdersAllocator(maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
                                           probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
+                                          probabilityOfSelectingAssembledItem: probOfSelectingAssembledItem,
                                           timeForEachItem: parameters.timeForEachItem)
     }
 
@@ -208,11 +212,11 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
+        let mappings = super.itemSpecifications.availableGroupsOfItems
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
                                                   numOfCategories: parameters.numOfCategories,
-                                                  categoryToGroupsMapping:
-                                                      super.itemSpecifications.availableGroupsOfItems)
+                                                  categoryToGroupsMapping: mappings)
         return categoryGenerator.generateCategories()
     }
 
@@ -221,9 +225,9 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return nil
         }
         let allOrders = players.flatMap { $0.orders }
+        let probability = parameters.probOfHavingPackageLimit
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
-                                                                    probabilityOfHavingLimit:
-                                                                        parameters.probOfHavingPackageLimit)
+                                                                    probabilityOfHavingLimit: probability)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 
@@ -241,8 +245,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     private func constructRoundItemSpecifications(items: [Item]) -> RoundItemSpecifications {
         let assembledItems = items.compactMap { $0 as? AssembledItem }
         let assembledItemCategories = getAssembledItemCategories(assembledItems: assembledItems)
-        let specifications = RoundItemSpecifications(partsToAssembledItemCategoryMapping:
-            assembledItemCategories)
+        let specifications =
+            RoundItemSpecifications(partsToAssembledItemCategoryMapping: assembledItemCategories)
         return specifications
     }
 

@@ -10,19 +10,17 @@ import Foundation
 
 class ItemGenerator: GameItemGenerator {
     let numberOfPlayers: Int
-    let difficultyLevel: Double
-    let numOfPairsPerCategory: Int
+    let numOfGroupsPerCategory: Int
     let itemSpecifications: ItemSpecifications
 
     var availableGroups: [Category: Set<[Item]>] {
         itemSpecifications.availableGroupsOfItems
     }
 
-    init(numberOfPlayers: Int, difficultyLevel: Double,
-         numOfPairsPerCategory: Int, itemSpecifications: ItemSpecifications) {
+    init(numberOfPlayers: Int, numOfGroupsPerCategory: Int,
+         itemSpecifications: ItemSpecifications) {
         self.numberOfPlayers = numberOfPlayers
-        self.difficultyLevel = difficultyLevel
-        self.numOfPairsPerCategory = numOfPairsPerCategory
+        self.numOfGroupsPerCategory = numOfGroupsPerCategory
         self.itemSpecifications = itemSpecifications
     }
 
@@ -43,7 +41,7 @@ class ItemGenerator: GameItemGenerator {
                     continue
                 }
                 let generatedItems = generateItems(for: category,
-                                                   numberToGenerate: numOfPairsPerCategory,
+                                                   numberToGenerate: numOfGroupsPerCategory,
                                                    availableGroups: Array(availableItemsForCategory))
                 items = items.union(generatedItems)
             }
@@ -56,15 +54,13 @@ class ItemGenerator: GameItemGenerator {
     private func generateItems(for category: Category, numberToGenerate: Int, availableGroups: [[Item]]) -> Set<Item> {
         var groups = Set<[Item]>()
         var numberOfGroupsNeeded = numberToGenerate
-        if availableGroups.count < numberToGenerate {
-            numberOfGroupsNeeded = availableGroups.count
+        // exclude those that have non-order items
+        let eligibleGroups = availableGroups.filter { $0.allSatisfy { $0.isOrderItem } }
+        if eligibleGroups.count < numberToGenerate {
+            numberOfGroupsNeeded = eligibleGroups.count
         }
         while groups.count < numberOfGroupsNeeded {
-            guard let selectedGroup = getRandom(from: availableGroups) as? [Item] else {
-                continue
-            }
-            let hasAnyNonOrderItem = selectedGroup.contains(where: { !$0.isOrderItem })
-            if hasAnyNonOrderItem {
+            guard let selectedGroup = getRandom(from: eligibleGroups) as? [Item] else {
                 continue
             }
             groups.insert(selectedGroup)
@@ -90,5 +86,4 @@ class ItemGenerator: GameItemGenerator {
         allInventoryItems.append(contentsOf: partsThatAreInventoryItems)
         return Set(allInventoryItems)
     }
-
 }

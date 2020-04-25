@@ -183,7 +183,7 @@
 				<string>wheel</string>
 			</array>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
 			<true/>
 			<key>depth</key>
@@ -209,34 +209,6 @@
 					<string>toycar_wheel_circle.png</string>
 					<string>toycar_wheel_triangle.png</string>
 					<string>toycar_wheel_square.png</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>category</key>
-			<string>toyCarGift</string>
-			<key>parts</key>
-			<array>
-				<string>toyCar</string>
-				<string>book</string>
-			</array>
-			<key>isInventoryItem</key>
-			<false/>
-			<key>isOrderItem</key>
-			<false/>
-			<key>depth</key>
-			<integer>1</integer>
-			<key>mainImageString</key>
-			<string>toyCarGiftImage</string>
-			<key>partsImageStrings</key>
-			<dict>
-				<key>toyCar</key>
-				<array>
-					<string>toyCarImage</string>
-				</array>
-				<key>book</key>
-				<array>
-					<string>bookImage</string>
 				</array>
 			</dict>
 		</dict>

@@ -9,23 +9,29 @@
 import Foundation
 
 class Item: Hashable, Codable {
-
-    var itemType: ItemType
     var category: Category
+
+    // only used for encoding and decoding purposes (not included to check equivalence)
+    var itemType: ItemType
+
+    // only important for item generation purposes (not included to check equivalence)
     var isInventoryItem: Bool
     var isOrderItem: Bool
 
-    init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool) {
+    // only important for view representation (not included to check equivalence)
+    var imageRepresentation: ImageRepresentation
+
+    init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool,
+         imageRepresentation: ImageRepresentation) {
         self.itemType = itemType
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem
+        self.imageRepresentation = imageRepresentation
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {
-        let isSameTypeOfItem = lhs.category == rhs.category &&
-            lhs.isInventoryItem == rhs.isInventoryItem &&
-            lhs.isOrderItem == rhs.isOrderItem
+        let isSameTypeOfItem = lhs.category == rhs.category
         if !isSameTypeOfItem {
             return false
         }
@@ -34,11 +40,11 @@ class Item: Hashable, Codable {
     
     /// These methods below should be overriden by subclasses
     func equals(other: Item) -> Bool {
-        false
+        self.category == other.category
     }
 
     func isLessThan(other: Item) -> Bool {
-        false
+        self.category < other.category
     }
 
     func toString() -> String {

@@ -259,9 +259,13 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>toyCar</key>
-				<string>toyCarImage</string>
+				<array>
+					<string>toyCarImage</string>
+				</array>
 				<key>book</key>
-				<string>bookImage</string>
+				<array>
+					<string>bookImage</string>
+				</array>
 			</dict>
 		</dict>
 	</array>

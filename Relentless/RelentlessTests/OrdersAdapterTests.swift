@@ -10,24 +10,25 @@ import XCTest
 @testable import Relentless
 
 class OrdersAdapterTests: XCTestCase {
+    let imageRepresentation = ImageRepresentation(imageStrings: ["placeholder"])
 
     func testEncodeOrdersThenDecodeOrders() {
         let item1 = TitledItem(name: "1", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let item2 = TitledItem(name: "2", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let item3 = TitledItem(name: "3", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let item4 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 1,
                                  isInventoryItem: true, isOrderItem: false,
-                                 imageString: "placeholder")
+                                 imageRepresentation: imageRepresentation)
         let item5 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 2,
                                  isInventoryItem: true, isOrderItem: false,
-                                 imageString: "placeholder")
-        
+                                 imageRepresentation: imageRepresentation)
+
         let itemsForOrder1 = [item1, item2, item3]
         let itemsForOrder2 = [item4, item5]
         

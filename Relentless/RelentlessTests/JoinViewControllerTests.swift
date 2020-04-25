@@ -18,15 +18,11 @@ class JoinViewControllerTests: XCTestCase {
     private let backIdentifier = "backButton"
     private let testTeamCode = "4318"
     
-    override func setUpWithError() throws {
+    override func setUp() {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
         XCUIApplication().launch()
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testBackButtonExists() throws {

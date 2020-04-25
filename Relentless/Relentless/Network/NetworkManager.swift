@@ -168,12 +168,12 @@ class NetworkManager: Network {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
     
-    func startGame(gameId: Int, difficultyLevel: Float, completion: @escaping (StartGameError?) -> Void) {
+    func startGame(gameId: Int, difficultyLevel: Double, completion: @escaping (StartGameError?) -> Void) {
         // enough players -> start game
         checkEnoughPlayers(gameId: gameId, difficultyLevel: difficultyLevel, completion: completion)
     }
 
-    private func checkEnoughPlayers(gameId: Int, difficultyLevel: Float,
+    private func checkEnoughPlayers(gameId: Int, difficultyLevel: Double,
                                     completion: @escaping (StartGameError?) -> Void) {
         ref.child("games/\(gameId)/users").observeSingleEvent(of: .value) { snapshot in
             var numberOfPlayers = 0
@@ -190,7 +190,7 @@ class NetworkManager: Network {
         }
     }
 
-    private func startGameInDatabase(gameId: Int, difficultyLevel: Float) {
+    private func startGameInDatabase(gameId: Int, difficultyLevel: Double) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false,
                                           isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: 0).encodeToString() else {
@@ -340,7 +340,7 @@ class NetworkManager: Network {
         updatePauseCountDown(gameId: gameId, countDown: 30)
     }
     
-    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Float) {
+    func updateIndividualSatisfactionLevel(gameId: Int, userId: String, satisfactionLevel: Double) {
         ref.child("games/\(gameId)/satisfactionLevel/\(userId)").setValue(satisfactionLevel)
     }
 
@@ -351,8 +351,8 @@ class NetworkManager: Network {
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
         ref.child(path).observe(.value) { snapshot in
-            let snapDict = snapshot.value as? [String: Float] ?? [:]
-            let satisfactionLevels = Array(snapDict.values)
+            let snapDict = snapshot.value as? [String: Double] ?? [:]
+            let satisfactionLevels = Array(snapDict.values).map { Float($0) }
             action(satisfactionLevels)
         }
     }
@@ -405,10 +405,10 @@ class NetworkManager: Network {
         })
     }
 
-    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Float) -> Void) {
+    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Double) -> Void) {
         let path = "games/\(gameId)/difficultyLevel"
         _ = ref.child(path).observe(DataEventType.value, with: { snapshot in
-            let difficultyLevel = snapshot.value as? Float ?? 1.0
+            let difficultyLevel = snapshot.value as? Double ?? 1.0
             action(difficultyLevel)
         })
     }

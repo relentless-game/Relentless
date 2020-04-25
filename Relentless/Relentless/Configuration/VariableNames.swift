@@ -1,0 +1,20 @@
+//
+//  VariableNames.swift
+//  Relentless
+//
+//  Created by Yi Wai Chow on 13/4/20.
+//  Copyright © 2020 OurNameIs. All rights reserved.
+//
+
+import Foundation
+
+class VariableNames {
+
+    static let difficultyLevel = "diffLevel"
+
+    /// Order properties (used in `SatisfactionBar`)
+    static let totalTime = "totalTime"
+    static let timeLeft = "timeLeft"
+    static let numOfCorrectItems = "numOfCorrectItems"
+
+}

@@ -62,7 +62,11 @@ extension GameControllerManager {
     }
 
     func constructAssembledItem(parts: [Item]) throws {
-        try game?.constructAssembledItem(parts: parts)
+        let imageRepresentationMapping = itemSpecifications.assembledItemImageRepresentationMapping
+//        let statefulItemRepresentationMapping = itemSpecifications.itemIdentifierToImageRepresentationMappings
+        try game?.constructAssembledItem(parts: parts,
+                                         imageRepresentationMapping: imageRepresentationMapping)
+//                                         statefulItemImageRepresentationMapping: statefulItemRepresentationMapping)
     }
     
     internal func removeOrder(order: Order) {
@@ -101,10 +105,10 @@ extension GameControllerManager {
         }
         var houses = [House]()
         for orders in splitOrders {
-           let satisfactionFactor = Float.random(in: parameters.houseSatisfactionFactorRange)
+           let satisfactionFactor = Double.random(in: parameters.houseSatisfactionFactorRange)
            for order in orders {
                let originalTimeLimit = order.timeLimit
-               order.timeLimit = Int(Float(originalTimeLimit) * satisfactionFactor)
+               order.timeLimit = Int(Double(originalTimeLimit) * satisfactionFactor)
            }
            houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
         }

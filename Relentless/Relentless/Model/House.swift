@@ -11,7 +11,7 @@ import Foundation
 class House {
 
     /// Ranges from 0 (non-inclusive) to 1 (inclusive)
-    var satisfactionFactor: Float
+    var satisfactionFactor: Double
 
     var orders: Set<Order> {
         didSet {
@@ -29,7 +29,7 @@ class House {
         return unsortedOrders.first?.timeRatio
     }
 
-    init(orders: Set<Order>, satisfactionFactor: Float) {
+    init(orders: Set<Order>, satisfactionFactor: Double) {
         assert(satisfactionFactor > 0 && satisfactionFactor <= 1)
         self.orders = orders
         self.satisfactionFactor = satisfactionFactor

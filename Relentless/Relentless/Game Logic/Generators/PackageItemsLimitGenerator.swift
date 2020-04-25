@@ -12,9 +12,9 @@ import Foundation
 class PackageItemsLimitGenerator {
 
     let orders: [Order]
-    let probabilityOfHavingLimit: Float
+    let probabilityOfHavingLimit: Double
 
-    init(orders: [Order], probabilityOfHavingLimit: Float) {
+    init(orders: [Order], probabilityOfHavingLimit: Double) {
         self.orders = orders
         self.probabilityOfHavingLimit = probabilityOfHavingLimit
     }
@@ -22,7 +22,7 @@ class PackageItemsLimitGenerator {
     /// Generates a limit on the number of items in a package
     /// based on the orders and the probability of imposing a limit
     func generateItemsLimit() -> Int? {
-        let randomNumber = Float.random(in: 0...1)
+        let randomNumber = Double.random(in: 0...1)
         guard randomNumber <= probabilityOfHavingLimit else {
             return nil
         }

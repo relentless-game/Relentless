@@ -9,9 +9,6 @@
 import Foundation
 
 class AssembledItem: Item {
-    let mainImageString: String
-    let partsImageStrings: [Category: String]
-    
     internal var unsortedParts: [Item] {
         didSet {
             NotificationCenter.default.post(name: .didChangeAssembledItem, object: nil)
@@ -23,39 +20,34 @@ class AssembledItem: Item {
     }
 
     init(parts: [Item], category: Category, isInventoryItem: Bool,
-         isOrderItem: Bool, mainImageString: String, partsImageStrings: [Category: String]) {
+         isOrderItem: Bool, imageRepresentation: AssembledItemImageRepresentation) {
         self.unsortedParts = parts.sorted()
-        self.mainImageString = mainImageString
-        self.partsImageStrings = partsImageStrings
-        super.init(itemType: .assembledItem, category: category,
-                   isInventoryItem: isInventoryItem, isOrderItem: isOrderItem)
+        super.init(itemType: .assembledItem, category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageRepresentation: imageRepresentation)
     }
 
     // To be called by ItemAssembler
-    init(parts: [Item], category: Category, mainImageString: String, partsImageStrings: [Category: String]) {
+    init(parts: [Item], category: Category, imageRepresentation: AssembledItemImageRepresentation) {
         self.unsortedParts = parts
-        self.mainImageString = mainImageString
-        self.partsImageStrings = partsImageStrings
         // Set to false as item is assembled by user
-        super.init(itemType: .assembledItem, category: category,
-                   isInventoryItem: false, isOrderItem: false)
+        super.init(itemType: .assembledItem, category: category, isInventoryItem: false,
+                   isOrderItem: false, imageRepresentation: imageRepresentation)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AssembledItemKeys.self)
         let partsObject = try container.decode(ItemFactory.self, forKey: .parts)
         self.unsortedParts = partsObject.items
-        self.mainImageString = try container.decode(String.self, forKey: .mainImageString)
-        self.partsImageStrings = try container.decode([Category: String].self, forKey: .partsImageStrings)
+        let imageRepresentation = try container.decode(AssembledItemImageRepresentation.self,
+                                                       forKey: .imageRepresentation)
         try super.init(from: decoder)
+        super.imageRepresentation = imageRepresentation
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AssembledItemKeys.self)
         let itemFactoryWrapper = ItemFactory(items: unsortedParts)
         try container.encode(itemFactoryWrapper, forKey: .parts)
-        try container.encode(mainImageString, forKey: .mainImageString)
-        try container.encode(partsImageStrings, forKey: .partsImageStrings)
         try super.encode(to: encoder)
     }
 
@@ -122,6 +114,5 @@ class AssembledItem: Item {
 
 enum AssembledItemKeys: CodingKey {
     case parts
-    case mainImageString
-    case partsImageStrings
+    case imageRepresentation
 }

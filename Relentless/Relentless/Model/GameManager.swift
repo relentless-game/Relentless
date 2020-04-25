@@ -74,13 +74,15 @@ class GameManager: Game {
         currentlyOpenPackage?.removeItem(item: item)
     }
 
-    func constructAssembledItem(parts: [Item]) throws {
+    func constructAssembledItem(parts: [Item], imageRepresentationMapping: [Category: ImageRepresentation]) throws {
         guard let roundItemSpecifications = self.roundItemSpecifications else {
             return
         }
+        let partsMapping =
+            roundItemSpecifications.partsToAssembledItemCategoryMapping
         let assembledItem = try ItemAssembler.assembleItem(parts: parts,
-                                                           partsToAssembledItemCategoryMapping: roundItemSpecifications
-                                                            .partsToAssembledItemCategoryMapping)
+                                                           partsToAssembledItemCategoryMapping: partsMapping,
+                                                           imageRepresentationMapping: imageRepresentationMapping)
         currentlyOpenPackage?.addItem(item: assembledItem)
         for part in parts {
             currentlyOpenPackage?.removeItem(item: part)

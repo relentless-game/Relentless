@@ -35,6 +35,9 @@ class ItemSpecificationsParser {
         let itemsDict: NSDictionary!
         do {
             itemsDict = try getPlist(from: plistFileName)
+        } catch GameConfigError.formatError(let message) {
+            itemsDict = [:]
+            assertionFailure(message)
         } catch {
             itemsDict = [:]
             assertionFailure("Loading Plist failed.")
@@ -358,6 +361,10 @@ class ItemSpecificationsParser {
             if let contents = (try? PropertyListSerialization.propertyList(from: xml,
                                                                            options: .mutableContainersAndLeaves,
                                                                            format: nil)) as? NSDictionary {
+                
+                // Check whether the format of the Plist file is satisfactory.
+                // Errors will be thrown if the format is wrong.
+                try ConfigFormatChecker.check(configDict: contents)
                 return contents
             } else {
                 throw ItemSpecsParserError.plistLoadingError

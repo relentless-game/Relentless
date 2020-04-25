@@ -18,11 +18,15 @@ class Item: Hashable, Codable {
     var isInventoryItem: Bool
     var isOrderItem: Bool
 
-    init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool) {
+    var imageRepresentation: ImageRepresentation
+
+    init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool,
+         imageRepresentation: ImageRepresentation) {
         self.itemType = itemType
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem
+        self.imageRepresentation = imageRepresentation
     }
 
     static func == (lhs: Item, rhs: Item) -> Bool {

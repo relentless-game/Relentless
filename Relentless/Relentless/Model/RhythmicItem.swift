@@ -16,24 +16,21 @@ class RhythmicItem: Item {
     // represents the sequence of states that make up the rhythm
     var stateSequence: [RhythmState]
 
-    // represents image strings for each rhythm state, where the string at index n is for rhythm state n.
-    let imageStrings: [String]
-    
+    // Image representation represents image strings for each rhythm state,
+    // where the string at index n is for rhythm state n.
     init(unitDuration: Int, stateSequence: [RhythmState], category: Category,
-         isInventoryItem: Bool, isOrderItem: Bool, imageStrings: [String]) {
+         isInventoryItem: Bool, isOrderItem: Bool, imageRepresentation: ImageRepresentation) {
         self.unitDuration = unitDuration
         self.stateSequence = stateSequence
-        self.imageStrings = imageStrings
-        super.init(itemType: .rhythmicItem, category: category,
-                   isInventoryItem: isInventoryItem, isOrderItem: isOrderItem)
+        super.init(itemType: .rhythmicItem, category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageRepresentation: imageRepresentation)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: RhythmicItemKeys.self)
         self.unitDuration = try container.decode(Int.self, forKey: .unitDuration)
         self.stateSequence = try container.decode([RhythmState].self, forKey: .stateSequence)
-        self.imageStrings = try container.decode([String].self, forKey: .imageStrings)
-        
+
         try super.init(from: decoder)
     }
 
@@ -41,7 +38,6 @@ class RhythmicItem: Item {
         var container = encoder.container(keyedBy: RhythmicItemKeys.self)
         try container.encode(unitDuration, forKey: .unitDuration)
         try container.encode(stateSequence, forKey: .stateSequence)
-        try container.encode(imageStrings, forKey: .imageStrings)
 
         try super.encode(to: encoder)
     }
@@ -60,14 +56,14 @@ class RhythmicItem: Item {
     }
 
     private func checkStatesAreLessThan(otherItem: RhythmicItem) -> Bool {
-        var stateSequenceConcatenated = ""
+        var stateSequenceConcatenated = 0
         for stateSequence in self.stateSequence {
-            stateSequenceConcatenated += stateSequence.toString()
+            stateSequenceConcatenated += stateSequence.stateIndex
         }
 
-        var otherStateSequenceConcatenated = ""
+        var otherStateSequenceConcatenated = 0
         for stateSequence in otherItem.stateSequence {
-            otherStateSequenceConcatenated += stateSequence.toString()
+            otherStateSequenceConcatenated += stateSequence.stateIndex
         }
 
         return stateSequenceConcatenated < otherStateSequenceConcatenated
@@ -96,5 +92,4 @@ class RhythmicItem: Item {
 enum RhythmicItemKeys: CodingKey {
     case unitDuration
     case stateSequence
-    case imageStrings
 }

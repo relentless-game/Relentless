@@ -32,7 +32,8 @@
 		0B5DC2D6244D935000BBB1DE /* ItemsAllocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC2D5244D935000BBB1DE /* ItemsAllocatorTests.swift */; };
 		0B5DC2D8244D993200BBB1DE /* OrdersAllocatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC2D7244D993200BBB1DE /* OrdersAllocatorTests.swift */; };
 		0B781571242CB5A9006CF4C2 /* AssembledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781570242CB5A9006CF4C2 /* AssembledItem.swift */; };
-		0B781576242CC311006CF4C2 /* AssembledItemsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */; };
+		0B786AE62452E8F10094FACD /* ImageRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B786AE52452E8F10094FACD /* ImageRepresentation.swift */; };
+		0B786AE82452F43D0094FACD /* AssembledItemImageRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B786AE72452F43D0094FACD /* AssembledItemImageRepresentation.swift */; };
 		0BA436E324399B40003D45CA /* TitleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA436E224399B40003D45CA /* TitleViewController.swift */; };
 		0BBEF05924236A41002FF3DE /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBEF05824236A41002FF3DE /* OrderViewController.swift */; };
 		0BBEF05A24237980002FF3DE /* JoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE9177B241FBBD400569453 /* JoinViewController.swift */; };
@@ -193,7 +194,8 @@
 		0B5DC2D5244D935000BBB1DE /* ItemsAllocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsAllocatorTests.swift; sourceTree = "<group>"; };
 		0B5DC2D7244D993200BBB1DE /* OrdersAllocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersAllocatorTests.swift; sourceTree = "<group>"; };
 		0B781570242CB5A9006CF4C2 /* AssembledItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssembledItem.swift; sourceTree = "<group>"; };
-		0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssembledItemsGenerator.swift; sourceTree = "<group>"; };
+		0B786AE52452E8F10094FACD /* ImageRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepresentation.swift; sourceTree = "<group>"; };
+		0B786AE72452F43D0094FACD /* AssembledItemImageRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssembledItemImageRepresentation.swift; sourceTree = "<group>"; };
 		0BA436E224399B40003D45CA /* TitleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleViewController.swift; sourceTree = "<group>"; };
 		0BB1C9072424944E0064E7D7 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		0BB1C9082424944E0064E7D7 /* Magazine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Magazine.swift; sourceTree = "<group>"; };
@@ -379,7 +381,6 @@
 		0B781574242CC2E9006CF4C2 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
-				0B781575242CC311006CF4C2 /* AssembledItemsGenerator.swift */,
 				5D1B68142439D6BD00676890 /* CategoryGenerator.swift */,
 				5D1B68122439D6BC00676890 /* GameCategoryGenerator.swift */,
 				5D1B68132439D6BD00676890 /* GameItemGenerator.swift */,
@@ -597,6 +598,8 @@
 		F319B32D241B7AEB005E3129 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0B786AE52452E8F10094FACD /* ImageRepresentation.swift */,
+				0B786AE72452F43D0094FACD /* AssembledItemImageRepresentation.swift */,
 				0B3CB9EA2441A2D00035E8D3 /* StatefulItem.swift */,
 				0B781570242CB5A9006CF4C2 /* AssembledItem.swift */,
 				0B09CA572432E99A00F29648 /* TitledItem.swift */,
@@ -988,6 +991,7 @@
 				62D91FEA24497F9C0070CDE1 /* PackageItemsLimitGenerator.swift in Sources */,
 				62CC1D6F2438817200C942C7 /* SettingsViewController.swift in Sources */,
 				5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */,
+				0B786AE62452E8F10094FACD /* ImageRepresentation.swift in Sources */,
 				5D1B680F2438C98500676890 /* PlayerImageHelper.swift in Sources */,
 				F30E1D2E243638AB00AD6A7B /* PlayerAvatar.swift in Sources */,
 				5D1B680B2438889A00676890 /* ItemCellState.swift in Sources */,
@@ -1018,7 +1022,6 @@
 				62E75B25244D6390001D53A4 /* ConfigKeys.swift in Sources */,
 				62697C1D2443132F005E21D6 /* ConfigNetwork.swift in Sources */,
 				0B781571242CB5A9006CF4C2 /* AssembledItem.swift in Sources */,
-				0B781576242CC311006CF4C2 /* AssembledItemsGenerator.swift in Sources */,
 				62D0EBCD242CBE4600FDAFAF /* GameHostControllerManager.swift in Sources */,
 				F3BF7F09242503E200A50EE3 /* Order.swift in Sources */,
 				5D5E04152425EDA30005A134 /* HouseCell.swift in Sources */,
@@ -1059,6 +1062,7 @@
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
 				62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */,
 				0BD1BB782442BA9D00FB578C /* GameControllerManagerExtensionForModel.swift in Sources */,
+				0B786AE82452F43D0094FACD /* AssembledItemImageRepresentation.swift in Sources */,
 				F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,
 				62EE1A7D241CF18B009406FB /* OrdersAllocator.swift in Sources */,
 				0B09CA6B2437544100F29648 /* LocalStorage.swift in Sources */,
@@ -1080,7 +1084,6 @@
 				625BDA62244D872C0094621D /* TestGameParameters.plist in Sources */,
 				625BDA64244D9FDC0094621D /* GameHostParametersParserTest.swift in Sources */,
 				0B385B85241CE00400FC2850 /* OrderTests.swift in Sources */,
-				0B1C9772241DDE210042FB01 /* GameManagerTests.swift in Sources */,
 				62E75B20244D55DB001D53A4 /* GameParametersParserTest.swift in Sources */,
 				F3BF7F2124275EF900A50EE3 /* ItemsAdapterTests.swift in Sources */,
 				0B5DC2D6244D935000BBB1DE /* ItemsAllocatorTests.swift in Sources */,

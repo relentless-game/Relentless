@@ -28,11 +28,7 @@ class PackingViewControllerTests: XCTestCase {
         sleep(2)
         app.buttons["Proceed"].tap()
     }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
+    
     func testToHousesButton() throws {
 //        app.collectionViews.containing(.image, identifier:"package_site").element.tap()
         // swiftlint:disable:next line_length

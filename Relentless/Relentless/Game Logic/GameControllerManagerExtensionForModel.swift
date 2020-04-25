@@ -62,7 +62,11 @@ extension GameControllerManager {
     }
 
     func constructAssembledItem(parts: [Item]) throws {
-        try game?.constructAssembledItem(parts: parts)
+        let imageRepresentationMapping = itemSpecifications.assembledItemImageRepresentationMapping
+//        let statefulItemRepresentationMapping = itemSpecifications.itemIdentifierToImageRepresentationMappings
+        try game?.constructAssembledItem(parts: parts,
+                                         imageRepresentationMapping: imageRepresentationMapping)
+//                                         statefulItemImageRepresentationMapping: statefulItemRepresentationMapping)
     }
     
     internal func removeOrder(order: Order) {

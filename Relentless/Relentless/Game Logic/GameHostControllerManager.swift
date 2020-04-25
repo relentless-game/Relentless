@@ -245,8 +245,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     private func constructRoundItemSpecifications(items: [Item]) -> RoundItemSpecifications {
         let assembledItems = items.compactMap { $0 as? AssembledItem }
         let assembledItemCategories = getAssembledItemCategories(assembledItems: assembledItems)
-        let specifications = RoundItemSpecifications(partsToAssembledItemCategoryMapping:
-            assembledItemCategories)
+        let specifications =
+            RoundItemSpecifications(partsToAssembledItemCategoryMapping: assembledItemCategories)
         return specifications
     }
 

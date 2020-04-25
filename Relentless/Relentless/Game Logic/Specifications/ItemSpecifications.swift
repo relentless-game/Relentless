@@ -10,16 +10,16 @@ import Foundation
 
 class ItemSpecifications {
     var availableGroupsOfItems: [Category: Set<[Item]>]
-    var itemIdentifierMappings: [Category: [Int: String]]
 
-    //categories should be sorted
-    var partsToAssembledItemCategoryMapping: [[Category]: Category]
-    
+    // for assembledItems
+    var assembledItemImageRepresentationMapping: [Category: ImageRepresentation]
+    var partsToAssembledItemCategoryMapping: [[Category]: Category] //categories should be sorted
+
     init(availableGroupsOfItems: [Category: Set<[Item]>],
-         itemIdentifierMappings: [Category: [Int: String]],
+         assembledItemImageRepresentationMapping: [Category: ImageRepresentation],
          partsToAssembledItemCategoryMapping: [[Category]: Category]) {
         self.availableGroupsOfItems = availableGroupsOfItems
-        self.itemIdentifierMappings = itemIdentifierMappings
+        self.assembledItemImageRepresentationMapping = assembledItemImageRepresentationMapping
         self.partsToAssembledItemCategoryMapping = partsToAssembledItemCategoryMapping
     }
 }

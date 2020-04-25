@@ -12,12 +12,12 @@ class OrdersAllocator: GameOrdersAllocator {
 
     var maxNumOfItemsPerOrder: Int
     var numOfOrdersPerPlayer: Int
-    var probabilityOfSelectingOwnItem: Float
-    var probabilityOfSelectingAssembledItem: Float
+    var probabilityOfSelectingOwnItem: Double
+    var probabilityOfSelectingAssembledItem: Double
     var timeForEachItem: Int
 
     init(maxNumOfItemsPerOrder: Int, numOfOrdersPerPlayer: Int,
-         probabilityOfSelectingOwnItem: Float, probabilityOfSelectingAssembledItem: Float,
+         probabilityOfSelectingOwnItem: Double, probabilityOfSelectingAssembledItem: Double,
          timeForEachItem: Int) {
         self.maxNumOfItemsPerOrder = maxNumOfItemsPerOrder
         self.numOfOrdersPerPlayer = numOfOrdersPerPlayer
@@ -102,7 +102,7 @@ class OrdersAllocator: GameOrdersAllocator {
     /// If choose to convert, converts a part to an assembled item if the assembled item that contains part exists
     private func convertToAssembledItem(part: Item, assembledItems: [AssembledItem]) -> Item? {
         let assembledItemsThatContainPart = assembledItems.filter { $0.parts.contains(part) }
-        let randomNumber = Float.random(in: 0...1)
+        let randomNumber = Double.random(in: 0...1)
         if randomNumber > probabilityOfSelectingAssembledItem ||
             assembledItemsThatContainPart.isEmpty {
             return nil

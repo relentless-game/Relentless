@@ -60,13 +60,4 @@ class CategoryGenerator: GameCategoryGenerator {
         let itemsInCategory = Array(groupsInCategory).flatMap { $0 }
         return !itemsInCategory.contains(where: { $0.isOrderItem })
     }
-
-    private func checkHasNoOrderItems(in category: Category) -> Bool {
-        guard let groupsInCategory = categoryToGroupsMapping[category] else {
-            return true
-        }
-        let itemsInCategory = Array(groupsInCategory).flatMap { $0 }
-        return !itemsInCategory.contains(where: { $0.isOrderItem })
-    }
-
 }

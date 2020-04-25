@@ -40,6 +40,15 @@ extension GameControllerManager {
         removePackage(package: package)
         removeOrder(order: order)
         updateSatisfaction(order: order, package: package, isCorrect: isCorrect)
+        notifyDeliverySuccess(isCorrect: isCorrect)
+    }
+    
+    private func notifyDeliverySuccess(isCorrect: Bool) {
+        if isCorrect {
+            NotificationCenter.default.post(name: .correctDelivery, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .wrongDelivery, object: nil)
+        }
     }
 
     func openPackage(package: Package) {
@@ -62,7 +71,11 @@ extension GameControllerManager {
     }
 
     func constructAssembledItem(parts: [Item]) throws {
-        try game?.constructAssembledItem(parts: parts)
+        let imageRepresentationMapping = itemSpecifications.assembledItemImageRepresentationMapping
+//        let statefulItemRepresentationMapping = itemSpecifications.itemIdentifierToImageRepresentationMappings
+        try game?.constructAssembledItem(parts: parts,
+                                         imageRepresentationMapping: imageRepresentationMapping)
+//                                         statefulItemImageRepresentationMapping: statefulItemRepresentationMapping)
     }
     
     internal func removeOrder(order: Order) {

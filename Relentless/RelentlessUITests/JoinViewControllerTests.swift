@@ -25,10 +25,6 @@ class JoinViewControllerTests: XCTestCase {
         XCUIApplication().launch()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testBackButtonExists() throws {
         app.launch()
         app.buttons.element(matching: .button, identifier: joinRoomIdentifier).tap()

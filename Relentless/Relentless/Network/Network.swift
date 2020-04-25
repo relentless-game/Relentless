@@ -9,10 +9,6 @@
 import Foundation
 
 protocol Network {
-
-    /// This is for the host to start a game. `completion` is called when the game is created
-    /// and takes in the game ID created.
-    func createGame(completion: @escaping (Int) -> Void)
     
     /// Changes the `GameStatus` to notify other players that the game has ended.
     /// Frees up the game ID stored in the cloud.
@@ -35,17 +31,8 @@ protocol Network {
     /// If a host wishes to quit the game, the whole game will terminate,
     /// and the host should use the `terminateGamePrematurely` function.
     func quitGame(userId: String, gameId: Int)
-    
-    /// This is called by the host player to start the game.
-    /// - parameters:
-    ///     - completion: a closure that is called to propagate possible errors
-    ///     that occur when starting a game. `nil` is passed into it to indicate success
-    func startGame(gameId: Int, difficultyLevel: Double, completion: @escaping (StartGameError?) -> Void)
-    
-    /// This is called by the host player to start a new round with the specified round number.
-    func startRound(gameId: Int, roundNumber: Int)
-    
-    /// This is called by the host player to terminate the current round.
+
+    /// This is called to terminate the current round.
     func terminateRound(gameId: Int, roundNumber: Int)
 
     /// This is called to pause the current round.
@@ -53,12 +40,6 @@ protocol Network {
 
     /// This is called to resume the current round if it is paused.
     func resumeRound(gameId: Int, currentRound: Int)
-
-    /// This is called by the host player at the start of the round to send pre-generated items to the target player.
-    func sendItems(gameId: Int, items: [Item], to destination: Player)
-    
-    /// This is called by the host player at the start of the round to send pre-generated orders to the target player.
-    func sendOrders(gameId: Int, orders: [Order], to destination: Player)
     
     /// Notifies non-host player to give them their items for this round. `action` is called upon receiving the items.
     func attachItemsListener(userId: String, gameId: Int, action: @escaping ([Item]) -> Void)
@@ -94,14 +75,6 @@ protocol Network {
     /// with an array of all players as the argument, when a new player joins.
     func attachPlayerJoinListener(gameId: Int, action: @escaping ([Player]) -> Void)
     
-    /// This method is called by the host and allocates pre-generated items
-    /// to all players in `players` at the start of a round.
-    func allocateItems(gameId: Int, players: [Player])
-
-    /// This method is called by the host and allocates pre-generated orders
-    /// to all players in `players` at the start of a round.
-    func allocateOrders(gameId: Int, players: [Player])
-    
     /// Notifies the network that this player has run out of orders for this round.
     func outOfOrders(userId: String, gameId: Int)
 
@@ -124,21 +97,15 @@ protocol Network {
     /// Notifies the network count down to termination of game during the pausing state
     func updatePauseCountDown(gameId: Int, countDown: Int)
 
-    /// This method is called by the host to inform all players of the limit for the number of items in packages
-    func setPackageItemsLimit(gameId: Int, limit: Int)
-
     /// Notifies the player of the limit for the number of items in packages
     func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
 
-    /// Notifies the player of the game parameters for the game
-    func attachDifficultyLevelListener(gameId: Int, action: @escaping (Double) -> Void)
+    /// Notifies the player of the config values for the game
+    func attachConfigValuesListener(gameId: Int, action: @escaping (LocalConfigValues) -> Void)
 
     /// Notifies non-host player to give them their item specifications for this round.
     /// `action` is called upon receiving the item specifications.
     func attachItemSpecificationsListener(userId: String, gameId: Int,
                                           action: @escaping (RoundItemSpecifications) -> Void)
-
-    /// Sends the round item specifications to all players in the game
-    func broadcastRoundItemSpecification(gameId: Int, roundItemSpecification: RoundItemSpecifications)
 
 }

@@ -77,6 +77,14 @@
 			<key>titles</key>
 			<array>
 				<array>
+					<string>Title is the book</string>
+					<string>The title title is the book title</string>
+				</array>
+				<array>
+					<string>Is the title book</string>
+					<string>Book is the title</string>
+				</array>
+				<array>
 					<string>The title of the book is</string>
 					<string>The book title is title is</string>
 				</array>
@@ -97,6 +105,34 @@
 			<false/>
 			<key>titles</key>
 			<array>
+				<array>
+					<string>Brake</string>
+					<string>Break</string>
+				</array>
+				<array>
+					<string>Bare</string>
+					<string>Bear</string>
+				</array>
+				<array>
+					<string>Lamp</string>
+					<string>Lamb</string>
+				</array>
+				<array>
+					<string>Dew</string>
+					<string>Due</string>
+				</array>
+				<array>
+					<string>Hi</string>
+					<string>High</string>
+				</array>
+				<array>
+					<string>Air</string>
+					<string>Heir</string>
+				</array>
+				<array>
+					<string>Eye</string>
+					<string>I</string>
+				</array>
 				<array>
 					<string>By</string>
 					<string>Buy</string>
@@ -295,30 +331,6 @@
 					<string>toycar_siren_purple.png</string>
 					<string>toycar_siren_yellow.png</string>
 				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>category</key>
-			<string>toyCarGift</string>
-			<key>parts</key>
-			<array>
-				<string>toyCar</string>
-				<string>book</string>
-			</array>
-			<key>isInventoryItem</key>
-			<false/>
-			<key>isOrderItem</key>
-			<false/>
-			<key>depth</key>
-			<integer>1</integer>
-			<key>mainImageString</key>
-			<string></string>
-			<key>partsImageStrings</key>
-			<dict>
-				<key>toyCar</key>
-				<string>toyCarImage</string>
-				<key>book</key>
-				<string>bookImage</string>
 			</dict>
 		</dict>
 	</array>

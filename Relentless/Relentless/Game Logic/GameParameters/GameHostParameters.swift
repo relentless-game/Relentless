@@ -11,6 +11,8 @@ import Foundation
 /// Represents the parameters for the game that is only used by the host in item and order generation and allocation.
 class GameHostParameters: GameParameters {
 
+    var numOfPlayersRange = 3...6
+
     /// The following are closures that take in parameters (currently only difficulty level)
     /// They are used to compute the actual variable values
     internal var timeForEachItemExpression: I?
@@ -76,4 +78,8 @@ class GameHostParameters: GameParameters {
         return probOfEventExpression?(varDict) ?? defaultValue
     }
 
+    func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Double {
+        let defaultValue = 1 / Double(numberOfPlayers)
+        return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
+    }
 }

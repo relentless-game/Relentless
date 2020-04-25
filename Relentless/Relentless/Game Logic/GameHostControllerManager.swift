@@ -14,6 +14,10 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         gameParameters as? GameHostParameters
     }
 
+    var hostNetwork: HostNetwork? {
+        network as? HostNetwork
+    }
+
     var itemsGenerator: GameItemGenerator?
     var itemsAllocator: GameItemsAllocator?
     var ordersAllocator: GameOrdersAllocator?
@@ -21,28 +25,39 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     /// Event might occur when timer fires based on game parameters.
     var eventTimer = Timer()
 
-    init(userId: String, gameHostParameters: GameHostParameters) {
-        super.init(userId: userId, gameParameters: gameHostParameters)
-        isHost = true
-        self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(gameHostParameters.roundTime / 2),
-                                               target: self,
-                                               selector: #selector(generateEvent), userInfo: nil,
-                                               repeats: false)
+    private var demoMode: Bool
+
+    init(userId: String, demoMode: Bool) {
+        self.demoMode = demoMode
+        super.init(userId: userId)
+        self.gameParameters = getParameters()
+        self.network = HostNetworkManager()
+        self.isHost = true
+        if let parameters = gameParameters {
+            self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(parameters.roundTime / 2),
+                                                   target: self,
+                                                   selector: #selector(generateEvent), userInfo: nil,
+                                                   repeats: false)
+        }
     }
 
     func initialiseGeneratorAndAllocators() {
         guard let parameters = hostParameters else {
             return
         }
+
         itemsGenerator = ItemGenerator(numberOfPlayers: players.count,
-                                       difficultyLevel: parameters.difficultyLevel,
-                                       numOfPairsPerCategory: parameters.numOfGroupsPerCategory,
+                                       numOfGroupsPerCategory: parameters.numOfGroupsPerCategory,
                                        itemSpecifications: super.itemSpecifications)
+
         itemsAllocator = ItemsAllocator()
-        ordersAllocator = OrdersAllocator(difficultyLevel: parameters.difficultyLevel,
-                                          maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
+
+        let probOfSelectingAssembledItem =
+            parameters.probOfSelectingAssembledItem(numberOfPlayers: players.count)
+        ordersAllocator = OrdersAllocator(maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
                                           probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
+                                          probabilityOfSelectingAssembledItem: probOfSelectingAssembledItem,
                                           timeForEachItem: parameters.timeForEachItem)
     }
 
@@ -68,14 +83,18 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 
     /// Player who invokes this method becomes the host and joins the game.
     func createGame(username: String, avatar: PlayerAvatar) {
-        network.createGame(completion: { gameId in
+        guard let hostNetwork = hostNetwork else {
+            return
+        }
+        hostNetwork.createGame(completion: { gameId in
             self.joinGame(gameId: gameId, userName: username, avatar: avatar)
+            self.initialiseNumberOfPlayersRange(gameId: gameId)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
 
     func startGame() {
-        guard let gameId = gameId, let gameParameters = gameParameters else {
+        guard let gameId = gameId else {
             return
         }
 
@@ -92,8 +111,31 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         
         // Attempts to start game
-        let difficultyLevel = gameParameters.difficultyLevel
-        network.startGame(gameId: gameId, difficultyLevel: difficultyLevel, completion: { error in
+        guard let configValues = getLocalConfigValues() else {
+            // If config values are nil, all players should just use default values to ensure synchronisation
+            let defaultConfigValues = LocalConfigValues(filePath: "DefaultGameParameters")
+            self.gameParameters = GameHostParametersParser(configValues: defaultConfigValues).parse()
+            startGameInNetwork(gameId: gameId, configValues: defaultConfigValues)
+            return
+        }
+
+        startGameInNetwork(gameId: gameId, configValues: configValues)
+    }
+
+    private func initialiseNumberOfPlayersRange(gameId: Int) {
+        guard let parameters = hostParameters, let hostNetwork = hostNetwork else {
+            return
+        }
+        let minPlayers = parameters.numOfPlayersRange.lowerBound
+        let maxPlayers = parameters.numOfPlayersRange.upperBound
+        hostNetwork.initialiseNumberOfPlayersRange(gameId: gameId, min: minPlayers, max: maxPlayers)
+    }
+
+    private func startGameInNetwork(gameId: Int, configValues: LocalConfigValues) {
+        guard let hostNetwork = hostNetwork else {
+            return
+        }
+        hostNetwork.startGame(gameId: gameId, configValues: configValues, completion: { error in
             if let error = error {
                 self.handleUnsuccessfulStart(error: error)
             }
@@ -129,7 +171,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
     
     func startRound() {
-        guard let gameId = self.gameId, let roundNumber = game?.currentRoundNumber else {
+        guard let gameId = self.gameId, let roundNumber = game?.currentRoundNumber, let hostNetwork = hostNetwork else {
             return
         }
         // items and orders are generated and allocated by the host only
@@ -150,7 +192,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
                            roundItemSpecifications: roundItemSpecifications)
 
         // network is notified to start round by the host only
-        network.startRound(gameId: gameId, roundNumber: roundNumber)
+        hostNetwork.startRound(gameId: gameId, roundNumber: roundNumber)
         // clear satisfaction levels stored in the cloud
         network.resetSatisfactionLevels(gameId: gameId)
     }
@@ -190,6 +232,24 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
     }
 
+    private func getParameters() -> GameHostParameters? {
+        if demoMode {
+            return GameHostParametersParser(configValues:
+                LocalConfigValues(filePath: "DemoGameParameters")).parse()
+        } else {
+            return (ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: true)
+                as? GameHostParameters)
+        }
+    }
+
+    private func getLocalConfigValues() -> LocalConfigValues? {
+        if demoMode {
+            return LocalConfigValues(filePath: "DemoGameParameters")
+        } else {
+            return ConfigNetworkManager.sharedInstance.fetchLocalConfigValues()
+        }
+    }
+
     /// Returns an array of inventory items and order items
     private func initialiseItems() -> ([Item], [Item]) {
         guard let parameters = hostParameters, let itemsGenerator = self.itemsGenerator else {
@@ -208,10 +268,11 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     }
 
     private func chooseCategories(numberOfPlayers: Int, parameters: GameHostParameters) -> [Category] {
+        let mappings = super.itemSpecifications.availableGroupsOfItems
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
                                                   numOfCategories: parameters.numOfCategories,
-                                                  categoryToGroupsMapping: super.itemSpecifications.availableGroupsOfItems)
+                                                  categoryToGroupsMapping: mappings)
         return categoryGenerator.generateCategories()
     }
 
@@ -220,27 +281,31 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return nil
         }
         let allOrders = players.flatMap { $0.orders }
+        let probability = parameters.probOfHavingPackageLimit
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
-                                                                    probabilityOfHavingLimit: parameters.probOfHavingPackageLimit)
+                                                                    probabilityOfHavingLimit: probability)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 
     /// Sends the items, orders, package limit and round item specifications to all players through the network
     private func updateOtherDevices(gameId: Int, packageItemsLimit: Int?,
                                     roundItemSpecifications: RoundItemSpecifications) {
-        network.allocateItems(gameId: gameId, players: players)
-        network.allocateOrders(gameId: gameId, players: players)
-        if let nonNilPackageItemsLimit = packageItemsLimit {
-            network.setPackageItemsLimit(gameId: gameId, limit: nonNilPackageItemsLimit)
+        guard let hostNetwork = hostNetwork else {
+            return
         }
-        network.broadcastRoundItemSpecification(gameId: gameId, roundItemSpecification: roundItemSpecifications)
+        hostNetwork.allocateItems(gameId: gameId, players: players)
+        hostNetwork.allocateOrders(gameId: gameId, players: players)
+        if let nonNilPackageItemsLimit = packageItemsLimit {
+            hostNetwork.setPackageItemsLimit(gameId: gameId, limit: nonNilPackageItemsLimit)
+        }
+        hostNetwork.broadcastRoundItemSpecification(gameId: gameId, roundItemSpecification: roundItemSpecifications)
     }
 
     private func constructRoundItemSpecifications(items: [Item]) -> RoundItemSpecifications {
         let assembledItems = items.compactMap { $0 as? AssembledItem }
         let assembledItemCategories = getAssembledItemCategories(assembledItems: assembledItems)
-        let specifications = RoundItemSpecifications(partsToAssembledItemCategoryMapping:
-            assembledItemCategories)
+        let specifications =
+            RoundItemSpecifications(partsToAssembledItemCategoryMapping: assembledItemCategories)
         return specifications
     }
 

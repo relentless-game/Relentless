@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>numOfHouses</key>
+	<string>5</string>
+	<key>difficultyChange</key>
+	<string>0.5</string>
+	<key>minHouseSatisfactionFactor</key>
+	<string>0.5</string>
+	<key>minNumOfPlayers</key>
+	<integer>1</integer>
+	<key>maxHouseSatisfactionFactor</key>
+	<string>1.0</string>
+	<key>maxNumOfPlayers</key>
+	<integer>6</integer>
+	<key>minDifficultyLevel</key>
+	<real>1</real>
+	<key>maxDifficultyLevel</key>
+	<integer>10</integer>
+	<key>minSatisfaction</key>
+	<integer>0</integer>
+	<key>roundTime</key>
+	<string>600</string>
+	<key>dailyExpense</key>
+	<string>40</string>
+	<key>correctPackageSatisfactionChange</key>
+	<string>5.0</string>
+	<key>wrongPackageSatisfactionChange</key>
+	<string>-5.0</string>
+	<key>satisfactionToMoneyTranslation</key>
+	<string>2.0</string>
+	<key>satisfactionRunOutPenalty</key>
+	<string>0.2 * 100.0</string>
+	<key>timeForEachItem</key>
+	<string>150</string>
+	<key>satisfactionUnitDecrease</key>
+	<string>100.0 / 240.0</string>
+	<key>maxSatisfaction</key>
+	<integer>100</integer>
+	<key>numOfCategories</key>
+	<string>8</string>
+	<key>numOfGroupsPerCategory</key>
+	<string>diffLevel / 2.0</string>
+	<key>maxNumOfItemsPerOrder</key>
+	<string>diffLevel / 2.0</string>
+	<key>numOfOrdersPerPlayer</key>
+	<string>8</string>
+	<key>probOfSelectingOwnItem</key>
+	<string>1.0 / (diffLevel + 1.0)</string>
+	<key>probOfHavingPackageLimit</key>
+	<string>1.0</string>
+	<key>probOfEvent</key>
+	<string>1.0 / 4.0</string>
+</dict>
+</plist>

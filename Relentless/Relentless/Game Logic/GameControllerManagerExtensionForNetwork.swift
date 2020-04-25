@@ -71,6 +71,7 @@ extension GameControllerManager {
 
     @objc
     func endRound() {
+        game?.resetForNewRound()
         guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
@@ -141,8 +142,8 @@ extension GameControllerManager {
     internal func attachNetworkListeners(userId: String, gameId: Int) {
         attachNonHostListeners(userId: userId, gameId: gameId)
         // The host should not have this listener
-        self.network.attachDifficultyLevelListener(gameId: gameId, action: { difficultyLevel in
-            self.gameParameters?.difficultyLevel = difficultyLevel
+        self.network.attachConfigValuesListener(gameId: gameId, action: { configValues in
+            self.gameParameters = GameParametersParser(configValues: configValues).parse()
         })
     }
 

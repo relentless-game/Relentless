@@ -18,7 +18,7 @@ class PackageTests: XCTestCase {
 
     let item = TitledItem(name: "1", category: Category(name: "book"),
                           isInventoryItem: true, isOrderItem: true,
-                          imageString: "placeholder")
+                          imageRepresentation: ImageRepresentation(imageStrings: ["placeholder"]))
     
     override func setUp() {
         super.setUp()

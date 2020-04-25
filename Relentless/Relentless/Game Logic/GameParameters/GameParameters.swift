@@ -51,7 +51,8 @@ class GameParameters {
     }
     var roundTime: Int {
         let defaultValue: Int = 240
-        return roundTimeExpression?(varDict) ?? defaultValue
+        //return roundTimeExpression?(varDict) ?? defaultValue
+        return 10
     }
     var dailyExpense: Int {
         let defaultValue: Int = 50

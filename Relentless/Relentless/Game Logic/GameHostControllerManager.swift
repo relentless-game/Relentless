@@ -211,7 +211,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         let categoryGenerator = CategoryGenerator(numberOfPlayers: numberOfPlayers,
                                                   difficultyLevel: parameters.difficultyLevel,
                                                   numOfCategories: parameters.numOfCategories,
-                                                  categoryToGroupsMapping: super.itemSpecifications.availableGroupsOfItems)
+                                                  categoryToGroupsMapping:
+                                                      super.itemSpecifications.availableGroupsOfItems)
         return categoryGenerator.generateCategories()
     }
 
@@ -221,7 +222,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         let allOrders = players.flatMap { $0.orders }
         let packageItemsLimitGenerator = PackageItemsLimitGenerator(orders: allOrders,
-                                                                    probabilityOfHavingLimit: parameters.probOfHavingPackageLimit)
+                                                                    probabilityOfHavingLimit:
+                                                                        parameters.probOfHavingPackageLimit)
         return packageItemsLimitGenerator.generateItemsLimit()
     }
 

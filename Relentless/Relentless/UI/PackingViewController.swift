@@ -171,7 +171,16 @@ class PackingViewController: UIViewController {
     @objc func handleRoundEnded() {
         print("handle round ended")
         removeObservers()
-        performSegue(withIdentifier: "endRound", sender: self)
+        self.view.isUserInteractionEnabled = false
+        
+        let message = "This round has ended."
+        let alert = createAlert(title: "Uh oh.", message: message, action: "Ok.")
+        self.present(alert, animated: true, completion: nil)
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            self.performSegue(withIdentifier: "endRound", sender: self)
+        }
+
     }
     
     @objc func handleGameEnded() {
@@ -316,7 +325,7 @@ class PackingViewController: UIViewController {
     @objc private func handleAppMovedToForeground() {
         endBackgroundTask()
         gameController?.resumeRound()
-        if backgroundTask ==  .invalid {
+        if backgroundTask == .invalid {
             registerBackgroundTask()
         }
     }

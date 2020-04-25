@@ -36,6 +36,8 @@ class CategoryGenerator: GameCategoryGenerator {
         }
 
         let categoriesWithOrders = allCategories.filter { !checkHasNoOrderItems(in: $0) }
+        assert(checkHasEnoughInventoryItems(categories: Set(categoriesWithOrders)),
+               "Not enough inventory items... Designer should add more items")
 
         let generationRange = 0...categoriesWithOrders.count - 1
         var categories = Set<Category>()
@@ -53,6 +55,7 @@ class CategoryGenerator: GameCategoryGenerator {
         return Array(categories)
     }
 
+    /// Considered enough as long as there are at least as many inventory items as the number of players
     private func checkHasEnoughInventoryItems(categories: Set<Category>) -> Bool {
         let itemsInCategories = categories.compactMap { categoryToGroupsMapping[$0] }.reduce(Set<Item>()) { result, group in
             result.union(group.flatMap { $0 })

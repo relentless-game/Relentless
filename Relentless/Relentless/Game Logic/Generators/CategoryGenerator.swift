@@ -49,8 +49,7 @@ class CategoryGenerator: GameCategoryGenerator {
             categories.insert(allCategories[index])
         }
         
-        //return Array(categories)
-        return [Category(name: "toyCar")]
+        return Array(categories)
     }
 
     private func checkHasNoOrderItems(in category: Category) -> Bool {

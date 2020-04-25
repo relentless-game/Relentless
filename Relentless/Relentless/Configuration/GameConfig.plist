@@ -71,11 +71,19 @@
 			<key>category</key>
 			<string>book</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>titles</key>
 			<array>
+				<array>
+					<string>Title is the book</string>
+					<string>The title title is the book title</string>
+				</array>
+				<array>
+					<string>Is the title book</string>
+					<string>Book is the title</string>
+				</array>
 				<array>
 					<string>The title of the book is</string>
 					<string>The book title is title is</string>
@@ -92,11 +100,39 @@
 			<key>category</key>
 			<string>magazine</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>titles</key>
 			<array>
+				<array>
+					<string>Brake</string>
+					<string>Break</string>
+				</array>
+				<array>
+					<string>Bare</string>
+					<string>Bear</string>
+				</array>
+				<array>
+					<string>Lamp</string>
+					<string>Lamb</string>
+				</array>
+				<array>
+					<string>Dew</string>
+					<string>Due</string>
+				</array>
+				<array>
+					<string>Hi</string>
+					<string>High</string>
+				</array>
+				<array>
+					<string>Air</string>
+					<string>Heir</string>
+				</array>
+				<array>
+					<string>Eye</string>
+					<string>I</string>
+				</array>
 				<array>
 					<string>By</string>
 					<string>Buy</string>
@@ -116,9 +152,9 @@
 			<key>category</key>
 			<string>robot</string>
 			<key>isInventoryItem</key>
-			<false/>
+			<true/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>itemGroups</key>
 			<array>
 				<array>
@@ -223,7 +259,7 @@
 			<key>isInventoryItem</key>
 			<false/>
 			<key>isOrderItem</key>
-			<false/>
+			<true/>
 			<key>depth</key>
 			<integer>1</integer>
 			<key>mainImageString</key>

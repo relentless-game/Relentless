@@ -55,14 +55,7 @@ class DeliveryViewController: UIViewController {
         }
         dismiss(animated: true, completion: nil)
     }
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        removeObservers()
-//        removeAllPreviousViewControllers()
-//        if segue.identifier == "cancelDelivery" {
-//            let viewController = segue.destination as? PackingViewController
-//            viewController?.gameController = gameController
-//        }
-//    }
+    
 }
 
 extension DeliveryViewController: UICollectionViewDataSource {

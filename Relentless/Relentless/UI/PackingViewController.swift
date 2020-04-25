@@ -85,7 +85,13 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
-
+        // To inform player about the result of their delivery
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleCorrectDelivery),
+                                               name: .correctDelivery, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleWrongDelivery),
+                                               name: .wrongDelivery, object: nil)
     }
 
     func removeObservers() {
@@ -102,6 +108,9 @@ class PackingViewController: UIViewController {
                                                   object: nil)
         NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
+        // The following observers are to inform player about the result of their delivery
+        NotificationCenter.default.removeObserver(self, name: .correctDelivery, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .wrongDelivery, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -169,18 +178,16 @@ class PackingViewController: UIViewController {
     }
     
     @objc func handleRoundEnded() {
-        print("handle round ended")
         removeObservers()
         self.view.isUserInteractionEnabled = false
         
-        let message = "This round has ended."
-        let alert = createAlert(title: "Uh oh.", message: message, action: "Ok.")
+        let title = "This round has ended."
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
             self.performSegue(withIdentifier: "endRound", sender: self)
         }
-
     }
     
     @objc func handleGameEnded() {
@@ -355,7 +362,39 @@ class PackingViewController: UIViewController {
     @objc private func handleAppMovedToBackground() {
         gameController?.pauseRound()
     }
+    
+    @objc private func handleCorrectDelivery() {
+        // Shows user that the order was completed correctly
+        generateTextLabelForDeliveryStatus(isCorrect: true)
+    }
 
+    @objc private func handleWrongDelivery() {
+        // Shows user that the order was completed wrongly
+        generateTextLabelForDeliveryStatus(isCorrect: false)
+    }
+    
+    private func generateTextLabelForDeliveryStatus(isCorrect: Bool) {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        label.center = self.view.center
+        if isCorrect {
+            label.backgroundColor = UIColor.green
+            label.text = "Correct Order!"
+        } else {
+            label.backgroundColor = UIColor.red
+            label.text = "Wrong Order!"
+        }
+        label.textAlignment = .center
+        label.layer.cornerRadius = 20
+        label.layer.masksToBounds = true
+        self.view.addSubview(label)
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            UIView.animate(withDuration: 0.5) {
+                label.alpha = 0.0
+            }
+        }
+    }
+    
     private func createAlert(title: String, message: String, action: String) -> UIAlertController {
         let controller = UIAlertController(title: String(title),
                                            message: String(message),

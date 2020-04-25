@@ -389,11 +389,12 @@ class ItemSpecificationsParserTests: XCTestCase {
         let batteryCategory = Category(name: "battery")
         let carBodyCategory = Category(name: "carBody")
         let bookCategory = Category(name: "book")
-        let toyCarPartsImageStrings = [wheelCategory: ImageRepresentation(imageStrings: ["circle",
-                                                                                         "triangle"]),
-                                       batteryCategory: ImageRepresentation(imageStrings: ["AA",
-                                                                                           "AAA",
-                                                                                           "D", "PP3"]),
+        let toyCarPartsImageStrings = [wheelCategory: ImageRepresentation(imageStrings:
+            ["circleWheelImage", "triangleWheelImage"]),
+                                       batteryCategory: ImageRepresentation(imageStrings: ["AAImage",
+                                                                                           "AAAImage",
+                                                                                           "DImage",
+                                                                                           "PP3Image"]),
                                        carBodyCategory: ImageRepresentation(imageStrings:
                                         ["redCarBodyImage",
                                          "blueCarBodyImage",

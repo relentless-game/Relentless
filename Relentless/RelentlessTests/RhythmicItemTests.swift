@@ -87,13 +87,33 @@ class RhythmicItemTests: XCTestCase {
                                                    isInventoryItem: isInventoryItem,
                                                    isOrderItem: isOrderItem,
                                                    imageRepresentation: imageRepresentation)
+        var largerSequence = stateSequence
+        largerSequence.append(RhythmState(index: 1))
         let itemWithLargerSequence = RhythmicItem(unitDuration: unitDuration,
-                                                  stateSequence: stateSequence.sorted().reversed(),
+                                                  stateSequence: largerSequence,
                                                   category: sortedCategories[0],
                                                   isInventoryItem: isInventoryItem,
                                                   isOrderItem: isOrderItem,
                                                   imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerSequence < itemWithLargerSequence)
+    }
+
+    func testComparison_betweenSameCategories_sameDurationDifferentSequenceButSameMagnitude() {
+        let itemWithSmallerSequence = RhythmicItem(unitDuration: unitDuration,
+                                                   stateSequence: stateSequence.sorted(),
+                                                   category: sortedCategories[0],
+                                                   isInventoryItem: isInventoryItem,
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
+        var largerSequence = stateSequence
+        largerSequence.append(RhythmState(index: 0))
+        let itemWithLargerSequence = RhythmicItem(unitDuration: unitDuration,
+                                                  stateSequence: largerSequence,
+                                                  category: sortedCategories[0],
+                                                  isInventoryItem: isInventoryItem,
+                                                  isOrderItem: isOrderItem,
+                                                  imageRepresentation: imageRepresentation)
+        XCTAssertFalse(itemWithSmallerSequence < itemWithLargerSequence)
     }
 
     func testEquals_attributesThatAreIncluded() {

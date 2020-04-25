@@ -35,6 +35,11 @@ class ItemAssemblerTests: XCTestCase {
 
     func testAssembler_hasCorrectPartsToCreateItemThatExists() {
         do {
+            var imageRepresentationMapping = [Relentless.Category: ImageRepresentation]()
+            let partsImageStrings = [Relentless.Category: ImageRepresentation]()
+            imageRepresentationMapping[toyCarCategory] =
+                AssembledItemImageRepresentation(mainImageStrings: [""],
+                                                 partsImageStrings: partsImageStrings)
             let assembledItem =
                 try ItemAssembler.assembleItem(parts: parts,
                                                partsToAssembledItemCategoryMapping: mapping,

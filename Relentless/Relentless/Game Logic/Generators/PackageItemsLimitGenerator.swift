@@ -26,6 +26,7 @@ class PackageItemsLimitGenerator {
         guard randomNumber <= probabilityOfHavingLimit else {
             return nil
         }
+        
         return calculateLimit()
     }
 
@@ -39,9 +40,11 @@ class PackageItemsLimitGenerator {
             return $0.items.count - 1 + maxPartCount
         } as [Int]
 
-        guard let limit = minForEachOrder.max() else {
+        guard let maxOfOrders = minForEachOrder.max() else {
             return nil
         }
+
+        let limit = max(maxOfOrders, orders.count)
 
         return limit
     }

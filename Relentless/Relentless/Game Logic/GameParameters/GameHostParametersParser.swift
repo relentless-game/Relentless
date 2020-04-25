@@ -10,11 +10,12 @@ import Foundation
 import Firebase
 
 class GameHostParametersParser: GameParametersParser {
+    typealias IR = ClosedRange<Int>
 
     override func parse() -> GameHostParameters? {
         let gameHostParameters = GameHostParameters()
 
-        guard parseNumbers(gameParameters: gameHostParameters) else {
+        guard parseNumbers(gameHostParameters: gameHostParameters) else {
             return nil
         }
 
@@ -23,6 +24,19 @@ class GameHostParametersParser: GameParametersParser {
         }
 
         return gameHostParameters
+    }
+
+    internal func parseNumbers(gameHostParameters: GameHostParameters) -> Bool {
+        guard super.parseNumbers(gameParameters: gameHostParameters) else {
+            return false
+        }
+        guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: ConfigKeys.minNumOfPlayers,
+                                                              maxKey: ConfigKeys.maxNumOfPlayers)
+            else {
+                return false
+        }
+        gameHostParameters.numOfPlayersRange = numOfPlayersRange
+        return true
     }
 
     internal func parseStrings(gameHostParameters: GameHostParameters) -> Bool {

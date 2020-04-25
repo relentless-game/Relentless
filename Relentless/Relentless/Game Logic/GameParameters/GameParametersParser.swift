@@ -12,7 +12,6 @@ import Firebase
 class GameParametersParser {
     typealias I = ([String: Double]) -> Int?
     typealias D = ([String: Double]) -> Double?
-    typealias IR = ClosedRange<Int>
     typealias DR = ClosedRange<Double>
 
     let configValues: ConfigValues
@@ -36,16 +35,13 @@ class GameParametersParser {
     }
 
     internal func parseNumbers(gameParameters: GameParameters) -> Bool {
-        guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: ConfigKeys.minNumOfPlayers,
-                                                              maxKey: ConfigKeys.maxNumOfPlayers),
-            let difficultyRange: DR = parseNumbersToRange(minKey: ConfigKeys.minDifficultyLevel,
-                                                          maxKey: ConfigKeys.maxDifficultyLevel),
+        guard let difficultyRange: DR = parseNumbersToRange(minKey: ConfigKeys.minDifficultyLevel,
+                                                            maxKey: ConfigKeys.maxDifficultyLevel),
             let satisfactionRange: DR = parseNumbersToRange(minKey: ConfigKeys.minSatisfaction,
                                                             maxKey: ConfigKeys.maxSatisfaction)
             else {
                 return false
         }
-        gameParameters.numOfPlayersRange = numOfPlayersRange
         gameParameters.difficultyRange = difficultyRange
         gameParameters.satisfactionRange = satisfactionRange
         return true
@@ -82,10 +78,10 @@ class GameParametersParser {
     }
 
     internal func parseNumbersToRange<T>(minKey: String, maxKey: String) -> ClosedRange<T>? {
-        guard let minValue = configValues.getNumber(for: minKey) as? T else {
+        guard let minValue: T = configValues.getNumber(for: minKey) else {
             return nil
         }
-        guard let maxValue = configValues.getNumber(for: maxKey) as? T else {
+        guard let maxValue: T = configValues.getNumber(for: maxKey) else {
             return nil
         }
         return minValue...maxValue

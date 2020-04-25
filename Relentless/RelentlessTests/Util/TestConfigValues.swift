@@ -9,17 +9,12 @@
 import Foundation
 @testable import Relentless
 /// Util class that gets values from local plist meant for testing purposes instead of from remote config
-class TestConfigValues: ConfigValues {
+class TestConfigValues: LocalConfigValues {
 
-    var valuesDict: NSMutableDictionary?
+    let filePath = "TestGameParameters"
 
     init() {
-        do {
-            try valuesDict = getPlist(from: "TestGameParameters")
-        } catch {
-            valuesDict = [:]
-            assertionFailure("Loading Plist failed.")
-        }
+        super.init(filePath: filePath)
     }
 
     convenience init(empty: Bool) {
@@ -34,34 +29,7 @@ class TestConfigValues: ConfigValues {
         removeValue(key: key)
     }
 
-    func getString(for key: String) -> String? {
-        valuesDict?.value(forKey: key) as? String
-    }
-
-    func getNumber(for key: String) -> NSNumber? {
-        valuesDict?.value(forKey: key) as? NSNumber
-    }
-
     private func removeValue(key: String) {
         valuesDict?.removeObject(forKey: key)
     }
-
-    private func getPlist(from fileName: String) throws -> NSMutableDictionary {
-        if let path = Bundle.main.path(forResource: fileName, ofType: "plist"),
-            let xml = FileManager.default.contents(atPath: path) {
-            if let contents = (try? PropertyListSerialization.propertyList(from: xml,
-                                                                           options: .mutableContainersAndLeaves,
-                                                                           format: nil)) as? NSDictionary {
-                return NSMutableDictionary(dictionary: contents)
-            } else {
-                throw TestConfigValuesError.plistLoadingError
-            }
-        }
-        throw TestConfigValuesError.plistLoadingError
-    }
-
-}
-
-enum TestConfigValuesError: Error {
-    case plistLoadingError
 }

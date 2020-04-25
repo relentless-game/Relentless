@@ -34,6 +34,8 @@ class ItemGenerator: GameItemGenerator {
     /// Generates order items while ensuring that every player has at least one inventory item
     private func generateOrderItems(categories: [Category]) -> Set<Item> {
         var items = Set<Item>()
+        // Should not go into infinite loop as category generator checks that there are at least
+        // as many inventory items as number of players
         var uniqueInventoryItemsCount = items.count
         while uniqueInventoryItemsCount < numberOfPlayers {
             for category in categories {

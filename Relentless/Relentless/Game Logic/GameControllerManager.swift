@@ -73,8 +73,6 @@ class GameControllerManager: GameController {
     var localStorage: LocalStorage = LocalStorageManager()
     
     var itemSpecifications: ItemSpecifications
-
-    // to prevent endRound() from getting called multiple times
     
     init(userId: String) {
         self.userId = userId

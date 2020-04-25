@@ -25,9 +25,9 @@
 	<key>dailyExpense</key>
 	<string>40</string>
 	<key>correctPackageSatisfactionChange</key>
-	<string>1.0</string>
+	<string>5.0</string>
 	<key>wrongPackageSatisfactionChange</key>
-	<string>-1.0</string>
+	<string>-5.0</string>
 	<key>satisfactionToMoneyTranslation</key>
 	<string>2.0</string>
 	<key>satisfactionRunOutPenalty</key>

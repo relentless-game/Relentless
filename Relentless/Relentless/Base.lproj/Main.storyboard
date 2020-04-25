@@ -64,6 +64,17 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="DdQ-4l-nf1">
+                                <rect key="frame" x="39" y="332" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Demo Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaQ-2y-COb">
+                                <rect key="frame" x="94" y="337" width="94" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -81,6 +92,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="2cK-Dy-A3F"/>
                     <connections>
+                        <outlet property="demoModeSwitch" destination="DdQ-4l-nf1" id="iXe-mE-S4g"/>
                         <segue destination="GSL-Qu-8tE" kind="show" identifier="joinRoom" id="JYq-kd-7Dr"/>
                         <segue destination="OPb-V7-r8L" kind="show" identifier="createRoom" id="qOx-gU-PEw"/>
                     </connections>
@@ -753,14 +765,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="gYz-K5-BEo" customClass="ScoreCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="692" height="42.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="28" width="692" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYz-K5-BEo" id="Kub-PB-roK">
-                                            <rect key="frame" x="0.0" y="0.0" width="692" height="42.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDN-4v-toN">
-                                                    <rect key="frame" x="23" y="11.000000000000002" width="646" height="20.666666666666671"/>
+                                                    <rect key="frame" x="23" y="11" width="646" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1178,7 +1190,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="qID-Ae-TMA"/>
         <segue reference="fRd-0e-NOR"/>
-        <segue reference="NHt-Cf-6dI"/>
+        <segue reference="qOx-gU-PEw"/>
         <segue reference="biH-vW-GUr"/>
         <segue reference="gkd-Mi-ecb"/>
         <segue reference="Qly-4Q-AfV"/>

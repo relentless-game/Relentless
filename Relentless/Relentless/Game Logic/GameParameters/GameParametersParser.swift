@@ -12,7 +12,6 @@ import Firebase
 class GameParametersParser {
     typealias I = ([String: Double]) -> Int?
     typealias D = ([String: Double]) -> Double?
-    typealias IR = ClosedRange<Int>
     typealias DR = ClosedRange<Double>
 
     let configValues: ConfigValues

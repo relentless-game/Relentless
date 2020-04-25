@@ -31,6 +31,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         self.demoMode = demoMode
         super.init(userId: userId)
         self.gameParameters = getParameters()
+        self.network = HostNetworkManager()
         self.isHost = true
         if let parameters = gameParameters {
             self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(parameters.roundTime / 2),
@@ -38,7 +39,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
                                                    selector: #selector(generateEvent), userInfo: nil,
                                                    repeats: false)
         }
-        initialiseNumberOfPlayersRange()
     }
 
     func initialiseGeneratorAndAllocators() {
@@ -84,6 +84,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         }
         hostNetwork.createGame(completion: { gameId in
             self.joinGame(gameId: gameId, userName: username, avatar: avatar)
+            self.initialiseNumberOfPlayersRange(gameId: gameId)
             NotificationCenter.default.post(name: .didCreateGame, object: nil)
         })
     }
@@ -117,8 +118,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         startGameInNetwork(gameId: gameId, configValues: configValues)
     }
 
-    private func initialiseNumberOfPlayersRange() {
-        guard let gameId = gameId, let parameters = hostParameters, let hostNetwork = hostNetwork else {
+    private func initialiseNumberOfPlayersRange(gameId: Int) {
+        guard let parameters = hostParameters, let hostNetwork = hostNetwork else {
             return
         }
         let minPlayers = parameters.numOfPlayersRange.lowerBound

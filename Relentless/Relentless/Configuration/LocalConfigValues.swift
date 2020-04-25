@@ -30,7 +30,15 @@ class LocalConfigValues: ConfigValues, Codable {
     }
 
     func getNumber<T>(for key: String) -> T? {
-        valuesDict?[key] as? T
+        guard let value = valuesDict?[key] as? String else {
+            return nil
+        }
+        if T.self == Int.self {
+            return (value as NSString).integerValue as? T
+        } else if T.self == Double.self {
+            return (value as NSString).doubleValue as? T
+        }
+        return nil
     }
 
     private func removeValue(key: String) {
@@ -41,9 +49,18 @@ class LocalConfigValues: ConfigValues, Codable {
         if let path = Bundle.main.path(forResource: fileName, ofType: "plist"),
             let xml = FileManager.default.contents(atPath: path) {
             if let contents = (try? PropertyListSerialization.propertyList(from: xml,
-                                                                           options: .mutableContainersAndLeaves,
-                                                                           format: nil)) as? [String: String?] {
-                return contents
+                                                                           options: [],
+                                                                           format: nil)) as? [String: Any?] {
+                var stringDict = [String: String?]()
+                for (key, value) in contents {
+                    if let stringValue = value as? String {
+                        stringDict[key] = stringValue
+                    } else if let numberValue = value as? NSNumber {
+                        stringDict[key] = numberValue.stringValue
+                    }
+                }
+                print(stringDict.keys)
+                return stringDict
             } else {
                 throw LocalConfigValuesError.plistLoadingError
             }

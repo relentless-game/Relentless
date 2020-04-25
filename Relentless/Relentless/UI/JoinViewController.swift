@@ -114,10 +114,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleGameRoomFull() {
-        var message = "The team is already full."
-        if let maxNumOfPlayers = gameController?.numOfPlayersRange?.upperBound {
-            message.append(contentsOf: " There is a maximum of " + String(maxNumOfPlayers) + " players.")
-        }
+        let message = "The team is already full."
         let alert = createAlert(title: "Sorry.",
                                 message: message,
                                 action: "Ok.")

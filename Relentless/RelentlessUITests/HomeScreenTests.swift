@@ -12,7 +12,7 @@ class HomeScreenTests: XCTestCase {
     
     var app: XCUIApplication!
 
-    override func setUp() {
+    override func setUpWithError() throws {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()

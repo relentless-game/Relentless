@@ -268,13 +268,13 @@ class ItemSpecificationsParser {
     }
 
     private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary) -> AssembledItemImageRepresentation {
-        let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? [String] ?? []
+        let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
         let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
         var partsImageStrings: [Category: ImageRepresentation] = [:]
         for (key, value) in rawPartsImageStrings {
             partsImageStrings[Category(name: key)] = ImageRepresentation(imageStrings: value)
         }
-        return AssembledItemImageRepresentation(mainImageStrings: mainImageString, partsImageStrings: partsImageStrings)
+        return AssembledItemImageRepresentation(mainImageStrings: [mainImageString], partsImageStrings: partsImageStrings)
     }
 
     static func getAssembledItemToImageRepresentationMapping(dict: NSDictionary) -> [Category: ImageRepresentation] {

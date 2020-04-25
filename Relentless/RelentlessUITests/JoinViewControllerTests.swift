@@ -18,7 +18,7 @@ class JoinViewControllerTests: XCTestCase {
     private let backIdentifier = "backButton"
     private let testTeamCode = "4318"
     
-    override func setUp() {
+    override func setUpWithError() throws {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()

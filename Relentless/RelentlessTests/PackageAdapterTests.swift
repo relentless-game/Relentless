@@ -12,14 +12,16 @@ import XCTest
 class PackageAdapterTests: XCTestCase {
 
     let itemsLimit = 5
+
+    let imageRepresentation = ImageRepresentation(imageStrings: ["placeholder"])
     
     func testEncodePackageThenDecodePackage_1() {
         let item1 = TitledItem(name: "1", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let item2 = TitledItem(name: "2", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let itemsForPackage1 = [item1, item2]
         
         let package1 = Package(creator: "creator1", creatorAvatar: .blue,
@@ -30,17 +32,17 @@ class PackageAdapterTests: XCTestCase {
         
         XCTAssertEqual(decodedPackage, package1)
     }
-    
+
     func testEncodePackageThenDecodePackage_2() {
         let item3 = TitledItem(name: "3", category: Category(name: "book"),
                                isInventoryItem: true, isOrderItem: true,
-                               imageString: "placeholder")
+                               imageRepresentation: imageRepresentation)
         let item4 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 1,
                                  isInventoryItem: true, isOrderItem: false,
-                                 imageString: "placeholder")
+                                 imageRepresentation: imageRepresentation)
         let item5 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 2,
                                  isInventoryItem: true, isOrderItem: false,
-                                 imageString: "placeholder")
+                                 imageRepresentation: imageRepresentation)
         let itemsForPackage2 = [item3, item4, item5]
         
         let package2 = Package(creator: "creator2", creatorAvatar: .blue,

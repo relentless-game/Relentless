@@ -14,22 +14,12 @@ import XCTest
 class OrderTests: XCTestCase {
     let creator = "creator"
     let packageNumber = 1
-    
-    let item1 = TitledItem(name: "1", category: Category(name: "book"),
-                           isInventoryItem: true, isOrderItem: true,
-                           imageString: "placeholder")
-    let item2 = TitledItem(name: "2", category: Category(name: "book"),
-                           isInventoryItem: true, isOrderItem: true,
-                           imageString: "placeholder")
-    let item3 = TitledItem(name: "3", category: Category(name: "book"),
-                           isInventoryItem: true, isOrderItem: true,
-                           imageString: "placeholder")
-    let item4 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 1,
-                             isInventoryItem: true, isOrderItem: false,
-                             imageString: "placeholder")
-    let item5 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 2,
-                             isInventoryItem: true, isOrderItem: false,
-                             imageString: "placeholder")
+    let imageRepresentation = ImageRepresentation(imageStrings: ["placeholder"])
+    var item1: TitledItem!
+    var item2: TitledItem!
+    var item3: TitledItem!
+    var item4: StatefulItem!
+    var item5: StatefulItem!
     
     var items: [Item] = []
     let timeLimit = 1
@@ -38,6 +28,21 @@ class OrderTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        item1 = TitledItem(name: "1", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageRepresentation: imageRepresentation)
+        item2 = TitledItem(name: "2", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageRepresentation: imageRepresentation)
+        item3 = TitledItem(name: "3", category: Category(name: "book"),
+                           isInventoryItem: true, isOrderItem: true,
+                           imageRepresentation: imageRepresentation)
+        item4 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 1,
+                             isInventoryItem: true, isOrderItem: false,
+                             imageRepresentation: imageRepresentation)
+        item5 = StatefulItem(category: Category(name: "wheel"), stateIdentifier: 2,
+                             isInventoryItem: true, isOrderItem: false,
+                             imageRepresentation: imageRepresentation)
         items = [item1, item2, item3, item4, item5]
         order = Order(items: items, timeLimitInSeconds: timeLimit)
     }
@@ -80,6 +85,10 @@ class OrderTests: XCTestCase {
     }
 
     func testGetNumberOfDifferences_fewerItems() {
+        guard let item1 = item1, let item2 = item2, let item3 = item3 else {
+            XCTFail("Test set up went wrong... items should not be nil")
+            return
+        }
         let packageItems = [item1, item2, item3]
         let packageWithFewerItems = Package(creator: creator, creatorAvatar: .blue,
                                             packageNumber: packageNumber,
@@ -89,6 +98,11 @@ class OrderTests: XCTestCase {
     }
 
     func testGetNumberOfDifferences_moreItems() {
+        guard let item1 = item1, let item2 = item2, let item3 = item3, let item4 = item4,
+            let item5 = item5 else {
+            XCTFail("Test set up went wrong... items should not be nil")
+            return
+        }
         let packageItems = [item1, item2, item3, item4, item5, item1]
         let packageWithMoreItems = Package(creator: creator, creatorAvatar: .blue,
                                            packageNumber: packageNumber,

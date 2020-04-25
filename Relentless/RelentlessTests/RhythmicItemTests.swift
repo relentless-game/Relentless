@@ -11,8 +11,8 @@ import XCTest
 
 class RhythmicItemTests: XCTestCase {
     let unitDuration = 1
-    let stateSequence = [RhythmState.lit, RhythmState.unlit]
-    let imageStrings = [String]()
+    let stateSequence = [RhythmState(index: 0), RhythmState(index: 1)]
+    let imageRepresentation = ImageRepresentation(imageStrings: [""])
     let isInventoryItem = true
     let isOrderItem = true
     
@@ -28,7 +28,7 @@ class RhythmicItemTests: XCTestCase {
                                     category: sortedCategories[0],
                                     isInventoryItem: isInventoryItem,
                                     isOrderItem: isOrderItem,
-                                    imageStrings: imageStrings)
+                                    imageRepresentation: imageRepresentation)
     }
 
     func testComparison_betweenDifferentCategories_sameDurationAndStateSequence() {
@@ -36,12 +36,15 @@ class RhythmicItemTests: XCTestCase {
                                                    stateSequence: stateSequence,
                                                    category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageStrings: imageStrings)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
+
         let itemWithBiggerCategory = RhythmicItem(unitDuration: unitDuration,
                                                   stateSequence: stateSequence,
                                                   category: sortedCategories[1],
                                                   isInventoryItem: isInventoryItem,
-                                                  isOrderItem: isOrderItem, imageStrings: imageStrings)
+                                                  isOrderItem: isOrderItem,
+                                                  imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategory)
     }
 
@@ -50,13 +53,14 @@ class RhythmicItemTests: XCTestCase {
                                                    stateSequence: stateSequence,
                                                    category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageStrings: imageStrings)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
         let itemWithBiggerCategoryButSmallerUnitDuration = RhythmicItem(unitDuration: unitDuration - 1,
                                                                         stateSequence: stateSequence,
                                                                         category: sortedCategories[1],
                                                                         isInventoryItem: isInventoryItem,
                                                                         isOrderItem: isOrderItem,
-                                                                        imageStrings: imageStrings)
+                                                                        imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategoryButSmallerUnitDuration)
     }
 
@@ -65,13 +69,14 @@ class RhythmicItemTests: XCTestCase {
                                                    stateSequence: stateSequence,
                                                    category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageStrings: imageStrings)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
         let itemWithLongerDuration = RhythmicItem(unitDuration: unitDuration + 1,
                                                   stateSequence: stateSequence,
                                                   category: sortedCategories[0],
                                                   isInventoryItem: isInventoryItem,
-                                                  isOrderItem: isOrderItem, imageStrings: imageStrings)
-
+                                                  isOrderItem: isOrderItem,
+                                                  imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerDuration < itemWithLongerDuration)
     }
 
@@ -80,13 +85,14 @@ class RhythmicItemTests: XCTestCase {
                                                    stateSequence: stateSequence.sorted(),
                                                    category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageStrings: imageStrings)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
         let itemWithLargerSequence = RhythmicItem(unitDuration: unitDuration,
                                                   stateSequence: stateSequence.sorted().reversed(),
                                                   category: sortedCategories[0],
                                                   isInventoryItem: isInventoryItem,
-                                                  isOrderItem: isOrderItem, imageStrings: imageStrings)
-
+                                                  isOrderItem: isOrderItem,
+                                                  imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerSequence < itemWithLargerSequence)
     }
 
@@ -98,7 +104,7 @@ class RhythmicItemTests: XCTestCase {
                                               category: sortedCategories[0],
                                               isInventoryItem: isInventoryItem,
                                               isOrderItem: isOrderItem,
-                                              imageStrings: imageStrings)
+                                              imageRepresentation: imageRepresentation)
         XCTAssertTrue(rhythmicItem.equals(other: copyOfRhythmicItem))
 
         let itemWithDifferentUnitDuration = RhythmicItem(unitDuration: unitDuration + 1,
@@ -106,17 +112,17 @@ class RhythmicItemTests: XCTestCase {
                                                          category: sortedCategories[0],
                                                          isInventoryItem: isInventoryItem,
                                                          isOrderItem: isOrderItem,
-                                                         imageStrings: imageStrings)
+                                                         imageRepresentation: imageRepresentation)
         XCTAssertFalse(rhythmicItem.equals(other: itemWithDifferentUnitDuration))
 
         var otherSequence = stateSequence
-        otherSequence.append(RhythmState.lit)
+        otherSequence.append(RhythmState(index: 0))
         let itemWithDifferentSequence = RhythmicItem(unitDuration: unitDuration,
                                                      stateSequence: otherSequence,
                                                      category: sortedCategories[0],
                                                      isInventoryItem: isInventoryItem,
                                                      isOrderItem: isOrderItem,
-                                                     imageStrings: imageStrings)
+                                                     imageRepresentation: imageRepresentation)
         XCTAssertFalse(rhythmicItem.equals(other: itemWithDifferentSequence))
 
         let itemWithDifferentCategory = RhythmicItem(unitDuration: unitDuration,
@@ -124,7 +130,7 @@ class RhythmicItemTests: XCTestCase {
                                                      category: sortedCategories[1],
                                                      isInventoryItem: isInventoryItem,
                                                      isOrderItem: isOrderItem,
-                                                     imageStrings: imageStrings)
+                                                     imageRepresentation: imageRepresentation)
         XCTAssertFalse(rhythmicItem.equals(other: itemWithDifferentCategory))
     }
 
@@ -134,7 +140,7 @@ class RhythmicItemTests: XCTestCase {
                                                               category: sortedCategories[0],
                                                               isInventoryItem: !isInventoryItem,
                                                               isOrderItem: isOrderItem,
-                                                              imageStrings: imageStrings)
+                                                              imageRepresentation: imageRepresentation)
         XCTAssertTrue(rhythmicItem.equals(other: itemWithDifferentIsInventoryStatus))
 
         let itemWithDifferentIsOrderStatus = RhythmicItem(unitDuration: unitDuration,
@@ -142,17 +148,16 @@ class RhythmicItemTests: XCTestCase {
                                                           category: sortedCategories[0],
                                                           isInventoryItem: isInventoryItem,
                                                           isOrderItem: !isOrderItem,
-                                                          imageStrings: imageStrings)
+                                                          imageRepresentation: imageRepresentation)
         XCTAssertTrue(rhythmicItem.equals(other: itemWithDifferentIsOrderStatus))
 
-        var otherImageStrings = imageStrings
-        otherImageStrings.append("")
+        let differentImageRepresentation = ImageRepresentation(imageStrings: ["a"])
         let itemWithDifferentImageStrings = RhythmicItem(unitDuration: unitDuration,
                                                          stateSequence: stateSequence,
                                                          category: sortedCategories[0],
                                                          isInventoryItem: isInventoryItem,
                                                          isOrderItem: isOrderItem,
-                                                         imageStrings: otherImageStrings)
+                                                         imageRepresentation: differentImageRepresentation)
         XCTAssertTrue(rhythmicItem.equals(other: itemWithDifferentImageStrings))
     }
 }

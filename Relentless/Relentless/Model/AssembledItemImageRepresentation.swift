@@ -32,6 +32,26 @@ class AssembledItemImageRepresentation: ImageRepresentation {
     }
 }
 
+extension AssembledItemImageRepresentation {
+    static func == (lhs: AssembledItemImageRepresentation,
+                    rhs: AssembledItemImageRepresentation) -> Bool {
+        lhs.imageStrings.sorted() == rhs.imageStrings.sorted() &&
+            equal(lhs: lhs.partsImageStrings, rhs: rhs.partsImageStrings)
+    }
+
+    private static func equal(lhs: [Category: ImageRepresentation],
+                              rhs: [Category: ImageRepresentation]) -> Bool {
+        let keysAreTheSame = Array(lhs.keys).sorted() == Array(rhs.keys).sorted()
+        if !keysAreTheSame {
+            return false
+        }
+        for key in Array(lhs.keys) where lhs[key] != rhs[key] {
+            return false
+        }
+        return true
+    }
+}
+
 enum AssembledItemImageRepresentationKeys: CodingKey {
     case partsImageStrings
 }

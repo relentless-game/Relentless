@@ -17,7 +17,11 @@ class ImageRepresentation: Codable {
 
 extension ImageRepresentation: Hashable {
     static func == (lhs: ImageRepresentation, rhs: ImageRepresentation) -> Bool {
-        lhs.imageStrings == rhs.imageStrings
+        if let lhs = lhs as? AssembledItemImageRepresentation,
+            let rhs = rhs as? AssembledItemImageRepresentation {
+            return lhs == rhs
+        }
+        return lhs.imageStrings.sorted() == rhs.imageStrings.sorted()
     }
 
     func hash(into hasher: inout Hasher) {

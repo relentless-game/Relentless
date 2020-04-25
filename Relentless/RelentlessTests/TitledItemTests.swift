@@ -11,7 +11,7 @@ import XCTest
 
 class TitledItemTests: XCTestCase {
     let title = "Title"
-    let imageString = ""
+    let imageRepresentation = ImageRepresentation(imageStrings: [""])
     let isInventoryItem = true
     let isOrderItem = true
     var sortedCategories: [Relentless.Category]!
@@ -26,11 +26,11 @@ class TitledItemTests: XCTestCase {
         let itemWithSmallerCategory = TitledItem(name: title, category: sortedCategories[0],
                                                  isInventoryItem: isInventoryItem,
                                                  isOrderItem: isOrderItem,
-                                                 imageString: imageString)
+                                                 imageRepresentation: imageRepresentation)
         let itemWithBiggerCategory = TitledItem(name: title, category: sortedCategories[1],
                                                 isInventoryItem: isInventoryItem,
                                                 isOrderItem: isOrderItem,
-                                                imageString: imageString)
+                                                imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategory)
     }
 
@@ -38,12 +38,12 @@ class TitledItemTests: XCTestCase {
         let itemWithSmallerCategory = TitledItem(name: title, category: sortedCategories[0],
                                                  isInventoryItem: isInventoryItem,
                                                  isOrderItem: isOrderItem,
-                                                 imageString: imageString)
+                                                 imageRepresentation: imageRepresentation)
         let itemWithBiggerCategoryButSmallerName = TitledItem(name: String(title.dropFirst()),
                                                               category: sortedCategories[1],
                                                               isInventoryItem: isInventoryItem,
                                                               isOrderItem: isOrderItem,
-                                                              imageString: imageString)
+                                                              imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategoryButSmallerName)
     }
 
@@ -52,11 +52,11 @@ class TitledItemTests: XCTestCase {
                                                    category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
                                                    isOrderItem: isOrderItem,
-                                                   imageString: imageString)
+                                                   imageRepresentation: imageRepresentation)
         let titledItemWithBiggerName = TitledItem(name: title, category: sortedCategories[0],
                                                   isInventoryItem: isInventoryItem,
                                                   isOrderItem: isOrderItem,
-                                                  imageString: imageString)
+                                                  imageRepresentation: imageRepresentation)
 
         XCTAssertTrue(titledItemWithSmallerName < titledItemWithBiggerName)
     }
@@ -65,43 +65,44 @@ class TitledItemTests: XCTestCase {
         let titledItem = TitledItem(name: title, category: sortedCategories[0],
                                     isInventoryItem: isInventoryItem,
                                     isOrderItem: isOrderItem,
-                                    imageString: imageString)
+                                    imageRepresentation: imageRepresentation)
         XCTAssertTrue(titledItem.equals(other: titledItem))
 
         let copyOfTitledItem = TitledItem(name: title, category: sortedCategories[0],
                                           isInventoryItem: isInventoryItem,
                                           isOrderItem: isOrderItem,
-                                          imageString: imageString)
+                                          imageRepresentation: imageRepresentation)
         XCTAssertTrue(titledItem.equals(other: copyOfTitledItem))
 
         let itemWithDifferentTitle = TitledItem(name: title + "a", category: sortedCategories[0],
                                                 isInventoryItem: isInventoryItem,
                                                 isOrderItem: isOrderItem,
-                                                imageString: imageString)
+                                                imageRepresentation: imageRepresentation)
         XCTAssertFalse(titledItem.equals(other: itemWithDifferentTitle))
 
         let itemWithDifferentCategory = TitledItem(name: title, category: sortedCategories[1],
                                                    isInventoryItem: isInventoryItem,
                                                    isOrderItem: isOrderItem,
-                                                   imageString: imageString)
+                                                   imageRepresentation: imageRepresentation)
         XCTAssertFalse(titledItem.equals(other: itemWithDifferentCategory))
 
         let itemWithDifferentIsInventoryStatus = TitledItem(name: title, category: sortedCategories[0],
                                                             isInventoryItem: !isInventoryItem,
                                                             isOrderItem: isOrderItem,
-                                                            imageString: imageString)
+                                                            imageRepresentation: imageRepresentation)
         XCTAssertTrue(titledItem.equals(other: itemWithDifferentIsInventoryStatus))
 
         let itemWithDifferentIsOrderStatus = TitledItem(name: title, category: sortedCategories[0],
                                                         isInventoryItem: isInventoryItem,
                                                         isOrderItem: !isOrderItem,
-                                                        imageString: imageString)
+                                                        imageRepresentation: imageRepresentation)
         XCTAssertTrue(titledItem.equals(other: itemWithDifferentIsOrderStatus))
 
+        let differentImageRepresentation = ImageRepresentation(imageStrings: ["a"])
         let itemWithDifferentImageString = TitledItem(name: title, category: sortedCategories[0],
                                                       isInventoryItem: isInventoryItem,
                                                       isOrderItem: isOrderItem,
-                                                      imageString: imageString + "a")
+                                                      imageRepresentation: differentImageRepresentation)
         XCTAssertTrue(titledItem.equals(other: itemWithDifferentImageString))
     }
 }

@@ -11,14 +11,15 @@ import XCTest
 
 class ItemGeneratorTests: XCTestCase {
     typealias Cat = Relentless.Category
+    let imageRepresentation = ImageRepresentation(imageStrings: [""])
     var itemTypeToCategoryMappingForTest = [ItemType: [Cat]]()
     var availableGroupsOfItems = [Cat: Set<[Item]>]()
     var assembledItemCategories = [Cat]()
     var itemSpecifications: ItemSpecifications {
-        let itemIdentifierMappings = [Cat: [Int: String]]() // not needed for this test
+        let itemIdentifierMappings = [Cat: ImageRepresentation]() // not needed for this test
         let partToAssembledItemCategoryMapping = [[Cat]: Cat]() // not needed for this test
         return ItemSpecifications(availableGroupsOfItems: availableGroupsOfItems,
-                                  itemIdentifierMappings: itemIdentifierMappings,
+                                  assembledItemImageRepresentationMapping: itemIdentifierMappings,
                                   partsToAssembledItemCategoryMapping: partToAssembledItemCategoryMapping)
     }
     var categories: [Cat] {
@@ -123,7 +124,7 @@ extension ItemGeneratorTests {
         items[batteryCategory] = setOfBatteries
         // Toy cars are all order items but not inventory items. toyCar parts are all only inventoryItems
         let toyCarCategory = Category(name: "toyCar")
-        let partsImageStrings = [Cat: String]()
+        let partsImageStrings = [Cat: ImageRepresentation]()
         let toyCars = getAssembledItems(category: toyCarCategory, parts: [wheels[0], batteries[0]],
                                         partsImageStrings: partsImageStrings)
         let setOfCars = Set(toyCars)
@@ -135,52 +136,65 @@ extension ItemGeneratorTests {
 
     internal func getTitledItems(category: Cat) -> [[Item]] {
         [[TitledItem(name: "t1", category: category, isInventoryItem: true,
-                     isOrderItem: true, imageString: ""),
+                     isOrderItem: true, imageRepresentation: imageRepresentation),
           TitledItem(name: "t2", category: category, isInventoryItem: true,
-                     isOrderItem: true, imageString: "")],
+                     isOrderItem: true, imageRepresentation: imageRepresentation)],
          [TitledItem(name: "t3", category: category,
-                     isInventoryItem: true, isOrderItem: true, imageString: ""),
+                     isInventoryItem: true, isOrderItem: true,
+                     imageRepresentation: imageRepresentation),
           TitledItem(name: "t4", category: category,
-                     isInventoryItem: true, isOrderItem: true, imageString: "")]]
+                     isInventoryItem: true, isOrderItem: true,
+                     imageRepresentation: imageRepresentation)]]
     }
 
     internal func getStatefulItemsAllNotOrder(category: Cat) -> [[Item]] {
         [[StatefulItem(category: category, stateIdentifier: 1,
-                       isInventoryItem: true, isOrderItem: false, imageString: ""),
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation),
           StatefulItem(category: category, stateIdentifier: 2,
-                       isInventoryItem: true, isOrderItem: false, imageString: "")],
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation)],
          [StatefulItem(category: category, stateIdentifier: 3,
-                       isInventoryItem: true, isOrderItem: false, imageString: ""),
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation),
           StatefulItem(category: category, stateIdentifier: 4,
-                       isInventoryItem: true, isOrderItem: false, imageString: "")]]
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation)]]
     }
 
     internal func getStatefulItemsSomeOrder(category: Cat) -> [[Item]] {
         [[StatefulItem(category: category, stateIdentifier: 1,
-                       isInventoryItem: true, isOrderItem: true, imageString: ""),
+                       isInventoryItem: true, isOrderItem: true,
+                       imageRepresentation: imageRepresentation),
           StatefulItem(category: category, stateIdentifier: 2,
-                       isInventoryItem: true, isOrderItem: true, imageString: "")],
+                       isInventoryItem: true, isOrderItem: true,
+                       imageRepresentation: imageRepresentation)],
          [StatefulItem(category: category, stateIdentifier: 3,
-                       isInventoryItem: true, isOrderItem: false, imageString: ""),
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation),
           StatefulItem(category: category, stateIdentifier: 4,
-                       isInventoryItem: true, isOrderItem: false, imageString: "")],
+                       isInventoryItem: true, isOrderItem: false,
+                       imageRepresentation: imageRepresentation)],
          [StatefulItem(category: category, stateIdentifier: 5,
-                       isInventoryItem: true, isOrderItem: true, imageString: ""),
+                       isInventoryItem: true, isOrderItem: true,
+                       imageRepresentation: imageRepresentation),
           StatefulItem(category: category, stateIdentifier: 6,
-                       isInventoryItem: true, isOrderItem: true, imageString: "")]]
+                       isInventoryItem: true, isOrderItem: true,
+                       imageRepresentation: imageRepresentation)]]
     }
 
     internal func getAssembledItems(category: Cat, parts: [[Item]],
-                                    partsImageStrings: [Cat: String]) -> [[Item]] {
+                                    partsImageStrings: [Cat: ImageRepresentation]) -> [[Item]] {
         var items = [[Item]]()
         let maxCounter = parts.map { $0.count }.reduce(100, { x, y in
             min(x, y)
         })
+        let imageRepresentation = AssembledItemImageRepresentation(mainImageStrings: [""],
+                                                                   partsImageStrings: partsImageStrings)
         for counter in 0..<maxCounter {
             let parts = parts.map { $0[counter] }
             items.append([AssembledItem(parts: parts, category: category, isInventoryItem: false,
-                                        isOrderItem: true, mainImageString: "",
-                                        partsImageStrings: partsImageStrings)])
+                                        isOrderItem: true, imageRepresentation: imageRepresentation)])
         }
         return items
     }

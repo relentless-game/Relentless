@@ -9,15 +9,16 @@
 import Foundation
 
 class Item: Hashable, Codable {
+    var category: Category
+
     // only used for encoding and decoding purposes (not included to check equivalence)
     var itemType: ItemType
-
-    var category: Category
 
     // only important for item generation purposes (not included to check equivalence)
     var isInventoryItem: Bool
     var isOrderItem: Bool
 
+    // only important for view representation (not included to check equivalence)
     var imageRepresentation: ImageRepresentation
 
     init(itemType: ItemType, category: Category, isInventoryItem: Bool, isOrderItem: Bool,

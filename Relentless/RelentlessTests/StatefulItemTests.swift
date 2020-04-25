@@ -14,6 +14,8 @@ class StatefulItemTests: XCTestCase {
     let imageString = ""
     let isInventoryItem = true
     let isOrderItem = true
+    let imageRepresentation = ImageRepresentation(imageStrings: ["placeholder"])
+
     var sortedCategories: [Relentless.Category]!
 
     override func setUp() {
@@ -26,11 +28,13 @@ class StatefulItemTests: XCTestCase {
         let itemWithSmallerCategory = StatefulItem(category: sortedCategories[0],
                                                    stateIdentifier: stateIdentifier,
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageString: imageString)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
         let itemWithBiggerCategory = StatefulItem(category: sortedCategories[1],
                                                   stateIdentifier: stateIdentifier,
                                                   isInventoryItem: isInventoryItem,
-                                                  isOrderItem: isOrderItem, imageString: imageString)
+                                                  isOrderItem: isOrderItem,
+                                                  imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategory)
     }
 
@@ -38,12 +42,13 @@ class StatefulItemTests: XCTestCase {
         let itemWithSmallerCategory = StatefulItem(category: sortedCategories[0],
                                                    stateIdentifier: stateIdentifier,
                                                    isInventoryItem: isInventoryItem,
-                                                   isOrderItem: isOrderItem, imageString: imageString)
+                                                   isOrderItem: isOrderItem,
+                                                   imageRepresentation: imageRepresentation)
         let itemWithBiggerCategoryButSmallerIdentifier = StatefulItem(category: sortedCategories[1],
                                                                       stateIdentifier: stateIdentifier + 1,
                                                                       isInventoryItem: isInventoryItem,
                                                                       isOrderItem: isOrderItem,
-                                                                      imageString: imageString)
+                                                                      imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategoryButSmallerIdentifier)
     }
 
@@ -51,12 +56,13 @@ class StatefulItemTests: XCTestCase {
         let itemWithSmallerIdentifier = StatefulItem(category: sortedCategories[0],
                                                      stateIdentifier: stateIdentifier,
                                                      isInventoryItem: isInventoryItem,
-                                                     isOrderItem: isOrderItem, imageString: imageString)
+                                                     isOrderItem: isOrderItem,
+                                                     imageRepresentation: imageRepresentation)
         let itemWithBiggerIdentifier = StatefulItem(category: sortedCategories[0],
                                                     stateIdentifier: stateIdentifier + 1,
                                                     isInventoryItem: isInventoryItem,
-                                                    isOrderItem: isOrderItem, imageString: imageString)
-
+                                                    isOrderItem: isOrderItem,
+                                                    imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerIdentifier < itemWithBiggerIdentifier)
     }
 
@@ -64,46 +70,51 @@ class StatefulItemTests: XCTestCase {
         let statefulItem = StatefulItem(category: sortedCategories[0],
                                         stateIdentifier: stateIdentifier,
                                         isInventoryItem: isInventoryItem,
-                                        isOrderItem: isOrderItem, imageString: imageString)
+                                        isOrderItem: isOrderItem,
+                                        imageRepresentation: imageRepresentation)
         XCTAssertTrue(statefulItem.equals(other: statefulItem))
 
         let copyOfStatefulItem = StatefulItem(category: sortedCategories[0],
                                               stateIdentifier: stateIdentifier,
                                               isInventoryItem: isInventoryItem,
-                                              isOrderItem: isOrderItem, imageString: imageString)
+                                              isOrderItem: isOrderItem,
+                                              imageRepresentation: imageRepresentation)
         XCTAssertTrue(statefulItem.equals(other: copyOfStatefulItem))
 
         let itemWithDifferentIdentifier = StatefulItem(category: sortedCategories[0],
                                                        stateIdentifier: stateIdentifier + 1,
                                                        isInventoryItem: isInventoryItem,
-                                                       isOrderItem: isOrderItem, imageString: imageString)
+                                                       isOrderItem: isOrderItem,
+                                                       imageRepresentation: imageRepresentation)
         XCTAssertFalse(statefulItem.equals(other: itemWithDifferentIdentifier))
 
         let itemWithDifferentCategory = StatefulItem(category: sortedCategories[0],
                                                      stateIdentifier: stateIdentifier + 1,
                                                      isInventoryItem: isInventoryItem,
-                                                     isOrderItem: isOrderItem, imageString: imageString)
+                                                     isOrderItem: isOrderItem,
+                                                     imageRepresentation: imageRepresentation)
         XCTAssertFalse(statefulItem.equals(other: itemWithDifferentCategory))
 
         let itemWithDifferentIsInventoryStatus = StatefulItem(category: sortedCategories[0],
                                                               stateIdentifier: stateIdentifier,
                                                               isInventoryItem: !isInventoryItem,
                                                               isOrderItem: isOrderItem,
-                                                              imageString: imageString)
+                                                              imageRepresentation: imageRepresentation)
         XCTAssertTrue(statefulItem.equals(other: itemWithDifferentIsInventoryStatus))
 
         let itemWithDifferentIsOrderStatus = StatefulItem(category: sortedCategories[0],
                                                           stateIdentifier: stateIdentifier,
                                                           isInventoryItem: isInventoryItem,
                                                           isOrderItem: !isOrderItem,
-                                                          imageString: imageString)
+                                                          imageRepresentation: imageRepresentation)
         XCTAssertTrue(statefulItem.equals(other: itemWithDifferentIsOrderStatus))
 
+        let differentImageRepresentation = ImageRepresentation(imageStrings: ["a"])
         let itemWithDifferentImageString = StatefulItem(category: sortedCategories[0],
                                                         stateIdentifier: stateIdentifier,
                                                         isInventoryItem: isInventoryItem,
                                                         isOrderItem: isOrderItem,
-                                                        imageString: imageString + "a")
+                                                        imageRepresentation: differentImageRepresentation)
         XCTAssertTrue(statefulItem.equals(other: itemWithDifferentImageString))
     }
 }

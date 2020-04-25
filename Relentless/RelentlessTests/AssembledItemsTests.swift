@@ -13,17 +13,22 @@ class AssembledItemsTests: XCTestCase {
     let parts = [Item(itemType: ItemType.assembledItem,
                       category: Category(name: "robot"),
                       isInventoryItem: true,
-                      isOrderItem: true)]
-    let mainString = ""
-    let imageStrings = [Relentless.Category: String]()
+                      isOrderItem: true,
+                      imageRepresentation: ImageRepresentation(imageStrings: ["placeholder"]))]
+    let mainStrings = ["placeholder"]
+    let imageStrings = [Relentless.Category: ImageRepresentation]()
     let isInventoryItem = true
     let isOrderItem = true
+    var imageRepresentation: AssembledItemImageRepresentation {
+        AssembledItemImageRepresentation(mainImageStrings: mainStrings,
+                                         partsImageStrings: imageStrings)
+    }
+
     var assembledItem: AssembledItem {
         AssembledItem(parts: parts, category: sortedCategories[0],
                       isInventoryItem: isInventoryItem,
                       isOrderItem: isOrderItem,
-                      mainImageString: mainString,
-                      partsImageStrings: imageStrings)
+                      imageRepresentation: imageRepresentation)
     }
     var sortedCategories: [Relentless.Category]!
 
@@ -37,13 +42,11 @@ class AssembledItemsTests: XCTestCase {
         let itemWithSmallerCategory = AssembledItem(parts: parts, category: sortedCategories[0],
                                                     isInventoryItem: isInventoryItem,
                                                     isOrderItem: isOrderItem,
-                                                    mainImageString: mainString,
-                                                    partsImageStrings: imageStrings)
+                                                    imageRepresentation: imageRepresentation)
         let itemWithBiggerCategory = AssembledItem(parts: parts, category: sortedCategories[1],
                                                    isInventoryItem: isInventoryItem,
                                                    isOrderItem: isOrderItem,
-                                                   mainImageString: mainString,
-                                                   partsImageStrings: imageStrings)
+                                                   imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategory)
     }
 
@@ -51,13 +54,11 @@ class AssembledItemsTests: XCTestCase {
         let itemWithSmallerCategory = AssembledItem(parts: parts, category: sortedCategories[0],
                                                     isInventoryItem: isInventoryItem,
                                                     isOrderItem: isOrderItem,
-                                                    mainImageString: mainString,
-                                                    partsImageStrings: imageStrings)
+                                                    imageRepresentation: imageRepresentation)
         let itemWithBiggerCategoryButFewerParts = AssembledItem(parts: [], category: sortedCategories[1],
                                                                 isInventoryItem: isInventoryItem,
                                                                 isOrderItem: isOrderItem,
-                                                                mainImageString: mainString,
-                                                                partsImageStrings: imageStrings)
+                                                                imageRepresentation: imageRepresentation)
         XCTAssertTrue(itemWithSmallerCategory < itemWithBiggerCategoryButFewerParts)
     }
 
@@ -67,22 +68,19 @@ class AssembledItemsTests: XCTestCase {
         let copyOfAssembledItem = AssembledItem(parts: parts, category: sortedCategories[0],
                                                 isInventoryItem: isInventoryItem,
                                                 isOrderItem: isOrderItem,
-                                                mainImageString: mainString,
-                                                partsImageStrings: imageStrings)
+                                                imageRepresentation: imageRepresentation)
         XCTAssertTrue(assembledItem.equals(other: copyOfAssembledItem))
 
         let itemWithDifferentParts = AssembledItem(parts: [], category: sortedCategories[0],
                                                    isInventoryItem: isInventoryItem,
                                                    isOrderItem: isOrderItem,
-                                                   mainImageString: mainString,
-                                                   partsImageStrings: imageStrings)
+                                                   imageRepresentation: imageRepresentation)
         XCTAssertFalse(assembledItem.equals(other: itemWithDifferentParts))
 
         let itemWithDifferentCategory = AssembledItem(parts: parts, category: sortedCategories[1],
                                                       isInventoryItem: isInventoryItem,
                                                       isOrderItem: isOrderItem,
-                                                      mainImageString: mainString,
-                                                      partsImageStrings: imageStrings)
+                                                      imageRepresentation: imageRepresentation)
         XCTAssertFalse(assembledItem.equals(other: itemWithDifferentCategory))
     }
 
@@ -91,34 +89,36 @@ class AssembledItemsTests: XCTestCase {
                                                                category: sortedCategories[0],
                                                                isInventoryItem: !isInventoryItem,
                                                                isOrderItem: isOrderItem,
-                                                               mainImageString: mainString,
-                                                               partsImageStrings: imageStrings)
+                                                               imageRepresentation: imageRepresentation)
         XCTAssertTrue(assembledItem.equals(other: itemWithDifferentIsInventoryStatus))
 
         let itemWithDifferentIsOrderStatus = AssembledItem(parts: parts,
                                                            category: sortedCategories[0],
                                                            isInventoryItem: isInventoryItem,
                                                            isOrderItem: !isOrderItem,
-                                                           mainImageString: mainString,
-                                                           partsImageStrings: imageStrings)
+                                                           imageRepresentation: imageRepresentation)
         XCTAssertTrue(assembledItem.equals(other: itemWithDifferentIsOrderStatus))
 
-        let itemWithDifferentImageString = AssembledItem(parts: parts,
-                                                         category: sortedCategories[0],
-                                                         isInventoryItem: isInventoryItem,
-                                                         isOrderItem: isOrderItem,
-                                                         mainImageString: mainString + "a",
-                                                         partsImageStrings: imageStrings)
-        XCTAssertTrue(assembledItem.equals(other: itemWithDifferentImageString))
+        let differentMainImageString =
+            AssembledItemImageRepresentation(mainImageStrings: ["placeholder2"],
+                                             partsImageStrings: [Relentless.Category: ImageRepresentation]())
+        let itemWithDifferentMainImageString = AssembledItem(parts: parts,
+                                                             category: sortedCategories[0],
+                                                             isInventoryItem: isInventoryItem,
+                                                             isOrderItem: isOrderItem,
+                                                             imageRepresentation: differentMainImageString)
+        XCTAssertTrue(assembledItem.equals(other: itemWithDifferentMainImageString))
 
         var otherImageStrings = imageStrings
-        otherImageStrings[Category(name: "")] = ""
+        otherImageStrings[Category(name: "")] = ImageRepresentation(imageStrings: [String]())
+        let differentPartImageStrings =
+            AssembledItemImageRepresentation(mainImageStrings: ["placeholder"],
+                                             partsImageStrings: otherImageStrings)
         let itemWithDifferentImageStrings = AssembledItem(parts: parts,
                                                           category: sortedCategories[0],
                                                           isInventoryItem: isInventoryItem,
                                                           isOrderItem: isOrderItem,
-                                                          mainImageString: mainString + "a",
-                                                          partsImageStrings: otherImageStrings)
+                                                          imageRepresentation: differentPartImageStrings)
         XCTAssertTrue(assembledItem.equals(other: itemWithDifferentImageStrings))
     }
 }

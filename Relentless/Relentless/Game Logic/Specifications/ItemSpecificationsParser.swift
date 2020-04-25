@@ -56,37 +56,41 @@ class ItemSpecificationsParser {
         let availableAssembledItems = getAssembledItems(dict: itemsDict, availableAtomicItems: availableItems)
         availableItems.merge(availableAssembledItems) { current, _ in current }
 
-        // 2. get stateful items identifier mappings
-        let itemIdentifierMappings = getStateIdentifierMappings(dict: itemsDict)
-        
-        // 3. get partsToAssembledItemCategoryMapping
+        // 2. get stateful items identifier mappings to their image representations
+//        let itemIdentifierMappings = getStateIdentifierMappings(dict: itemsDict)
+
+        // 3. get assembledItemImageRepresentationMapping
+        let assembledItemImageRepresentationMapping = getAssembledItemToImageRepresentationMapping(dict: itemsDict)
+
+        // 4. get partsToAssembledItemCategoryMapping
         let partsToAssembledItemCategoryMapping = getPartsToAssembledItemCategoryMapping(dict: itemsDict)
     
         return ItemSpecifications(availableGroupsOfItems: availableItems,
-                                  itemIdentifierMappings: itemIdentifierMappings,
+//                                  itemIdentifierToImageRepresentationMappings: itemIdentifierMappings,
+                                  assembledItemImageRepresentationMapping: assembledItemImageRepresentationMapping,
                                   partsToAssembledItemCategoryMapping: partsToAssembledItemCategoryMapping)
     }
-    
-    static func getStateIdentifierMappings(dict: NSDictionary) -> [Category: [Int: String]] {
-        let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
-        var allMappings: [Category: [Int: String]] = [:]
-        for categoryDict in statefulCategories {
-            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
-            let category = Category(name: categoryName)
-            let stateIdentifiers = categoryDict.value(forKey: stateIdentifiersKey) as? [String] ?? []
-            
-            // convert into a [Int: String] dictionary
-            var mapping: [Int: String] = [:]
-            var index = 0
-            for identifier in stateIdentifiers {
-                mapping[index] = identifier
-                index += 1
-            }
-            allMappings[category] = mapping
-        }
-        
-        return allMappings
-    }
+
+//    static func getStateIdentifierMappings(dict: NSDictionary) -> [Category: [Int: String]] {
+//        let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
+//        var allMappings: [Category: [Int: String]] = [:]
+//        for categoryDict in statefulCategories {
+//            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+//            let category = Category(name: categoryName)
+//            let stateIdentifiers = categoryDict.value(forKey: stateIdentifiersKey) as? [String] ?? []
+//
+//            // convert into a [Int: String] dictionary
+//            var mapping: [Int: String] = [:]
+//            var index = 0
+//            for identifier in stateIdentifiers {
+//                mapping[index] = identifier
+//                index += 1
+//            }
+//            allMappings[category] = mapping
+//        }
+//
+//        return allMappings
+//    }
     
     static func getStatefulItems(dict: NSDictionary) -> [Category: Set<[StatefulItem]>] {
         let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
@@ -113,9 +117,12 @@ class ItemSpecificationsParser {
         var statefulItems = Set<[StatefulItem]>()
         for string in stateImageStrings {
             let category = Category(name: categoryName)
+
+            // actual image is identified by state identifier
+            let imageRepresentation = ImageRepresentation(imageStrings: [string])
             let item = StatefulItem(category: category, stateIdentifier: stateIndex,
                                     isInventoryItem: isInventoryItem, isOrderItem: isOrderItem,
-                                    imageString: string)
+                                    imageRepresentation: imageRepresentation)
             statefulItems.insert([item])
             stateIndex += 1
         }
@@ -148,12 +155,13 @@ class ItemSpecificationsParser {
                                                      imageString: String) -> Set<[TitledItem]> {
         var result = Set<[TitledItem]>()
         let category = Category(name: categoryName)
+        let imageRepresentation = ImageRepresentation(imageStrings: [imageString])
         for titleGroup in titleGroups {
             var itemGroup: [TitledItem] = []
             for title in titleGroup {
                 let item = TitledItem(name: title, category: category,
                                       isInventoryItem: isInventoryItem, isOrderItem: isOrderItem,
-                                      imageString: imageString)
+                                      imageRepresentation: imageRepresentation)
                 itemGroup.append(item)
             }
             
@@ -196,10 +204,11 @@ class ItemSpecificationsParser {
                 let unitDuration = rawItemDict.value(forKey: unitDurationKey) as? Int ?? 0
                 let rawStateSequence = rawItemDict.value(forKey: stateSequenceKey) as? [Int] ?? []
                 let stateSequence = convertIntArrayToRhythmStateArray(intArray: rawStateSequence)
-                
+                let imageRepresentation = ImageRepresentation(imageStrings: stateImageStrings)
                 let item = RhythmicItem(unitDuration: unitDuration, stateSequence: stateSequence,
                                         category: category, isInventoryItem: isInventoryItem,
-                                        isOrderItem: isOrderItem, imageStrings: stateImageStrings)
+                                        isOrderItem: isOrderItem,
+                                        imageRepresentation: imageRepresentation)
                 itemGroupArray.append(item)
             }
             result.insert(itemGroupArray)
@@ -221,26 +230,7 @@ class ItemSpecificationsParser {
         let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
         var intermediateItems: [IntermediateAssembledItem] = []
         for categoryDict in assembledCategories {
-            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
-            let category = Category(name: categoryName)
-            let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
-            let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
-            let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
-            let depth = categoryDict.value(forKey: depthKey) as? Int ?? -1
-            let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
-            let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
-            var partsImageStrings: [Category: [String]] = [:]
-            for (key, value) in rawPartsImageStrings {
-                partsImageStrings[Category(name: key)] = value
-            }
-            
-            let intermediateAssembledItem = IntermediateAssembledItem(category: category,
-                                                                      isInventoryItem: isInventoryItem,
-                                                                      isOrderItem: isOrderItem,
-                                                                      parts: parts,
-                                                                      depth: depth,
-                                                                      mainImageString: mainImageString,
-                                                                      partsImageStrings: partsImageStrings)
+            let intermediateAssembledItem = getIntermediateAssembledItem(categoryDict: categoryDict)
             intermediateItems.append(intermediateAssembledItem)
         }
         
@@ -254,27 +244,59 @@ class ItemSpecificationsParser {
             let isInventoryItem = intermediateItem.isInventoryItem
             let isOrderItem = intermediateItem.isOrderItem
             let parts = intermediateItem.parts
-            let mainImageString = intermediateItem.mainImageString
-            let partsImageStrings = intermediateItem.partsImageStrings
-            
+            let imageRepresentation = intermediateItem.imageRepresentation
+
             let items = convertCategoryToAssembledItems(category: category, isInventoryItem: isInventoryItem,
                                                         isOrderItem: isOrderItem, parts: parts,
                                                         availableAtomicItems: availableItems,
-                                                        mainImageString: mainImageString,
-                                                        partsImageStrings: partsImageStrings)
+                                                        imageRepresentation: imageRepresentation)
             allAssembledItems[category] = items
             availableItems[category] = items
         }
         
         return allAssembledItems
     }
+
+    private static func getIntermediateAssembledItem(categoryDict: NSDictionary) -> IntermediateAssembledItem {
+        let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+        let category = Category(name: categoryName)
+        let isInventoryItem = categoryDict.value(forKey: isInventoryItemKey) as? Bool ?? false
+        let isOrderItem = categoryDict.value(forKey: isOrderItemKey) as? Bool ?? false
+        let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
+        let depth = categoryDict.value(forKey: depthKey) as? Int ?? -1
+        let imageRepresentation = getAssembledItemImageRepresentation(categoryDict: categoryDict)
+        return IntermediateAssembledItem(category: category, isInventoryItem: isInventoryItem,
+                                         isOrderItem: isOrderItem, parts: parts,
+                                         depth: depth, imageRepresentation: imageRepresentation)
+    }
+
+    private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary) -> AssembledItemImageRepresentation {
+        let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
+        let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
+        var partsImageStrings: [Category: ImageRepresentation] = [:]
+        for (key, value) in rawPartsImageStrings {
+            partsImageStrings[Category(name: key)] = ImageRepresentation(imageStrings: value)
+        }
+        return AssembledItemImageRepresentation(mainImageStrings: [mainImageString], partsImageStrings: partsImageStrings)
+    }
+
+    static func getAssembledItemToImageRepresentationMapping(dict: NSDictionary) -> [Category: ImageRepresentation] {
+        var mapping = [Category: ImageRepresentation]()
+        let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
+        for categoryDict in assembledCategories {
+            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
+            let category = Category(name: categoryName)
+            let imageRepresentation = getAssembledItemImageRepresentation(categoryDict: categoryDict)
+            mapping[category] = imageRepresentation
+        }
+        return mapping
+
+    }
     
     private static func convertCategoryToAssembledItems(category: Category, isInventoryItem: Bool,
                                                         isOrderItem: Bool, parts: [String],
                                                         availableAtomicItems: [Category: Set<[Item]>],
-                                                        mainImageString: String,
-                                                        partsImageStrings: [Category: [String]]) -> Set<[AssembledItem]> {
-        
+                                                        imageRepresentation: AssembledItemImageRepresentation) -> Set<[AssembledItem]> {
         var availableParts: [[Item]] = []
         for part in parts {
             let partCategory = Category(name: part)
@@ -288,7 +310,7 @@ class ItemSpecificationsParser {
         for permutation in allPermutations {
             let item = AssembledItem(parts: permutation, category: category,
                                      isInventoryItem: isInventoryItem, isOrderItem: isOrderItem,
-                                     mainImageString: mainImageString, partsImageStrings: partsImageStrings)
+                                     imageRepresentation: imageRepresentation)
             allAssembledItems.insert([item])
         }
         
@@ -316,7 +338,7 @@ class ItemSpecificationsParser {
         
         return result
     }
-    
+
     private static func getPartsToAssembledItemCategoryMapping(dict: NSDictionary) -> [[Category]: Category] {
         let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
         var mappings: [[Category]: Category] = [:]
@@ -325,9 +347,9 @@ class ItemSpecificationsParser {
             let category = Category(name: categoryName)
             
             let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
-            let CategoriesForParts = parts.map { Category(name: $0) }
+            let categoriesForParts = parts.map { Category(name: $0) }.sorted()
             
-            mappings[CategoriesForParts] = category
+            mappings[categoriesForParts] = category
         }
         
         return mappings
@@ -359,18 +381,16 @@ struct IntermediateAssembledItem {
     let isOrderItem: Bool
     let parts: [String]
     let depth: Int
-    let mainImageString: String
-    let partsImageStrings: [Category: [String]]
+    let imageRepresentation: AssembledItemImageRepresentation
     
     init(category: Category, isInventoryItem: Bool, isOrderItem: Bool,
-         parts: [String], depth: Int, mainImageString: String, partsImageStrings: [Category: [String]]) {
+         parts: [String], depth: Int, imageRepresentation: AssembledItemImageRepresentation) {
         self.category = category
         self.isInventoryItem = isInventoryItem
         self.isOrderItem = isOrderItem
         self.parts = parts
         self.depth = depth
-        self.mainImageString = mainImageString
-        self.partsImageStrings = partsImageStrings
+        self.imageRepresentation = imageRepresentation
     }
 }
 

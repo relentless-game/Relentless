@@ -25,6 +25,19 @@ class GameHostParametersParser: GameParametersParser {
         return gameHostParameters
     }
 
+    internal func parseNumbers(gameHostParameters: GameHostParameters) -> Bool {
+        guard super.parseNumbers(gameParameters: gameHostParameters) else {
+            return false
+        }
+        guard let numOfPlayersRange: IR = parseNumbersToRange(minKey: ConfigKeys.minNumOfPlayers,
+                                                              maxKey: ConfigKeys.maxNumOfPlayers)
+            else {
+                return false
+        }
+        gameHostParameters.numOfPlayersRange = numOfPlayersRange
+        return true
+    }
+
     internal func parseStrings(gameHostParameters: GameHostParameters) -> Bool {
         guard super.parseStrings(gameParameters: gameHostParameters) else {
             return false

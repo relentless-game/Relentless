@@ -29,10 +29,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
             // Fetch game parameters from remote config
-            let gameHostParameters = (ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: true)
-                as? GameHostParameters) ?? GameHostParameters()
-            gameController = GameHostControllerManager(userId: userId,
-                                                       gameHostParameters: gameHostParameters)
+            gameController = GameHostControllerManager(userId: userId, demoMode: false)
             // TODO: change how username is entered
             createGame(username: "New Player")
         } else {

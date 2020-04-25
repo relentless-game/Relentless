@@ -86,6 +86,10 @@
 		62697C2124445AFE005E21D6 /* VariableNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62697C2024445AFE005E21D6 /* VariableNames.swift */; };
 		6280167A2452AB4E000573B8 /* SatisfactionBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628016792452AB4E000573B8 /* SatisfactionBarTests.swift */; };
 		6280CF3C24374E090032EFD5 /* StartGameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6280CF3B24374E090032EFD5 /* StartGameError.swift */; };
+		62AF1BDC2452E41000FE7C9D /* DemoGameParameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62AF1BDB2452E41000FE7C9D /* DemoGameParameters.plist */; };
+		62AF1BDE2452F2F500FE7C9D /* LocalConfigValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AF1BDD2452F2F500FE7C9D /* LocalConfigValues.swift */; };
+		62B98D2F24540308000600E7 /* HostNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B98D2E24540308000600E7 /* HostNetwork.swift */; };
+		62B98D3124540494000600E7 /* HostNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B98D3024540494000600E7 /* HostNetworkManager.swift */; };
 		62CC1D6F2438817200C942C7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CC1D6E2438817200C942C7 /* SettingsViewController.swift */; };
 		62D0EBCB242CBDDA00FDAFAF /* GameHostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */; };
 		62D0EBCD242CBE4600FDAFAF /* GameHostControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */; };
@@ -252,6 +256,10 @@
 		62697C2024445AFE005E21D6 /* VariableNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableNames.swift; sourceTree = "<group>"; };
 		628016792452AB4E000573B8 /* SatisfactionBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatisfactionBarTests.swift; sourceTree = "<group>"; };
 		6280CF3B24374E090032EFD5 /* StartGameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameError.swift; sourceTree = "<group>"; };
+		62AF1BDB2452E41000FE7C9D /* DemoGameParameters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DemoGameParameters.plist; sourceTree = "<group>"; };
+		62AF1BDD2452F2F500FE7C9D /* LocalConfigValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalConfigValues.swift; sourceTree = "<group>"; };
+		62B98D2E24540308000600E7 /* HostNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostNetwork.swift; sourceTree = "<group>"; };
+		62B98D3024540494000600E7 /* HostNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostNetworkManager.swift; sourceTree = "<group>"; };
 		62CC1D6E2438817200C942C7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		62D0EBCA242CBDDA00FDAFAF /* GameHostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostController.swift; sourceTree = "<group>"; };
 		62D0EBCC242CBE4600FDAFAF /* GameHostControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHostControllerManager.swift; sourceTree = "<group>"; };
@@ -540,6 +548,8 @@
 				62E75B24244D6390001D53A4 /* ConfigKeys.swift */,
 				62E75B2D244D7C1B001D53A4 /* RemoteConfigValues.swift */,
 				62E75B2F244D7EC7001D53A4 /* ConfigValues.swift */,
+				62AF1BDB2452E41000FE7C9D /* DemoGameParameters.plist */,
+				62AF1BDD2452F2F500FE7C9D /* LocalConfigValues.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -576,6 +586,8 @@
 				F319B342241DE575005E3129 /* OrdersAdapter.swift */,
 				F3BF7EE22421CF6300A50EE3 /* JoinGameError.swift */,
 				6280CF3B24374E090032EFD5 /* StartGameError.swift */,
+				62B98D2E24540308000600E7 /* HostNetwork.swift */,
+				62B98D3024540494000600E7 /* HostNetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -804,6 +816,7 @@
 				625BDA60244D86D30094621D /* TestGameParameters.plist in Resources */,
 				F3393958244309E7008BE07D /* GameConfig.plist in Resources */,
 				5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */,
+				62AF1BDC2452E41000FE7C9D /* DemoGameParameters.plist in Resources */,
 				F3C37C2A2418A83100D7109B /* GoogleService-Info.plist in Resources */,
 				621B7085244485CE000DE9DD /* DefaultGameParameters.plist in Resources */,
 				5D5E040E2425ED830005A134 /* ItemCell.xib in Resources */,
@@ -985,6 +998,7 @@
 				0B09CA74243834B500F29648 /* (null) in Sources */,
 				62EE1A7B241CE54C009406FB /* SatisfactionBar.swift in Sources */,
 				0B09CA44242F447600F29648 /* ItemAssembler.swift in Sources */,
+				62AF1BDE2452F2F500FE7C9D /* LocalConfigValues.swift in Sources */,
 				6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
 				5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
 				0BD1BB7A2442BD5500FB578C /* GameControllerManagerExtensionForNetwork.swift in Sources */,
@@ -1011,6 +1025,7 @@
 				0B3CB9F32441B4D70035E8D3 /* GameItemsAllocator.swift in Sources */,
 				62DC2AEB24389777006EB27F /* EventGenerator.swift in Sources */,
 				0B09CA602432E9A900F29648 /* ItemFactory.swift in Sources */,
+				62B98D3124540494000600E7 /* HostNetworkManager.swift in Sources */,
 				F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */,
 				62E75B30244D7EC7001D53A4 /* ConfigValues.swift in Sources */,
 				5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */,
@@ -1038,6 +1053,7 @@
 				5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */,
 				0B09CA6724374EED00F29648 /* ScoreBoard.swift in Sources */,
 				F3C37BFA24189F5200D7109B /* AppDelegate.swift in Sources */,
+				62B98D2F24540308000600E7 /* HostNetwork.swift in Sources */,
 				62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */,
 				0BD1BB782442BA9D00FB578C /* GameControllerManagerExtensionForModel.swift in Sources */,
 				F3BF7F0C242503E200A50EE3 /* House.swift in Sources */,

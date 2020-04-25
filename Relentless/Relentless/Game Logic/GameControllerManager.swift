@@ -9,6 +9,7 @@
 import Foundation
 
 class GameControllerManager: GameController {
+
     // properties for game logic
     internal var roundTimeLeft: Int = 0
     internal var roundTimer = Timer()
@@ -18,7 +19,13 @@ class GameControllerManager: GameController {
     var satisfactionBar: SatisfactionBar
     var money: Int = 0
     var isHost: Bool
-    var gameParameters: GameParameters?
+    var gameParameters: GameParameters? {
+        willSet {
+            if let satisfactionRange = newValue?.satisfactionRange {
+                satisfactionBar = SatisfactionBar(range: satisfactionRange)
+            }
+        }
+    }
 
     // properties for model
     var game: Game?
@@ -49,9 +56,6 @@ class GameControllerManager: GameController {
 
         return itemsByCategory
     }
-    var numOfPlayersRange: ClosedRange<Int>? {
-        gameParameters?.numOfPlayersRange
-    }
 
     // properties for network
     var network: Network
@@ -69,14 +73,14 @@ class GameControllerManager: GameController {
     var localStorage: LocalStorage = LocalStorageManager()
     
     var itemSpecifications: ItemSpecifications
-    
-    init(userId: String, gameParameters: GameParameters?) {
+
+    init(userId: String) {
         self.userId = userId
-        self.gameParameters = gameParameters
         self.isHost = false
         self.itemSpecifications = ItemSpecificationsParser.parse()
+        self.gameParameters = GameParameters()
         self.satisfactionBar = SatisfactionBar(range: gameParameters?.satisfactionRange ?? 0...100)
-        self.network = NetworkManager(numOfPlayersRange: gameParameters?.numOfPlayersRange ?? 3...6)
+        self.network = NetworkManager()
         addObservers()
     }
 

@@ -24,9 +24,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         teamCodeTextField.delegate = self
         initUserId()
         if let userId = self.userId {
-            let gameParameters = ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: false)
-                ?? GameParameters()
-            gameController = GameControllerManager(userId: userId, gameParameters: gameParameters)
+            gameController = GameControllerManager(userId: userId)
         }
         addObservers()
     }

@@ -19,7 +19,6 @@ class GameParameters {
     }
 
     /// The following properties do not vary with the difficulty level
-    var numOfPlayersRange = 3...6
     var satisfactionRange: ClosedRange<Double> = 0...100
     var difficultyRange: ClosedRange<Double> = 1.0...10.0
 

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import Relentless
 
 class LobbyViewControllerTests: XCTestCase {
     
@@ -17,10 +18,6 @@ class LobbyViewControllerTests: XCTestCase {
         continueAfterFailure = false
         app = XCUIApplication()
         XCUIApplication().launch()
-    }
-
-    func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
     func testBackButtonExists() throws {

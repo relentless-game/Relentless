@@ -100,7 +100,7 @@ protocol Network {
     /// Notifies the player of the limit for the number of items in packages
     func attachPackageItemsLimitListener(gameId: Int, action: @escaping (Int?) -> Void)
 
-    /// Notifies the player of the game parameters for the game
+    /// Notifies the player of the config values for the game
     func attachConfigValuesListener(gameId: Int, action: @escaping (LocalConfigValues) -> Void)
 
     /// Notifies non-host player to give them their item specifications for this round.

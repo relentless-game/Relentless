@@ -11,27 +11,23 @@ import Foundation
 class TitledItem: Item {
 
     var name: String
-    let imageString: String
 
     init(name: String, category: Category, isInventoryItem: Bool,
-         isOrderItem: Bool, imageString: String) {
+         isOrderItem: Bool, imageRepresentation: ImageRepresentation) {
         self.name = name
-        self.imageString = imageString
-        super.init(itemType: .titledItem, category: category,
-                   isInventoryItem: isInventoryItem, isOrderItem: isOrderItem)
+        super.init(itemType: .titledItem, category: category, isInventoryItem: isInventoryItem,
+                   isOrderItem: isOrderItem, imageRepresentation: imageRepresentation)
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: TitledItemKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
-        self.imageString = try container.decode(String.self, forKey: .imageString)
         try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: TitledItemKeys.self)
         try container.encode(name, forKey: .name)
-        try container.encode(imageString, forKey: .imageString)
         try super.encode(to: encoder)
     }
 
@@ -66,5 +62,4 @@ class TitledItem: Item {
 
 enum TitledItemKeys: CodingKey {
     case name
-    case imageString
 }

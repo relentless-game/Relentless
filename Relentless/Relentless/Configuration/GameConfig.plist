@@ -13,13 +13,15 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>circularImage</string>
-				<string>triangularImage</string>
+				<string>wheel_circle.png</string>
+				<string>wheel_triangle.png</string>
+				<string>wheel_square.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
 				<string>circle</string>
 				<string>triangle</string>
+				<string>square</string>
 			</array>
 		</dict>
 		<dict>
@@ -31,15 +33,13 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>AAImage</string>
-				<string>AAAImage</string>
-				<string>DImage</string>
-				<string>PP3Image</string>
+				<string>battery_AA.png</string>
+				<string>battery_D.png</string>
+				<string>battery_PP3.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
 				<string>AA</string>
-				<string>AAA</string>
 				<string>D</string>
 				<string>PP3</string>
 			</array>
@@ -53,9 +53,9 @@
 			<false/>
 			<key>stateImageStrings</key>
 			<array>
-				<string>redBodyImage</string>
-				<string>blueBodyImage</string>
-				<string>yellowBodyImage</string>
+				<string>body_red.png</string>
+				<string>body_blue.png</string>
+				<string>body_green.png</string>
 			</array>
 			<key>stateIdentifiers</key>
 			<array>
@@ -77,6 +77,14 @@
 			<key>titles</key>
 			<array>
 				<array>
+					<string>Title is the book</string>
+					<string>The title title is the book title</string>
+				</array>
+				<array>
+					<string>Is the title book</string>
+					<string>Book is the title</string>
+				</array>
+				<array>
 					<string>The title of the book is</string>
 					<string>The book title is title is</string>
 				</array>
@@ -86,7 +94,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>bookImage</string>
+			<string>book.png</string>
 		</dict>
 		<dict>
 			<key>category</key>
@@ -98,6 +106,34 @@
 			<key>titles</key>
 			<array>
 				<array>
+					<string>Brake</string>
+					<string>Break</string>
+				</array>
+				<array>
+					<string>Bare</string>
+					<string>Bear</string>
+				</array>
+				<array>
+					<string>Lamp</string>
+					<string>Lamb</string>
+				</array>
+				<array>
+					<string>Dew</string>
+					<string>Due</string>
+				</array>
+				<array>
+					<string>Hi</string>
+					<string>High</string>
+				</array>
+				<array>
+					<string>Air</string>
+					<string>Heir</string>
+				</array>
+				<array>
+					<string>Eye</string>
+					<string>I</string>
+				</array>
+				<array>
 					<string>By</string>
 					<string>Buy</string>
 				</array>
@@ -107,7 +143,7 @@
 				</array>
 			</array>
 			<key>imageString</key>
-			<string>magazineImage</string>
+			<string>magazine.png</string>
 		</dict>
 	</array>
 	<key>rhythmicItems</key>
@@ -166,8 +202,8 @@
 			</array>
 			<key>stateImageStrings</key>
 			<array>
-				<string>stateZeroImage</string>
-				<string>stateOneImage</string>
+				<string>robot_lit.png</string>
+				<string>robot_unlit.png</string>
 			</array>
 		</dict>
 	</array>
@@ -183,7 +219,7 @@
 				<string>wheel</string>
 			</array>
 			<key>isInventoryItem</key>
-			<true/>
+			<false/>
 			<key>isOrderItem</key>
 			<true/>
 			<key>depth</key>
@@ -193,11 +229,23 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>carBody</key>
-				<string>toyCarCarBodyImage</string>
-				<key>batter</key>
-				<string>toyCarBatteryImage</string>
+				<array>
+					<string>toycar_body_red.png</string>
+					<string>toycar_body_blue.png</string>
+					<string>toycar_body_green.png</string>
+				</array>
+				<key>battery</key>
+				<array>
+					<string>toycar_battery_AA.png</string>
+					<string>toycar_battery_D.png</string>
+					<string>toycar_battery_PP3.png</string>
+				</array>
 				<key>wheel</key>
-				<string>toyCarWheelImage</string>
+				<array>
+					<string>toycar_wheel_circle.png</string>
+					<string>toycar_wheel_triangle.png</string>
+					<string>toycar_wheel_square.png</string>
+				</array>
 			</dict>
 		</dict>
 		<dict>
@@ -219,9 +267,13 @@
 			<key>partsImageStrings</key>
 			<dict>
 				<key>toyCar</key>
-				<string>toyCarImage</string>
+				<array>
+					<string>toyCarImage</string>
+				</array>
 				<key>book</key>
-				<string>bookImage</string>
+				<array>
+					<string>bookImage</string>
+				</array>
 			</dict>
 		</dict>
 	</array>

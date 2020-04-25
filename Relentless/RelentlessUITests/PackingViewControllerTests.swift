@@ -12,7 +12,7 @@ class PackingViewControllerTests: XCTestCase {
     
     var app: XCUIApplication!
 
-    func setUpWithError() throws {
+    override func setUp() {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
@@ -28,11 +28,7 @@ class PackingViewControllerTests: XCTestCase {
         sleep(2)
         app.buttons["Proceed"].tap()
     }
-
-    func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
+    
     func testToHousesButton() throws {
 //        app.collectionViews.containing(.image, identifier:"package_site").element.tap()
         // swiftlint:disable:next line_length

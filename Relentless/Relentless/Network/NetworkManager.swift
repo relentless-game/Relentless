@@ -128,7 +128,7 @@ class NetworkManager: Network {
     func quitGame(userId: String, gameId: Int) {
         ref.child("games/\(gameId)/users/\(userId)").setValue(nil)
     }
-    
+
     func terminateRound(gameId: Int, roundNumber: Int) {
         guard let gameStatus = GameStatus(isGamePlaying: true, isRoundPlaying: false, isGameEndedPrematurely: false,
                                           isPaused: false, currentRound: roundNumber).encodeToString() else {
@@ -244,8 +244,8 @@ class NetworkManager: Network {
     func attachTeamSatisfactionListener(gameId: Int, action: @escaping ([Float]) -> Void) {
         let path = "games/\(gameId)/satisfactionLevel"
         ref.child(path).observe(.value) { snapshot in
-            let snapDict = snapshot.value as? [String: Float] ?? [:]
-            let satisfactionLevels = Array(snapDict.values)
+            let snapDict = snapshot.value as? [String: Double] ?? [:]
+            let satisfactionLevels = Array(snapDict.values).map { Float($0) }
             action(satisfactionLevels)
         }
     }

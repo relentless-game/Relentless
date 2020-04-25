@@ -21,35 +21,35 @@
 	<key>minSatisfaction</key>
 	<integer>0</integer>
 	<key>roundTime</key>
-	<string>240</string>
+	<string>600</string>
 	<key>dailyExpense</key>
 	<string>40</string>
 	<key>correctPackageSatisfactionChange</key>
-	<string>25 * (timeLeft/totalTime) + numOfDifferences</string>
+	<string>5.0</string>
 	<key>wrongPackageSatisfactionChange</key>
-	<string>-25 * ((totalTime - timeLeft) / totalTime) - numOfDifferences / numOfItems</string>
+	<string>-5.0</string>
 	<key>satisfactionToMoneyTranslation</key>
-	<string>2</string>
+	<string>2.0</string>
 	<key>satisfactionRunOutPenalty</key>
 	<string>0.2 * 100.0</string>
 	<key>timeForEachItem</key>
-	<string>70</string>
+	<string>150</string>
 	<key>satisfactionUnitDecrease</key>
 	<string>100.0 / 240.0</string>
 	<key>maxSatisfaction</key>
 	<integer>100</integer>
 	<key>numOfCategories</key>
-	<string>5.0 * (diffLevel / 10.0)</string>
+	<string>8</string>
 	<key>numOfGroupsPerCategory</key>
 	<string>diffLevel / 2.0</string>
 	<key>maxNumOfItemsPerOrder</key>
 	<string>diffLevel / 2.0</string>
 	<key>numOfOrdersPerPlayer</key>
-	<string>diffLevel / 2.0</string>
+	<string>8</string>
 	<key>probOfSelectingOwnItem</key>
 	<string>1.0 / (diffLevel + 1.0)</string>
 	<key>probOfHavingPackageLimit</key>
-	<string>diffLevel / 50.0</string>
+	<string>1.0</string>
 	<key>probOfEvent</key>
 	<string>1.0 / 4.0</string>
 </dict>

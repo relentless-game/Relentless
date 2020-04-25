@@ -12,4 +12,6 @@ protocol ConfigNetwork {
 
     func fetchGameParameters(isHost: Bool) -> GameParameters?
 
+    func fetchLocalConfigValues() -> LocalConfigValues?
+
 }

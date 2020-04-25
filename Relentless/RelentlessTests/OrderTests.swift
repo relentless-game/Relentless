@@ -119,6 +119,8 @@ class OrderTests: XCTestCase {
     func testStartOrder() {
         order.startOrder()
         let timeLimit = order.timeLimit
-        XCTAssertTrue(order.timeLeft <= timeLimit)
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+            XCTAssertTrue(self.order.timeLeft < timeLimit)
+        })
     }
 }

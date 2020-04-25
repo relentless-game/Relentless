@@ -11,7 +11,8 @@ import UIKit
 class PackingViewController: UIViewController {
     var gameController: GameController?
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-
+    var endRoundTimer: Timer?
+    
     // swiftlint:disable private_outlet
     // Necessary to be accessed in extensions.
     @IBOutlet internal var packagesView: UICollectionView!
@@ -178,19 +179,19 @@ class PackingViewController: UIViewController {
     }
     
     @objc func handleRoundEnded() {
-        removeObservers()
         self.view.isUserInteractionEnabled = false
-        
         let title = "This round has ended."
         let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
         
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+        endRoundTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            self.removeObservers()
             self.performSegue(withIdentifier: "endRound", sender: self)
         }
     }
     
     @objc func handleGameEnded() {
+        endRoundTimer?.invalidate()
         performSegue(withIdentifier: "endGameFromPacking", sender: self)
     }
 
@@ -308,6 +309,14 @@ class PackingViewController: UIViewController {
             let viewController = segue.destination as? PauseViewController
             viewController?.gameController = gameController
             NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        }
+        if segue.identifier == "endGameFromPacking" {
+            let viewController = segue.destination as? GameOverViewController
+            do {
+                try viewController?.scores = gameController?.getExistingScores()
+            } catch {
+                viewController?.scores = []
+            }
         }
     }
     

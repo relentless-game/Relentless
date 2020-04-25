@@ -74,6 +74,8 @@ class GameControllerManager: GameController {
     
     var itemSpecifications: ItemSpecifications
 
+    // to prevent endRound() from getting called multiple times
+    
     init(userId: String) {
         self.userId = userId
         self.isHost = false
@@ -119,7 +121,6 @@ class GameControllerManager: GameController {
     internal func handleGameEnd() {
         updateScore()
         resetAllAttributes()
-        NotificationCenter.default.post(name: .didEndGame, object: nil)
     }
 
     internal func updateScore() {
@@ -214,12 +215,8 @@ class GameControllerManager: GameController {
 
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
-        guard let parameters = gameParameters else {
-            return
-        }
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
-        if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.decrement(amount: parameters.satisfactionRunOutPenalty)
+        if satisfactionBar.currentSatisfaction <= 0 {
             endRound()
         }
     }

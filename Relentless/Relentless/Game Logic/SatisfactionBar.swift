@@ -10,13 +10,14 @@ import Foundation
 
 class SatisfactionBar {
 
+    private var startingSatisfaction: Double
+
     var satisfactionRange: ClosedRange<Double>
     var currentSatisfaction: Double {
         didSet {
             NotificationCenter.default.post(name: .didChangeCurrentSatisfaction, object: nil)
         }
     }
-    var startingSatisfaction: Double
 
     // Returns a float from 0...1
     var currentFractionalSatisfaction: Double {
@@ -45,11 +46,7 @@ class SatisfactionBar {
         currentSatisfaction = Double(startingSatisfaction)
     }
 
-    func penalise(penalty: Double) {
-        currentSatisfaction -= penalty
-    }
-
-    func decrementWithTime(amount: Double) {
+    func decrement(amount: Double) {
         currentSatisfaction -= amount
     }
 
@@ -83,8 +80,8 @@ class SatisfactionBar {
         }
         let varDict = [VariableNames.totalTime: Double(order.timeLimit),
                        VariableNames.timeLeft: Double(order.timeLeft),
-                       VariableNames.numOfCorrectItems: Double(getNumberOfCorrectItems(package: package,
-                                                                                       order: order))]
+                       VariableNames.numOfDifferences: Double(getNumberOfDifferences(package: package, order: order)),
+                       VariableNames.numOfItems: Double(order.items.count)]
         return expression(varDict)
     }
 
@@ -96,7 +93,7 @@ class SatisfactionBar {
         let defaultSatisfactionChange: Float = 25
         let defaultSatisfactionIncreaseForCorrectItem: Float = 1
 
-        if package != nil {
+        if isCorrect && package != nil {
             return handleCorrectPackage(remainingTime: remainingTime, totalTime: totalTime, order: order,
                                         satisfactionChange: defaultSatisfactionChange,
                                         unitSatisfactionIncrease: defaultSatisfactionIncreaseForCorrectItem)
@@ -119,19 +116,19 @@ class SatisfactionBar {
     private func handleWrongPackage(totalTime: Float, remainingTime: Float, order: Order,
                                     package: Package?, satisfactionChange: Float,
                                     unitSatisfactionIncrease: Float) -> Double {
-        let numberOfCorrectItems = getNumberOfCorrectItems(package: package, order: order)
+        let numOfDifferences = getNumberOfDifferences(package: package, order: order)
         let timeProportionUsed = (totalTime - remainingTime) / totalTime
-        let decrease = satisfactionChange * timeProportionUsed - Float(numberOfCorrectItems)
+        let decrease = satisfactionChange * timeProportionUsed + Float(numOfDifferences / order.items.count)
             * unitSatisfactionIncrease
         return Double(-decrease)
     }
 
-    private func getNumberOfCorrectItems(package: Package?, order: Order) -> Int {
+    private func getNumberOfDifferences(package: Package?, order: Order) -> Int {
         guard let package = package else {
             return 0
         }
-        let numberOfCorrectItems = order.items.count - order.getNumberOfDifferences(with: package)
-        return numberOfCorrectItems
+        let numOfDifferences = order.getNumberOfDifferences(with: package)
+        return numOfDifferences
     }
 
 }

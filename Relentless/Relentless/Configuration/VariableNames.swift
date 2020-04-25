@@ -15,6 +15,6 @@ class VariableNames {
     /// Order properties (used in `SatisfactionBar`)
     static let totalTime = "totalTime"
     static let timeLeft = "timeLeft"
-    static let numOfCorrectItems = "numOfCorrectItems"
-
+    static let numOfDifferences = "numOfDifferences"
+    static let numOfItems = "numOfItems"
 }

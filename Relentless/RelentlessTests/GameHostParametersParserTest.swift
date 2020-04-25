@@ -39,16 +39,22 @@ class GameHostParametersParserTest: XCTestCase {
     }
 
     func testParse_parameterExpression_packageSatisfactionChange() {
-        let varDict = [VariableNames.numOfCorrectItems: 2,
-                       VariableNames.timeLeft: 5.0,
-                       VariableNames.totalTime: 10.0]
+        let varDictCorrectPackage = [VariableNames.numOfDifferences: 2,
+                                     VariableNames.numOfItems: 2,
+                                     VariableNames.timeLeft: 5.0,
+                                     VariableNames.totalTime: 10.0]
         let correctPackageExpression = gameHostParameters.correctPackageSatisfactionChangeExpression
         let expectedCorrectPackageValue = 14.5
-        XCTAssertEqual(correctPackageExpression?(varDict), expectedCorrectPackageValue)
+        XCTAssertEqual(correctPackageExpression?(varDictCorrectPackage), expectedCorrectPackageValue)
+
+        let varDictWrongPackage = [VariableNames.numOfDifferences: 2,
+                                   VariableNames.numOfItems: 4,
+                                   VariableNames.timeLeft: 5.0,
+                                   VariableNames.totalTime: 10.0]
 
         let wrongPackageExpression = gameHostParameters.wrongPackageSatisfactionChangeExpression
-        let expectedWrongPackageValue = -10.5
-        XCTAssertEqual(wrongPackageExpression?(varDict), expectedWrongPackageValue)
+        let expectedWrongPackageValue: Double = -13
+        XCTAssertEqual(wrongPackageExpression?(varDictWrongPackage), expectedWrongPackageValue)
     }
 
     func testParse_hostValues() {

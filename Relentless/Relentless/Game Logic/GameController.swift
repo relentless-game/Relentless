@@ -16,7 +16,6 @@ protocol GameController: GameNetworkController, GameModelController, GameLocalSt
     var money: Int { get }
     var isHost: Bool { get set }
     var gameParameters: GameParameters? { get }
-    var numOfPlayersRange: ClosedRange<Int>? { get }
     
     var gameStatus: GameStatus? { get set } // for pausing
     var pauseCountDown: Int { get set } // for pausing

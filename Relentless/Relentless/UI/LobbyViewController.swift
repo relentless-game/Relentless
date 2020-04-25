@@ -13,6 +13,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     var userId: String?
     var gameController: GameController?
     var players: [Player]?
+    var demoModeOn: Bool?
     private let playerIdentifier = "PlayerCell"
 
     weak var delegate = UIApplication.shared.delegate as? AppDelegate
@@ -29,10 +30,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
             // Fetch game parameters from remote config
-            let gameHostParameters = (ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: true)
-                as? GameHostParameters) ?? GameHostParameters()
-            gameController = GameHostControllerManager(userId: userId,
-                                                       gameHostParameters: gameHostParameters)
+            gameController = GameHostControllerManager(userId: userId, demoMode: demoModeOn ?? false)
             // TODO: change how username is entered
             createGame(username: "New Player")
         } else {
@@ -123,10 +121,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
     }
 
     @objc func handleInsufficientPlayers() {
-        var message = "You do not have enough players. Get your friends to join the game!"
-        if let minNumOfPlayers = gameController?.numOfPlayersRange?.lowerBound {
-            message.append(contentsOf: " You need at least " + String(minNumOfPlayers) + " players to play.")
-        }
+        let message = "You do not have enough players. Get your friends to join the game!"
         let alert = createAlert(title: "Sorry.", message: message, action: "Ok.")
         self.present(alert, animated: true, completion: nil)
 

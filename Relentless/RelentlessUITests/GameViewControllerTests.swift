@@ -19,10 +19,6 @@ class GameViewControllerTests: XCTestCase {
         XCUIApplication().launch()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
     func testGameStartingScreen() throws {
         // swiftlint:disable:next line_length
         app/*@START_MENU_TOKEN@*/.buttons["createRoomButton"]/*[[".buttons[\"button createroom\"]",".buttons[\"createRoomButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()

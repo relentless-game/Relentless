@@ -59,5 +59,4 @@ class CategoryGenerator: GameCategoryGenerator {
         let itemsInCategory = Array(groupsInCategory).flatMap { $0 }
         return !itemsInCategory.contains(where: { $0.isOrderItem })
     }
-
 }

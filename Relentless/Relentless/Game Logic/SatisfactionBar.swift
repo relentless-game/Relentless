@@ -84,7 +84,7 @@ class SatisfactionBar {
         let varDict = [VariableNames.totalTime: Double(order.timeLimit),
                        VariableNames.timeLeft: Double(order.timeLeft),
                        VariableNames.numOfCorrectItems: Double(getNumberOfCorrectItems(package: package,
-                                                                                              order: order))]
+                                                                                       order: order))]
         return expression(varDict)
     }
 

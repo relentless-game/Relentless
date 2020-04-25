@@ -12,6 +12,7 @@ class GameViewController: UIViewController {
     var gameController: GameController?
     @IBOutlet private var proceedButton: UIButton!
     @IBOutlet private var detailsLabel: UILabel!
+    @IBOutlet private var newDayLabel: UILabel!
     var timer: Timer?
     var gameHasEnded: Bool = false
     
@@ -19,6 +20,8 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         addObservers()
         initProceedButton()
+        updateNewDayLabel()
+        updateMoneyLabel()
     }
 
     func addObservers() {
@@ -29,10 +32,10 @@ class GameViewController: UIViewController {
                                                selector: #selector(handleGameEnded),
                                                name: .didEndGame, object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateMoneyLabel(notification:)),
+                                               selector: #selector(updateMoneyLabel),
                                                name: .didChangeMoney, object: nil)
     }
-
+    
     func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
@@ -41,6 +44,21 @@ class GameViewController: UIViewController {
 
     func initProceedButton() {
         proceedButton.isHidden = !(gameController?.isHost ?? false)
+    }
+    
+    func updateNewDayLabel() {
+        guard let roundNumber = gameController?.game?.currentRoundNumber else {
+            return
+        }
+        
+        let message: String
+        if roundNumber == 0 {
+            message = "Are you ready for Day 1?"
+        } else {
+            message = "Day \(roundNumber) has just ended! Are you ready for Day \(roundNumber + 1)?"
+        }
+        
+        newDayLabel.text = message
     }
 
     @IBAction private func proceed(_ sender: Any) {
@@ -62,7 +80,7 @@ class GameViewController: UIViewController {
         gameHasEnded = true
     }
 
-    @objc func updateMoneyLabel(notification: Notification) {
+    @objc func updateMoneyLabel() {
         timer?.invalidate()
         guard let money = gameController?.money else {
             return

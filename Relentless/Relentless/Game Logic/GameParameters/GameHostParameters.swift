@@ -76,4 +76,9 @@ class GameHostParameters: GameParameters {
         return probOfEventExpression?(varDict) ?? defaultValue
     }
 
+    func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Double {
+        let defaultValue = 1 / Double(numberOfPlayers)
+        return probOfSelectingAssembledItemExpression?(varDict) ?? defaultValue
+    }
+
 }

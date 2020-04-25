@@ -81,19 +81,20 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setTitledItemBackgroundFor(item: TitledItem) {
-        setBackgroundTo(named: item.imageString)
+        assert(item.imageRepresentation.imageStrings.count == 1)
+        setBackgroundTo(named: item.imageRepresentation.imageStrings[0])
     }
 
     func setStatefulItemBackgroundFor(item: StatefulItem) {
-        setBackgroundTo(named: item.imageString)
-    }
+        assert(item.imageRepresentation.imageStrings.count == 1)
+        setBackgroundTo(named: item.imageRepresentation.imageStrings[0])    }
 
     func setRhythmicItemBackgroundFor(item: RhythmicItem) {
         background.animationDuration = TimeInterval(item.unitDuration)
         var images = [UIImage]()
         for state in item.stateSequence {
             let index = state.stateIndex
-            if let frame = UIImage(named: item.imageStrings[index]) {
+            if let frame = UIImage(named: item.imageRepresentation.imageStrings[index]) {
                 images.append(frame)
             }
         }
@@ -106,10 +107,15 @@ class ItemCell: UICollectionViewCell {
             view.removeFromSuperview()
         }
         setBackgroundTo(named: "house.png")
+        guard let assembledItemImageRepresentation = item.imageRepresentation as?
+            AssembledItemImageRepresentation else {
+            return
+        }
+        let partsImageStrings = assembledItemImageRepresentation.partsImageStrings
         for part in item.parts {
             let category = part.category
-            if let imageStrings = item.partsImageStrings[category] {
-                drawPartImageViewFor(part: item, imageStrings: imageStrings)
+            if let imageRepresentation = partsImageStrings[category] {
+                drawPartImageViewFor(part: part, imageRepresentation: imageRepresentation)
             }
         }
     }
@@ -132,8 +138,8 @@ class ItemCell: UICollectionViewCell {
         imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
     }
 
-
-    func drawPartImageViewFor(part: Item, imageStrings: [String]) {
+    func drawPartImageViewFor(part: Item, imageRepresentation: ImageRepresentation) {
+        let imageStrings = imageRepresentation.imageStrings
         switch part.itemType {
         case .titledItem:
             let imageString = imageStrings[0]

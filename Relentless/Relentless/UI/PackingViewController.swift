@@ -54,50 +54,35 @@ class PackingViewController: UIViewController {
     }
 
     func addObservers() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadAllViews),
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadAllViews),
                                                name: .didStartRound, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadPackages),
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadPackages),
                                                name: .didChangePackages, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadCurrentPackage),
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCurrentPackage),
                                                name: .didChangeItems, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateSatisfactionBar),
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSatisfactionBar),
                                                name: .didChangeSatisfactionBar, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleRoundEnded),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleGameEnded),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleGameEnded),
                                                name: .didEndGame, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleItemLimitReached),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleItemLimitReached),
                                                name: .didItemLimitReached, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(reloadCurrentPackage),
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCurrentPackage),
                                                name: .didChangeOpenPackage, object: nil)
         // The following observers are for the pausing feature
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleAppMovedToBackground),
-                                               //name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppMovedToBackground),
                                                name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleAppMovedToForeground),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppMovedToForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleRoundPaused),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundPaused),
                                                name: .didPauseRound, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleRoundResumed),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
         // To inform player about the result of their delivery
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleCorrectDelivery),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCorrectDelivery),
                                                name: .correctDelivery, object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleWrongDelivery),
+        NotificationCenter.default.addObserver(self, selector: #selector(handleWrongDelivery),
                                                name: .wrongDelivery, object: nil)
     }
 
@@ -335,7 +320,6 @@ class PackingViewController: UIViewController {
     }
     
     // The following methods are for the pausing feature
-    
     // Called before segue to Game VC at the end of a round
     private func removeBackgroundObservers() {
         NotificationCenter.default.removeObserver(self,

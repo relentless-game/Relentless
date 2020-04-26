@@ -59,7 +59,6 @@ class LocalConfigValues: ConfigValues, Codable {
                         stringDict[key] = numberValue.stringValue
                     }
                 }
-                print(stringDict.keys)
                 return stringDict
             } else {
                 throw LocalConfigValuesError.plistLoadingError

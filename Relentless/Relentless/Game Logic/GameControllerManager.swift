@@ -73,7 +73,7 @@ class GameControllerManager: GameController {
     var localStorage: LocalStorage = LocalStorageManager()
     
     var itemSpecifications: ItemSpecifications
-    
+
     init(userId: String) {
         self.userId = userId
         self.isHost = false

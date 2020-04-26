@@ -20,7 +20,7 @@ class TestConfigValues: LocalConfigValues {
     convenience init(empty: Bool) {
         self.init()
         if empty {
-            valuesDict = NSMutableDictionary()
+            valuesDict = [String: String?]()
         } 
     }
 
@@ -30,6 +30,6 @@ class TestConfigValues: LocalConfigValues {
     }
 
     private func removeValue(key: String) {
-        valuesDict?.removeObject(forKey: key)
+        valuesDict?[key] = nil
     }
 }

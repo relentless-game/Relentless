@@ -11,7 +11,7 @@ import Firebase
 
 class ConfigNetworkManager: ConfigNetwork {
 
-    static let sharedInstance = ConfigNetworkManager()
+    private static let sharedInstance = ConfigNetworkManager()
 
     var remoteConfig: RemoteConfig!
 
@@ -20,6 +20,10 @@ class ConfigNetworkManager: ConfigNetwork {
         remoteConfig.setDefaults(fromPlist: "DefaultGameParameters")
         activateFetchedValues()
         fetchCloudValues()
+    }
+
+    static func getInstance() -> ConfigNetworkManager {
+        sharedInstance
     }
 
     func fetchGameParameters(isHost: Bool) -> GameParameters? {

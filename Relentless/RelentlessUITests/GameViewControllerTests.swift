@@ -25,12 +25,9 @@ class GameViewControllerTests: XCTestCase {
         // swiftlint:disable:next line_length
         let button = app/*@START_MENU_TOKEN@*/.buttons["startButton"]/*[[".buttons[\"button start\"]",".buttons[\"startButton\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         sleep(5)
-//        let exists = NSPredicate(format: "exists == 1")
-//        expectation(for: exists, evaluatedWith: button, handler: nil)
-//        waitForExpectations(timeout: 5, handler: nil)
         button.tap()
         sleep(2)
-        let textLabel = app.staticTexts.element(matching: .any, identifier: "Are you ready for the new day?")
+        let textLabel = app.staticTexts.element(matching: .any, identifier: "Are you ready for Day 1?")
         let result = textLabel.exists
         XCTAssertTrue(result)
     }

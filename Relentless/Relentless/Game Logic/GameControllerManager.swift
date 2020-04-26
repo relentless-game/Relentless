@@ -150,7 +150,7 @@ class GameControllerManager: GameController {
         pauseAllTimers()
         game?.resetForNewRound()
         parameters.incrementDifficulty()
-
+        
         guard let gameId = gameId, let userId = userId else {
             return
         }

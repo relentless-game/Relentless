@@ -179,6 +179,8 @@ class PackingViewController: UIViewController {
     }
     
     @objc func handleRoundEnded() {
+        // newly added
+        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
         self.view.isUserInteractionEnabled = false
         let title = "This round has ended."
         let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)

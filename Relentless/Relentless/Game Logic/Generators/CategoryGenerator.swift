@@ -62,7 +62,7 @@ class CategoryGenerator: GameCategoryGenerator {
         let itemsInCategories = categories.compactMap { categoryToGroupsMapping[$0] }
             .reduce(Set<Item>()) { result, group in
             result.union(group.flatMap { $0 })
-        }
+            }
         return itemsInCategories.count >= numberOfPlayers
     }
 

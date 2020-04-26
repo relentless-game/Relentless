@@ -270,7 +270,8 @@ class ItemSpecificationsParser {
                                          depth: depth, imageRepresentation: imageRepresentation)
     }
 
-    private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary) -> AssembledItemImageRepresentation {
+    private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary)
+        -> AssembledItemImageRepresentation {
         let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
         let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
         var partsImageStrings: [Category: ImageRepresentation] = [:]

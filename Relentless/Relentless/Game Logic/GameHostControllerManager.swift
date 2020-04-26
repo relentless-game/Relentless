@@ -56,7 +56,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             parameters.probOfSelectingAssembledItem(numberOfPlayers: players.count)
         ordersAllocator = OrdersAllocator(maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                          probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
                                           probabilityOfSelectingAssembledItem: probOfSelectingAssembledItem,
                                           timeForEachItem: parameters.timeForEachItem)
     }
@@ -325,7 +324,8 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
 //                    categoriesOfParts.append(part.category)
 //                    continue
 //                }
-//                guard let requiredCategories = itemSpecifications.assembledItemToPartsCategoryMapping[part.category] else {
+//                guard let requiredCategories =
+//                itemSpecifications.assembledItemToPartsCategoryMapping[part.category] else {
 //                    continue
 //                }
                 categoriesOfParts.append(part.category)

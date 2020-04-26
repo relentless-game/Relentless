@@ -13,13 +13,13 @@ class ItemSpecifications {
 
     // for assembledItems
     var assembledItemImageRepresentationMapping: [Category: ImageRepresentation]
-    var partsToAssembledItemCategoryMapping: [[Category]: Category] //categories should be sorted
+    var assembledItemToPartsCategoryMapping: [Category: [Category]] //categories should be sorted
 
     init(availableGroupsOfItems: [Category: Set<[Item]>],
          assembledItemImageRepresentationMapping: [Category: ImageRepresentation],
-         partsToAssembledItemCategoryMapping: [[Category]: Category]) {
+         assembledItemToPartsCategoryMapping: [Category: [Category]]) {
         self.availableGroupsOfItems = availableGroupsOfItems
         self.assembledItemImageRepresentationMapping = assembledItemImageRepresentationMapping
-        self.partsToAssembledItemCategoryMapping = partsToAssembledItemCategoryMapping
+        self.assembledItemToPartsCategoryMapping = assembledItemToPartsCategoryMapping
     }
 }

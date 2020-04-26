@@ -83,10 +83,10 @@ class GameManager: Game {
         let assembledItem = try ItemAssembler.assembleItem(parts: parts,
                                                            partsToAssembledItemCategoryMapping: partsMapping,
                                                            imageRepresentationMapping: imageRepresentationMapping)
-        currentlyOpenPackage?.addItem(item: assembledItem)
         for part in parts {
             currentlyOpenPackage?.removeItem(item: part)
         }
+        currentlyOpenPackage?.addItem(item: assembledItem)
     }
 
     func checkPackage(package: Package, for house: House) -> Bool {

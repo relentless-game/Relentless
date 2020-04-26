@@ -31,7 +31,7 @@ class OrdersAllocator: GameOrdersAllocator {
         let assembledItems = orderItems.compactMap { $0 as? AssembledItem }
         for player in players {
             while player.orders.count < numOfOrdersPerPlayer {
-                let order = generateOrder(maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player,
+                let order = generateOrder(orderItems: orderItems, maxNumOfItems: maxNumOfItemsPerOrder, currPlayer: player,
                                           allPlayers: players, assembledItems: assembledItems)
                 player.orders.insert(order)
             }
@@ -39,10 +39,10 @@ class OrdersAllocator: GameOrdersAllocator {
     }
 
     /// Selects required number of items and creates an order
-    private func generateOrder(maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player],
+    private func generateOrder(orderItems: [Item], maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player],
                                assembledItems: [AssembledItem]) -> Order {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
-        let selectedItems = selectItems(numberOfItems: numberOfItems, currPlayer: currPlayer,
+        let selectedItems = selectItems(orderItems: orderItems, numberOfItems: numberOfItems, currPlayer: currPlayer,
                                         allPlayers: allPlayers, assembledItems: assembledItems)
         let timeAllocated = selectedItems.count * timeForEachItem
         let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
@@ -67,7 +67,7 @@ class OrdersAllocator: GameOrdersAllocator {
 //        return Array(selectedAssembledItems)
 //    }
 
-    private func selectItems(numberOfItems: Int, currPlayer: Player, allPlayers: [Player],
+    private func selectItems(orderItems: [Item], numberOfItems: Int, currPlayer: Player, allPlayers: [Player],
                              assembledItems: [AssembledItem]) -> [Item] {
         var selectedItems = [Item]()
         let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
@@ -75,15 +75,15 @@ class OrdersAllocator: GameOrdersAllocator {
         while selectedItems.count < numberOfItems {
 
             // decide whether to select own or other players' items
-            let randomNumber = Double.random(in: 0...1)
-            var itemsToChooseFrom = Set<Item>()
-
-            if randomNumber <= probabilityOfSelectingOwnItem {
-                itemsToChooseFrom = currPlayer.items
-            } else {
-                itemsToChooseFrom = othersItems
-            }
-            guard let selectedItem = selectRandomItem(from: itemsToChooseFrom) else {
+//            let randomNumber = Double.random(in: 0...1)
+//            var itemsToChooseFrom = Set<Item>()
+//
+//            if randomNumber <= probabilityOfSelectingOwnItem {
+//                itemsToChooseFrom = currPlayer.items
+//            } else {
+//                itemsToChooseFrom = othersItems
+//            }
+            guard let selectedItem = selectRandomItem(from: Set(orderItems)) else {
                 continue
             }
             if !selectedItem.isOrderItem {

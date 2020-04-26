@@ -80,12 +80,28 @@ class ItemGenerator: GameItemGenerator {
         let inventoryItems = items.filter { $0.isInventoryItem }
         // extract parts of nonInventoryItems that are AssembledItems
         let nonInventoryAssembledItems = items.filter { !$0.isInventoryItem }.compactMap { $0 as? AssembledItem }
-        let partsThatAreInventoryItems = nonInventoryAssembledItems
-            .flatMap { $0.unsortedParts }
-            .filter { $0.isInventoryItem }
+        var partsThatAreInventoryItems = [Item]()
+        for assembledItem in nonInventoryAssembledItems {
+            partsThatAreInventoryItems.append(contentsOf: dismantle(item: assembledItem))
+        }
+//        let partsThatAreInventoryItems = nonInventoryAssembledItems
+//            .flatMap { $0.unsortedParts }.
+//            .filter { $0.isInventoryItem }
         var allInventoryItems = [Item]()
         allInventoryItems.append(contentsOf: inventoryItems)
         allInventoryItems.append(contentsOf: partsThatAreInventoryItems)
         return Set(allInventoryItems)
+    }
+
+    private func dismantle(item: AssembledItem) -> [Item] {
+        var parts = [Item]()
+        for part in item.unsortedParts {
+            if let assembledItem = part as? AssembledItem {
+                parts.append(contentsOf: dismantle(item: assembledItem))
+            } else {
+                parts.append(part)
+            }
+        }
+        return parts
     }
 }

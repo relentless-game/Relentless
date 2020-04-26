@@ -27,7 +27,6 @@ class GameHostParametersParserTest: XCTestCase {
         XCTAssertEqual(gameHostParameters.numOfHouses, nonHostParameters?.numOfHouses)
         XCTAssertEqual(gameHostParameters.difficultyChange, nonHostParameters?.difficultyChange)
         XCTAssertEqual(gameHostParameters.houseSatisfactionFactorRange, nonHostParameters?.houseSatisfactionFactorRange)
-        XCTAssertEqual(gameHostParameters.numOfPlayersRange, nonHostParameters?.numOfPlayersRange)
         XCTAssertEqual(gameHostParameters.difficultyRange, nonHostParameters?.difficultyRange)
         XCTAssertEqual(gameHostParameters.satisfactionRange, nonHostParameters?.satisfactionRange)
         XCTAssertEqual(gameHostParameters.roundTime, nonHostParameters?.roundTime)
@@ -65,7 +64,7 @@ class GameHostParametersParserTest: XCTestCase {
         let expectedNumOfGroupsPerCategory = 2
         let expectedMaxNumOfItemsPerOrder = 2
         let expectedNumOfOrdersPerPlayer = 2
-        let expectedProbOfSelectingOwnItem = 0.25
+        let expectedNumOfPlayersRange = 3...6
         let expectedProbOfHavingPackageLimit = 0.06
         let expectedProbOfEvent = 0.25
 
@@ -74,7 +73,7 @@ class GameHostParametersParserTest: XCTestCase {
         XCTAssertEqual(gameHostParameters.numOfGroupsPerCategory, expectedNumOfGroupsPerCategory)
         XCTAssertEqual(gameHostParameters.maxNumOfItemsPerOrder, expectedMaxNumOfItemsPerOrder)
         XCTAssertEqual(gameHostParameters.numOfOrdersPerPlayer, expectedNumOfOrdersPerPlayer)
-        XCTAssertEqual(gameHostParameters.probOfSelectingOwnItem, expectedProbOfSelectingOwnItem)
+        XCTAssertEqual(gameHostParameters.numOfPlayersRange, expectedNumOfPlayersRange)
         XCTAssertEqual(gameHostParameters.probOfHavingPackageLimit, expectedProbOfHavingPackageLimit)
         XCTAssertEqual(gameHostParameters.probOfEvent, expectedProbOfEvent)
     }

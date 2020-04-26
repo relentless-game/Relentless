@@ -26,14 +26,9 @@ class ConfigNetworkManager: ConfigNetwork {
         sharedInstance
     }
 
-    func fetchGameParameters(isHost: Bool) -> GameParameters? {
+    func fetchGameHostParameters() -> GameHostParameters? {
         let configValues = RemoteConfigValues(remoteConfig: remoteConfig)
-        let parser: GameParametersParser
-        if isHost {
-            parser = GameHostParametersParser(configValues: configValues)
-        } else {
-            parser = GameParametersParser(configValues: configValues)
-        }
+        let parser = GameHostParametersParser(configValues: configValues)
         return parser.parse()
     }
 

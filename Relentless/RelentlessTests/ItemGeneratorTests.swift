@@ -17,10 +17,10 @@ class ItemGeneratorTests: XCTestCase {
     var assembledItemCategories = [Cat]()
     var itemSpecifications: ItemSpecifications {
         let itemIdentifierMappings = [Cat: ImageRepresentation]() // not needed for this test
-        let partToAssembledItemCategoryMapping = [[Cat]: Cat]() // not needed for this test
+        let partToAssembledItemCategoryMapping = [Cat: [Cat]]() // not needed for this test
         return ItemSpecifications(availableGroupsOfItems: availableGroupsOfItems,
                                   assembledItemImageRepresentationMapping: itemIdentifierMappings,
-                                  partsToAssembledItemCategoryMapping: partToAssembledItemCategoryMapping)
+                                  assembledItemToPartsCategoryMapping: partToAssembledItemCategoryMapping)
     }
     var categories: [Cat] {
         Array(itemSpecifications.availableGroupsOfItems.keys)

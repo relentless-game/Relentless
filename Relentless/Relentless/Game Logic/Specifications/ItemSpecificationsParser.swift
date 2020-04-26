@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This class represents a parser that parses configuration of items from a Property List file
+/// into all the available items for the game.
 class ItemSpecificationsParser {
     static let plistFileName = "GameConfig"
     
@@ -31,6 +33,7 @@ class ItemSpecificationsParser {
     static let mainImageStringKey = "mainImageString"
     static let partsImageStringsKey = "partsImageStrings"
     
+    /// Returns an `ItemSpecifications` that represents all the available items.
     static func parse() -> ItemSpecifications {
         let itemsDict: NSDictionary!
         do {
@@ -56,42 +59,18 @@ class ItemSpecificationsParser {
         let availableAssembledItems = getAssembledItems(dict: itemsDict, availableAtomicItems: availableItems)
         availableItems.merge(availableAssembledItems) { current, _ in current }
 
-        // 2. get stateful items identifier mappings to their image representations
-//        let itemIdentifierMappings = getStateIdentifierMappings(dict: itemsDict)
-
-        // 3. get assembledItemImageRepresentationMapping
+        // 2. get assembledItemImageRepresentationMapping
         let assembledItemImageRepresentationMapping = getAssembledItemToImageRepresentationMapping(dict: itemsDict)
 
-        // 4. get partsToAssembledItemCategoryMapping
+        // 3. get partsToAssembledItemCategoryMapping
         let assembledItemToPartsCategoryMapping = getAssembledItemToPartsCategoryMapping(dict: itemsDict)
     
         return ItemSpecifications(availableGroupsOfItems: availableItems,
-//                                  itemIdentifierToImageRepresentationMappings: itemIdentifierMappings,
                                   assembledItemImageRepresentationMapping: assembledItemImageRepresentationMapping,
                                   assembledItemToPartsCategoryMapping: assembledItemToPartsCategoryMapping)
     }
-
-//    static func getStateIdentifierMappings(dict: NSDictionary) -> [Category: [Int: String]] {
-//        let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
-//        var allMappings: [Category: [Int: String]] = [:]
-//        for categoryDict in statefulCategories {
-//            let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
-//            let category = Category(name: categoryName)
-//            let stateIdentifiers = categoryDict.value(forKey: stateIdentifiersKey) as? [String] ?? []
-//
-//            // convert into a [Int: String] dictionary
-//            var mapping: [Int: String] = [:]
-//            var index = 0
-//            for identifier in stateIdentifiers {
-//                mapping[index] = identifier
-//                index += 1
-//            }
-//            allMappings[category] = mapping
-//        }
-//
-//        return allMappings
-//    }
     
+    /// Returns a mapping between `Category` and available items for `StatefulItem`. To be used by `parse()`.
     static func getStatefulItems(dict: NSDictionary) -> [Category: Set<[StatefulItem]>] {
         let statefulCategories = dict.value(forKey: statefulItemsKey) as? [NSDictionary] ?? []
         var allStatefulItems: [Category: Set<[StatefulItem]>] = [:]
@@ -130,6 +109,7 @@ class ItemSpecificationsParser {
         return statefulItems
     }
     
+    /// Returns a mapping between `Category` and available items for `TitledItem`. To be used by `parse()`.
     static func getTitledItems(dict: NSDictionary) -> [Category: Set<[TitledItem]>] {
         let titledCategories = dict.value(forKey: titledItemsKey) as? [NSDictionary] ?? []
         var allTitledItems: [Category: Set<[TitledItem]>] = [:]
@@ -171,6 +151,7 @@ class ItemSpecificationsParser {
         return result
     }
 
+    /// Returns a mapping between `Category` and available items for `RhythmicItem`. To be used by `parse()`.
     static func getRhythmicItems(dict: NSDictionary) -> [Category: Set<[RhythmicItem]>] {
         let rhythmicCategories = dict.value(forKey: rhythmicItemsKey) as? [NSDictionary] ?? []
         var allRhythmicItems: [Category: Set<[RhythmicItem]>] = [:]
@@ -225,6 +206,7 @@ class ItemSpecificationsParser {
         return result
     }
     
+    /// Returns a mapping between `Category` and available items for `AssembledItem`. To be used by `parse()`.
     static func getAssembledItems(dict: NSDictionary,
                                   availableAtomicItems: [Category: Set<[Item]>]) -> [Category: Set<[AssembledItem]>] {
         let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
@@ -282,6 +264,7 @@ class ItemSpecificationsParser {
                                                 partsImageStrings: partsImageStrings)
     }
 
+    /// Returns a mapping between `Category` of assembled items and their corresponding image string representations.
     static func getAssembledItemToImageRepresentationMapping(dict: NSDictionary) -> [Category: ImageRepresentation] {
         var mapping = [Category: ImageRepresentation]()
         let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
@@ -319,8 +302,8 @@ class ItemSpecificationsParser {
         return allAssembledItems
     }
     
-    // Recursively selects item from each part, and returns an array of all permutations, each
-    // permutation being an array of part items.
+    /// Recursively selects item from each part in an assembled item, and returns an array of all permutations, each
+    /// permutation being an array of part items.
     static func permuteParts(availableParts: [[Item]], currentIndex: Int) -> [[Item]] {
         guard currentIndex < availableParts.count else {
             return [[]]
@@ -357,6 +340,7 @@ class ItemSpecificationsParser {
         return mappings
     }
     
+    /// Returns an `NSDictionary` which represents information in the Property List file given by `fileName`.
     static func getPlist(from fileName: String) throws -> NSDictionary {
         if let path = Bundle.main.path(forResource: fileName, ofType: "plist"),
             let xml = FileManager.default.contents(atPath: path) {
@@ -376,7 +360,8 @@ class ItemSpecificationsParser {
     }
 }
 
-// temporary structure to hold information for an assembled item
+/// This represents a temporary structure to hold information for an assembled item
+/// so that assembled items can be assembled in the order of increasing depth.
 struct IntermediateAssembledItem {
     let category: Category
     let isInventoryItem: Bool

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This class represents all the variable game parameters used in the game.
 class GameParameters {
     typealias I = (([String: Double]) -> Int?)
     typealias D = (([String: Double]) -> Double?)

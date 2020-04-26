@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This enum is used for encoding and decoding of `Item`s.
 enum ItemType: String, Codable {
     case statefulItem
     case titledItem

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The implementation class of `LocalStorage` which handles local storage of the player's score information.
 class LocalStorageManager: LocalStorage {
 
     var scoreBoard: ScoreBoard = JsonScoreBoardStorage()

@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of `GameController` which handles the game logic
+/// for a general player.
 class GameControllerManager: GameController {
 
     // properties for game logic

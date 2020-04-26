@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is an extension of `GameControllerManager` which handles the game logic
+/// related to communicating with `Model`.
 extension GameControllerManager {
 
     var openedPackage: Package? {
@@ -72,10 +74,8 @@ extension GameControllerManager {
 
     func constructAssembledItem(parts: [Item]) throws {
         let imageRepresentationMapping = itemSpecifications.assembledItemImageRepresentationMapping
-//        let statefulItemRepresentationMapping = itemSpecifications.itemIdentifierToImageRepresentationMappings
         try game?.constructAssembledItem(parts: parts,
                                          imageRepresentationMapping: imageRepresentationMapping)
-//                                         statefulItemImageRepresentationMapping: statefulItemRepresentationMapping)
     }
     
     internal func removeOrder(order: Order) {

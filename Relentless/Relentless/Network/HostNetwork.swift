@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Handles networking communication from the host to the other players.
 protocol HostNetwork {
 
     /// This is for the host to start a game. `completion` is called when the game is created

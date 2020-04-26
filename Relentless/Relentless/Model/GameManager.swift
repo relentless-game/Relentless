@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This is the implementation class of the `Game` protocol, which handles models in the game.
 class GameManager: Game {
         
     /// user information

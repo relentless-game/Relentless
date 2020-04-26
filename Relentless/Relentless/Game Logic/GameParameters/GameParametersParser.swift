@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+/// This represents a parser that parses configuration of game parameters stored remotely
+/// or locally into a `GameParameters` object.
 class GameParametersParser {
     typealias I = ([String: Double]) -> Int?
     typealias D = ([String: Double]) -> Double?

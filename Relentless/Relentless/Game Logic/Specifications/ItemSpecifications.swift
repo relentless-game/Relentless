@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This class represents all the information about available items in the game,
+/// based on the results of parsing the game configuration file.
 class ItemSpecifications {
     var availableGroupsOfItems: [Category: Set<[Item]>]
 

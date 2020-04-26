@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents a house which gives the player orders to fulfill.
 class House {
 
     /// Ranges from 0 (non-inclusive) to 1 (inclusive)

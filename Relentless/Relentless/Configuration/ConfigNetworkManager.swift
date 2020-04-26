@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 
+/// This is the implementation class of the protocol `ConfigNetwork`.
 class ConfigNetworkManager: ConfigNetwork {
 
     private static let sharedInstance = ConfigNetworkManager()

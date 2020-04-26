@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Handles local storage of the player's score information.
 protocol LocalStorage {
 
     func getExistingScores() throws -> [ScoreRecord]

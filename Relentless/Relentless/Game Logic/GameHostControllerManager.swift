@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of `GameHostController` which
+/// handles the game logic for a host player.
 class GameHostControllerManager: GameControllerManager, GameHostController {
 
     var hostParameters: GameHostParameters? {
@@ -290,14 +292,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             let category = assembledItem.category
             var categoriesOfParts = [Category]()
             for part in assembledItem.parts {
-//                if part as? AssembledItem == nil {
-//                    categoriesOfParts.append(part.category)
-//                    continue
-//                }
-//                guard let requiredCategories =
-//                itemSpecifications.assembledItemToPartsCategoryMapping[part.category] else {
-//                    continue
-//                }
                 categoriesOfParts.append(part.category)
             }
             assembledItemCategories[categoriesOfParts.sorted()] = category

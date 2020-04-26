@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// Handles game scores stored locally.
 protocol GameLocalStorageController {
 
     var localStorage: LocalStorage { get }

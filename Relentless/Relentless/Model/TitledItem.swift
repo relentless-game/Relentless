@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A `TitledItem` is an item which contains a String as its title.
 class TitledItem: Item {
 
     var name: String

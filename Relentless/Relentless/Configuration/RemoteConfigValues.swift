@@ -9,6 +9,8 @@
 import Foundation
 import FirebaseRemoteConfig
 
+/// This is the implementation class of the protocol `ConfigValues` for Remote Config.
+/// It is a util class to get a String or Number from game parameter cofiguration stored remotely.
 class RemoteConfigValues: ConfigValues {
 
     var remoteConfig: RemoteConfig?

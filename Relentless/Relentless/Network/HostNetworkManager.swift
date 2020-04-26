@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of `HostNetwork`
+/// which handles networking communication from the host to the other players.
 class HostNetworkManager: NetworkManager, HostNetwork {
 
     func createGame(completion: @escaping (Int) -> Void) {

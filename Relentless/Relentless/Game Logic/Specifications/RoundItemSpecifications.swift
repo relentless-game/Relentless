@@ -7,6 +7,9 @@
 //
 
 import Foundation
+
+/// This class represents a mapping between constituent parts and the assembled item that they form,
+/// to be sent by the host to each player at the start of every round.
 class RoundItemSpecifications: Codable {
     let partsToAssembledItemCategoryMapping: [[Category]: Category] // categories should be sorted
 

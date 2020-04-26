@@ -36,7 +36,7 @@ class RemoteConfigValues: ConfigValues {
             defaultDict = extractValues(keys: defaultKeys)
         }
 
-        remoteDict.merge(defaultDict) { (current, _) in current }
+        remoteDict.merge(defaultDict) { current, _ in current }
 
         return LocalConfigValues(dict: remoteDict)
     }

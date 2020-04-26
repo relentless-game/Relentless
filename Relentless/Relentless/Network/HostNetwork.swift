@@ -39,5 +39,4 @@ protocol HostNetwork {
 
     /// This method is to set the number of players range for the game in the network
     func initialiseNumberOfPlayersRange(gameId: Int, min: Int, max: Int)
-
 }

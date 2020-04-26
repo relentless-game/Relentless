@@ -25,31 +25,34 @@ class OrdersAllocator: GameOrdersAllocator {
 
     func allocateOrders(orderItems: [Item], to players: [Player]) {
         let orderItems = orderItems.filter { $0.isOrderItem }
+        let numberOfPossibleUniqueOrders = Int(truncating: NSDecimalNumber(decimal: pow(2, orderItems.count))) - 1 //exclude empty order
+        if numberOfPossibleUniqueOrders < numOfOrdersPerPlayer * players.count {
+            numOfOrdersPerPlayer = numberOfPossibleUniqueOrders
+        }
         let assembledItems = orderItems.compactMap { $0 as? AssembledItem }
         for player in players {
             while player.orders.count < numOfOrdersPerPlayer {
                 let order = generateOrder(orderItems: orderItems, maxNumOfItems: maxNumOfItemsPerOrder,
-                                          currPlayer: player, allPlayers: players, assembledItems: assembledItems)
+                                          assembledItems: assembledItems)
                 player.orders.insert(order)
             }
         }
     }
 
     /// Selects required number of items and creates an order
-    private func generateOrder(orderItems: [Item], maxNumOfItems: Int, currPlayer: Player, allPlayers: [Player],
+    private func generateOrder(orderItems: [Item], maxNumOfItems: Int,
                                assembledItems: [AssembledItem]) -> Order {
         let numberOfItems = Int.random(in: 1...maxNumOfItems)
-        let selectedItems = selectItems(orderItems: orderItems, numberOfItems: numberOfItems, currPlayer: currPlayer,
-                                        allPlayers: allPlayers, assembledItems: assembledItems)
+        let selectedItems = selectItems(orderItems: orderItems, numberOfItems: numberOfItems,
+                                        assembledItems: assembledItems)
         let timeAllocated = selectedItems.count * timeForEachItem
         let order = Order(items: selectedItems, timeLimitInSeconds: timeAllocated)
         return order
     }
 
-    private func selectItems(orderItems: [Item], numberOfItems: Int, currPlayer: Player, allPlayers: [Player],
+    private func selectItems(orderItems: [Item], numberOfItems: Int,
                              assembledItems: [AssembledItem]) -> [Item] {
         var selectedItems = [Item]()
-        let othersItems = extractOthersItems(currPlayer: currPlayer, allPlayers: allPlayers)
 
         while selectedItems.count < numberOfItems {
             guard let selectedItem = selectRandomItem(from: Set(orderItems)) else {
@@ -86,14 +89,5 @@ class OrdersAllocator: GameOrdersAllocator {
             return nil
         }
         return randomItem
-    }
-
-    /// Extracts and combines the items of all other players 
-    private func extractOthersItems(currPlayer: Player, allPlayers: [Player]) -> Set<Item> {
-        var othersItems = [Item]()
-        for player in allPlayers where player != currPlayer {
-            othersItems.append(contentsOf: player.items)
-        }
-        return Set(othersItems)
     }
 }

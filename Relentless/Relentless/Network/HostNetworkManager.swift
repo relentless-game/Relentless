@@ -44,6 +44,7 @@ class HostNetworkManager: NetworkManager, HostNetwork {
     func allocateOrders(gameId: Int, players: [Player]) {
         for player in players {
             sendOrders(gameId: gameId, orders: Array(player.orders), to: player)
+            clearOrders(gameId: gameId, player: player)
         }
     }
 
@@ -137,6 +138,10 @@ class HostNetworkManager: NetworkManager, HostNetwork {
         }
 
         ref.child("games/\(gameId)/users/\(destination.userId)/orders").setValue(encodedOrders)
+    }
+    
+    private func clearOrders(gameId: Int, player: Player) {
+        ref.child("games/\(gameId)/users/\(player.userId)/orders").setValue(nil)
     }
 
 }

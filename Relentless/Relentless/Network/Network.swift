@@ -107,5 +107,4 @@ protocol Network {
     /// `action` is called upon receiving the item specifications.
     func attachItemSpecificationsListener(userId: String, gameId: Int,
                                           action: @escaping (RoundItemSpecifications) -> Void)
-
 }

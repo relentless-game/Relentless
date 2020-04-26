@@ -71,6 +71,7 @@ extension GameControllerManager {
 
     @objc
     func endRound() {
+        game?.resetForNewRound()
         guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }

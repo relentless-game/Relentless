@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="landscape" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,17 +25,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vGr-HW-t0D">
-                                <rect key="frame" x="243" y="30" width="495" height="268"/>
+                                <rect key="frame" x="408" y="30" width="330" height="178"/>
                                 <state key="normal" image="button_more"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="dws-fj-lBf">
-                                <rect key="frame" x="6" y="30" width="800" height="294"/>
+                                <rect key="frame" x="-394" y="30" width="1600" height="294"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="title" translatesAutoresizingMaskIntoConstraints="NO" id="2Uv-ly-Vd9">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="74"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1600" height="74"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmf-er-okv">
-                                        <rect key="frame" x="0.0" y="104" width="800" height="80"/>
+                                        <rect key="frame" x="0.0" y="104" width="1600" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="createRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="y8D-y9-9KK"/>
@@ -49,7 +49,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-Bq-7gP">
-                                        <rect key="frame" x="0.0" y="214" width="800" height="80"/>
+                                        <rect key="frame" x="0.0" y="214" width="1600" height="80"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinRoomButton"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="KU2-3g-Wf6"/>
@@ -116,14 +116,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hD0-n4-H0U">
                                 <rect key="frame" x="306" y="30" width="200" height="294"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jv-SI-Kq4">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
-                                        <rect key="frame" x="0.0" y="30" width="200" height="50"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3BX-fr-kSS">
+                                        <rect key="frame" x="0.0" y="66" width="200" height="50"/>
                                         <accessibility key="accessibilityConfiguration" identifier="teamCodeTextField"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="MQX-b5-eCd"/>
@@ -132,8 +132,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleAspectFit" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
-                                        <rect key="frame" x="0.0" y="110" width="200" height="184"/>
+                                    <button opaque="NO" contentMode="scaleAspectFit" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FtR-Rh-iSH">
+                                        <rect key="frame" x="0.0" y="146" width="200" height="148"/>
                                         <accessibility key="accessibilityConfiguration" identifier="joinButton"/>
                                         <state key="normal" image="button_joinroom"/>
                                         <connections>
@@ -143,7 +143,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWI-yc-x0u">
-                                <rect key="frame" x="74.000000000000014" y="30" width="165.33333333333337" height="58"/>
+                                <rect key="frame" x="74" y="30" width="330" height="116"/>
                                 <accessibility key="accessibilityConfiguration" identifier="backButton"/>
                                 <state key="normal" image="button_back"/>
                                 <connections>
@@ -418,6 +418,12 @@
                                             <action selector="touchAssembleButton:" destination="pIj-eO-AQF" eventType="touchUpInside" id="rEu-P3-2tI"/>
                                         </connections>
                                     </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are assembling..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-Yv-aUb">
+                                        <rect key="frame" x="157.66666666666663" y="230" width="184.33333333333337" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -428,13 +434,16 @@
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="9Jq-ZD-WWY"/>
                                     <constraint firstAttribute="bottom" secondItem="ste-ol-ed4" secondAttribute="bottom" id="Bc8-Oe-tbS"/>
                                     <constraint firstItem="V7d-y2-kSg" firstAttribute="leading" relation="lessThanOrEqual" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="20" symbolic="YES" id="EIc-uh-z6g"/>
+                                    <constraint firstItem="m7d-Yv-aUb" firstAttribute="leading" secondItem="2Lq-4O-j3z" secondAttribute="trailing" constant="60.666666666666629" id="GCU-6U-cSY"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" id="Gce-pV-dEc"/>
                                     <constraint firstItem="KvK-6d-e86" firstAttribute="width" secondItem="ste-ol-ed4" secondAttribute="width" id="HeY-De-rgf"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="V7d-y2-kSg" secondAttribute="trailing" constant="5" id="IWN-IL-8BK"/>
+                                    <constraint firstAttribute="bottom" secondItem="m7d-Yv-aUb" secondAttribute="bottom" constant="30" id="JXR-Lk-Ds0"/>
                                     <constraint firstItem="wK9-uV-fvy" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="5" id="JlO-dm-HAY"/>
                                     <constraint firstAttribute="trailing" secondItem="ste-ol-ed4" secondAttribute="trailing" id="MJ8-Aa-PL0"/>
                                     <constraint firstItem="veC-Sv-bk6" firstAttribute="leading" secondItem="hdR-7I-Eit" secondAttribute="leading" constant="70" id="Pe5-2m-CfU"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" secondItem="KvK-6d-e86" secondAttribute="trailing" id="Q7N-DT-cOj"/>
+                                    <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m7d-Yv-aUb" secondAttribute="trailing" constant="8" symbolic="YES" id="QcZ-0U-DVv"/>
                                     <constraint firstItem="ste-ol-ed4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2Lq-4O-j3z" secondAttribute="trailing" constant="8" symbolic="YES" id="Vge-2P-aQ0"/>
                                     <constraint firstAttribute="bottom" secondItem="veC-Sv-bk6" secondAttribute="bottom" constant="40" id="dVE-c6-yDX"/>
                                     <constraint firstItem="wK9-uV-fvy" firstAttribute="top" secondItem="hdR-7I-Eit" secondAttribute="top" constant="5" id="hTy-iJ-oak"/>
@@ -482,6 +491,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6NF-YO-Kai"/>
                     <connections>
+                        <outlet property="assemblingView" destination="m7d-Yv-aUb" id="Beb-c7-kqc"/>
                         <outlet property="categoryButton" destination="V7d-y2-kSg" id="sZK-5a-dHN"/>
                         <outlet property="currentPackageLabel" destination="wK9-uV-fvy" id="6j0-ll-BUg"/>
                         <outlet property="currentPackageView" destination="veC-Sv-bk6" id="tAY-9m-m2X"/>
@@ -766,14 +776,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreCell" id="gYz-K5-BEo" customClass="ScoreCell" customModule="Relentless" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="692" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="692" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gYz-K5-BEo" id="Kub-PB-roK">
-                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="692" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDN-4v-toN">
-                                                    <rect key="frame" x="23" y="11" width="646" height="21"/>
+                                                    <rect key="frame" x="23" y="11.000000000000002" width="646" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -848,7 +858,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TYT-Zw-XwY">
                                 <rect key="frame" x="74" y="100" width="664" height="224"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nbM-SR-amE">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nbM-SR-amE">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -980,8 +990,8 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="o3k-me-lbf">
                                 <rect key="frame" x="74" y="100" width="664" height="224"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="20" id="wBJ-VK-lV5">
-                                    <size key="itemSize" width="50" height="90"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="wBJ-VK-lV5">
+                                    <size key="itemSize" width="60" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1153,17 +1163,9 @@
             <point key="canvasLocation" x="1555.4187192118227" y="908"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="qID-Ae-TMA"/>
-        <segue reference="fRd-0e-NOR"/>
-        <segue reference="NHt-Cf-6dI"/>
-        <segue reference="biH-vW-GUr"/>
-        <segue reference="gkd-Mi-ecb"/>
-        <segue reference="Qly-4Q-AfV"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="1.circle" catalog="system" width="128" height="121"/>
-        <image name="10.circle" catalog="system" width="128" height="121"/>
+        <image name="1.circle" catalog="system" width="64" height="60"/>
+        <image name="10.circle" catalog="system" width="64" height="60"/>
         <image name="add_blue" width="250" height="250"/>
         <image name="avatar_blue" width="250" height="162.33332824707031"/>
         <image name="avatar_red" width="250" height="162.33332824707031"/>
@@ -1176,9 +1178,17 @@
         <image name="button_more" width="165" height="89.333335876464844"/>
         <image name="button_right" width="52" height="82.333335876464844"/>
         <image name="button_start" width="165" height="58"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
+        <image name="gear" catalog="system" width="64" height="58"/>
         <image name="package_blue" width="250" height="162.33332824707031"/>
         <image name="package_site" width="1000" height="263.33334350585938"/>
         <image name="title" width="800" height="220"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qID-Ae-TMA"/>
+        <segue reference="fRd-0e-NOR"/>
+        <segue reference="NHt-Cf-6dI"/>
+        <segue reference="biH-vW-GUr"/>
+        <segue reference="gkd-Mi-ecb"/>
+        <segue reference="Qly-4Q-AfV"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -18,7 +18,7 @@ class RemoteConfigValues: ConfigValues {
     }
 
     func getString(for key: String) -> String? {
-        remoteConfig?[key].stringValue
+        return remoteConfig?[key].stringValue
     }
 
     func getNumber<T>(for key: String) -> T? {

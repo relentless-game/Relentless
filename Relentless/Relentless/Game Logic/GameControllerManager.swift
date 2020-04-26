@@ -119,7 +119,6 @@ class GameControllerManager: GameController {
     internal func handleGameEnd() {
         updateScore()
         resetAllAttributes()
-        NotificationCenter.default.post(name: .didEndGame, object: nil)
     }
 
     internal func updateScore() {

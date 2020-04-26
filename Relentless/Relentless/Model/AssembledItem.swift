@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// An `AssembledItem` is an item which contains other items as parts.
 class AssembledItem: Item {
     internal var unsortedParts: [Item] {
         didSet {

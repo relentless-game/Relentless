@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents an order that the player needs to fulfill, consisting of one or several items.
 class Order: Hashable, Codable {
     static var MAX_NUMBER_OF_ITEMS = 10
 

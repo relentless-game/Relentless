@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is an extension of `GameControllerManager` which handles the game logic
+/// related to communicating with `Network`.
 extension GameControllerManager {
     /// Player joins the game and with user defined username
     internal func joinGame(gameId: Int, userName: String, avatar: PlayerAvatar) {
@@ -196,7 +198,7 @@ extension GameControllerManager {
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
         } else if gameStatus.didStartGame {
             NotificationCenter.default.post(name: .didStartGame, object: nil)
-        } else if gameStatus.didEndGame /*|| didRunOutPauseTime*/ {
+        } else if gameStatus.didEndGame {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGame, object: nil)
         } else if gameStatus.didStartRound {

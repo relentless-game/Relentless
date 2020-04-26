@@ -7,14 +7,14 @@
 //
 
 import Foundation
+
+/// Assembles constituent items to produce an assembled item comprising these part items.
 class ItemAssembler {
     typealias ImageRepresentationMapping = [Category: ImageRepresentation]
 
     static func assembleItem(parts: [Item],
                              partsToAssembledItemCategoryMapping: [[Category]: Category],
                              imageRepresentationMapping: ImageRepresentationMapping) throws -> AssembledItem {
-//        let dismantledParts = dismantle(parts: parts)
-//        let selectedCategories = dismantledParts.map { $0.category }.sorted()
         let selectedCategories = parts.map { $0.category }
         guard let categoryOfAssembledItem = partsToAssembledItemCategoryMapping[selectedCategories],
             let imageRepresentation = imageRepresentationMapping[categoryOfAssembledItem]
@@ -49,19 +49,6 @@ class ItemAssembler {
         return dismantledParts
     }
 
-//    private static func checkIfHasCorrectNumberOfParts(parts: [Item],
-//                                                       requiredPartsAndFrequencies: [(Item, Int)]) -> Bool {
-//        for part in requiredPartsAndFrequencies {
-//            let partType = part.0
-//            let requiredNumber = part.1
-//            let partsWithPartType = parts.filter { $0.partType == partType }
-//            let frequency = partsWithPartType.count
-//            if frequency != requiredNumber {
-//                return false
-//            }
-//        }
-//        return true
-//    }
 }
 
 enum ItemAssembledError: Error {

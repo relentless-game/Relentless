@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Handles game logic for the host player.
 protocol GameHostController {
 
     /// Player automatically joins game upon successful creation of game

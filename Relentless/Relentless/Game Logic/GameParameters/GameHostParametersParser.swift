@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+/// This represents a parser that parses configuration of game parameters stored remotely
+/// or locally into a `GameParameters` object for the host player to use.
 class GameHostParametersParser: GameParametersParser {
     typealias IR = ClosedRange<Int>
 

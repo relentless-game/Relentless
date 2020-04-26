@@ -10,6 +10,8 @@ import Foundation
 
 typealias Parser = ItemSpecificationsParser
 
+/// This class contains the static `check` method that checks whether the configuration
+/// file `GameConfig.plist`matches the stipulated format.
 class ConfigFormatChecker {
     
     static let statefulItemsErrorMessage = "statefulItems should be an array of dictionaries"

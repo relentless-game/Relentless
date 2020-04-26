@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents an item to be packed and delivered in the game.
 class Item: Hashable, Codable {
     var category: Category
 

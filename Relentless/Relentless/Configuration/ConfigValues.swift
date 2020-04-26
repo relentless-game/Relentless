@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This represents utility methods to get a String or a Number
+/// for game parameter configuration stored remotely or locally.
 protocol ConfigValues {
 
     func getString(for key: String) -> String?

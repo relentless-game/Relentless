@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This struct represents a state in the pattern sequence of a `RhythmicItem`,
+/// where each state is indexed by an `Int`.
 struct RhythmState: Codable, Hashable {
 
     let stateIndex: Int

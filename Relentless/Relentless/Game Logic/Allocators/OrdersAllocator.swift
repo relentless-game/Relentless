@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This class represents an allocator that generates orders
+/// based on the given items and allocates them to the given players.
 class OrdersAllocator: GameOrdersAllocator {
 
     var maxNumOfItemsPerOrder: Int
@@ -23,9 +25,11 @@ class OrdersAllocator: GameOrdersAllocator {
         self.timeForEachItem = timeForEachItem
     }
 
+    /// Generates orders based on the given items and allocates them to the given players.
     func allocateOrders(orderItems: [Item], to players: [Player]) {
         let orderItems = orderItems.filter { $0.isOrderItem }
-        let numberOfPossibleUniqueOrders = Int(truncating: NSDecimalNumber(decimal: pow(2, orderItems.count))) - 1 //exclude empty order
+        let numberOfPossibleUniqueOrders =
+            Int(truncating: NSDecimalNumber(decimal: pow(2, orderItems.count))) - 1 //exclude empty order
         if numberOfPossibleUniqueOrders < numOfOrdersPerPlayer * players.count {
             numOfOrdersPerPlayer = numberOfPossibleUniqueOrders
         }

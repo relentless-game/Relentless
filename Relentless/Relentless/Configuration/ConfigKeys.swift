@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This class stores all the keys for game parameter configuration key-value pairs.
 class ConfigKeys {
 
     static let minNumOfPlayers = "minNumOfPlayers"

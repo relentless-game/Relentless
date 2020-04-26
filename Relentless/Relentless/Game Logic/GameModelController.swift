@@ -32,8 +32,10 @@ protocol GameModelController {
 
     func openPackage(package: Package)
 
+    /// Returns the player's orders that are currently active and waiting to be fulfilled.
     func retrieveActiveOrders(for house: House) -> [Order]
 
+    /// Returns an array of items in the currently open package.
     func retrieveItemsFromOpenPackage() -> [Item]
 
     func retrieveOpenPackage() -> Package?

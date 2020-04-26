@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 
+/// This is the implementation class of the `Network` protocol which handles the networking component
+/// in charge of communication of information between different players in the game, using Firebase.
 class NetworkManager: Network {
 
     internal var ref: DatabaseReference!

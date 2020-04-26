@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Generates orders based on the given items and allocates them to the given players.
 protocol GameOrdersAllocator {
 
     func allocateOrders(orderItems: [Item], to players: [Player])

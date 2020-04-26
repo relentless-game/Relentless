@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of `ScoreBoard` which
+/// handles the score board information stored locally in JSON.
 class JsonScoreBoardStorage: ScoreBoard {
 
     var scores = Data()

@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A `StatefulItem` is an item which can be in one of a finite number of distinct states.
+/// Each item is identified by the index of the state that it is in.
 class StatefulItem: Item {
     let stateIdentifier: Int
 

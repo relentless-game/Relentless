@@ -44,14 +44,16 @@ class Order: Hashable, Codable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: OrderKeys.self)
-        self.items = try container.decode([Item].self, forKey: .items)
+        let itemsWrapper = try container.decode(ItemFactory.self, forKey: .items)
+        self.items = itemsWrapper.items
         self.timeLimit = try container.decode(Int.self, forKey: .timeLimit)
         self.timeLeft = self.timeLimit
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: OrderKeys.self)
-        try container.encode(items, forKey: .items)
+        let itemsWrapper = ItemFactory(items: items)
+        try container.encode(itemsWrapper, forKey: .items)
         try container.encode(timeLimit, forKey: .timeLimit)
     }
 

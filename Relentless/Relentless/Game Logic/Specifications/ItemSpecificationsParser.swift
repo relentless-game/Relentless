@@ -63,12 +63,12 @@ class ItemSpecificationsParser {
         let assembledItemImageRepresentationMapping = getAssembledItemToImageRepresentationMapping(dict: itemsDict)
 
         // 4. get partsToAssembledItemCategoryMapping
-        let partsToAssembledItemCategoryMapping = getPartsToAssembledItemCategoryMapping(dict: itemsDict)
+        let assembledItemToPartsCategoryMapping = getAssembledItemToPartsCategoryMapping(dict: itemsDict)
     
         return ItemSpecifications(availableGroupsOfItems: availableItems,
 //                                  itemIdentifierToImageRepresentationMappings: itemIdentifierMappings,
                                   assembledItemImageRepresentationMapping: assembledItemImageRepresentationMapping,
-                                  partsToAssembledItemCategoryMapping: partsToAssembledItemCategoryMapping)
+                                  assembledItemToPartsCategoryMapping: assembledItemToPartsCategoryMapping)
     }
 
 //    static func getStateIdentifierMappings(dict: NSDictionary) -> [Category: [Int: String]] {
@@ -270,14 +270,16 @@ class ItemSpecificationsParser {
                                          depth: depth, imageRepresentation: imageRepresentation)
     }
 
-    private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary) -> AssembledItemImageRepresentation {
+    private static func getAssembledItemImageRepresentation(categoryDict: NSDictionary)
+        -> AssembledItemImageRepresentation {
         let mainImageString = categoryDict.value(forKey: mainImageStringKey) as? String ?? ""
         let rawPartsImageStrings = categoryDict.value(forKey: partsImageStringsKey) as? [String: [String]] ?? [:]
         var partsImageStrings: [Category: ImageRepresentation] = [:]
         for (key, value) in rawPartsImageStrings {
             partsImageStrings[Category(name: key)] = ImageRepresentation(imageStrings: value)
         }
-        return AssembledItemImageRepresentation(mainImageStrings: [mainImageString], partsImageStrings: partsImageStrings)
+        return AssembledItemImageRepresentation(mainImageStrings: [mainImageString],
+                                                partsImageStrings: partsImageStrings)
     }
 
     static func getAssembledItemToImageRepresentationMapping(dict: NSDictionary) -> [Category: ImageRepresentation] {
@@ -339,9 +341,9 @@ class ItemSpecificationsParser {
         return result
     }
 
-    private static func getPartsToAssembledItemCategoryMapping(dict: NSDictionary) -> [[Category]: Category] {
+    private static func getAssembledItemToPartsCategoryMapping(dict: NSDictionary) -> [Category: [Category]] {
         let assembledCategories = dict.value(forKey: assembledItemsKey) as? [NSDictionary] ?? []
-        var mappings: [[Category]: Category] = [:]
+        var mappings: [Category: [Category]] = [:]
         for categoryDict in assembledCategories {
             let categoryName = categoryDict.value(forKey: categoryKey) as? String ?? ""
             let category = Category(name: categoryName)
@@ -349,7 +351,7 @@ class ItemSpecificationsParser {
             let parts = categoryDict.value(forKey: partsKey) as? [String] ?? []
             let categoriesForParts = parts.map { Category(name: $0) }.sorted()
             
-            mappings[categoriesForParts] = category
+            mappings[category] = categoriesForParts
         }
         
         return mappings

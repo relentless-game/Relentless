@@ -121,7 +121,6 @@ class GameManager: Game {
         packages = [Package]()
         cumulativePackageNumber = 0
         currentlyOpenPackage = nil
-        //assert(roundItemSpecifications != nil)
     }
 
     private func addObservers() {

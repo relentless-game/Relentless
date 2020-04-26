@@ -11,6 +11,7 @@ import UIKit
 class PackingViewController: UIViewController {
     var gameController: GameController?
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    var endRoundTimer: Timer?
 
     // swiftlint:disable private_outlet
     // Necessary to be accessed in extensions.
@@ -22,6 +23,7 @@ class PackingViewController: UIViewController {
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
     @IBOutlet private var openBoxImageView: UIImageView!
+    @IBOutlet private var assemblingView: UILabel!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
@@ -35,8 +37,13 @@ class PackingViewController: UIViewController {
     let packageIdentifier = "PackageCell"
     let addPackageIdentifier = "AddPackageButton"
 
-    var assemblyMode = false
-    var selectedParts = Set<Item>()
+    var assemblyMode = false {
+        didSet {
+            assemblingView.isHidden = !assemblyMode
+        }
+    }
+//    var selectedPartsSet = Set<Item>()
+    var selectedParts = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +92,13 @@ class PackingViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundResumed),
                                                name: .didResumeRound, object: nil)
-
+        // To inform player about the result of their delivery
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleCorrectDelivery),
+                                               name: .correctDelivery, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleWrongDelivery),
+                                               name: .wrongDelivery, object: nil)
     }
 
     func removeObservers() {
@@ -102,6 +115,9 @@ class PackingViewController: UIViewController {
                                                   object: nil)
         NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
+        // The following observers are to inform player about the result of their delivery
+        NotificationCenter.default.removeObserver(self, name: .correctDelivery, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .wrongDelivery, object: nil)
     }
 
     func initialiseCollectionViews() {
@@ -169,21 +185,19 @@ class PackingViewController: UIViewController {
     }
     
     @objc func handleRoundEnded() {
-        print("handle round ended")
-        removeObservers()
         self.view.isUserInteractionEnabled = false
-        
-        let message = "This round has ended."
-        let alert = createAlert(title: "Uh oh.", message: message, action: "Ok.")
+        let title = "This round has ended."
+        let alert = UIAlertController(title: title, message: "", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+        endRoundTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            self.removeObservers()
             self.performSegue(withIdentifier: "endRound", sender: self)
         }
-
     }
     
     @objc func handleGameEnded() {
+        endRoundTimer?.invalidate()
         performSegue(withIdentifier: "endGameFromPacking", sender: self)
     }
 
@@ -238,10 +252,10 @@ class PackingViewController: UIViewController {
     @IBAction private func touchAssembleButton(_ sender: Any) {
         if assemblyMode {
             assembleParts()
-            selectedParts.removeAll()
             assemblyMode = false
             currentPackageView.reloadData()
         } else {
+            selectedParts = [Bool](repeating: false, count: currentPackageItems?.count ?? 0)
             assemblyMode = true
             currentPackageView.reloadData()
         }
@@ -249,7 +263,12 @@ class PackingViewController: UIViewController {
 
     func assembleParts() {
         do {
-            let parts = Array(selectedParts)
+            var parts = [Item]()
+            for index in 0..<selectedParts.count {
+                if selectedParts[index], let items = currentPackageItems {
+                    parts.append(items[index])
+                }
+            }
             try gameController?.constructAssembledItem(parts: parts)
         } catch ItemAssembledError.assembledItemConstructionError {
             // Currently, do nothing. Invalid selection of parts by player.
@@ -275,6 +294,7 @@ class PackingViewController: UIViewController {
             if let pop = viewController.popoverPresentationController {
                 pop.sourceView = sender
                 pop.sourceRect = sender.bounds
+                pop.permittedArrowDirections = []
             }
             self.present(viewController, animated: true)
         }
@@ -301,6 +321,14 @@ class PackingViewController: UIViewController {
             let viewController = segue.destination as? PauseViewController
             viewController?.gameController = gameController
             NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
+        }
+        if segue.identifier == "endGameFromPacking" {
+            let viewController = segue.destination as? GameOverViewController
+            do {
+                try viewController?.scores = gameController?.getExistingScores()
+            } catch {
+                viewController?.scores = []
+            }
         }
     }
     
@@ -355,7 +383,39 @@ class PackingViewController: UIViewController {
     @objc private func handleAppMovedToBackground() {
         gameController?.pauseRound()
     }
+    
+    @objc private func handleCorrectDelivery() {
+        // Shows user that the order was completed correctly
+        generateTextLabelForDeliveryStatus(isCorrect: true)
+    }
 
+    @objc private func handleWrongDelivery() {
+        // Shows user that the order was completed wrongly
+        generateTextLabelForDeliveryStatus(isCorrect: false)
+    }
+    
+    private func generateTextLabelForDeliveryStatus(isCorrect: Bool) {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+        label.center = self.view.center
+        if isCorrect {
+            label.backgroundColor = UIColor.green
+            label.text = "Correct Order!"
+        } else {
+            label.backgroundColor = UIColor.red
+            label.text = "Wrong Order!"
+        }
+        label.textAlignment = .center
+        label.layer.cornerRadius = 20
+        label.layer.masksToBounds = true
+        self.view.addSubview(label)
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+            UIView.animate(withDuration: 0.5) {
+                label.alpha = 0.0
+            }
+        }
+    }
+    
     private func createAlert(title: String, message: String, action: String) -> UIAlertController {
         let controller = UIAlertController(title: String(title),
                                            message: String(message),

@@ -40,6 +40,15 @@ extension GameControllerManager {
         removePackage(package: package)
         removeOrder(order: order)
         updateSatisfaction(order: order, package: package, isCorrect: isCorrect)
+        notifyDeliverySuccess(isCorrect: isCorrect)
+    }
+    
+    private func notifyDeliverySuccess(isCorrect: Bool) {
+        if isCorrect {
+            NotificationCenter.default.post(name: .correctDelivery, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .wrongDelivery, object: nil)
+        }
     }
 
     func openPackage(package: Package) {

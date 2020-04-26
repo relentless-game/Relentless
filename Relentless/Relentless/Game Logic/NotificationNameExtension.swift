@@ -55,4 +55,6 @@ extension Notification.Name {
     static let didUpdateCountDown = Notification.Name("didUpdateCountDown") // for pausing
     static let didItemLimitReached = Notification.Name("didItemLimitReached")
     static let didChangeOpenPackage = Notification.Name("didChangeOpenPackage")
+    static let correctDelivery = Notification.Name("correctDelivery") // to inform user result of their delivery
+    static let wrongDelivery = Notification.Name("wrongDelivery") // to inform user result of their delivery
 }

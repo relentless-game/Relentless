@@ -23,19 +23,19 @@
 	<key>roundTime</key>
 	<string>240</string>
 	<key>dailyExpense</key>
-	<string>50</string>
+	<string>40</string>
 	<key>correctPackageSatisfactionChange</key>
-	<string>25 * (timeLeft/totalTime) + numOfCorrectItems</string>
+	<string>25 * (timeLeft/totalTime) + numOfDifferences</string>
 	<key>wrongPackageSatisfactionChange</key>
-	<string>-25 * ((totalTime - timeLeft) / totalTime) + numOfCorrectItems</string>
+	<string>-25 * ((totalTime - timeLeft) / totalTime) - numOfDifferences / numOfItems</string>
 	<key>satisfactionToMoneyTranslation</key>
 	<string>2</string>
 	<key>satisfactionRunOutPenalty</key>
 	<string>0.2 * 100.0</string>
-	<key>satisfactionUnitDecrease</key>
-	<string>100.0 / 240.0</string>
 	<key>timeForEachItem</key>
 	<string>70</string>
+	<key>satisfactionUnitDecrease</key>
+	<string>100.0 / 240.0</string>
 	<key>maxSatisfaction</key>
 	<integer>100</integer>
 	<key>numOfCategories</key>

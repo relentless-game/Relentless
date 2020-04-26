@@ -38,9 +38,6 @@ class HousesViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSatisfactionBar),
                                                name: .didChangeSatisfactionBar, object: nil)
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(handleOrdersChanged),
-//                                               name: .didChangeOrders, object: nil)
     }
 
     func removeObservers() {
@@ -53,20 +50,13 @@ class HousesViewController: UIViewController {
         }
     }
 
-//    @objc func handleOrdersChanged() {
-//        housesCollectionView.reloadData()
-//    }
-
     @objc func handleRoundEnded() {
         didEndRound = true
-//        performSegue(withIdentifier: "endRound", sender: self)
     }
 
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
         if !didEndRound {
             dismiss(animated: true, completion: nil)
-        } else {
-            didEndRound = false
         }
     }
     
@@ -149,5 +139,15 @@ extension HousesViewController: UICollectionViewDelegate {
         if let cell = collectionView.cellForItem(at: indexPath) {
             openOrders(cell)
         }
+    }
+}
+
+extension HousesViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = housesCollectionView.frame.width / 6.6
+        let height = housesCollectionView.frame.height / 2.4
+        return CGSize(width: width, height: height)
     }
 }

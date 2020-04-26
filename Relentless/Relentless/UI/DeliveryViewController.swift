@@ -41,7 +41,6 @@ class DeliveryViewController: UIViewController {
     }
 
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
-        print("cancel pressed")
         returnToPackingView()
     }
     

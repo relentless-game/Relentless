@@ -53,8 +53,7 @@ class CategoryGenerator: GameCategoryGenerator {
             categoriesWithOrders.remove(at: index)
         }
 
-//        return Array(categories)
-        return [Category(name: "Police Car")]
+        return Array(categories)
     }
 
     /// Considered enough as long as there are at least as many inventory items as the number of players

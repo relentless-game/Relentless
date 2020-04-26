@@ -147,6 +147,7 @@ class GameControllerManager: GameController {
         guard let parameters = gameParameters else {
             return
         }
+        pauseAllTimers()
         game?.resetForNewRound()
         parameters.incrementDifficulty()
 
@@ -185,7 +186,6 @@ class GameControllerManager: GameController {
     func updateTimeLeft() {
         roundTimeLeft -= 1
         if roundTimeLeft == 0 {
-            print("end round cuz run out of time")
             endRound()
         }
     }
@@ -216,7 +216,7 @@ class GameControllerManager: GameController {
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction <= 0 {
-            print("end round cuz satis bar < 0")
+            pauseAllTimers()
             endRound()
         }
     }

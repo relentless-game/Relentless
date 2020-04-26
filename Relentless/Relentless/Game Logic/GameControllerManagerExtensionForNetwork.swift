@@ -72,7 +72,6 @@ extension GameControllerManager {
     @objc
     func endRound() {
         game?.resetForNewRound()
-        pauseAllTimers()
         guard let gameId = gameId, let roundNumber = game?.currentRoundNumber else {
             return
         }
@@ -191,7 +190,6 @@ extension GameControllerManager {
     internal func onGameStatusDidChange(gameStatus: GameStatus) {
         // update game status
         self.gameStatus = gameStatus
-        print("game status is \(gameStatus)")
 
         if gameStatus.didEndGamePrematurely {
             handleGameEnd()

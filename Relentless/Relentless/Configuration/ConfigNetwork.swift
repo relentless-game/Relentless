@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Fetches game host parameters and local configuration values from Remote Config over the network.
 protocol ConfigNetwork {
 
     func fetchGameHostParameters() -> GameHostParameters?

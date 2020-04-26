@@ -7,6 +7,7 @@
 //
 import Foundation
 
+/// This class stores all the notification names for NotificationCenter.
 extension Notification.Name {
 
     /// Notifications from within `Model` (for `Model`)

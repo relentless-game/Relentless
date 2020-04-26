@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// This class stores variable names for game parameters.
 class VariableNames {
 
     static let difficultyLevel = "diffLevel"

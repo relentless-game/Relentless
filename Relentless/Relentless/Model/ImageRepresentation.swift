@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// This class represents 
 class ImageRepresentation: Codable {
     let imageStrings: [String]
 

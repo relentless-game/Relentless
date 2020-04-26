@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of `GameHostController` which
+/// handles the game logic for a host player.
 class GameHostControllerManager: GameControllerManager, GameHostController {
 
     var hostParameters: GameHostParameters? {

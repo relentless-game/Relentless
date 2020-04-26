@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// This class represents an entry in the score board at the end of the game.
 class ScoreRecord: Codable {
     static let dateFormat = "yyyy-MM-dd HH:mm:ss"
     let score: Int

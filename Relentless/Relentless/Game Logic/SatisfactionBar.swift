@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Handles the satisfaction bar at the bottom of the game screen.
 class SatisfactionBar {
 
     private var startingSatisfaction: Double

@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is an extension of `GameControllerManager` which handles the game logic
+/// related to communicating with `Network`.
 extension GameControllerManager {
     /// Player joins the game and with user defined username
     internal func joinGame(gameId: Int, userName: String, avatar: PlayerAvatar) {

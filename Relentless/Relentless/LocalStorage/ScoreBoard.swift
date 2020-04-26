@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+/// Handles the score board at the end of the game.
 protocol ScoreBoard {
 
     func getExistingScores() throws -> [ScoreRecord]

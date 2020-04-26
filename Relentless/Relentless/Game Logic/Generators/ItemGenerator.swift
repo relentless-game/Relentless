@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Generates the items and returns an array of inventory items and an array of order items.
 class ItemGenerator: GameItemGenerator {
     let numberOfPlayers: Int
     let numOfGroupsPerCategory: Int

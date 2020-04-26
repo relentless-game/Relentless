@@ -1,5 +1,5 @@
 //
-//  DemoConfigValues.swift
+//  LocalConfigValues.swift
 //  Relentless
 //
 //  Created by Yi Wai Chow on 24/4/20.
@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// This is the implementation class of the protocol `ConfigValues` for locally stored game parameters.
+/// It is a util class to get a String or Number from game parameter cofiguration stored locally.
 class LocalConfigValues: ConfigValues, Codable {
 
     var valuesDict: [String: String?]?

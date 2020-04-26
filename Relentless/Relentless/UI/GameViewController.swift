@@ -96,7 +96,6 @@ class GameViewController: UIViewController {
             viewController?.gameController = gameController
         } else if segue.identifier == "endGame" {
             let viewController = segue.destination as? GameOverViewController
-            viewController?.gameController = gameController
             do {
                 try viewController?.scores = gameController?.getExistingScores()
             } catch {

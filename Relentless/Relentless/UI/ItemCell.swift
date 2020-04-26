@@ -12,23 +12,22 @@ class ItemCell: UICollectionViewCell {
     // todo: change to UIImageView
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var background: UIImageView!
+    @IBOutlet private var selection: UIImageView!
 
-    var state: ItemCellState = .opaque {
+    var state: ItemCellState = .deselected {
         didSet {
             switch state {
-            case .transparent:
-                background.alpha = 0.2
-            case .translucent:
-                background.alpha = 0.6
-            case .opaque:
-                background.alpha = 1
+            case .deselected:
+                selection.isHidden = true
+            case .selected:
+                selection.isHidden = false
             }
         }
     }
 
     // swiftlint:disable unused_setter_value
     // unused settervalue in order to override normal cell behaviour
-    // causes problems in selection of robot - animation will stop
+    // causes problems in selection of animated items - animation will stop
     override var isSelected: Bool {
         set {
         }
@@ -56,6 +55,9 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setBackgroundFor(item: Item) {
+        for view in background.subviews {
+            view.removeFromSuperview()
+        }
         switch item.itemType {
         case .titledItem:
             if let titledItem = item as? TitledItem {
@@ -103,14 +105,11 @@ class ItemCell: UICollectionViewCell {
     }
 
     func setAssembledItemBackgroundFor(item: AssembledItem) {
-        for view in subviews where view != background && view != textLabel {
-            view.removeFromSuperview()
-        }
-        setBackgroundTo(named: "house.png")
         guard let assembledItemImageRepresentation = item.imageRepresentation as?
             AssembledItemImageRepresentation else {
             return
         }
+        setBackgroundTo(named: assembledItemImageRepresentation.imageStrings[0])
         let partsImageStrings = assembledItemImageRepresentation.partsImageStrings
         for part in item.parts {
             let category = part.category
@@ -122,7 +121,7 @@ class ItemCell: UICollectionViewCell {
 
     func drawStaticPartImageViewWith(image: UIImage?) {
         let imageView = UIImageView()
-        self.addSubview(imageView)
+        background.addSubview(imageView)
         imageView.image = image
         let square_length = min(self.frame.width, self.frame.height)
         imageView.frame = CGRect(x: 0, y: 0, width: square_length, height: square_length)
@@ -130,7 +129,7 @@ class ItemCell: UICollectionViewCell {
 
     func drawAnimatedPartImageViewWith(images: [UIImage], duration: Int) {
         let imageView = UIImageView()
-        self.addSubview(imageView)
+        background.addSubview(imageView)
         imageView.animationDuration = TimeInterval(duration)
         imageView.animationImages = images
         imageView.startAnimating()
@@ -161,8 +160,9 @@ class ItemCell: UICollectionViewCell {
                 drawAnimatedPartImageViewWith(images: images, duration: rhythmicItem.unitDuration)
             }
         case .assembledItem:
-            let imageString = imageStrings[0]
-            drawStaticPartImageViewWith(image: UIImage(named: imageString))
+            if let assembledItem = part as? AssembledItem {
+                setAssembledItemBackgroundFor(item: assembledItem)
+            }
         }
     }
 }

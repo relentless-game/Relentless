@@ -68,7 +68,7 @@
 		5D5E04172425EDA30005A134 /* DeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04112425EDA10005A134 /* DeliveryViewController.swift */; };
 		5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04122425EDA10005A134 /* OrderHeaderView.swift */; };
 		5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04132425EDA20005A134 /* PackageCell.swift */; };
-		5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */; };
+		5D5E041A2425EDA30005A134 /* UIViewController+ClearNavStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5E04142425EDA20005A134 /* UIViewController+ClearNavStack.swift */; };
 		5D632CF82434492900A58523 /* CooperHewitt-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */; };
 		5D632CF92434492900A58523 /* CooperHewitt-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */; };
 		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
@@ -245,7 +245,7 @@
 		5D5E04112425EDA10005A134 /* DeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeliveryViewController.swift; sourceTree = "<group>"; };
 		5D5E04122425EDA10005A134 /* OrderHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHeaderView.swift; sourceTree = "<group>"; };
 		5D5E04132425EDA20005A134 /* PackageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageCell.swift; sourceTree = "<group>"; };
-		5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIVIewController+ClearNavStack.swift"; sourceTree = "<group>"; };
+		5D5E04142425EDA20005A134 /* UIViewController+ClearNavStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ClearNavStack.swift"; sourceTree = "<group>"; };
 		5D632CF62434492800A58523 /* CooperHewitt-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Bold.otf"; sourceTree = "<group>"; };
 		5D632CF72434492900A58523 /* CooperHewitt-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CooperHewitt-Medium.otf"; sourceTree = "<group>"; };
 		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -502,7 +502,7 @@
 				5D5E04102425EDA10005A134 /* HousesViewController.swift */,
 				5D5E04122425EDA10005A134 /* OrderHeaderView.swift */,
 				5D5E04132425EDA20005A134 /* PackageCell.swift */,
-				5D5E04142425EDA20005A134 /* UIVIewController+ClearNavStack.swift */,
+				5D5E04142425EDA20005A134 /* UIViewController+ClearNavStack.swift */,
 				0BBEF06024237E15002FF3DE /* ItemCell.swift */,
 				5D1B680A2438889A00676890 /* ItemCellState.swift */,
 				F30E1D2B2435B08E00AD6A7B /* PauseViewController.swift */,
@@ -1034,7 +1034,7 @@
 				62AF1BDE2452F2F500FE7C9D /* LocalConfigValues.swift in Sources */,
 				6249B511241CA76D002F8A1B /* GameControllerManager.swift in Sources */,
 				5D2AF93B244DE0B10023129B /* PackingViewController+CollectionViews.swift in Sources */,
-				5D5E041A2425EDA30005A134 /* UIVIewController+ClearNavStack.swift in Sources */,
+				5D5E041A2425EDA30005A134 /* UIViewController+ClearNavStack.swift in Sources */,
 				0BD1BB7A2442BD5500FB578C /* GameControllerManagerExtensionForNetwork.swift in Sources */,
 				62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */,
 				F319B32B241B7A44005E3129 /* Network.swift in Sources */,

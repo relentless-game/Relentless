@@ -68,7 +68,8 @@ class GameHostParameters: GameParameters {
     // Should be between 0 and 1
     var probOfHavingPackageLimit: Double {
         let defaultValue = difficultyLevel / 50
-        return probOfHavingPackageLimitExpression?(varDict) ?? defaultValue
+        //return probOfHavingPackageLimitExpression?(varDict) ?? defaultValue
+        return 1
     }
 
     /// For random events

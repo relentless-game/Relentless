@@ -11,7 +11,7 @@ import UIKit
 
 class TitleViewController: UIViewController {
 
-    @IBOutlet weak var demoModeSwitch: UISwitch!
+    @IBOutlet private weak var demoModeSwitch: UISwitch!
 
     @IBAction private func createRoom(_ sender: UIButton) {
         removeAllPreviousViewControllers()

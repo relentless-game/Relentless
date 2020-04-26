@@ -56,13 +56,6 @@ class GameHostParameters: GameParameters {
         let defaultValue = Int((difficultyLevel / 2).rounded(.up))
         return numOfOrdersPerPlayerExpression?(varDict) ?? defaultValue
     }
-    // Should be between 0 and 1
-    var probOfSelectingOwnItem: Double {
-        let probability = 1 / (difficultyLevel + 1)
-        assert(probability >= 0 && probability <= 1)
-        let defaultValue = probability
-        return probOfSelectingOwnItemExpression?(varDict) ?? defaultValue
-    }
 
     /// For package items limit
     // Should be between 0 and 1

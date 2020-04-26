@@ -190,7 +190,6 @@ extension GameControllerManager {
     internal func onGameStatusDidChange(gameStatus: GameStatus) {
         // update game status
         self.gameStatus = gameStatus
-        print("game status is \(gameStatus)")
 
         if gameStatus.didEndGamePrematurely {
             handleGameEnd()

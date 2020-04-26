@@ -53,7 +53,8 @@ class CategoryGenerator: GameCategoryGenerator {
             categoriesWithOrders.remove(at: index)
         }
 
-        return Array(categories)
+//        return Array(categories)
+        return [Category(name: "Police Car")]
     }
 
     /// Considered enough as long as there are at least as many inventory items as the number of players
@@ -61,7 +62,7 @@ class CategoryGenerator: GameCategoryGenerator {
         let itemsInCategories = categories.compactMap { categoryToGroupsMapping[$0] }
             .reduce(Set<Item>()) { result, group in
             result.union(group.flatMap { $0 })
-        }
+            }
         return itemsInCategories.count >= numberOfPlayers
     }
 

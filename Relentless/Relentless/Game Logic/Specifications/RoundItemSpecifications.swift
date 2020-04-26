@@ -8,7 +8,7 @@
 
 import Foundation
 class RoundItemSpecifications: Codable {
-    let partsToAssembledItemCategoryMapping: [[Category]: Category]
+    let partsToAssembledItemCategoryMapping: [[Category]: Category] // categories should be sorted
 
     init(partsToAssembledItemCategoryMapping: [[Category]: Category]) {
         self.partsToAssembledItemCategoryMapping = partsToAssembledItemCategoryMapping

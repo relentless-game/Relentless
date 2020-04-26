@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Counts down when a player has left the game, will end game upon time up.
 class PauseViewController: UIViewController {
     @IBOutlet private var textLabel: UILabel!
     var gameController: GameController?

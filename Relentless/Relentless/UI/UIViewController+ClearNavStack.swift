@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Allows the removal of previous VCs in the navigation stack.
 extension UIViewController {
     func removePreviousViewController() {
         guard let count = navigationController?.viewControllers.count else {

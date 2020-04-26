@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Shows the orders from a specific house.
 class OrderViewController: UIViewController {
     var orders: [Order]?
 

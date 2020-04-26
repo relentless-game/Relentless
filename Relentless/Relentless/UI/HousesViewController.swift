@@ -8,15 +8,17 @@
 
 import UIKit
 
+/// Displays all houses and the time remaining for orders from those houses. Allows viewing of orders from each house.
 class HousesViewController: UIViewController {
-    var gameController: GameController?
-    var houses: [House]?
-    var activeHouse: House?
-    let housesIdentifier = "HouseCell"
-    let orderIdentifier = "OrderViewController"
-    var didEndRound = false
     @IBOutlet private var housesCollectionView: UICollectionView!
     @IBOutlet private var satisfactionBar: UIProgressView!
+
+    var gameController: GameController?
+    private var houses: [House]?
+    private var activeHouse: House?
+    private let housesIdentifier = "HouseCell"
+    private let orderIdentifier = "OrderViewController"
+    private var didEndRound = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +28,12 @@ class HousesViewController: UIViewController {
         updateSatisfactionBar()
     }
 
-    func initCollectionView() {
+    private func initCollectionView() {
         let itemNib = UINib(nibName: housesIdentifier, bundle: nil)
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
     }
 
-    func addObservers() {
+    private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundEnded),
                                                name: .didEndRound, object: nil)
@@ -40,17 +42,17 @@ class HousesViewController: UIViewController {
                                                name: .didChangeSatisfactionBar, object: nil)
     }
 
-    func removeObservers() {
+    private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
     }
 
-    @objc func updateSatisfactionBar() {
+    @objc private func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
             satisfactionBar.setProgress(Float(value), animated: false)
         }
     }
 
-    @objc func handleRoundEnded() {
+    @objc private func handleRoundEnded() {
         didEndRound = true
     }
 
@@ -60,7 +62,7 @@ class HousesViewController: UIViewController {
         }
     }
     
-    func openOrders(_ sender: UIView) {
+    private func openOrders(_ sender: UIView) {
         guard let activeHouse = activeHouse,
             let orders = gameController?.retrieveActiveOrders(for: activeHouse),
             !orders.isEmpty else {
@@ -80,9 +82,6 @@ class HousesViewController: UIViewController {
                 pop.sourceView = self.view
                 pop.sourceRect = CGRect(x: 0, y: 0, width: 0, height: 0)
                 pop.permittedArrowDirections = []
-//                pop.sourceView = sender
-//                pop.sourceRect = sender.bounds
-//                pop.permittedArrowDirections = .up
             }
             self.present(viewController, animated: true)
         }

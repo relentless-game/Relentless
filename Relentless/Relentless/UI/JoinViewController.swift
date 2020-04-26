@@ -8,34 +8,40 @@
 
 import UIKit
 
+/// Controls the joining of games with a game ID.
 class JoinViewController: UIViewController, UITextFieldDelegate {
-
-    static var teamCodeCharacterLimit = 4
     @IBOutlet private var teamCodeTextField: UITextField!
     @IBOutlet private var joinButton: UIButton!
+
+    /// Represents the number of characters in a team code.
+    static var teamCodeCharacterLimit = 4
     var gameController: GameController?
-    var userId: String?
-    var gameId: Int?
-    weak var delegate = UIApplication.shared.delegate as? AppDelegate
+    private var userId: String?
+    private var gameId: Int?
+    private weak var delegate = UIApplication.shared.delegate as? AppDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        teamCodeTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
-        teamCodeTextField.delegate = self
+        initTeamCodeTextField()
         initUserId()
         if let userId = self.userId {
             gameController = GameControllerManager(userId: userId)
         }
         addObservers()
     }
+
+    private func initTeamCodeTextField() {
+        teamCodeTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        teamCodeTextField.delegate = self
+    }
     
-    func initUserId() {
+    private func initUserId() {
         if let delegate = delegate {
             userId = delegate.userId
         }
     }
 
-    func addObservers() {
+    private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleJoinSuccess),
                                                name: .didJoinGame, object: nil)
@@ -50,7 +56,7 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
                                                name: .gameAlreadyPlaying, object: nil)
     }
     
-    func removeObservers() {
+    private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
         NotificationCenter.default.removeObserver(self, name: .invalidGameId, object: nil)
         NotificationCenter.default.removeObserver(self, name: .gameRoomFull, object: nil)
@@ -84,16 +90,9 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
             let proposedText = text.replacingCharacters(in: range, with: string)
             // Check proposed text length does not exceed max character count
             guard proposedText.count <= JoinViewController.teamCodeCharacterLimit else {
-                // Present alert if pasting text
-                if string.count > 1 {
-                    // Pasting text, present alert so the user knows what went wrong
-//                    presentAlert("Paste failed: Maximum character count exceeded.")
-                }
-
                 // Character count exceeded, disallow text change
                 return false
             }
-
             joinButton.isEnabled = (proposedText.count == JoinViewController.teamCodeCharacterLimit)
         }
 
@@ -101,19 +100,20 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    // On Join Button press, tries to join the game with room ID.
     @IBAction private func tryJoinGame(_ sender: Any) {
         if let text = teamCodeTextField.text, let gameId = Int(text) {
             self.gameId = gameId
-            // TODO: how do we decide default avatar?
+            // By default, players begin with a blank username and the red avatar.
             _ = gameController?.joinGame(gameId: gameId, userName: "", avatar: .red)
         }
     }
 
-    @objc func handleJoinSuccess() {
+    @objc private func handleJoinSuccess() {
         performSegue(withIdentifier: "joinGame", sender: self)
     }
 
-    @objc func handleGameRoomFull() {
+    @objc private func handleGameRoomFull() {
         let message = "The team is already full."
         let alert = createAlert(title: "Sorry.",
                                 message: message,
@@ -146,7 +146,8 @@ class JoinViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func createAlert(title: String, message: String, action: String) -> UIAlertController {
+    // Helper function for simple alerts with one dismissal action.
+    private func createAlert(title: String, message: String, action: String) -> UIAlertController {
         let controller = UIAlertController(title: String(title),
                                            message: String(message),
                                            preferredStyle: .alert)

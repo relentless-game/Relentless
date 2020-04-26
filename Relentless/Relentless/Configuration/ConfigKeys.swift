@@ -37,6 +37,5 @@ class ConfigKeys {
     static let probOfSelectingOwnItem = "probOfSelectingOwnItem"
     static let probOfHavingPackageLimit = "probOfHavingPackageLimit"
     static let probOfSelectingAssembledItem = "probOfSelectingAssembledItem"
-    static let probOfEvent = "probOfEvent"
 
 }

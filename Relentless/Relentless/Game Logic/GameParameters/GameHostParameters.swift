@@ -23,7 +23,6 @@ class GameHostParameters: GameParameters {
     internal var probOfSelectingOwnItemExpression: D?
     internal var probOfHavingPackageLimitExpression: D?
     internal var probOfSelectingAssembledItemExpression: D?
-    internal var probOfEventExpression: D?
 
     /// The following properties are computed based on the closures above and take in a dictionary
     /// that specifies the variable values in the closure expressions
@@ -62,13 +61,6 @@ class GameHostParameters: GameParameters {
     var probOfHavingPackageLimit: Double {
         let defaultValue = difficultyLevel / 50
         return probOfHavingPackageLimitExpression?(varDict) ?? defaultValue
-    }
-
-    /// For random events
-    // Should be between 0 and 1
-    var probOfEvent: Double {
-        let defaultValue = difficultyLevel / 50
-        return probOfEventExpression?(varDict) ?? defaultValue
     }
 
     func probOfSelectingAssembledItem(numberOfPlayers: Int) -> Double {

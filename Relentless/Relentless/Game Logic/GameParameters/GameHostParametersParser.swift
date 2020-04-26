@@ -50,8 +50,7 @@ class GameHostParametersParser: GameParametersParser {
             let maxNumOfItemsPerOrderExpression: I = parseStringExpression(key: ConfigKeys.maxNumOfItemsPerOrder),
             let numOfOrdersPerPlayerExpression: I = parseStringExpression(key: ConfigKeys.numOfOrdersPerPlayer),
             let probOfSelectingOwnItemExpression: D = parseStringExpression(key: ConfigKeys.probOfSelectingOwnItem),
-            let probOfHavingPackageLimitExpression: D = parseStringExpression(key: ConfigKeys.probOfHavingPackageLimit),
-            let probOfEventExpression: D = parseStringExpression(key: ConfigKeys.probOfEvent) else {
+            let probOfHavingPackageLimitExpression: D = parseStringExpression(key: ConfigKeys.probOfHavingPackageLimit) else {
                 return false
         }
 
@@ -62,7 +61,6 @@ class GameHostParametersParser: GameParametersParser {
         gameHostParameters.numOfOrdersPerPlayerExpression = numOfOrdersPerPlayerExpression
         gameHostParameters.probOfSelectingOwnItemExpression = probOfSelectingOwnItemExpression
         gameHostParameters.probOfHavingPackageLimitExpression = probOfHavingPackageLimitExpression
-        gameHostParameters.probOfEventExpression = probOfEventExpression
         return true
     }
 }

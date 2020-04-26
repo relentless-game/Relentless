@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Represents the header to separate each order within one house.
 class OrderHeaderView: UICollectionReusableView {
 
 }

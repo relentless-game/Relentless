@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// Helps with the generation of images relating to the player's avatar, which are
+/// the avatar itself, the packages created by the player, and the add package button.
 class PlayerImageHelper {
     private static let redAvatar = UIImage(named: "avatar_red.png")
     private static let yellowAvatar = UIImage(named: "avatar_yellow.png")

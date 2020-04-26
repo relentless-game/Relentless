@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+/// Represents a score from a played game.
 class ScoreCell: UITableViewCell {
     static let fontSize: CGFloat = 20
     static let regularFontName = "AppleSDGothicNeo-Regular"

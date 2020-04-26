@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
+/// Shows the local scoreboard when the game ends.
 class GameOverViewController: UIViewController {
-
     @IBOutlet private var backToMainMenuButton: UIButton!
     @IBOutlet private var scoresView: UITableView!
-    var scores: [ScoreRecord]?
 
+    var scores: [ScoreRecord]?
     private let scoreIdentifier = "scoreCell"
 
     override func viewDidLoad() {

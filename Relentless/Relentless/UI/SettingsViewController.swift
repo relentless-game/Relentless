@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
+/// Allows the adjusting of the difficulty level for the game.
 class SettingsViewController: UIViewController {
-
     var gameController: GameController?
 
     @IBOutlet private var difficultyLevelSlider: UISlider!

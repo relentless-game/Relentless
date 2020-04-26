@@ -8,8 +8,8 @@
 
 import UIKit
 
+/// Represents a house.
 class HouseCell: UICollectionViewCell {
-    // todo: change to UIImageView
     var house: House!
     @IBOutlet private var icon: UIImageView!
     @IBOutlet private var progressView: UIProgressView!
@@ -20,12 +20,13 @@ class HouseCell: UICollectionViewCell {
                                                name: .didChangeOrders, object: nil)
     }
 
-    @objc func handleOrderChanged() {
+    @objc private func handleOrderChanged() {
         if let timeRatio = house.nearestActiveOrderTimeRatio {
             progressView.setProgress(timeRatio, animated: false)
         }
     }
 
+    /// Sets the house for this cell to display. Updates the display upon setting.
     func setHouse(house: House) {
         self.house = house
         if !house.activeOrders.isEmpty {

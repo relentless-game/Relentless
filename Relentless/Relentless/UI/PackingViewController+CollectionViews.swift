@@ -8,6 +8,8 @@
 
 import UIKit
 
+/// The extensions in this file deal with the 3 collection views of the packing view controller:
+/// The packages, the current package items, and the items in inventory.
 extension PackingViewController: UICollectionViewDataSource {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {

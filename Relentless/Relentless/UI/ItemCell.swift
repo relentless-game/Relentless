@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Represents an item.
 class ItemCell: UICollectionViewCell {
     // todo: change to UIImageView
     @IBOutlet private var textLabel: UILabel!
@@ -26,8 +27,8 @@ class ItemCell: UICollectionViewCell {
     }
 
     // swiftlint:disable unused_setter_value
-    // unused settervalue in order to override normal cell behaviour
-    // causes problems in selection of animated items - animation will stop
+    // Unused settervalue in order to override normal cell behaviour
+    // Original behaviour causes problems in selection of animated items - animation will stop.
     override var isSelected: Bool {
         set {
         }

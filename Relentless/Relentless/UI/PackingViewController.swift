@@ -8,11 +8,9 @@
 
 import UIKit
 
+/// Displays the player's packages and items. It allows for the creation and modification of packages.
+/// From this VC, you can move to DeliveryVC and HousesVC.
 class PackingViewController: UIViewController {
-    var gameController: GameController?
-    var backgroundTask: UIBackgroundTaskIdentifier = .invalid
-    var endRoundTimer: Timer?
-
     // swiftlint:disable private_outlet
     // Necessary to be accessed in extensions.
     @IBOutlet internal var packagesView: UICollectionView!
@@ -25,25 +23,29 @@ class PackingViewController: UIViewController {
     @IBOutlet private var openBoxImageView: UIImageView!
     @IBOutlet private var assemblingView: UILabel!
 
-    // items will be updated when the category is changed
-    var items: [Category: [Item]]?
-    var packages: [Package]?
-    var currentCategory: Category?
-    var currentPackage: Package?
-    var currentPackageItems: [Item]?
-    var packageForDelivery: Package?
-    let categoryIdentifier = "CategoryViewController"
-    let itemIdentifier = "ItemCell"
-    let packageIdentifier = "PackageCell"
-    let addPackageIdentifier = "AddPackageButton"
+    var gameController: GameController?
+    private var backgroundTask: UIBackgroundTaskIdentifier = .invalid
+    private var endRoundTimer: Timer?
+    private var packageForDelivery: Package?
 
-    var assemblyMode = false {
+    // This set of variables are used for the collection views.
+    // items will be updated when the category is changed
+    internal var items: [Category: [Item]]?
+    internal var packages: [Package]?
+    internal var currentCategory: Category?
+    internal var currentPackage: Package?
+    internal var currentPackageItems: [Item]?
+    internal let categoryIdentifier = "CategoryViewController"
+    internal let itemIdentifier = "ItemCell"
+    internal let packageIdentifier = "PackageCell"
+    internal let addPackageIdentifier = "AddPackageButton"
+
+    internal var assemblyMode = false {
         didSet {
             assemblingView.isHidden = !assemblyMode
         }
     }
-//    var selectedPartsSet = Set<Item>()
-    var selectedParts = [Bool]()
+    internal var selectedParts = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,59 +55,7 @@ class PackingViewController: UIViewController {
         registerBackgroundTask()
     }
 
-    func addObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadAllViews),
-                                               name: .didStartRound, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadPackages),
-                                               name: .didChangePackages, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCurrentPackage),
-                                               name: .didChangeItems, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSatisfactionBar),
-                                               name: .didChangeSatisfactionBar, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundEnded),
-                                               name: .didEndRound, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleGameEnded),
-                                               name: .didEndGame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleItemLimitReached),
-                                               name: .didItemLimitReached, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCurrentPackage),
-                                               name: .didChangeOpenPackage, object: nil)
-        // The following observers are for the pausing feature
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAppMovedToBackground),
-                                               name: UIApplication.didEnterBackgroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleAppMovedToForeground),
-                                               name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundPaused),
-                                               name: .didPauseRound, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRoundResumed),
-                                               name: .didResumeRound, object: nil)
-        // To inform player about the result of their delivery
-        NotificationCenter.default.addObserver(self, selector: #selector(handleCorrectDelivery),
-                                               name: .correctDelivery, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleWrongDelivery),
-                                               name: .wrongDelivery, object: nil)
-    }
-
-    func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didChangePackages, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didChangeItems, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didChangeSatisfactionBar, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didChangeOpenPackage, object: nil)
-        // The following observers are for the pausing feature
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didPauseRound, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .didResumeRound, object: nil)
-        // The following observers are to inform player about the result of their delivery
-        NotificationCenter.default.removeObserver(self, name: .correctDelivery, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .wrongDelivery, object: nil)
-    }
-
-    func initialiseCollectionViews() {
+    private func initialiseCollectionViews() {
         attachLongPressToPackages()
         let itemNib = UINib(nibName: itemIdentifier, bundle: nil)
         currentPackageView.register(itemNib, forCellWithReuseIdentifier: itemIdentifier)
@@ -124,7 +74,7 @@ class PackingViewController: UIViewController {
         }
     }
 
-    @objc func reloadAllViews() {
+    @objc internal func reloadAllViews() {
         reloadPackages()
         reloadItems()
         reloadCurrentPackage()
@@ -132,7 +82,7 @@ class PackingViewController: UIViewController {
         updateSatisfactionBar()
     }
     
-    @objc func reloadPackages() {
+    @objc internal func reloadPackages() {
         currentPackage = gameController?.retrieveOpenPackage()
         currentPackageLabel.text = gameController?.openedPackage?.toString()
         reloadOpenBoxView()
@@ -140,11 +90,11 @@ class PackingViewController: UIViewController {
         packagesView.reloadData()
     }
 
-    func reloadOpenBoxView() {
+    private func reloadOpenBoxView() {
         openBoxImageView.isHidden = currentPackage == nil
     }
 
-    func reloadItems() {
+    private func reloadItems() {
         items = gameController?.playerItems
 
         if let newCategory = items?.keys.first {
@@ -154,7 +104,7 @@ class PackingViewController: UIViewController {
         itemsView.reloadData()
     }
 
-    @objc func reloadCurrentPackage() {
+    @objc internal func reloadCurrentPackage() {
         currentPackage = gameController?.retrieveOpenPackage()
         reloadOpenBoxView()
         currentPackageItems = gameController?.retrieveItemsFromOpenPackage()
@@ -163,13 +113,13 @@ class PackingViewController: UIViewController {
         packagesView.reloadData()
     }
 
-    @objc func updateSatisfactionBar() {
+    @objc internal func updateSatisfactionBar() {
         if let value = gameController?.satisfactionBar.currentFractionalSatisfaction {
             satisfactionBar.setProgress(Float(value), animated: false)
         }
     }
     
-    @objc func handleRoundEnded() {
+    @objc internal func handleRoundEnded() {
         NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
         self.view.isUserInteractionEnabled = false
         let title = "This round has ended."
@@ -182,12 +132,12 @@ class PackingViewController: UIViewController {
         }
     }
     
-    @objc func handleGameEnded() {
+    @objc internal func handleGameEnded() {
         endRoundTimer?.invalidate()
         performSegue(withIdentifier: "endGameFromPacking", sender: self)
     }
 
-    @objc func handleItemLimitReached() {
+    @objc internal func handleItemLimitReached() {
         let alert = createAlert(title: "You can't add any more items!",
                                 message: "If you still have items to add, "
                                     + "try placing the items into the package in a different order.",
@@ -195,17 +145,17 @@ class PackingViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    func changeCurrentCategory(to category: Category) {
+    private func changeCurrentCategory(to category: Category) {
         currentCategory = category
         reloadCategoryButton()
         itemsView.reloadData()
     }
 
-    func reloadCategoryButton() {
+    private func reloadCategoryButton() {
         categoryButton.setTitle(currentCategory?.categoryName, for: .normal)
     }
 
-    func attachLongPressToPackages() {
+    private func attachLongPressToPackages() {
         let longPressGR = UILongPressGestureRecognizer(target: self,
                                                        action: #selector(handlePackageLongPress(longPressGR:)))
         longPressGR.minimumPressDuration = 0.5
@@ -213,18 +163,15 @@ class PackingViewController: UIViewController {
         self.packagesView.addGestureRecognizer(longPressGR)
     }
 
-    @objc
-    func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
+    @objc internal func handlePackageLongPress(longPressGR: UILongPressGestureRecognizer) {
         if longPressGR.state != .began {
             return
         }
-
         let point = longPressGR.location(in: self.packagesView)
         let indexPath = self.packagesView.indexPathForItem(at: point)
-
         if let indexPath = indexPath {
             if indexPath.item == packages?.count {
-                // addButton
+                // The last item is actually the Add Button.
                 return
             }
             let cell = self.packagesView.cellForItem(at: indexPath)
@@ -247,7 +194,7 @@ class PackingViewController: UIViewController {
         }
     }
 
-    func assembleParts() {
+    private func assembleParts() {
         do {
             var parts = [Item]()
             for index in 0..<selectedParts.count {
@@ -318,24 +265,7 @@ class PackingViewController: UIViewController {
         }
     }
     
-    // The following methods are for the pausing feature
-    // Called before segue to Game VC at the end of a round
-    private func removeBackgroundObservers() {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIApplication.willResignActiveNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIApplication.willEnterForegroundNotification,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: .didPauseRound,
-                                                  object: nil)
-        NotificationCenter.default.removeObserver(self,
-                                                  name: .didResumeRound,
-                                                  object: nil)
-    }
-    
-    @objc private func handleAppMovedToForeground() {
+    @objc internal func handleAppMovedToForeground() {
         endBackgroundTask()
         gameController?.resumeRound()
         if backgroundTask == .invalid {
@@ -343,7 +273,7 @@ class PackingViewController: UIViewController {
         }
     }
 
-    @objc private func handleRoundPaused() {
+    @objc internal func handleRoundPaused() {
         performSegue(withIdentifier: "pauseGame", sender: self)
     }
     
@@ -358,23 +288,23 @@ class PackingViewController: UIViewController {
         }
     }
     
-    @objc private func handleRoundResumed() {
+    @objc internal func handleRoundResumed() {
         dismiss(animated: true, completion: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundPaused),
                                                name: .didPauseRound, object: nil)
     }
     
-    @objc private func handleAppMovedToBackground() {
+    @objc internal func handleAppMovedToBackground() {
         gameController?.pauseRound()
     }
     
-    @objc private func handleCorrectDelivery() {
+    @objc internal func handleCorrectDelivery() {
         // Shows user that the order was completed correctly
         generateTextLabelForDeliveryStatus(isCorrect: true)
     }
 
-    @objc private func handleWrongDelivery() {
+    @objc internal func handleWrongDelivery() {
         // Shows user that the order was completed wrongly
         generateTextLabelForDeliveryStatus(isCorrect: false)
     }

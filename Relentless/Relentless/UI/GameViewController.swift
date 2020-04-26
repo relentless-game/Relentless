@@ -8,13 +8,15 @@
 
 import UIKit
 
+/// Appears before the start of every round. It gives an update of the money left and number of days passed.
 class GameViewController: UIViewController {
-    var gameController: GameController?
     @IBOutlet private var proceedButton: UIButton!
     @IBOutlet private var detailsLabel: UILabel!
     @IBOutlet private var newDayLabel: UILabel!
-    var timer: Timer?
-    var gameHasEnded: Bool = false
+
+    var gameController: GameController?
+    private var timer: Timer?
+    private var gameHasEnded: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +26,7 @@ class GameViewController: UIViewController {
         updateMoneyLabel()
     }
 
-    func addObservers() {
+    private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleRoundStarted),
                                                name: .didStartRound, object: nil)
@@ -36,17 +38,17 @@ class GameViewController: UIViewController {
                                                name: .didChangeMoney, object: nil)
     }
     
-    func removeObservers() {
+    private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .didStartRound, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didEndGame, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didChangeMoney, object: nil)
     }
 
-    func initProceedButton() {
+    private func initProceedButton() {
         proceedButton.isHidden = !(gameController?.isHost ?? false)
     }
     
-    func updateNewDayLabel() {
+    private func updateNewDayLabel() {
         guard let roundNumber = gameController?.game?.currentRoundNumber else {
             return
         }
@@ -71,16 +73,16 @@ class GameViewController: UIViewController {
         }
     }
 
-    @objc func handleRoundStarted() {
+    @objc private func handleRoundStarted() {
         performSegue(withIdentifier: "startRound", sender: self)
     }
 
-    @objc func handleGameEnded() {
+    @objc private func handleGameEnded() {
         proceedButton.isHidden = false
         gameHasEnded = true
     }
 
-    @objc func updateMoneyLabel() {
+    @objc private func updateMoneyLabel() {
         timer?.invalidate()
         guard let money = gameController?.money else {
             return

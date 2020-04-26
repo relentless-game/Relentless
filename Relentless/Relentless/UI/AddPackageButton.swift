@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Represents the add new package button in the packages view in PackingVC.
 class AddPackageButton: UICollectionViewCell {
     @IBOutlet private var addImage: UIImageView!
 

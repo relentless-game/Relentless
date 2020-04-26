@@ -8,12 +8,13 @@
 
 import UIKit
 
+/// Represents a player in the DeliveryVC.
 class PlayerIconCell: UICollectionViewCell {
-    // todo: change to UIImageView
     var player: Player!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var icon: UIImageView!
 
+    /// Sets the player for this cell to display. Updates the display upon setting.
     func setPlayer(player: Player) {
         self.player = player
         textLabel.text = player.userName

@@ -214,12 +214,8 @@ class GameControllerManager: GameController {
 
     @objc
     func handleSatisfactionBarChange(notification: Notification) {
-        guard let parameters = gameParameters else {
-            return
-        }
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
-        if satisfactionBar.currentSatisfaction == 0 {
-            satisfactionBar.decrement(amount: parameters.satisfactionRunOutPenalty)
+        if satisfactionBar.currentSatisfaction <= 0 {
             endRound()
         }
     }

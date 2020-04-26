@@ -6,8 +6,9 @@
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
+/// Represents a player's avatar in the game.
 enum PlayerAvatar: String, Codable, CaseIterable {
-    // TODO: rename later
+    
     case red
     case yellow
     case green

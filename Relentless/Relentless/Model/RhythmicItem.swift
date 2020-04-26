@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A `RhythmicItem` is an item which contains a sequence of repeating states.
 class RhythmicItem: Item {
 
     // represents the duration (in seconds) for each state of the rhythm

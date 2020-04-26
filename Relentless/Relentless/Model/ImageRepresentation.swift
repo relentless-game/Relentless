@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// This class represents 
+/// This class represents image asset strings needed for assembled and rhythmic items.
 class ImageRepresentation: Codable {
     let imageStrings: [String]
 

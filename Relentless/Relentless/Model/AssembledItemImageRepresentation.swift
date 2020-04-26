@@ -7,7 +7,10 @@
 //
 
 import Foundation
+
+/// This class represents all the image asset strings needed for an `AssembledItem`.
 class AssembledItemImageRepresentation: ImageRepresentation {
+    
     // maps each Category to an array of strings. For StatefulItems and RhythmicItems,
     // the array is ordered by indices of the states that the image strings correspond to.
     // For TitledItems and AssembledItems, each array has only one string.

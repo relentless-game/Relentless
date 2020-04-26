@@ -198,7 +198,7 @@ extension GameControllerManager {
             NotificationCenter.default.post(name: .didEndGamePrematurely, object: nil)
         } else if gameStatus.didStartGame {
             NotificationCenter.default.post(name: .didStartGame, object: nil)
-        } else if gameStatus.didEndGame /*|| didRunOutPauseTime*/ {
+        } else if gameStatus.didEndGame {
             handleGameEnd()
             NotificationCenter.default.post(name: .didEndGame, object: nil)
         } else if gameStatus.didStartRound {

@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// Handles the networking component in charge of communication of information
+/// between different players in the game.
 protocol Network {
     
     /// Changes the `GameStatus` to notify other players that the game has ended.

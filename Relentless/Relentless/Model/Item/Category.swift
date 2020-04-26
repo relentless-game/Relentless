@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents a category of items.
 struct Category: Codable, Hashable {
     
     let categoryName: String

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Represents a package of items which the player can send to other players or use to fulfill an order.
 class Package: Codable {
     let creator: String /// user name of the player that created this package
     let creatorAvatar: PlayerAvatar /// avatar of creator

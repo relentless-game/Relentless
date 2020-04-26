@@ -66,7 +66,6 @@ class GameHostParametersParserTest: XCTestCase {
         let expectedNumOfOrdersPerPlayer = 2
         let expectedNumOfPlayersRange = 3...6
         let expectedProbOfHavingPackageLimit = 0.06
-        let expectedProbOfEvent = 0.25
 
         XCTAssertEqual(gameHostParameters.timeForEachItem, expectedTimeForEachItem)
         XCTAssertEqual(gameHostParameters.numOfCategories, expectedNumOfCategories)
@@ -75,7 +74,6 @@ class GameHostParametersParserTest: XCTestCase {
         XCTAssertEqual(gameHostParameters.numOfOrdersPerPlayer, expectedNumOfOrdersPerPlayer)
         XCTAssertEqual(gameHostParameters.numOfPlayersRange, expectedNumOfPlayersRange)
         XCTAssertEqual(gameHostParameters.probOfHavingPackageLimit, expectedProbOfHavingPackageLimit)
-        XCTAssertEqual(gameHostParameters.probOfEvent, expectedProbOfEvent)
     }
 
     func testParse_emptyConfigKeys_returnNil() {

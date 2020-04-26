@@ -50,7 +50,5 @@
 	<string>1.0 / (diffLevel + 1.0)</string>
 	<key>probOfHavingPackageLimit</key>
 	<string>diffLevel / 50.0</string>
-	<key>probOfEvent</key>
-	<string>1.0 / 4.0</string>
 </dict>
 </plist>

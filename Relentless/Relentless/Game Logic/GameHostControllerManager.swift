@@ -22,9 +22,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     var itemsAllocator: GameItemsAllocator?
     var ordersAllocator: GameOrdersAllocator?
 
-    /// Event might occur when timer fires based on game parameters.
-    var eventTimer = Timer()
-
     private var demoMode: Bool
 
     init(userId: String, demoMode: Bool) {
@@ -33,12 +30,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         self.gameParameters = getParameters()
         self.network = HostNetworkManager()
         self.isHost = true
-        if let parameters = gameParameters {
-            self.eventTimer = Timer.scheduledTimer(timeInterval: TimeInterval(parameters.roundTime / 2),
-                                                   target: self,
-                                                   selector: #selector(generateEvent), userInfo: nil,
-                                                   repeats: false)
-        }
     }
 
     func initialiseGeneratorAndAllocators() {
@@ -58,26 +49,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
                                           probabilityOfSelectingAssembledItem: probOfSelectingAssembledItem,
                                           timeForEachItem: parameters.timeForEachItem)
-    }
-
-    @objc
-    func generateEvent() {
-        guard let parameters = hostParameters else {
-            return
-        }
-
-        let eventGenerator = EventGenerator(probabilityOfEvent: parameters.probOfEvent)
-        guard let event = eventGenerator.generate() else {
-            return
-        }
-        // This will only make the event occur in the host
-        // Modify to send the enum `EventType` through the network
-        // Converting to actual event should be done through listener
-        switch event {
-        case .appreciationEvent:
-            let event = AppreciationEvent()
-            event.occur()
-        }
     }
 
     /// Player who invokes this method becomes the host and joins the game.

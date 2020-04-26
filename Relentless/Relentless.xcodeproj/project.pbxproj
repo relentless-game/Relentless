@@ -105,10 +105,6 @@
 		62D0EBCF242CCCA500FDAFAF /* RhythmicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBCE242CCCA500FDAFAF /* RhythmicItem.swift */; };
 		62D0EBD1242DD85D00FDAFAF /* RhythmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */; };
 		62D91FEA24497F9C0070CDE1 /* PackageItemsLimitGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D91FE924497F9C0070CDE1 /* PackageItemsLimitGenerator.swift */; };
-		62DC2AE4243893E0006EB27F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AE3243893E0006EB27F /* Event.swift */; };
-		62DC2AE624389406006EB27F /* AppreciationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AE524389406006EB27F /* AppreciationEvent.swift */; };
-		62DC2AE82438973A006EB27F /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AE72438973A006EB27F /* EventType.swift */; };
-		62DC2AEB24389777006EB27F /* EventGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62DC2AEA24389777006EB27F /* EventGenerator.swift */; };
 		62E75B20244D55DB001D53A4 /* GameParametersParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E75B1F244D55DB001D53A4 /* GameParametersParserTest.swift */; };
 		62E75B25244D6390001D53A4 /* ConfigKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E75B24244D6390001D53A4 /* ConfigKeys.swift */; };
 		62E75B2E244D7C1B001D53A4 /* RemoteConfigValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E75B2D244D7C1B001D53A4 /* RemoteConfigValues.swift */; };
@@ -285,10 +281,6 @@
 		62D0EBD0242DD85D00FDAFAF /* RhythmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmState.swift; sourceTree = "<group>"; };
 		62D0EBD4242DFB6900FDAFAF /* GameParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParameters.swift; sourceTree = "<group>"; };
 		62D91FE924497F9C0070CDE1 /* PackageItemsLimitGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageItemsLimitGenerator.swift; sourceTree = "<group>"; };
-		62DC2AE3243893E0006EB27F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		62DC2AE524389406006EB27F /* AppreciationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppreciationEvent.swift; sourceTree = "<group>"; };
-		62DC2AE72438973A006EB27F /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
-		62DC2AEA24389777006EB27F /* EventGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventGenerator.swift; sourceTree = "<group>"; };
 		62E75B1F244D55DB001D53A4 /* GameParametersParserTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameParametersParserTest.swift; sourceTree = "<group>"; };
 		62E75B21244D5AF7001D53A4 /* TestGameParameters.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TestGameParameters.plist; sourceTree = "<group>"; };
 		62E75B24244D6390001D53A4 /* ConfigKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigKeys.swift; sourceTree = "<group>"; };
@@ -515,7 +507,6 @@
 			children = (
 				62676DF22441B5010049DB45 /* GameParameters */,
 				0BC059BD24432AEF000F0ECB /* Specifications */,
-				62DC2AE924389764006EB27F /* Events */,
 				0B781574242CC2E9006CF4C2 /* Generators */,
 				0BD1BB752442B3B500FB578C /* Allocators */,
 				6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */,
@@ -544,17 +535,6 @@
 				62611C5824497DFC00171A24 /* GameHostParametersParser.swift */,
 			);
 			path = GameParameters;
-			sourceTree = "<group>";
-		};
-		62DC2AE924389764006EB27F /* Events */ = {
-			isa = PBXGroup;
-			children = (
-				62DC2AE3243893E0006EB27F /* Event.swift */,
-				62DC2AE524389406006EB27F /* AppreciationEvent.swift */,
-				62DC2AE72438973A006EB27F /* EventType.swift */,
-				62DC2AEA24389777006EB27F /* EventGenerator.swift */,
-			);
-			path = Events;
 			sourceTree = "<group>";
 		};
 		62E75B23244D62CE001D53A4 /* Configuration */ = {
@@ -996,7 +976,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62DC2AE82438973A006EB27F /* EventType.swift in Sources */,
 				0B09CA5A2432E99A00F29648 /* TitledItem.swift in Sources */,
 				0B09CA732438325A00F29648 /* GameOverViewController.swift in Sources */,
 				62697C2124445AFE005E21D6 /* VariableNames.swift in Sources */,
@@ -1050,16 +1029,13 @@
 				0BC059C124432C46000F0ECB /* ItemSpecificationsParser.swift in Sources */,
 				6249B507241C9541002F8A1B /* GameOrdersAllocator.swift in Sources */,
 				0B5A430C244465470067FD4C /* RoundItemSpecifications.swift in Sources */,
-				62DC2AE624389406006EB27F /* AppreciationEvent.swift in Sources */,
 				5D5E04182425EDA30005A134 /* OrderHeaderView.swift in Sources */,
 				0B3CB9F32441B4D70035E8D3 /* GameItemsAllocator.swift in Sources */,
-				62DC2AEB24389777006EB27F /* EventGenerator.swift in Sources */,
 				0B09CA602432E9A900F29648 /* ItemFactory.swift in Sources */,
 				62B98D3124540494000600E7 /* HostNetworkManager.swift in Sources */,
 				F3BF7F132425067500A50EE3 /* ItemsAllocator.swift in Sources */,
 				62E75B30244D7EC7001D53A4 /* ConfigValues.swift in Sources */,
 				5D5E04162425EDA30005A134 /* HousesViewController.swift in Sources */,
-				62DC2AE4243893E0006EB27F /* Event.swift in Sources */,
 				0B09CA522432DFFF00F29648 /* ItemGenerator.swift in Sources */,
 				F319B33F241DDF63005E3129 /* PackageAdapter.swift in Sources */,
 				62E75B2E244D7C1B001D53A4 /* RemoteConfigValues.swift in Sources */,

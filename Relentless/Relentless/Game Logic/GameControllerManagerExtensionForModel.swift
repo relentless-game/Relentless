@@ -101,26 +101,29 @@ extension GameControllerManager {
 
     /// Assigns orders to houses and sets the houses in Game to this new list of houses
     internal func initialiseHouses(with orders: [Order]) {
-        guard let parameters = gameParameters else {
-            return
-        }
-        let numOfHouses = parameters.numOfHouses
-        var splitOrders = [[Order]]()
-        for _ in 1...numOfHouses {
-           splitOrders.append([])
-        }
-        for i in 0..<orders.count {
-           splitOrders[i % numOfHouses].append(orders[i])
-        }
-        var houses = [House]()
-        for orders in splitOrders {
-           let satisfactionFactor = Double.random(in: parameters.houseSatisfactionFactorRange)
-           for order in orders {
-               let originalTimeLimit = order.timeLimit
-               order.timeLimit = Int(Double(originalTimeLimit) * satisfactionFactor)
-           }
-           houses.append(House(orders: Set(orders), satisfactionFactor: satisfactionFactor))
-        }
-        game?.houses = houses
-   }
+         guard let parameters = gameParameters else {
+             return
+         }
+         let numOfHouses = parameters.numOfHouses
+         var splitOrders = [[Order]]()
+         for _ in 1...numOfHouses {
+            splitOrders.append([])
+         }
+         for i in 0..<orders.count {
+            splitOrders[i % numOfHouses].append(orders[i])
+         }
+         var houses = [House]()
+         for orders in splitOrders {
+             let satisfactionFactor = Double.random(in: parameters.houseSatisfactionFactorRange)
+             var ordersForHouse = Set<Order>()
+             for order in orders {
+                 let originalTimeLimit = order.timeLimit
+                 let newTimeLimit = Int(Double(originalTimeLimit) * satisfactionFactor)
+                 let newOrder = Order(items: order.items, timeLimitInSeconds: newTimeLimit)
+                 ordersForHouse.insert(newOrder)
+             }
+             houses.append(House(orders: Set(ordersForHouse), satisfactionFactor: satisfactionFactor))
+         }
+         game?.houses = houses
+    }
 }

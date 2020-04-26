@@ -33,9 +33,9 @@
 	<key>satisfactionRunOutPenalty</key>
 	<string>0.2 * 100.0</string>
 	<key>timeForEachItem</key>
-	<string>150</string>
+	<string>200</string>
 	<key>satisfactionUnitDecrease</key>
-	<string>100.0 / 600.0</string>
+	<string>100.0/600.0</string>
 	<key>maxSatisfaction</key>
 	<integer>100</integer>
 	<key>numOfCategories</key>

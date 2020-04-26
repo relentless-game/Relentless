@@ -237,8 +237,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return GameHostParametersParser(configValues:
                 LocalConfigValues(filePath: "DemoGameParameters")).parse()
         } else {
-            return (ConfigNetworkManager.getInstance().fetchGameParameters(isHost: true)
-                as? GameHostParameters)
+            return ConfigNetworkManager.getInstance().fetchGameHostParameters()
         }
     }
 

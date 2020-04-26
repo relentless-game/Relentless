@@ -15,23 +15,33 @@ class OrdersAdapter {
     static func encodeOrders(orders: [Order]) -> String? {
         // convert this array of orders into an array of [itemsString, timeLimitInSeconds],
         // each itemsString representing items in an order.
-        var encodedStringArray: [[String]] = []
-        for order in orders {
-            let items = order.items
-            let timeLimit = String(order.timeLimit)
-            if let encodedItemsString = ItemsAdapter.encodeItems(items: items) {
-                encodedStringArray.append([encodedItemsString, timeLimit])
-            }
-        }
+//        var encodedStringArray: [[String]] = []
+//        for order in orders {
+//            let items = order.items
+//            let timeLimit = String(order.timeLimit)
+//            if let encodedItemsString = ItemsAdapter.encodeItems(items: items) {
+//                encodedStringArray.append([encodedItemsString, timeLimit])
+//            }
+//        }
+//
+//        let encoder = JSONEncoder()
+//        do {
+//            let data = try encoder.encode(encodedStringArray)
+//            let string = String(data: data, encoding: .utf8)
+//            return string
+//        } catch {
+//            return nil
+//        }
 
         let encoder = JSONEncoder()
         do {
-            let data = try encoder.encode(encodedStringArray)
+            let data = try encoder.encode(orders)
             let string = String(data: data, encoding: .utf8)
             return string
         } catch {
             return nil
         }
+
     }
 
     // TODO: don't hardcode timeLimitInSeconds
@@ -44,18 +54,19 @@ class OrdersAdapter {
         // an array of [itemsString, timeLimitInSeconds],
         // each itemsString representing items in an order.
         do {
-            let orderStringArray = try decoder.decode([[String]].self, from: data)
-            var orders: [Order] = []
-            for orderString in orderStringArray {
-                let itemsString = orderString[0]
-                let timeLimit = Int(orderString[1]) ?? -1
-                if let itemsData = itemsString.data(using: .utf8) {
-                    let items = try decoder.decode(ItemFactory.self, from: itemsData).items
-                    let order = Order(items: items, timeLimitInSeconds: timeLimit)
-                    
-                    orders.append(order)
-                }
-            }
+//            let orderStringArray = try decoder.decode([[String]].self, from: data)
+//            var orders: [Order] = []
+//            for orderString in orderStringArray {
+//                let itemsString = orderString[0]
+//                let timeLimit = Int(orderString[1]) ?? -1
+//                if let itemsData = itemsString.data(using: .utf8) {
+//                    let items = try decoder.decode(ItemFactory.self, from: itemsData).items
+//                    let order = Order(items: items, timeLimitInSeconds: timeLimit)
+//
+//                    orders.append(order)
+//                }
+//            }
+            let orders = try decoder.decode([Order].self, from: data)
             return orders
         } catch {
             return []

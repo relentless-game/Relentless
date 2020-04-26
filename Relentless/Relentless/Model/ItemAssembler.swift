@@ -13,16 +13,16 @@ class ItemAssembler {
     static func assembleItem(parts: [Item],
                              partsToAssembledItemCategoryMapping: [[Category]: Category],
                              imageRepresentationMapping: ImageRepresentationMapping) throws -> AssembledItem {
-        let dismantledParts = dismantle(parts: parts)
-        let selectedCategories = dismantledParts.map { $0.category }.sorted()
-
+//        let dismantledParts = dismantle(parts: parts)
+//        let selectedCategories = dismantledParts.map { $0.category }.sorted()
+        let selectedCategories = parts.map { $0.category }
         guard let categoryOfAssembledItem = partsToAssembledItemCategoryMapping[selectedCategories],
             let imageRepresentation = imageRepresentationMapping[categoryOfAssembledItem]
             as? AssembledItemImageRepresentation else {
             throw ItemAssembledError.assembledItemConstructionError
         }
 
-        return try createItem(parts: dismantledParts, assembledItemCategory: categoryOfAssembledItem,
+        return try createItem(parts: parts, assembledItemCategory: categoryOfAssembledItem,
                               imageRepresentation: imageRepresentation)
     }
 

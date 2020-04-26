@@ -56,7 +56,6 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             parameters.probOfSelectingAssembledItem(numberOfPlayers: players.count)
         ordersAllocator = OrdersAllocator(maxNumOfItemsPerOrder: parameters.maxNumOfItemsPerOrder,
                                           numOfOrdersPerPlayer: parameters.numOfOrdersPerPlayer,
-                                          probabilityOfSelectingOwnItem: parameters.probOfSelectingOwnItem,
                                           probabilityOfSelectingAssembledItem: probOfSelectingAssembledItem,
                                           timeForEachItem: parameters.timeForEachItem)
     }
@@ -312,14 +311,39 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
     /// Constructs the mapping between the assembled item's category and the categories of the parts it is made up of
     private func getAssembledItemCategories(assembledItems: [AssembledItem]) -> [[Category]: Category] {
         var assembledItemCategories = [[Category]: Category]()
+        var allAssembledItems = Set<AssembledItem>()
         for assembledItem in assembledItems {
+            let embeddedAssembledItems = getAllAssembledItems(assembledItem: assembledItem)
+            allAssembledItems = allAssembledItems.union(embeddedAssembledItems)
+        }
+        for assembledItem in allAssembledItems {
             let category = assembledItem.category
-            let categoriesOfParts = assembledItem.parts.map { $0.category }
-            if assembledItemCategories[categoriesOfParts] != nil {
-                continue
+            var categoriesOfParts = [Category]()
+            for part in assembledItem.parts {
+//                if part as? AssembledItem == nil {
+//                    categoriesOfParts.append(part.category)
+//                    continue
+//                }
+//                guard let requiredCategories =
+//                itemSpecifications.assembledItemToPartsCategoryMapping[part.category] else {
+//                    continue
+//                }
+                categoriesOfParts.append(part.category)
             }
-            assembledItemCategories[categoriesOfParts] = category
+            assembledItemCategories[categoriesOfParts.sorted()] = category
         }
         return assembledItemCategories
+    }
+
+    private func getAllAssembledItems(assembledItem: AssembledItem) -> Set<AssembledItem> {
+        var allAssembledItems = Set<AssembledItem>()
+        allAssembledItems.insert(assembledItem)
+        for part in assembledItem.parts {
+            guard let assembledItem = part as? AssembledItem else {
+                continue
+            }
+            allAssembledItems = allAssembledItems.union(getAllAssembledItems(assembledItem: assembledItem))
+        }
+        return allAssembledItems
     }
 }

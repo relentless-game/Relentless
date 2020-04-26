@@ -33,7 +33,14 @@ class PackageItemsLimitGenerator {
     private func calculateLimit() -> Int? {
         let minForEachOrder = orders.map {
             let assembledItems = $0.items.compactMap { $0 as? AssembledItem }
-            let assembledPartsCount = assembledItems.map { $0.parts.count }
+            var assembledPartsCount = [Int]()
+            for assembledItem in assembledItems {
+                var count = 0
+                for part in assembledItem.parts {
+                    count += extractAllParts(item: part).count
+                }
+                assembledPartsCount.append(count)
+            }
             guard let maxPartCount = assembledPartsCount.max() else {
                 return $0.items.count
             }
@@ -47,6 +54,17 @@ class PackageItemsLimitGenerator {
         let limit = max(maxOfOrders, orders.count)
 
         return limit
+    }
+
+    private func extractAllParts(item: Item) -> [Item] {
+        guard let assembledItem = item as? AssembledItem else {
+            return [item]
+        }
+        var parts = [Item]()
+        for part in assembledItem.parts {
+            parts.append(contentsOf: extractAllParts(item: part))
+        }
+        return parts
     }
 
 }

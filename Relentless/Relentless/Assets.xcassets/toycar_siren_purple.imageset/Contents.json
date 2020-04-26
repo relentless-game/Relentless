@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "battery_PP3.png",
+      "filename" : "toycar_siren_purple.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "battery_PP3@2x.png",
+      "filename" : "toycar_siren_purple@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "battery_PP3@3x.png",
+      "filename" : "toycar_siren_purple@3x.png",
       "scale" : "3x"
     }
   ],

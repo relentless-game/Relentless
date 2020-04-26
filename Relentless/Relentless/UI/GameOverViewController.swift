@@ -14,7 +14,6 @@ class GameOverViewController: UIViewController {
     @IBOutlet private var backToMainMenuButton: UIButton!
     @IBOutlet private var scoresView: UITableView!
     var scores: [ScoreRecord]?
-    var gameController: GameController?
 
     private let scoreIdentifier = "scoreCell"
 

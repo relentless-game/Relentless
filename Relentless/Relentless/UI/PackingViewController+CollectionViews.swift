@@ -54,15 +54,11 @@ extension PackingViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: itemIdentifier, for: indexPath)
         if let itemCell = cell as? ItemCell, let item = currentPackageItems?[indexPath.row] {
             itemCell.setItem(item: item)
-            itemCell.state = .opaque
+            itemCell.state = .deselected
             if assemblyMode {
-                if let item = currentPackageItems?[indexPath.row] {
-                    if selectedParts.contains(item) {
-                        itemCell.state = .opaque
-                    } else {
-                        itemCell.state = .translucent
-                    }
-                }
+                itemCell.state = selectedParts[indexPath.row]
+                    ? .selected
+                    : .deselected
             }
         }
         return cell
@@ -103,6 +99,7 @@ extension PackingViewController: UICollectionViewDataSource {
             let itemCell = cell as? ItemCell,
             let item = items?[currentCategory]?[indexPath.item] {
             itemCell.setItem(item: item)
+            itemCell.state = .deselected
         }
         return cell
     }
@@ -121,6 +118,9 @@ extension PackingViewController: UICollectionViewDelegate {
     }
 
     func handleItemViewDidSelect(_ indexPath: IndexPath) {
+        guard !assemblyMode else {
+            return
+        }
         if let currentCategory = currentCategory,
             let item = items?[currentCategory]?[indexPath.item] {
             gameController?.addItem(item: item)
@@ -142,26 +142,13 @@ extension PackingViewController: UICollectionViewDelegate {
 
     func handleCurrentItemsViewDidSelect(_ indexPath: IndexPath) {
         guard let currentPackageItems = currentPackageItems else {
-                        return
-                    }
-                    if assemblyMode {
-                        let item = currentPackageItems[indexPath.item]
-                        if selectedParts.contains(item) {
-                            selectedParts.remove(item)
-                        } else {
-                            selectedParts.insert(item)
-                        }
-        //                guard let part = currentPackageItems[indexPath.item] as? Part else {
-        //                    return
-        //                }
-        //                if selectedParts.contains(part) {
-        //                    selectedParts.remove(part)
-        //                } else {
-        //                    selectedParts.insert(part)
-        //                }
-                    } else {
-                        gameController?.removeItem(item: currentPackageItems[indexPath.item])
-                    }
+            return
+        }
+        if assemblyMode {
+            selectedParts[indexPath.item].toggle()
+        } else {
+            gameController?.removeItem(item: currentPackageItems[indexPath.item])
+        }
     }
 }
 

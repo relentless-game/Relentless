@@ -29,11 +29,9 @@ class HouseCell: UICollectionViewCell {
     func setHouse(house: House) {
         self.house = house
         if !house.activeOrders.isEmpty {
-            icon.backgroundColor = UIColor.orange
             progressView.isHidden = false
             attachOrderListener()
         } else {
-            icon.backgroundColor = UIColor.black
             progressView.isHidden = true
         }
     }

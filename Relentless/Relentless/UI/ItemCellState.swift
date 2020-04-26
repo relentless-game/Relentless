@@ -7,7 +7,6 @@
 //
 
 enum ItemCellState {
-    case transparent
-    case translucent
-    case opaque
+    case deselected
+    case selected
 }

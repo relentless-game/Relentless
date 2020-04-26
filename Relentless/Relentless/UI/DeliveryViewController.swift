@@ -23,17 +23,6 @@ class DeliveryViewController: UIViewController {
         initCollectionViews()
         houses = gameController?.houses
         otherPlayers = gameController?.otherPlayers
-        addObservers()
-    }
-    
-    func addObservers() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleRoundEnded),
-                                               name: .didEndRound, object: nil)
-    }
-
-    func removeObservers() {
-        NotificationCenter.default.removeObserver(self, name: .didEndRound, object: nil)
     }
 
     func initCollectionViews() {
@@ -41,21 +30,26 @@ class DeliveryViewController: UIViewController {
         housesCollectionView.register(itemNib, forCellWithReuseIdentifier: housesIdentifier)
     }
 
-    @objc func handleRoundEnded() {
-        performSegue(withIdentifier: "endRound", sender: self)
+    func returnToPackingView() {
+        guard let gameStatus = gameController?.gameStatus else {
+            return
+        }
+        let didEndRound = gameStatus.isGamePlaying && !gameStatus.isRoundPlaying && gameStatus.currentRound != 0
+        if !didEndRound {
+            dismiss(animated: true, completion: nil)
+        }
     }
-    
+
     @IBAction private func handleReturnToPackingView(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
     
     @IBAction private func handleDeletePackage(_ sender: Any) {
         if let package = packageForDelivery {
             gameController?.removePackage(package: package)
         }
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
-    
 }
 
 extension DeliveryViewController: UICollectionViewDataSource {
@@ -105,20 +99,16 @@ extension DeliveryViewController: UICollectionViewDelegate {
             let player = otherPlayers[indexPath.item]
             _ = gameController?.sendPackage(package: packageForDelivery, to: player)
         }
-        // performSegue(withIdentifier: "cancelDelivery", sender: self)
-        dismiss(animated: true, completion: nil)
+        returnToPackingView()
     }
 }
 
-class PlayerIconCell: UICollectionViewCell {
-    // todo: change to UIImageView
-    var player: Player!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var icon: UIImageView!
-
-    func setPlayer(player: Player) {
-        self.player = player
-        textLabel.text = player.userName
-        icon.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
+extension DeliveryViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = housesCollectionView.frame.width / 6.6
+        let height = housesCollectionView.frame.height / 2.4
+        return CGSize(width: width, height: height)
     }
 }

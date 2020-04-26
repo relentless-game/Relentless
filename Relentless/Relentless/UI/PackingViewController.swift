@@ -12,7 +12,7 @@ class PackingViewController: UIViewController {
     var gameController: GameController?
     var backgroundTask: UIBackgroundTaskIdentifier = .invalid
     var endRoundTimer: Timer?
-    
+
     // swiftlint:disable private_outlet
     // Necessary to be accessed in extensions.
     @IBOutlet internal var packagesView: UICollectionView!
@@ -23,6 +23,7 @@ class PackingViewController: UIViewController {
     @IBOutlet private var satisfactionBar: UIProgressView!
     @IBOutlet private var categoryButton: UIButton!
     @IBOutlet private var openBoxImageView: UIImageView!
+    @IBOutlet private var assemblingView: UILabel!
 
     // items will be updated when the category is changed
     var items: [Category: [Item]]?
@@ -36,8 +37,13 @@ class PackingViewController: UIViewController {
     let packageIdentifier = "PackageCell"
     let addPackageIdentifier = "AddPackageButton"
 
-    var assemblyMode = false
-    var selectedParts = Set<Item>()
+    var assemblyMode = false {
+        didSet {
+            assemblingView.isHidden = !assemblyMode
+        }
+    }
+//    var selectedPartsSet = Set<Item>()
+    var selectedParts = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -246,10 +252,10 @@ class PackingViewController: UIViewController {
     @IBAction private func touchAssembleButton(_ sender: Any) {
         if assemblyMode {
             assembleParts()
-            selectedParts.removeAll()
             assemblyMode = false
             currentPackageView.reloadData()
         } else {
+            selectedParts = [Bool](repeating: false, count: currentPackageItems?.count ?? 0)
             assemblyMode = true
             currentPackageView.reloadData()
         }
@@ -257,7 +263,12 @@ class PackingViewController: UIViewController {
 
     func assembleParts() {
         do {
-            let parts = Array(selectedParts)
+            var parts = [Item]()
+            for index in 0..<selectedParts.count {
+                if selectedParts[index], let items = currentPackageItems {
+                    parts.append(items[index])
+                }
+            }
             try gameController?.constructAssembledItem(parts: parts)
         } catch ItemAssembledError.assembledItemConstructionError {
             // Currently, do nothing. Invalid selection of parts by player.
@@ -283,6 +294,7 @@ class PackingViewController: UIViewController {
             if let pop = viewController.popoverPresentationController {
                 pop.sourceView = sender
                 pop.sourceRect = sender.bounds
+                pop.permittedArrowDirections = []
             }
             self.present(viewController, animated: true)
         }

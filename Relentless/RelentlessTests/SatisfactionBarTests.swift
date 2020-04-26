@@ -20,19 +20,19 @@ class SatisfactionBarTests: XCTestCase {
 
         /// Initialise order
         let defaultName = "book"
-        let defaultImageString = "book"
+        let defaultImageString = ImageRepresentation(imageStrings: ["book"])
         let defaultNameTwo = "magazine"
-        let defaultImageStringTwo = "magazine"
+        let defaultImageStringTwo = ImageRepresentation(imageStrings: ["magazine"])
         let items = [TitledItem(name: defaultName,
                                 category: Category(name: "book"),
                                 isInventoryItem: true,
                                 isOrderItem: true,
-                                imageString: defaultImageString),
+                                imageRepresentation: defaultImageString),
                      TitledItem(name: defaultNameTwo,
                                 category: Category(name: "magazine"),
                                 isInventoryItem: true,
                                 isOrderItem: true,
-                                imageString: defaultImageStringTwo)]
+                                imageRepresentation: defaultImageStringTwo)]
         order = Order(items: items, timeLimitInSeconds: 5)
     }
 

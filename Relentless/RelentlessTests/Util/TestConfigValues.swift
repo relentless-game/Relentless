@@ -29,6 +29,10 @@ class TestConfigValues: LocalConfigValues {
         removeValue(key: key)
     }
 
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+
     private func removeValue(key: String) {
         valuesDict?[key] = nil
     }

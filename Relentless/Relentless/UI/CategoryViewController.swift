@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Allows the changing of categories to be displayed in the PackingVC.
 class CategoryViewController: UIViewController {
     var categories: [Category]?
     weak var categoryChangeDelegate: CategoryChangeDelegate?
@@ -18,12 +19,12 @@ class CategoryViewController: UIViewController {
     }
 }
 
+/// The delegate pattern is used here to change the category in PackingVC.
 protocol CategoryChangeDelegate: AnyObject {
     func setCategory(_ category: Category)
 }
 
 extension CategoryViewController: UICollectionViewDataSource {
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }

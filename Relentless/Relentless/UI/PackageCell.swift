@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Represents a package.
 class PackageCell: UICollectionViewCell {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var packageImage: UIImageView!

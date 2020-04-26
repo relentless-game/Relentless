@@ -8,54 +8,57 @@
 
 import UIKit
 
+/// Allows the user to see other players in the same game, and wait for the game to begin.
+/// Only the host can start the game from this screen.
 class LobbyViewController: UIViewController, UITextFieldDelegate {
-    var gameId: Int?
-    var userId: String?
-    var gameController: GameController?
-    var players: [Player]?
-    var demoModeOn: Bool?
-    private let playerIdentifier = "PlayerCell"
-
-    weak var delegate = UIApplication.shared.delegate as? AppDelegate
     @IBOutlet private var gameIdLabel: UILabel!
     @IBOutlet private var startButton: UIButton!
     @IBOutlet private var playersView: UICollectionView!
     @IBOutlet private var usernameTextField: UITextField!
     @IBOutlet private var avatarImage: UIImageView!
     @IBOutlet private var settingsButton: UIButton!
+
+    private weak var delegate = UIApplication.shared.delegate as? AppDelegate
+    var gameController: GameController?
+    var demoModeOn: Bool?
+    var gameId: Int?
+    private var userId: String?
+    private var players: [Player]?
+    private let playerIdentifier = "PlayerCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initUserId()
         if let userId = self.userId, gameController == nil {
             // Game has not been created yet, create a game.
-            // Fetch game parameters from remote config
+            // Fetch game parameters from remote config.
             gameController = GameHostControllerManager(userId: userId, demoMode: demoModeOn ?? false)
-            // TODO: change how username is entered
-            createGame(username: "New Player")
+            // You begin with a default blank name.
+            createGame(username: "")
         } else {
             // Game has been created and joined.
             initAll()
         }
         refreshPlayers()
         addObservers()
-        initialiseViews()
+        initBottomRow()
     }
 
-    func initialiseViews() {
+    private func initBottomRow() {
         if let player = gameController?.player {
             usernameTextField.text = player.userName
             avatarImage.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
         }
     }
 
-    func updateViews() {
+    /// Updates the bottom row image.
+    private func updateBottomRow() {
         if let player = gameController?.player {
             avatarImage.image = PlayerImageHelper.getAvatarImage(for: player.profileImage)
         }
     }
 
-    func addObservers() {
+    private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(refreshPlayers),
                                                name: .newPlayerDidJoin, object: nil)
@@ -76,7 +79,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
                                                name: .nonUniqueAvatars, object: nil)
     }
     
-    func removeObservers() {
+    private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: .newPlayerDidJoin, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didJoinGame, object: nil)
         NotificationCenter.default.removeObserver(self, name: .didStartGame, object: nil)
@@ -85,30 +88,31 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: .nonUniqueAvatars, object: nil)
     }
 
-    @objc func refreshPlayers() {
+    /// Reloads the players collection view.
+    @objc private func refreshPlayers() {
         players = gameController?.players
         players?.sort(by: <)
         playersView.reloadData()
-        updateViews()
+        updateBottomRow()
     }
 
-    func initUserId() {
+    private func initUserId() {
         if let delegate = delegate {
             userId = delegate.userId
         }
     }
 
-    func initAll() {
+    private func initAll() {
         initGameIdLabel()
         initStartButton()
         initSettingsButton()
     }
 
-    func initStartButton() {
+    private func initStartButton() {
         startButton.isHidden = !(gameController?.isHost ?? false)
     }
 
-    func initSettingsButton() {
+    private func initSettingsButton() {
         settingsButton.isHidden = !(gameController?.isHost ?? false)
     }
 
@@ -116,32 +120,31 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "toSettings", sender: self)
     }
 
-    @objc func handleGameStarted() {
+    @objc private func handleGameStarted() {
         performSegue(withIdentifier: "startGame", sender: self)
     }
 
-    @objc func handleInsufficientPlayers() {
+    @objc private func handleInsufficientPlayers() {
         let message = "You do not have enough players. Get your friends to join the game!"
         let alert = createAlert(title: "Sorry.", message: message, action: "Ok.")
         self.present(alert, animated: true, completion: nil)
-
     }
     
-    @objc func handleNonUniqueUsernames() {
+    @objc private func handleNonUniqueUsernames() {
         let alert = createAlert(title: "Sorry.",
                                 message: "All of your names need to be unique. Please change some of your names.",
                                 action: "Ok.")
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func handleNonUniqueAvatars() {
+    @objc private func handleNonUniqueAvatars() {
         let alert = createAlert(title: "Sorry.",
                                 message: "All of your avatars need to be unique. Please change some of your avatars.",
                                 action: "Ok.")
         self.present(alert, animated: true, completion: nil)
     }
 
-    @objc func gameJoined() {
+    @objc private func gameJoined() {
         gameId = gameController?.gameId
         initAll()
     }
@@ -172,15 +175,15 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         (gameController as? GameHostController)?.startGame()
     }
 
-    func initGameIdLabel() {
+    private func initGameIdLabel() {
         guard let gameId = gameId else {
             return
         }
         gameIdLabel.text = String(gameId)
     }
 
-    func createGame(username: String) {
-        // TODO: how do we decide default avatar?
+    private func createGame(username: String) {
+        // Default avatar is red.
         (gameController as? GameHostController)?.createGame(username: username, avatar: .red)
     }
     
@@ -205,7 +208,7 @@ class LobbyViewController: UIViewController, UITextFieldDelegate {
         }
     }
 
-    func createAlert(title: String, message: String, action: String) -> UIAlertController {
+    private func createAlert(title: String, message: String, action: String) -> UIAlertController {
         let controller = UIAlertController(title: String(title),
                                            message: String(message),
                                            preferredStyle: .alert)

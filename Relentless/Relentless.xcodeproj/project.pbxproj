@@ -74,6 +74,7 @@
 		5D8F69B324262F59003C8FCC /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8F69B224262F59003C8FCC /* CategoryViewController.swift */; };
 		5D8F69B524266303003C8FCC /* HouseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5D8F69B424266303003C8FCC /* HouseCell.xib */; };
 		5DB7A9AE24549B0E00BC3127 /* PlayerIconCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB7A9AD24549B0E00BC3127 /* PlayerIconCell.swift */; };
+		5DB7A9B02455CDE800BC3127 /* PackingViewController+Observers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB7A9AF2455CDE800BC3127 /* PackingViewController+Observers.swift */; };
 		621B7085244485CE000DE9DD /* DefaultGameParameters.plist in Resources */ = {isa = PBXBuildFile; fileRef = 621B7084244485CE000DE9DD /* DefaultGameParameters.plist */; };
 		6249B4FF241C89E7002F8A1B /* GameNetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B4FE241C89E7002F8A1B /* GameNetworkController.swift */; };
 		6249B501241C8BB0002F8A1B /* GameModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6249B500241C8BB0002F8A1B /* GameModelController.swift */; };
@@ -246,6 +247,7 @@
 		5D8F69B224262F59003C8FCC /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		5D8F69B424266303003C8FCC /* HouseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HouseCell.xib; sourceTree = "<group>"; };
 		5DB7A9AD24549B0E00BC3127 /* PlayerIconCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerIconCell.swift; sourceTree = "<group>"; };
+		5DB7A9AF2455CDE800BC3127 /* PackingViewController+Observers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PackingViewController+Observers.swift"; sourceTree = "<group>"; };
 		5DE9177B241FBBD400569453 /* JoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewController.swift; sourceTree = "<group>"; };
 		5DE9177D241FC14E00569453 /* LobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewController.swift; sourceTree = "<group>"; };
 		5DE9177F241FD48800569453 /* PackingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackingViewController.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				5DE9177D241FC14E00569453 /* LobbyViewController.swift */,
 				5D1B680C2438C81E00676890 /* PlayerCell.swift */,
 				5DE9177F241FD48800569453 /* PackingViewController.swift */,
+				5DB7A9AF2455CDE800BC3127 /* PackingViewController+Observers.swift */,
 				5D2AF93A244DE0B10023129B /* PackingViewController+CollectionViews.swift */,
 				5D1B68102438E58000676890 /* AddPackageButton.swift */,
 				5D1B680E2438C98500676890 /* PlayerImageHelper.swift */,
@@ -1050,6 +1053,7 @@
 				5D5E04192425EDA30005A134 /* PackageCell.swift in Sources */,
 				0BC465FF2439786A00D20B93 /* ScoreCell.swift in Sources */,
 				62611C5924497DFC00171A24 /* GameHostParametersParser.swift in Sources */,
+				5DB7A9B02455CDE800BC3127 /* PackingViewController+Observers.swift in Sources */,
 				F319B333241B8195005E3129 /* NetworkManager.swift in Sources */,
 				0B09CA5E2432E9A900F29648 /* Category.swift in Sources */,
 				F3BF7F0F242503E200A50EE3 /* Package.swift in Sources */,

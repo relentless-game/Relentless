@@ -6,6 +6,7 @@
 //  Copyright © 2020 OurNameIs. All rights reserved.
 //
 
+/// The possible states for an ItemCell.
 enum ItemCellState {
     case deselected
     case selected

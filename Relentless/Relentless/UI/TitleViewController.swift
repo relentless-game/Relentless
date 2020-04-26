@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
+/// Is the starting screen where players can choose to join a game or create a game.
 class TitleViewController: UIViewController {
-
-    @IBOutlet private weak var demoModeSwitch: UISwitch!
+    @IBOutlet private var demoModeSwitch: UISwitch!
 
     @IBAction private func createRoom(_ sender: UIButton) {
         removeAllPreviousViewControllers()

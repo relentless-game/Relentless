@@ -210,7 +210,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         // to handle when everyone runs out of order
         self.network.attachOutOfOrdersListener(gameId: gameId, action: { numOfPlayersOutOfOrders in
             if numOfPlayersOutOfOrders == self.players.count {
-                print("out of orders")
+                print("end round cuz out of orders")
                 self.endRound() // the host will end the round when everyone runs out of orders
             }
         })
@@ -237,8 +237,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
             return GameHostParametersParser(configValues:
                 LocalConfigValues(filePath: "DemoGameParameters")).parse()
         } else {
-            return (ConfigNetworkManager.sharedInstance.fetchGameParameters(isHost: true)
-                as? GameHostParameters)
+            return ConfigNetworkManager.getInstance().fetchGameHostParameters()
         }
     }
 
@@ -246,7 +245,7 @@ class GameHostControllerManager: GameControllerManager, GameHostController {
         if demoMode {
             return LocalConfigValues(filePath: "DemoGameParameters")
         } else {
-            return ConfigNetworkManager.sharedInstance.fetchLocalConfigValues()
+            return ConfigNetworkManager.getInstance().fetchLocalConfigValues()
         }
     }
 

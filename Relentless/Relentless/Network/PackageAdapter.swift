@@ -12,19 +12,9 @@ import Foundation
 /// and decodes a `String` back to a `Package`.
 class PackageAdapter {
     
-    // TODO: make use of Codable instead of encoding the attributes
     static func encodePackage(package: Package) -> String? {
         let encoder = JSONEncoder()
         do {
-//            let creator = package.creator
-//            let creatorAvatar = package.creatorAvatar.toString()
-//            let packageNumber = package.packageNumber
-//            let items = ItemFactory(items: package.items)
-//
-//            let itemsData = try encoder.encode(items)
-//            let itemsString = String(data: itemsData, encoding: .utf8) ?? ""
-//            let packageStringsArray = [creator, creatorAvatar, String(packageNumber), itemsString]
-//            let encodedData = try encoder.encode(packageStringsArray)
             let encodedData = try encoder.encode(package)
             let encodedString = String(data: encodedData, encoding: .utf8)
             return encodedString
@@ -39,19 +29,6 @@ class PackageAdapter {
             return nil
         }
         do {
-//            let decodedPackageStringArray = try decoder.decode([String].self, from: data)
-//            let creator = decodedPackageStringArray[0]
-//            let creatorAvatar = PlayerAvatar(rawValue: decodedPackageStringArray[1]) ?? .red
-//            let packageNumber = Int(decodedPackageStringArray[2]) ?? 0
-//            let itemsString = decodedPackageStringArray[3]
-//
-//            let itemsData = itemsString.data(using: .utf8) ?? Data()
-//            let itemsWrapper = try decoder.decode(ItemFactory.self, from: itemsData)
-//            let items = itemsWrapper.items
-//
-//            let decodedPackage = Package(creator: creator, creatorAvatar: creatorAvatar,
-//                                         packageNumber: packageNumber, items: items)
-
             let decodedPackage = try decoder.decode(Package.self, from: data)
             return decodedPackage
         } catch {

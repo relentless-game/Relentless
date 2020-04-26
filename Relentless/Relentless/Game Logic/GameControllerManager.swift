@@ -185,7 +185,7 @@ class GameControllerManager: GameController {
     func updateTimeLeft() {
         roundTimeLeft -= 1
         if roundTimeLeft == 0 {
-            print("ran out of time")
+            print("end round cuz run out of time")
             endRound()
         }
     }
@@ -216,7 +216,7 @@ class GameControllerManager: GameController {
     func handleSatisfactionBarChange(notification: Notification) {
         NotificationCenter.default.post(name: .didChangeSatisfactionBar, object: nil)
         if satisfactionBar.currentSatisfaction <= 0 {
-            print("ran out of satisfaction")
+            print("end round cuz satis bar < 0")
             endRound()
         }
     }

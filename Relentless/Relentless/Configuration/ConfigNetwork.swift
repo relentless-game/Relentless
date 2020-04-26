@@ -10,7 +10,7 @@ import Foundation
 
 protocol ConfigNetwork {
 
-    func fetchGameParameters(isHost: Bool) -> GameParameters?
+    func fetchGameHostParameters() -> GameHostParameters?
 
     func fetchLocalConfigValues() -> LocalConfigValues?
 

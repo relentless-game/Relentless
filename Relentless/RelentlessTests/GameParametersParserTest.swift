@@ -24,7 +24,6 @@ class GameParametersParserTest: XCTestCase {
         let expectedNumOfHouses = 5
         let expectedDifficultyChange = 0.5
         let expectedHouseSatisfactionRange = 0.5...1
-        let expectedNumOfPlayersRange = 3...6
         let expectedDifficultyRange: ClosedRange<Double> = 1...10
         let expectedSatisfactionRange: ClosedRange<Double> = 0...100
         let expectedRoundTime = 240
@@ -36,7 +35,6 @@ class GameParametersParserTest: XCTestCase {
         XCTAssertEqual(gameParameters.numOfHouses, expectedNumOfHouses)
         XCTAssertEqual(gameParameters.difficultyChange, expectedDifficultyChange)
         XCTAssertEqual(gameParameters.houseSatisfactionFactorRange, expectedHouseSatisfactionRange)
-        XCTAssertEqual(gameParameters.numOfPlayersRange, expectedNumOfPlayersRange)
         XCTAssertEqual(gameParameters.difficultyRange, expectedDifficultyRange)
         XCTAssertEqual(gameParameters.satisfactionRange, expectedSatisfactionRange)
         XCTAssertEqual(gameParameters.roundTime, expectedRoundTime)

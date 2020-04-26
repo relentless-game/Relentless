@@ -20,7 +20,6 @@ class OrdersAllocatorTests: XCTestCase {
     var ordersAllocator: OrdersAllocator {
         OrdersAllocator(maxNumOfItemsPerOrder: maxNumOfItemsPerOrder,
                         numOfOrdersPerPlayer: numOfOrdersPerPlayer,
-                        probabilityOfSelectingOwnItem: probabilityOfSelectingOwnItem,
                         probabilityOfSelectingAssembledItem: probabilityOfSelectingAssembledItem,
                         timeForEachItem: timeForEachItem)
     }

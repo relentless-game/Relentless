@@ -11,7 +11,7 @@ The team’s customers’ satisfaction level increases according to the accuracy
 At the end of each round, players will be able to see their collective amount of money based on their customers’ satisfaction level in the form of commision. At the same time, money will be deducted to pay for daily expenses. Players have to make sure that they do not run out of money to survive by working harder in the next round. This game promotes teamwork and encourages players to cooperate with their friends, whilst allowing them to experience the adrenaline arising from panic and chaos!
 
 ## Report
-[Please kindly refer to this project report for more details](https://github.com/relentless-game/Relentless/blob/Final_Report_Relentless_OGNI.pdf)
+[Please kindly refer to this project report for more details](https://github.com/relentless-game/Relentless/blob/master/Final_Report_Relentless_OGNI.pdf)
 
 ## Authors
 * [Chow Yi Wai](https://github.com/chowyiwai)
